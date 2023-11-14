@@ -63,19 +63,13 @@ if __name__ == "__main__":
     translator = QTranslator()
     reInstallTranslator(config.get_language())
 
+    app.setOverrideCursor(QCursor(QtCore.Qt.BlankCursor))
     mixwareScreen = MixwareScreen(printer)
-    # mixwareScreen.setAttribute(Qt.WA_StyledBackground)
-    # mixwareScreen.setAutoFillBackground(False)
     if platform.system().lower() == 'windows':
         mixwareScreen.show()
     elif platform.system().lower() == 'linux':
         mixwareScreen.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint | Qt.Tool)
         mixwareScreen.showFullScreen()
-
     mixwareScreen.printerPage.updateTranslator.connect(reInstallTranslator)
-
-    # app = QApplication.instance()
-    # app.installTranslator(tra_cn)
-    print(git)
 
     sys.exit(app.exec())
