@@ -1,5 +1,5 @@
-from qtCore import *
-from ui.base.basePushButton import BasePushButton
+import logging
+
 from wlan import MixwareScreenWLAN
 
 from qtCore import *
@@ -8,7 +8,6 @@ from ui.base.basePushButton import BasePushButton
 from ui.base.baseRound import BaseRoundDialog
 
 
-wlan = MixwareScreenWLAN()
 class WLANConnectBox(BaseRoundDialog):
     def __init__(self, wlan, parent):
         super().__init__(parent)
@@ -104,7 +103,7 @@ class WLANConnectBox(BaseRoundDialog):
         self.keyboard_frame = QFrame()
         self.keyboard_frame.setFixedSize(360, 180)
         self.keyboard_frame_layout = QVBoxLayout(self.keyboard_frame)
-        self.keyboard_frame_layout.setContentsMargins(10, 10, 10, 20)
+        self.keyboard_frame_layout.setContentsMargins(10, 10, 10, 50)
         self.keyboard_frame_layout.setSpacing(3)
 
         self.keyboard_button_group = QButtonGroup()
@@ -285,7 +284,6 @@ class WLANConnectBox(BaseRoundDialog):
         else: self.ssid_line_edit.setFocus()
         self.exec()
 
-
 class WlanBar(QFrame):
     clicked = pyqtSignal(str)
 
@@ -293,13 +291,13 @@ class WlanBar(QFrame):
         super().__init__()
         self.is_move = None
         self.setObjectName("frameBox")
-        self.setFixedSize(360, 120)
+        self.setFixedSize(360, 92)
 
         self.layout = QHBoxLayout(self)
-        self.layout.setContentsMargins(20, 20, 20, 20)
+        self.layout.setContentsMargins(20, 10, 20, 10)
         self.layout.setSpacing(0)
         self.frame = QFrame()
-        self.frame.setFixedHeight(80)
+        self.frame.setFixedHeight(72)
         self.frame_layout = QVBoxLayout(self.frame)
         self.frame_layout.setContentsMargins(0, 0, 0, 0)
         self.frame_layout.setSpacing(0)
@@ -307,11 +305,12 @@ class WlanBar(QFrame):
         self.name.setFixedHeight(40)
         self.frame_layout.addWidget(self.name)
         self.security = QLabel(security)
-        self.security.setFixedHeight(40)
+        self.security.setFixedHeight(32)
+        self.security.setStyleSheet("QLabel {font-size: 17px; color: rgba(24, 24, 24, 0.5);}")
         self.frame_layout.addWidget(self.security)
         self.layout.addWidget(self.frame)
         self.signals = QLabel()
-        self.setFixedSize(80, 80)
+        self.signals.setFixedSize(72, 72)
         self.layout.addWidget(self.signals)
 
     def mousePressEvent(self, a0: QMouseEvent) -> None:
@@ -410,6 +409,7 @@ class WlanPage(QScrollArea):
         self.add_button.setText(self.tr("Add network"))
 
     def on_new_wlan_lists(self, lists):
+        # delete old item
         for i in range(self.connected_list_frame_layout.count()):
             self.connected_list_frame_layout.itemAt(i).widget().deleteLater()
         self.connected_frame.hide()
@@ -417,18 +417,18 @@ class WlanPage(QScrollArea):
             self.available_list_frame_layout.itemAt(i).widget().deleteLater()
         self.available_frame.hide()
 
-        for wlan in lists:
-            if wlan['in_use']:
-                connected_bar = WlanBar(wlan['ssid'], self.tr('Connected'), wlan['signal'])
-                connected_bar.setFixedSize(360, 120)
+        for _wlan in lists:
+            # logging.info(f"find wlan:{_wlan}")
+            if _wlan['in_use']:
+                connected_bar = WlanBar(_wlan['ssid'], self.tr('Connected'), _wlan['signal'])
                 self.connected_list_frame_layout.addWidget(connected_bar)
-                self.connected_frame.show()
+                if self.connected_frame.isHidden(): self.connected_frame.show()
             else:
-                available_bar = WlanBar(wlan['ssid'], wlan['security'], wlan['signal'])
-                available_bar.setFixedSize(360, 120)
-                available_bar.clicked.connect(self.on_available_bar_clicked)
-                self.available_list_frame_layout.addWidget(available_bar)
-                self.available_frame.show()
+                if _wlan['ssid']:
+                    available_bar = WlanBar(_wlan['ssid'], _wlan['security'], _wlan['signal'])
+                    available_bar.clicked.connect(self.on_available_bar_clicked)
+                    self.available_list_frame_layout.addWidget(available_bar)
+                    if self.available_frame.isHidden(): self.available_frame.show()
 
     def on_available_bar_clicked(self, name):
         self._parent.showShadowScreen()
@@ -439,3 +439,5 @@ class WlanPage(QScrollArea):
         self._parent.showShadowScreen()
         self.wlan_connect_box.start()
         self._parent.closeShadowScreen()
+
+wlan = MixwareScreenWLAN()

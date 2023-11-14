@@ -1,14 +1,10 @@
 import logging
 import platform
 import re
-import time
-import traceback
-from threading import Thread
 
 from nmcli import device
 
 from qtCore import *
-from pywifi import const, PyWiFi, Profile
 
 
 class DeviceWifi:
@@ -75,10 +71,10 @@ class WlanListQThread(QThread):
                                    'signal': int(dat[0][7]), 'security': dat[0][8]}
                             self.deviceWifi.append(dev)
                     self.newWlanList.emit(self.deviceWifi)
-            if platform.system().lower() == 'windows': #test
+            elif platform.system().lower() == 'windows': # windows test
                 self.deviceWifi.clear()
                 for i in range(10):
-                    dev = {'in_use': False, 'ssid': 'test' + str(i), 'bssid': '0', 'mode': '1',
+                    dev = {'in_use': False, 'ssid': '中文@test:' + str(i), 'bssid': '0', 'mode': '1',
                            'chan': 20, 'freq': 2000, 'rate': 2000, 'signal': 100,
                            'security': 'WPA2'}
                     self.deviceWifi.append(dev)
