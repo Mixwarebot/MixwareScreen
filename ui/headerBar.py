@@ -1,0 +1,29 @@
+from qtCore import *
+
+
+class HeaderBar(QWidget):
+    clicked = pyqtSignal()
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.is_move = None
+        self.setFixedHeight(84)
+
+        self.title = QLabel()
+        self.title.setText("Mixware Screen")
+        self.title.setObjectName("titleLabel")
+        self.title.setAlignment(Qt.AlignCenter)
+
+        layout = QVBoxLayout(self)
+        layout.addWidget(self.title)
+        layout.setContentsMargins(0, 20, 0, 0)
+
+    def mousePressEvent(self, a0: QMouseEvent) -> None:
+        self.is_move = False
+
+    def mouseReleaseEvent(self, a0: QMouseEvent) -> None:
+        if not self.is_move and 0 < a0.x() < self.width() and 0 < a0.y() < self.height():
+            self.clicked.emit()
+
+    def mouseMoveEvent(self, a0: QMouseEvent) -> None:
+        self.is_move = True
+

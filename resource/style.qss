@@ -1,0 +1,404 @@
+
+QWidget {
+    font-family: "HarmonyOS Sans SC";
+    font-size: 19px;
+    /*background: transparent;*/
+}
+
+QLabel {
+    color: #181818;
+}
+#shadowScreen {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+QLabel#splashLogo {
+    image: url("resource/icon/logo.svg");
+    min-height: 40px;
+    max-height: 40px;
+}
+
+QLabel#line {
+    background-color: #FF5A00;
+    border-radius: 2px;
+    border: 1px solid #FF5A00;
+}
+
+QLabel#titleLabel {
+    color: #FF5A00;
+    font-weight: bold;
+    font-size: 26px;
+    border: none;
+    border-bottom: 1px solid #D4D4D4;
+}
+
+QLabel#tips {
+    font-size: 16px;
+    min-height: 32px;
+    max-height: 32px;
+    color: #969696;
+}
+
+QFrame#baseLine {
+    background-color: #D4D4D4;
+}
+
+#title {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #FF5A00;
+    padding-left: 20px;
+    min-height: 40px;
+}
+
+QLabel#numberPadInputLabel {
+    padding-right: 10px;
+    border: none;
+    background: #FFFFFF;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+QLabel#numberPadInformationLabel {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+QLabel#leftLogo {
+    image: url("resource/icon/extruder_left.svg");
+    max-height: 36px;
+}
+
+QLabel#rightLogo {
+    image: url("resource/icon/extruder_right.svg");
+    max-height: 36px;
+}
+
+QLabel#bedLogo {
+    image: url("resource/icon/bed.svg");
+    max-height: 36px;
+}
+
+QLabel#chamberLogo {
+    image: url("resource/icon/chamber.svg");
+    max-height: 36px;
+}
+
+QLabel#fanLeftLogo {
+    image: url("resource/icon/fan_left.svg");
+    max-height: 36px;
+}
+
+QLabel#fanRightLogo {
+    image: url("resource/icon/fan_right.svg");
+    max-height: 36px;
+}
+
+QLabel#fanChamberLogo {
+    image: url("resource/icon/fan_chamber.svg");
+    max-height: 36px;
+}
+
+QLabel#fanExhaustLogo {
+    image: url("resource/icon/fan_exhaust.svg");
+    max-height: 36px;
+}
+
+QLabel#xLogo {
+    image: url("resource/icon/letter_x.svg");
+    max-height: 36px;
+}
+
+QLabel#yLogo {
+    image: url("resource/icon/letter_y.svg");
+    max-height: 36px;
+}
+
+QLabel#zLogo {
+    image: url("resource/icon/letter_z.svg");
+    max-height: 36px;
+}
+
+QLabel#eLogo {
+    image: url("resource/icon/letter_e.svg");
+    max-height: 36px;
+}
+
+QLabel#speedLogo {
+    image: url("resource/icon/speed.svg");
+    max-height: 36px;
+}
+
+QLabel#flowLogo {
+    image: url("resource/icon/flow.svg");
+    max-height: 36px;
+}
+
+QPushButton {
+    border: none;
+    border-radius: 10px;
+    color: #181818;
+    background-color: #FFFFFF;
+}
+
+QPushButton:disabled {
+    color: #E4E4E4;
+}
+
+QPushButton#printButton {
+    qproperty-icon: url("resource/icon/print.svg") center;
+    qproperty-iconSize: 108px 108px;
+}
+
+QPushButton#controlButton {
+    qproperty-icon: url("resource/icon/tool.svg") center;
+    qproperty-iconSize: 108px 108px;
+}
+
+QPushButton#setButton {
+    qproperty-icon: url("resource/icon/set.svg") center;
+    qproperty-iconSize: 108px 108px;
+}
+
+QPushButton#temperatureButton {
+    qproperty-icon: url("resource/icon/temperature.svg") center;
+    qproperty-iconSize: 108px 108px;
+}
+
+QPushButton#fanButton {
+    qproperty-icon: url("resource/icon/fan.svg") center;
+    qproperty-iconSize: 108px 108px;
+}
+
+QPushButton#filamentButton {
+    qproperty-icon: url("resource/icon/filament.svg") center;
+    qproperty-iconSize: 108px 108px;
+}
+
+QPushButton#homeButton {
+    qproperty-icon: url("resource/icon/home.svg") center;
+    qproperty-iconSize: 108px 108px;
+}
+
+QPushButton#levelButton {
+    qproperty-icon: url("resource/icon/level.svg") center;
+    qproperty-iconSize: 108px 108px;
+}
+
+QPushButton#moveButton {
+    qproperty-icon: url("resource/icon/move.svg") center;
+    qproperty-iconSize: 108px 108px;
+}
+
+QPushButton#eStopButton {
+    qproperty-icon: url("resource/icon/estop.svg") center;
+    qproperty-iconSize: 40px 40px;
+}
+
+QPushButton#previousButton {
+    qproperty-icon: url("resource/icon/left.svg") center;
+    qproperty-iconSize: 40px 40px;
+}
+
+QPushButton#mainButton {
+    color: #FF5A00;
+    font-size: 32px;
+}
+
+QPushButton#splashButton {
+    border: 1px solid #E5E5E5;
+    border-radius: 24px;
+    min-height: 48px;
+    max-height: 48px;
+}
+
+QPushButton#deleteButton {
+    border: none;
+    border-radius: 0 10px 10px 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-left: 1px solid #181818;
+}
+
+QPushButton:pressed {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+QPushButton#dataButton {
+    margin-right: 5px;
+    border-radius: 0;
+}
+
+QPushButton#dataButton:pressed {
+    background-color: transparent;
+}
+
+QPushButton#closeButton {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 0;
+    border-top-right-radius: 10px;
+}
+
+QPushButton#closeButton:pressed {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+QPushButton {
+    border: none;
+    border-radius: 10px;
+}
+
+QPushButton#settingsButton {
+    background-color: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid #D4D4D4;
+    text-align:left;
+    padding-left: 20px;
+}
+QPushButton#settingsButton:pressed {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+QLabel#arrowLogo {
+    image: url("resource/icon/right.svg");
+    color: #000000;
+}
+
+QPushButton#fanLeftLogo {
+    qproperty-icon: url("resource/icon/fan_left.svg") center;
+}
+
+QPushButton#fanRightLogo {
+    qproperty-icon: url("resource/icon/fan_right.svg") center;
+}
+
+QPushButton#fanChamberLogo {
+    qproperty-icon: url("resource/icon/fan_chamber.svg") center;
+}
+
+QPushButton#fanExhaustLogo {
+    qproperty-icon: url("resource/icon/fan_exhaust.svg") center;
+}
+
+QPushButton#upLogo {
+    qproperty-icon: url("resource/icon/up.svg") center;
+    qproperty-iconSize: 64px 64px;
+}
+
+QPushButton#downLogo {
+    qproperty-icon: url("resource/icon/down.svg") center;
+    qproperty-iconSize: 64px 64px;
+}
+
+QPushButton#leftLogo {
+    qproperty-icon: url("resource/icon/left.svg") center;
+    qproperty-iconSize: 64px 64px;
+}
+
+QPushButton#rightLogo {
+    qproperty-icon: url("resource/icon/right.svg") center;
+    qproperty-iconSize: 64px 64px;
+}
+
+QProgressBar {
+    text-align:center;
+    background-color: #F2F2F2;
+    border: none;
+    border-radius: 10px;
+}
+
+QProgressBar::chunk {
+    background-color: #343536;
+    border: none;
+    border-radius: 10px;
+}
+
+QSlider::groove {
+    border: none;
+    border-radius: 10px;
+    background-color: #E4E4E4;
+}
+
+QSlider::groove:horizontal {
+    height: 20px;
+}
+
+QSlider::groove:vertical {
+    width: 20px;
+}
+
+QSlider::handle {
+    background-color: #FFFFFF;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #C8C8C8;
+    border-radius: 18px;
+    margin: 0;
+}
+
+QSlider::handle:horizontal {
+    margin-top: -9px;
+    margin-bottom: -9px;
+}
+
+QSlider::sub-page, QSlider::add-page{
+    border: none;
+    border-radius: 10px;
+}
+
+QSlider::sub-page:horizontal {
+    background-color: #5A5A5A;
+}
+
+QSlider::add-page:vertical {
+    background-color: #5A5A5A;
+}
+
+QSlider::handle:vertical {
+    margin-left: -9px;
+    margin-right: -9px;
+}
+
+QPushButton#extruderButton {
+    border-radius: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+QFrame#frameBox, QFrame#extruderFrameBox {
+    background-color: #FFFFFF;
+    border: 1px solid #D4D4D4;
+    border-radius: 10px;
+}
+
+QPushButton#leftBackButton {
+    border-image: url(resource/icon/BLB.png);
+}
+
+QPushButton#leftFrontButton {
+    border-image: url(resource/icon/BLF.png);
+}
+
+QPushButton#rightBackButton {
+    border-image: url(resource/icon/BRB.png);
+}
+
+QPushButton#rightFrontButton {
+    border-image: url(resource/icon/BRF.png);
+}
+
+QPushButton#centerButton {
+    border-image: url(resource/icon/BCT.png);
+}
+
+QLabel#frame_title {
+    padding-left: 10px;
+}
+
+QLabel#serialNumber {
+    border: 1px solid #D4D4D4;
+    border-radius: 20px;
+}
+QFrame#frameBox:disabled {
+    background-color: rgba(40, 40, 40, 0.1);
+}
