@@ -810,27 +810,27 @@ XY offset ...</source>
 <context>
     <name>MovePage</name>
     <message>
-        <location filename="../../../ui/movePage.py" line="301"/>
+        <location filename="../../../ui/movePage.py" line="279"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/movePage.py" line="303"/>
+        <location filename="../../../ui/movePage.py" line="281"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/movePage.py" line="92"/>
+        <location filename="../../../ui/movePage.py" line="210"/>
         <source>Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/movePage.py" line="96"/>
+        <location filename="../../../ui/movePage.py" line="211"/>
         <source>Move Distance (mm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/movePage.py" line="104"/>
+        <location filename="../../../ui/movePage.py" line="212"/>
         <source>Unlock
 Motor</source>
         <translation type="unfinished"></translation>
@@ -874,6 +874,19 @@ Motor</source>
     <message>
         <location filename="../../../ui/levelPages/offsetPage.py" line="181"/>
         <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PrintDoneDialog</name>
+    <message>
+        <location filename="../../../ui/printDoneDialog.py" line="79"/>
+        <source>Print Again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/printDoneDialog.py" line="80"/>
+        <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -922,22 +935,22 @@ Motor</source>
 <context>
     <name>PrintingWidget</name>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="62"/>
+        <location filename="../../../ui/printingWidget.py" line="65"/>
         <source>Left Model Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="68"/>
+        <location filename="../../../ui/printingWidget.py" line="71"/>
         <source>Right Model Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="74"/>
+        <location filename="../../../ui/printingWidget.py" line="77"/>
         <source>Exhaust Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="134"/>
+        <location filename="../../../ui/printingWidget.py" line="137"/>
         <source>Print Done.
 Print time: {}</source>
         <translation type="unfinished"></translation>
@@ -1116,37 +1129,37 @@ Print time: {}</source>
 <context>
     <name>WLANConnectBox</name>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="60"/>
+        <location filename="../../../ui/wlanPage.py" line="59"/>
         <source>Network Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="65"/>
+        <location filename="../../../ui/wlanPage.py" line="64"/>
         <source>Please input your network name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="69"/>
+        <location filename="../../../ui/wlanPage.py" line="68"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="75"/>
+        <location filename="../../../ui/wlanPage.py" line="74"/>
         <source>Please input your password.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="268"/>
+        <location filename="../../../ui/wlanPage.py" line="267"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="269"/>
+        <location filename="../../../ui/wlanPage.py" line="268"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="172"/>
+        <location filename="../../../ui/wlanPage.py" line="171"/>
         <source>space</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1154,17 +1167,17 @@ Print time: {}</source>
 <context>
     <name>WlanPage</name>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="422"/>
+        <location filename="../../../ui/wlanPage.py" line="423"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="409"/>
+        <location filename="../../../ui/wlanPage.py" line="408"/>
         <source>Available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="410"/>
+        <location filename="../../../ui/wlanPage.py" line="409"/>
         <source>Add network</source>
         <translation type="unfinished"></translation>
     </message>
