@@ -5,6 +5,8 @@ import platform
 import sys
 from pathlib import Path
 
+import git
+
 from config import MixwareScreenConfig
 from qtCore import *
 
@@ -74,5 +76,6 @@ if __name__ == "__main__":
 
     # app = QApplication.instance()
     # app.installTranslator(tra_cn)
+    print(git)
 
     sys.exit(app.exec())
