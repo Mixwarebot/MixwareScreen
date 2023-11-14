@@ -30,7 +30,7 @@ class MixwareScreen(QWidget):
         self.init_connect()
 
         if platform.system().lower() == 'windows':
-            self.stackedLayout.setCurrentIndex(2)
+            self.stackedLayout.setCurrentIndex(1)
 
         # QtCore.QMetaObject.connectSlotsByName(self)
         # self.notify = QLabel(self)
