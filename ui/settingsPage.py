@@ -15,49 +15,63 @@ class SettingsPage(QWidget):
 
         self.setObjectName("settingsPage")
 
-        self.machine = SettingsButton()
-        self.wlan = SettingsButton()
-        self.theme = SettingsButton()
-        self.language = SettingsButton()
-        self.about = SettingsButton()
-
-        self.machinePage = MachinePage(self._printer, self._parent)
-        self.wlanPage = WlanPage(self._printer, self._parent)
-        QScroller.grabGesture(self.wlanPage, QScroller.TouchGesture)
         self.lang = 0
 
-        self.initForm()
-        self.initLayout()
-        self.initConnect()
+        self.layout = QVBoxLayout(self)
+        self.layout.setAlignment(Qt.AlignTop)
+        self.layout.setContentsMargins(20, 0, 20, 0)
+        self.layout.setSpacing(0)
 
-    def initForm(self):
+        self.machinePage = MachinePage(self._printer, self._parent)
+        self.machine = SettingsButton()
+        self.machine.clicked.connect(self.gotoMachinePage)
+        self.layout.addWidget(self.machine)
+
+        self.wlanPage = WlanPage(self._printer, self._parent)
+        QScroller.grabGesture(self.wlanPage, QScroller.TouchGesture)
+        self.wlan = SettingsButton()
+        self.wlan.clicked.connect(self.gotoWLANPage)
+        self.layout.addWidget(self.wlan)
+
+        self.theme = SettingsButton()
+        self.layout.addWidget(self.theme)
+
+        self.language = SettingsButton()
+        self.language.clicked.connect(self.trans)
+        self.layout.addWidget(self.language)
+
+        self.update = SettingsButton()
+        self.update.clicked.connect(self._printer.repository.update)
+        self.layout.addWidget(self.update)
+
+        self.about = SettingsButton()
+        self.about.clicked.connect(self.openAboutDialog)
+        self.layout.addWidget(self.about)
+
+        self.re_translate_ui()
+
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.re_translate_ui()
+
+        self.theme.hide()
+        self.language.hide()
+        if self._printer.repository.local_commit == self._printer.repository.remote_commit:
+            self.update.hide()
+        else:
+            self.update.show()
+
+    def re_translate_ui(self):
         self.machine.setText(self.tr("Machine Configuration"))
         self.wlan.setText(self.tr("WLAN"))
         self.theme.setText(self.tr("Theme"))
         self.theme._tips.setText(self.tr("Light"))
         self.language.setText(self.tr("Language"))
         self.about.setText(self.tr("About"))
+        self.update.setText(self.tr("Update"))
         if self._printer.config.get_language() == 'Chinese':
             self.language._tips.setText(self.tr("Chinese"))
         elif self._printer.config.get_language() == 'English':
             self.language._tips.setText(self.tr("English"))
-
-    def initLayout(self):
-        layout = QVBoxLayout(self)
-        layout.addWidget(self.machine)
-        layout.addWidget(self.wlan)
-        layout.addWidget(self.theme)
-        layout.addWidget(self.language)
-        layout.addWidget(self.about)
-        layout.setAlignment(Qt.AlignTop)
-        layout.setContentsMargins(20, 0, 20, 0)
-        layout.setSpacing(0)
-
-    def initConnect(self):
-        self.about.clicked.connect(self.openAboutDialog)
-        self.machine.clicked.connect(self.gotoMachinePage)
-        self.wlan.clicked.connect(self.gotoWLANPage)
-        self.language.clicked.connect(self.trans)
 
     @pyqtSlot()
     def openAboutDialog(self):
@@ -71,6 +85,7 @@ class SettingsPage(QWidget):
             info += self.tr("Printer disconnected.\n")
         if self._printer.get_ip_addr("wlan0"):
             info += self.tr("IP Address: {}\n").format(self._printer.get_ip_addr("wlan0"))
+
         self._parent.showShadowScreen()
         self._parent.message.start(self.tr("About"), info, buttons=QMessageBox.Yes)
         self._parent.closeShadowScreen()

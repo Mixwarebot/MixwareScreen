@@ -29,6 +29,7 @@ class MixwareScreen(QWidget):
         self.init_layout()
         self.init_connect()
 
+        # test
         if platform.system().lower() == 'windows':
             self.stackedLayout.setCurrentIndex(1)
 

@@ -1,6 +1,6 @@
 from qtCore import *
 from ui.base.basePushButton import BasePushButton
-from ui.printerTemperatureWidget import PrinterTemperatureWidget
+from ui.temperatureBox import TemperatureBox
 from ui.controlPage import ControlPage
 from ui.printFilePage import PrintFilePage
 from ui.settingsPage import SettingsPage
@@ -15,7 +15,7 @@ class PrinterPage(QWidget):
 
         self.setObjectName("printerPage")
 
-        self.temperatureWidget = PrinterTemperatureWidget(self._printer)
+        self.temperatureWidget = TemperatureBox(self._printer)
         self.printButton = BasePushButton()
         self.controlButton = BasePushButton()
         self.setButton = BasePushButton()

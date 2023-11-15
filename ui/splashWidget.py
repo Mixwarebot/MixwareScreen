@@ -1,60 +1,50 @@
 from qtCore import *
+from ui.base.baseLine import BaseHLine
 from ui.base.basePushButton import BasePushButton
 
 
-class Color(QWidget):
-
-    def __init__(self, color):
-        super(Color, self).__init__()
-        self.setAutoFillBackground(True)
-
-        palette = self.palette()
-        palette.setColor(QPalette.Window, QColor(color))
-        self.setPalette(palette)
 class SplashWidget(QWidget):
     def __init__(self, printer, parent=None):
         super().__init__(parent)
         self._printer = printer
-        self.line_width = 80
-        self.line_height = 4
+
+        self.resize(self._printer.config.get_window_size())
+        self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(20, 0, 20, 0)
+        self.layout.setAlignment(Qt.AlignCenter)
+        self.layout.setSpacing(0)
 
         self.logo = QLabel()
-        self.button = BasePushButton()
-        self.tips = QLabel()
-        self.line = QLabel()
-
-        self.initForm()
-        self.initLayout()
-        self.initConnect()
-
-    def initForm(self):
         self.logo.setObjectName("splashLogo")
+        self.logo.setFixedWidth(360)
+        self.layout.addWidget(self.logo)
+
+        self.layout.addSpacing(10)
+
+        self.line = BaseHLine()
+        self.line.setObjectName("splashLine")
+        self.line.setFixedSize(360, 4)
+        self.line.setStyleSheet("background: #FF5A00; border-radius: 2px; margin-left:120px;margin-right:120px;")
+        self.layout.addWidget(self.line)
+
+        self.layout.addSpacing(40)
+
+        self.button = BasePushButton()
         self.button.setObjectName("splashButton")
-        self.line.setStyleSheet("QLabel{image: url(resource/icon/line); color: #FF5A00}")
+        self.button.setFixedSize(360, 48)
+        self.layout.addWidget(self.button)
+
+        self.tips = QLabel()
         self.tips.setObjectName("tips")
+        self.tips.setFixedWidth(360)
+        self.tips.setAlignment(Qt.AlignCenter)
+        self.layout.addWidget(self.tips)
+
+        self.re_translate_ui()
+
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.re_translate_ui()
+
+    def re_translate_ui(self):
         self.button.setText(self.tr("Update"))
         self.tips.setText(self.tr("No printer detected."))
-
-        self.logo.setFixedHeight(40)
-        self.line.setFixedHeight(3)
-        self.button.setFixedSize(300, 48)
-        self.tips.setFixedHeight(32)
-
-        self.tips.setAlignment(Qt.AlignCenter)
-        self.resize(self._printer.config.get_window_size())
-
-    def initLayout(self):
-        layout = QVBoxLayout(self)
-
-        layout.addWidget(self.logo)
-        layout.addSpacing(10)
-        layout.addWidget(self.line)
-        layout.addSpacing(35)
-        layout.addWidget(self.button)
-        layout.addWidget(self.tips)
-        layout.setContentsMargins(20, 0, 20, 0)
-        layout.setAlignment(Qt.AlignCenter)
-        layout.setSpacing(0)
-
-    def initConnect(self):
-        pass

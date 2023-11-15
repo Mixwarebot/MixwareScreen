@@ -5,9 +5,8 @@ import platform
 import sys
 from pathlib import Path
 
-import git
-
 from config import MixwareScreenConfig
+from gitRepository import GitRepository
 from qtCore import *
 
 from logger import MixLogger
@@ -40,8 +39,9 @@ if __name__ == "__main__":
     app = QApplication([])
 
     root_path = Path(__file__).resolve().parent
+    remote_path = "https://github.com/Mixwarebot/MixwareScreen.git"
 
-    config = MixwareScreenConfig(str(Path(__file__).resolve().parent))
+    config = MixwareScreenConfig(str(root_path))
 
     # 只用于开发阶段
     if platform.system().lower() == 'windows':
@@ -56,10 +56,13 @@ if __name__ == "__main__":
     ms_logger.software_version = config.get_version() + ".alpha"
     ms_logger.setup_logging()
 
-    logging.info(F"Initializing Mixware Screen")
+    logging.info("Initializing Mixware Screen")
     printer = MixwareScreenPrinter()
     printer.config = config
+    printer.repository = GitRepository(str(root_path), remote_path)
     printer._version = ms_logger.software_version
+
+    # init translator
     translator = QTranslator()
     reInstallTranslator(config.get_language())
 

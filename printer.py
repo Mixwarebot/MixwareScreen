@@ -86,6 +86,7 @@ class MixwareScreenPrinter(QObject):
         self._command_received.set()
 
         self.config = None
+        self.repository = None
 
         self.reset_information()
 

@@ -2,7 +2,7 @@ from qtCore import *
 from ui.base.baseRound import BaseRoundWidget
 
 
-class PrinterTemperatureWidget(BaseRoundWidget):
+class TemperatureBox(BaseRoundWidget):
     def __init__(self, printer, parent=None):
         super().__init__(parent)
         self._printer = printer
