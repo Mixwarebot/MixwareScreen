@@ -24,7 +24,7 @@ class GitRepository(object):
 
         self.check_timer = QTimer(None)
         self.check_timer.timeout.connect(self.check)
-        self.check_timer.start(600000) # 10 min
+        self.check_timer.start(300000) # 10 min
         self.pull_thread = threading.Thread(target=self.pull)
 
     def initial(self):
@@ -76,6 +76,7 @@ class GitRepository(object):
         self.repo.git.pull()
 
     def update(self):
+        self.pull_thread = threading.Thread(target=self.pull)
         self.pull_thread.start()
 
     def commits(self):
