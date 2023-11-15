@@ -53,12 +53,6 @@ class SettingsPage(QWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 
-        self.theme.hide()
-        self.language.hide()
-        if self._printer.repository.local_commit == self._printer.repository.remote_commit:
-            self.update.hide()
-        else:
-            self.update.show()
 
     def re_translate_ui(self):
         self.machine.setText(self.tr("Machine Configuration"))
@@ -72,6 +66,13 @@ class SettingsPage(QWidget):
             self.language._tips.setText(self.tr("Chinese"))
         elif self._printer.config.get_language() == 'English':
             self.language._tips.setText(self.tr("English"))
+
+        self.theme.hide()
+        self.language.hide()
+        if self._printer.repository.local_commit == self._printer.repository.remote_commit:
+            self.update.hide()
+        else:
+            self.update.show()
 
     @pyqtSlot()
     def openAboutDialog(self):
