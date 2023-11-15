@@ -41,7 +41,7 @@ class SettingsPage(QWidget):
         self.layout.addWidget(self.language)
 
         self.update = SettingsButton()
-        self.update.clicked.connect(self._printer.repository.update)
+        self.update.clicked.connect(self._printer.repository.start_pull)
         self.layout.addWidget(self.update)
 
         self.about = SettingsButton()
