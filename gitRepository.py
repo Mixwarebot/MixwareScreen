@@ -74,6 +74,9 @@ class GitRepository(object):
         :return:
         """
         self.repo.git.pull()
+        self.check()
+        if self.remote_commit and self.local_commit == self.remote_commit:
+            os.system('sudo systemctl restart MixwareScreen')
 
     def update(self):
         self.pull_thread = threading.Thread(target=self.pull)
