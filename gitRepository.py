@@ -23,8 +23,10 @@ class GitRepository(object):
         self.initial()
 
         self.check_timer = QTimer(None)
-        self.check_timer.timeout.connect(self.check)
+        self.check_timer.timeout.connect(self.start_check)
         self.check_timer.start(300000) # 10 min
+
+        self.check_thread = threading.Thread(target=self.check)
         self.pull_thread = threading.Thread(target=self.pull)
 
     def initial(self):
@@ -38,6 +40,13 @@ class GitRepository(object):
         git_local_path = os.path.join(self.local_path, '.git')
         if is_git_dir(git_local_path):
             self.repo = Repo(self.local_path)
+
+            self.check_thread = threading.Thread(target=self.check)
+            self.check_thread.start()
+
+    def start_check(self):
+        self.check_thread = threading.Thread(target=self.check)
+        self.check_thread.start()
 
     def check(self):
         """
@@ -78,7 +87,7 @@ class GitRepository(object):
         if self.remote_commit and self.local_commit == self.remote_commit:
             os.system('sudo systemctl restart MixwareScreen')
 
-    def update(self):
+    def start_pull(self):
         self.pull_thread = threading.Thread(target=self.pull)
         self.pull_thread.start()
 
