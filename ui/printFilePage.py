@@ -111,9 +111,12 @@ class PrintFilePage(QScrollArea):
 
         for file in files:
             if file.isDir() or (file.isFile() and file.completeSuffix() == "gcode"):
-                printFileBar = PrintFileBar(file)
-                printFileBar.clicked.connect(self.on_printFileBar_clicked)
-                self.layout.addWidget(printFileBar)
+
+                if file.isDir() and file.exists(f'{file.absoluteFilePath()}/firmware.cur'):
+                    continue
+                print_file_bar = PrintFileBar(file)
+                print_file_bar.clicked.connect(self.on_printFileBar_clicked)
+                self.layout.addWidget(print_file_bar)
 
     def on_printFileBar_clicked(self, path):
         file_info = QFileInfo(path)
@@ -127,5 +130,4 @@ class PrintFilePage(QScrollArea):
             self._parent.closeShadowScreen()
 
     def showEvent(self, a0: QShowEvent) -> None:
-        pass
         self.update_file(self.root_path)

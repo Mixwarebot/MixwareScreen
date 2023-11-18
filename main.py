@@ -39,7 +39,6 @@ if __name__ == "__main__":
     app = QApplication([])
 
     root_path = Path(__file__).resolve().parent
-    remote_path = "https://github.com/Mixwarebot/MixwareScreen.git"
 
     config = MixwareScreenConfig(str(root_path))
 
@@ -59,14 +58,15 @@ if __name__ == "__main__":
     logging.info("Initializing Mixware Screen")
     printer = MixwareScreenPrinter()
     printer.config = config
-    printer.repository = GitRepository(str(root_path), remote_path)
+    printer.repository = GitRepository(str(root_path))
     printer._version = ms_logger.software_version
 
     # init translator
     translator = QTranslator()
     reInstallTranslator(config.get_language())
 
-    app.setOverrideCursor(QCursor(QtCore.Qt.BlankCursor))
+    if platform.system().lower() == 'linux':
+        app.setOverrideCursor(QCursor(QtCore.Qt.BlankCursor))
     mixwareScreen = MixwareScreen(printer)
     if platform.system().lower() == 'windows':
         mixwareScreen.show()

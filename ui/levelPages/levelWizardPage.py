@@ -122,11 +122,6 @@ class LevelWizardPage(QWidget):
         self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_right_button, 2, 1, 1, 1)
         self.preheat_body_layout.addWidget(self.preheat_thermal_frame)
         self.preheat_body_layout.addWidget(BaseHLine())
-        self.preheat_text = QLabel()
-        self.preheat_text.setWordWrap(True)
-        self.preheat_text.setAlignment(Qt.AlignCenter)
-        self.preheat_body_layout.addWidget(self.preheat_text)
-        self.preheat_body_layout.addWidget(BaseHLine())
         self.preheat_filament_layout = QHBoxLayout()
         self.preheat_pla = BasePushButton()
         self.preheat_pla.setFixedHeight(64)
@@ -137,19 +132,22 @@ class LevelWizardPage(QWidget):
         self.preheat_abs.setFixedHeight(64)
         self.preheat_abs.clicked.connect(self.on_preheat_abs_clicked)
         self.preheat_filament_layout.addWidget(self.preheat_abs)
-        self.preheat_body_layout.addLayout(self.preheat_filament_layout)
-        self.preheat_body_layout.addWidget(BaseHLine())
-        self.preheat_filament_layout_2 = QHBoxLayout()
+        self.preheat_filament_layout.addWidget(BaseVLine())
         self.preheat_pet = BasePushButton()
         self.preheat_pet.setFixedHeight(64)
         self.preheat_pet.clicked.connect(self.on_preheat_pet_clicked)
-        self.preheat_filament_layout_2.addWidget(self.preheat_pet)
-        self.preheat_filament_layout_2.addWidget(BaseVLine())
+        self.preheat_filament_layout.addWidget(self.preheat_pet)
+        self.preheat_filament_layout.addWidget(BaseVLine())
         self.preheat_pa = BasePushButton()
         self.preheat_pa.setFixedHeight(64)
         self.preheat_pa.clicked.connect(self.on_preheat_pa_clicked)
-        self.preheat_filament_layout_2.addWidget(self.preheat_pa)
-        self.preheat_body_layout.addLayout(self.preheat_filament_layout_2)
+        self.preheat_filament_layout.addWidget(self.preheat_pa)
+        self.preheat_body_layout.addLayout(self.preheat_filament_layout)
+        self.preheat_body_layout.addWidget(BaseHLine())
+        self.preheat_text = QLabel()
+        self.preheat_text.setWordWrap(True)
+        self.preheat_text.setAlignment(Qt.AlignCenter)
+        self.preheat_body_layout.addWidget(self.preheat_text)
         self.handle_stacked_widget.addWidget(self.preheat_handle)
 
         self.clean_handle = HandleBar()
@@ -335,6 +333,11 @@ class LevelWizardPage(QWidget):
         self.reset_ui()
         self.re_translate_ui()
 
+    def hideEvent(self, a0: QHideEvent) -> None:
+        self.place_logo_movie.stop()
+        self.measure_left_logo_movie.stop()
+        self.measure_right_logo_movie.stop()
+
     def reset_ui(self):
         for count in range(len(self.message_list)):
             self.message_list[count].setText(self.message_text_list[count])
@@ -477,7 +480,7 @@ class LevelWizardPage(QWidget):
         self.offset = self._printer.information['probe']['offset']
         self.offset_button_title.setText(
             f"Z: {self.offset['left']['Z']}({self._printer.information['probe']['offset']['left']['Z']})")
-        self._printer.write_gcode_command("G28O\nT0\nG1 X190 Y160 F4000\nG1 Z0 F600")
+        self._printer.write_gcode_command("G28\nT0\nG1 X190 Y160 F4000\nG1 Z0 F600")
         self.goto_next_step_stacked_widget()
 
     @pyqtSlot(QAbstractButton)
@@ -493,14 +496,14 @@ class LevelWizardPage(QWidget):
         self._printer.write_gcode_command(
             'G91\nG0 F600 Z-' + self.offset_distance_list[self.offset_distance_current_id] + '\nG90')
         self.offset_button_title.setText(
-            f"Z: {self.offset['left']['Z']}({self._printer.information['probe']['offset']['left']['Z']})")
+            f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
 
     def on_offset_button_down_clicked(self):
         self.offset['left']['Z'] += float(self.offset_distance_list[self.offset_distance_current_id])
         self._printer.write_gcode_command(
             'G91\nG0 F600 Z' + self.offset_distance_list[self.offset_distance_current_id] + '\nG90')
         self.offset_button_title.setText(
-            f"Z: {self.offset['left']['Z']}({self._printer.information['probe']['offset']['left']['Z']})")
+            f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
 
     def on_offset_next_button_clicked(self):
         self.offset_distance_frame.hide()
@@ -520,7 +523,7 @@ class LevelWizardPage(QWidget):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
-        self._printer.write_gcode_command("G1 Z150 F960\nT1\nG1 X190 Y20 Z150 F8400")
+        self._printer.write_gcode_commands("G1 Z150 F960\nG28\nT1\nG1 X190 Y20 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
         self.measure_right_logo_movie.start()
@@ -531,7 +534,7 @@ class LevelWizardPage(QWidget):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_right")
-        self._printer.write_gcode_command("G1 Z150 F960")
+        self._printer.write_gcode_command("G1 Z150 F960\nG28X")
         self.goto_next_step_stacked_widget()
         self.measure_right_logo_movie.stop()
 

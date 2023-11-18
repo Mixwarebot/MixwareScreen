@@ -154,22 +154,19 @@ class OffsetPage(QWidget):
 
         self.re_translate_ui()
 
-    def update_offset(self):
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.re_translate_ui()
+        # self.offset = self._printer.information['probe']['offset']
         self.offset['left']['X'] = self._printer.information['probe']['offset']['left']['X']
         self.offset['left']['Y'] = self._printer.information['probe']['offset']['left']['Y']
         self.offset['left']['Z'] = self._printer.information['probe']['offset']['left']['Z']
         self.offset['right']['X'] = self._printer.information['probe']['offset']['right']['X']
         self.offset['right']['Y'] = self._printer.information['probe']['offset']['right']['Y']
         self.offset['right']['Z'] = self._printer.information['probe']['offset']['right']['Z']
-
-    def showEvent(self, a0: QShowEvent) -> None:
-        self.re_translate_ui()
-        # self.offset = self._printer.information['probe']['offset']
-        self.update_offset()
-        self._printer.write_gcode_command("G28\nG1 X190 Y160 F2400\nG1 Z0 F600")
+        self._printer.write_gcode_command("G28\nT0\nG1 X190 Y160 F2400\nG1 Z0 F600")
 
     def hideEvent(self, a0: QHideEvent) -> None:
-        self._printer.write_gcode_command("G91\nG0 Z20 F300\nG90\nG28X\nM84")
+        self._printer.write_gcode_command("G28\nT0\nM84")
 
     def re_translate_ui(self):
         self.x_left_button.setText(self.tr("Left"))
@@ -263,12 +260,10 @@ class OffsetPage(QWidget):
     def on_button_clicked(self, button):
         if button.text() == self.tr("Left"):
             if self._printer.get_extruder() == "right":
-                self.update_offset()
-                self._printer.write_gcode_command("G28O\nT0\nG1 Z10 F900\nG1 X190 Y160 F2400\nG1 Z0 F300")
+                self._printer.write_gcode_command("G28\nT0\nG1 Z15 F600\nG1 X190 Y160 F2400\nG1 Z0 F300")
         elif button.text() == self.tr("Right"):
             if self._printer.get_extruder() == "left":
-                self.update_offset()
-                self._printer.write_gcode_command("G28O\nT1\nG1 Z10 F900\nG1 X190 Y160 F2400\nG1 Z0 F300")
+                self._printer.write_gcode_command("G28\nT1\nG1 Z15 F600\nG1 X190 Y160 F2400\nG1 Z0 F300")
         elif button.text() in self.offset_distance_list:
             if self.buttonGroup.id(button) != self.offset_distance_current_id:
                 self.buttonGroup.button(self.offset_distance_current_id).setStyleSheet(uncheckedStyleSheet)

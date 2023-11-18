@@ -1,5 +1,6 @@
 # from main import installTranslator
 from qtCore import *
+from ui.aboutPage import AboutPage
 from ui.machinePages.accelerationPage import AccelerationPage
 from ui.machinePages.machinePage import MachinePage
 from ui.settingsButton import SettingsButton
@@ -41,11 +42,13 @@ class SettingsPage(QWidget):
         self.layout.addWidget(self.language)
 
         self.update = SettingsButton()
-        self.update.clicked.connect(self._printer.repository.start_pull)
+        self.update.clicked.connect(self._printer.repository.start_screen_pull)
         self.layout.addWidget(self.update)
 
+        self.aboutPage = AboutPage(self._printer, self._parent)
         self.about = SettingsButton()
-        self.about.clicked.connect(self.openAboutDialog)
+        self.about.clicked.connect(self.gotoAboutPage)
+        # self.about.clicked.connect(self.openAboutDialog)
         self.layout.addWidget(self.about)
 
         self.re_translate_ui()
@@ -69,7 +72,7 @@ class SettingsPage(QWidget):
 
         self.theme.hide()
         self.language.hide()
-        if self._printer.repository.local_commit == self._printer.repository.remote_commit:
+        if self._printer.repository.screen_local_commit == self._printer.repository.screen_remote_commit:
             self.update.hide()
         else:
             self.update.show()
@@ -90,6 +93,10 @@ class SettingsPage(QWidget):
         self._parent.showShadowScreen()
         self._parent.message.start(self.tr("About"), info, buttons=QMessageBox.Yes)
         self._parent.closeShadowScreen()
+
+    @pyqtSlot()
+    def gotoAboutPage(self):
+        self._parent.gotoPage(self.aboutPage, "About")
 
     @pyqtSlot()
     def gotoWLANPage(self):

@@ -181,7 +181,6 @@ class DialIndicatorPage(QWidget):
         self.measure_left_logo.setFixedSize(320, 320)
         self.measure_left_logo_movie = QMovie("resource/image/level_measure_left.gif")
         self.measure_left_logo_movie.setScaledSize(self.remind_logo.size())
-        # self.measure_left_logo_movie.start()
         self.measure_left_logo.setMovie(self.measure_left_logo_movie)
         self.measure_left_body_layout.addWidget(self.measure_left_logo)
         self.measure_left_text = QLabel()
@@ -230,6 +229,10 @@ class DialIndicatorPage(QWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         self.reset_ui()
         self.re_translate_ui()
+    def hideEvent(self, a0: QHideEvent) -> None:
+        self.place_logo_movie.stop()
+        self.measure_left_logo_movie.stop()
+        self.measure_right_logo_movie.stop()
 
     def reset_ui(self):
         for count in range(len(self.message_list)):
@@ -355,7 +358,7 @@ class DialIndicatorPage(QWidget):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
-        self._printer.write_gcode_commands("G1 Z150 F960\nT1\nG1 X190 Y20 Z150 F8400")
+        self._printer.write_gcode_commands("G1 Z150 F960\nG28\nT1\nG1 X190 Y20 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
         self.measure_right_logo_movie.start()
@@ -366,7 +369,7 @@ class DialIndicatorPage(QWidget):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_right")
-        self._printer.write_gcode_command("G1 Z150 F960")
+        self._printer.write_gcode_command("G1 Z150 F960\nG28X")
         self.goto_next_step_stacked_widget()
         self.measure_right_logo_movie.stop()
 

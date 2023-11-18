@@ -36,7 +36,7 @@ class SplashWidget(QWidget):
 
         self.tips = QLabel()
         self.tips.setObjectName("tips")
-        self.tips.setFixedWidth(360)
+        self.tips.setFixedSize(360, 32)
         self.tips.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.tips)
 
