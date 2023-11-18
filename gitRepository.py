@@ -27,7 +27,7 @@ class GitRepository(QObject):
         self.latest_firmware_url = 'https://api.github.com/repos/Mixwarebot/Mixware-Hyper-X-Firmware/releases/latest'
         self.latest_firmware_version = None
         self.firmware_path = 'firmware.bin'
-        self.firmware_url = f'https://github.com/Mixwarebot/Mixware-Hyper-X-Firmware/releases/download/{self.latest_firmware_version}/firmware.bin'
+        self.firmware_url = None
 
         self._state = None
         self.initial()
@@ -163,6 +163,7 @@ class GitRepository(QObject):
     def firmware_download(self):
         self.change_state(self.tr("Start download firmware."))
         try:
+            self.firmware_url = f'https://github.com/Mixwarebot/Mixware-Hyper-X-Firmware/releases/download/{self.latest_firmware_version}/firmware.bin'
             firmware_request = requests.get(self.firmware_url)
             with open(self.firmware_path, 'wb') as file:
                 file.write(firmware_request.content)
