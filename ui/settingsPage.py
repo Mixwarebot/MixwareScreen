@@ -57,13 +57,13 @@ class SettingsPage(QWidget):
         self.machine.setText(self.tr("Machine Configuration"))
         self.wlan.setText(self.tr("WLAN"))
         self.theme.setText(self.tr("Theme"))
-        self.theme._tips.setText(self.tr("Light"))
+        self.theme.setTips(self.tr("Light"))
         self.language.setText(self.tr("Language"))
         self.about.setText(self.tr("About"))
         if self._printer.config.get_language() == 'Chinese':
-            self.language._tips.setText(self.tr("Chinese"))
+            self.language.setTips(self.tr("Chinese"))
         elif self._printer.config.get_language() == 'English':
-            self.language._tips.setText(self.tr("English"))
+            self.language.setTips(self.tr("English"))
 
         self.theme.hide()
         self.language.hide()
