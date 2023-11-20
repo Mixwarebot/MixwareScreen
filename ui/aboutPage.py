@@ -91,7 +91,9 @@ class AboutPage(QWidget):
                                              self.tr("Mixware Screen update successful,\nrestart to take effect."),
                                              buttons=QMessageBox.Yes | QMessageBox.Cancel)
             if ret == QMessageBox.Yes:
-                self._printer.printer_reboot()
+                if self._printer.is_connected() and self.need_reboot_printer:
+                    self._printer.printer_reboot()
+                os.system('sudo clear')
                 os.system('sudo systemctl restart MixwareScreen')
 
         if self._printer.is_connected():

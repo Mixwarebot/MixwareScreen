@@ -1,0 +1,16 @@
+[Unit]
+Description=MixwareScreen
+#After=moonraker.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=MS_USER
+WorkingDirectory=MS_DIR
+Environment="MS_XCLIENT=/usr/bin/python3 MS_DIR/main.py"
+ExecStart="MS_DIR/scripts/MixwareScreen-start.sh"
+
+[Install]
+WantedBy=multi-user.target
