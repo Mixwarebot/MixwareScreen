@@ -49,59 +49,59 @@ restart to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="99"/>
+        <location filename="../../../ui/aboutPage.py" line="101"/>
         <source>Firmware download is successful,
 restart the printer to upgrade.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="105"/>
+        <location filename="../../../ui/aboutPage.py" line="107"/>
         <source>Update failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="110"/>
+        <location filename="../../../ui/aboutPage.py" line="112"/>
         <source>Latest firmware version is Marlin {}.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="126"/>
+        <location filename="../../../ui/aboutPage.py" line="127"/>
         <source>Firmware download successful.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="129"/>
+        <location filename="../../../ui/aboutPage.py" line="130"/>
         <source>firmware check error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="129"/>
+        <location filename="../../../ui/aboutPage.py" line="130"/>
         <source>Firmware download error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="132"/>
+        <location filename="../../../ui/aboutPage.py" line="133"/>
         <source>Mixware Screen check successful.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="136"/>
+        <location filename="../../../ui/aboutPage.py" line="137"/>
         <source>
 Mixware Screen is the latest version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="139"/>
+        <location filename="../../../ui/aboutPage.py" line="140"/>
         <source>Mixware Screen update successful.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="142"/>
+        <location filename="../../../ui/aboutPage.py" line="143"/>
         <source>Mixware Screen check failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="142"/>
+        <location filename="../../../ui/aboutPage.py" line="143"/>
         <source>Mixware Screen update failed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -674,12 +674,12 @@ click &lt;Next&gt; to start working.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="169"/>
+        <location filename="../../../gitRepository.py" line="171"/>
         <source>Firmware download successful.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="171"/>
+        <location filename="../../../gitRepository.py" line="175"/>
         <source>Firmware download error.</source>
         <translation type="unfinished"></translation>
     </message>
