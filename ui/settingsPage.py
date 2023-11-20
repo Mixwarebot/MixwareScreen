@@ -41,10 +41,6 @@ class SettingsPage(QWidget):
         self.language.clicked.connect(self.trans)
         self.layout.addWidget(self.language)
 
-        self.update = SettingsButton()
-        self.update.clicked.connect(self._printer.repository.start_screen_pull)
-        self.layout.addWidget(self.update)
-
         self.aboutPage = AboutPage(self._printer, self._parent)
         self.about = SettingsButton()
         self.about.clicked.connect(self.gotoAboutPage)
@@ -64,7 +60,6 @@ class SettingsPage(QWidget):
         self.theme._tips.setText(self.tr("Light"))
         self.language.setText(self.tr("Language"))
         self.about.setText(self.tr("About"))
-        self.update.setText(self.tr("Update"))
         if self._printer.config.get_language() == 'Chinese':
             self.language._tips.setText(self.tr("Chinese"))
         elif self._printer.config.get_language() == 'English':
@@ -72,10 +67,6 @@ class SettingsPage(QWidget):
 
         self.theme.hide()
         self.language.hide()
-        if self._printer.repository.screen_local_commit == self._printer.repository.screen_remote_commit:
-            self.update.hide()
-        else:
-            self.update.show()
 
     @pyqtSlot()
     def openAboutDialog(self):
