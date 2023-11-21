@@ -30,6 +30,7 @@ class PrintingWidget(BasePrintWidget):
 
     def initConnect(self):
         self._printer.updatePrinterInformation.connect(self.onUpdatePrinterInformation)
+        self._printer.updatePrinterStatus.connect(self.on_update_printer_status)
         self.printingPage.print_progress_bar.valueChanged.connect(self.on_print_progress_bar_value_changed)
         self.timer.timeout.connect(self.onTimerTriggered)
 
@@ -38,7 +39,7 @@ class PrintingWidget(BasePrintWidget):
         self.printingPage.thermal_bed_button.clicked.connect(self.open_thermal_bed_numberPad)
         self.printingPage.thermal_chamber_button.clicked.connect(self.open_thermal_chamber_numberPad)
 
-        self.printingPage.stop_print_button.clicked.connect(self.on_print_finished)
+        self.printingPage.stop_print_button.clicked.connect(self.on_stop_button_clicked)
 
         self.printingPage.motor_z_button.clicked.connect(self.on_motor_z_button_clicked)
         self.babyStepPad.rejected.connect(self.closeShadowScreen)
@@ -122,6 +123,11 @@ class PrintingWidget(BasePrintWidget):
         self.printingPage.fan_left_button.setText(str(int(self._printer.get_fan_speed('left')*100))+"%")
         self.printingPage.fan_right_button.setText(str(int(self._printer.get_fan_speed('right')*100))+"%")
         self.printingPage.fan_exhaust_button.setText(str(int(self._printer.get_fan_speed('exhaust')*100))+"%")
+
+    @pyqtSlot()
+    def on_update_printer_status(self, status):
+        if status == 5:
+            self.on_print_finished()
 
     def on_stop_button_clicked(self):
         self.showShadowScreen()
