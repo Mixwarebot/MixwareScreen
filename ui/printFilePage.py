@@ -110,7 +110,7 @@ class PrintFilePage(QScrollArea):
             self.layout.itemAt(i).widget().deleteLater()
 
         for file in files:
-            if file.isDir() or (file.isFile() and file.completeSuffix() == "gcode"):
+            if file.isDir() or (file.isFile() and file.suffix() == "gcode"):
 
                 if file.isDir() and file.exists(f'{file.absoluteFilePath()}/firmware.cur'):
                     continue
