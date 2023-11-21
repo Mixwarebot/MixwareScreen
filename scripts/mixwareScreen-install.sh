@@ -106,7 +106,6 @@ pip_requirements()
             exit 1
         fi
     fi
-    # sed -ie 's/include-system-site-packages = false/include-system-site-packages = true/g' ${MSENV}/pyvenv.cfg
     # deactivate
     echo_ok "Pip requirements installed"
 }

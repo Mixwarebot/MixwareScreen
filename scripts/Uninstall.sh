@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 echo "Uninstalling MixwareScreen"
 echo ""
 echo "* Stopping service"
