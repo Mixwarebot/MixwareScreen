@@ -114,13 +114,13 @@ class TemperaturePage(QWidget):
                 self.degree_group.button(self.degree_group.id(button)).setStyleSheet(checkedStyleSheet)
                 self.degree_current_id = self.degree_group.id(button)
 
-    @pyqtSlot()
-    def on_temperature_button_group_clicked(self, id):
+    @pyqtSlot(int)
+    def on_temperature_button_group_clicked(self, _id):
         thermal = ['left', 'right', 'bed', 'chamber']
-        if 0 <= id <= 3:
-            self.heater = thermal[id]
+        if 0 <= _id <= 3:
+            self.heater = thermal[_id]
             for i in range(4):
-                if i == id: self.temperature_group.button(i).setStyleSheet(checkedStyleSheet)
+                if i == _id: self.temperature_group.button(i).setStyleSheet(checkedStyleSheet)
                 else: self.temperature_group.button(i).setStyleSheet(uncheckedStyleSheet)
 
     @pyqtSlot()
