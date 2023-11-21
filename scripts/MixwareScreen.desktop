@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=MixwareScreen
+GenericName=Touch screen GUI for Mixware via Moonraker
+Icon=$HOME/MixwareScreen/resource/icon/Mixware.svg
+Exec=sh -c "$HOME/.MixwareScreen-env/bin/python $HOME/MixwareScreen/main.py"
+Terminal=false
+Type=Application
+Categories=Graphics;3DGraphics;Engineering;
+Keywords=3D;Printing
+StartupNotify=false
+StartupWMClass=Mixware-screen

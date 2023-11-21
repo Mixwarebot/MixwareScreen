@@ -392,48 +392,48 @@ Preheat temperature: 170°C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="249"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="247"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="310"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="308"/>
         <source>Preheating extruder.
 (Default 170°C)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="258"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="256"/>
         <source>Please use a metal brush to clean the nozzle residue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="259"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="257"/>
         <source>Place the dial indicator at the specified location.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="260"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="258"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Left).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="261"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="259"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Right).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="262"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="260"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="275"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="273"/>
         <source>Heat completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="263"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="261"/>
         <source>Measure completed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -619,68 +619,68 @@ click &lt;Next&gt; to start working.</source>
 <context>
     <name>GitRepository</name>
     <message>
-        <location filename="../../../gitRepository.py" line="55"/>
-        <source>Upgrade is ready.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../gitRepository.py" line="73"/>
+        <location filename="../../../gitRepository.py" line="66"/>
         <source>Checking Mixware Screen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="89"/>
+        <location filename="../../../gitRepository.py" line="82"/>
         <source>Mixware Screen check successful.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="94"/>
+        <location filename="../../../gitRepository.py" line="87"/>
         <source>Mixware Screen check failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="118"/>
+        <location filename="../../../gitRepository.py" line="111"/>
         <source>Updating Mixware Screen.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="122"/>
+        <location filename="../../../gitRepository.py" line="115"/>
         <source>Mixware Screen update successful.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="127"/>
+        <location filename="../../../gitRepository.py" line="120"/>
         <source>Mixware Screen update failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="144"/>
+        <location filename="../../../gitRepository.py" line="137"/>
         <source>Checking firmware.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="148"/>
+        <location filename="../../../gitRepository.py" line="141"/>
         <source>Latest firmware version is Marlin {}.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="150"/>
+        <location filename="../../../gitRepository.py" line="143"/>
         <source>firmware check error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="164"/>
+        <location filename="../../../gitRepository.py" line="157"/>
         <source>Start download firmware.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="171"/>
+        <location filename="../../../gitRepository.py" line="164"/>
         <source>Firmware download successful.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="175"/>
+        <location filename="../../../gitRepository.py" line="168"/>
         <source>Firmware download error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../gitRepository.py" line="51"/>
+        <source>Initialize git repository succeeded.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1072,6 +1072,75 @@ Motor</source>
     </message>
 </context>
 <context>
+    <name>PrintVerifyPage</name>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="35"/>
+        <source>Clean platform debris.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="36"/>
+        <source>Preheat extruder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="37"/>
+        <source>Working.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="38"/>
+        <source>Finish.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="186"/>
+        <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="247"/>
+        <source>Preheating extruder.
+(Default 170°C)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="195"/>
+        <source>Please wait.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="196"/>
+        <source>Place the dial indicator at the specified location.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="197"/>
+        <source>Click &lt;Next&gt; to start measure compensation value(Left).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="198"/>
+        <source>Click &lt;Next&gt; to start measure compensation value(Right).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="199"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="200"/>
+        <source>Measure completed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="212"/>
+        <source>Heat completed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PrinterPage</name>
     <message>
         <location filename="../../../ui/printerPage.py" line="34"/>
@@ -1100,22 +1169,22 @@ Motor</source>
 <context>
     <name>PrintingWidget</name>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="65"/>
+        <location filename="../../../ui/printingWidget.py" line="63"/>
         <source>Left Model Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="71"/>
+        <location filename="../../../ui/printingWidget.py" line="69"/>
         <source>Right Model Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="77"/>
+        <location filename="../../../ui/printingWidget.py" line="75"/>
         <source>Exhaust Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="137"/>
+        <location filename="../../../ui/printingWidget.py" line="135"/>
         <source>Print Done.
 Print time: {}</source>
         <translation type="unfinished"></translation>
@@ -1124,78 +1193,43 @@ Print time: {}</source>
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="120"/>
+        <location filename="../../../ui/settingsPage.py" line="93"/>
         <source>Machine Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="62"/>
+        <location filename="../../../ui/settingsPage.py" line="57"/>
         <source>WLAN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="63"/>
+        <location filename="../../../ui/settingsPage.py" line="58"/>
         <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="64"/>
+        <location filename="../../../ui/settingsPage.py" line="59"/>
         <source>Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="65"/>
+        <location filename="../../../ui/settingsPage.py" line="60"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="94"/>
+        <location filename="../../../ui/settingsPage.py" line="61"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="69"/>
+        <location filename="../../../ui/settingsPage.py" line="63"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="71"/>
+        <location filename="../../../ui/settingsPage.py" line="65"/>
         <source>English</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/settingsPage.py" line="84"/>
-        <source>Version: {}
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/settingsPage.py" line="86"/>
-        <source>Printer Name: {}
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/settingsPage.py" line="87"/>
-        <source>Printer Version: {}
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/settingsPage.py" line="89"/>
-        <source>Printer disconnected.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/settingsPage.py" line="91"/>
-        <source>IP Address: {}
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/settingsPage.py" line="67"/>
-        <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1327,17 +1361,17 @@ Print time: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="267"/>
+        <location filename="../../../ui/wlanPage.py" line="263"/>
         <source>Connect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="268"/>
+        <location filename="../../../ui/wlanPage.py" line="264"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="171"/>
+        <location filename="../../../ui/wlanPage.py" line="168"/>
         <source>space</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1345,17 +1379,17 @@ Print time: {}</source>
 <context>
     <name>WlanPage</name>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="423"/>
+        <location filename="../../../ui/wlanPage.py" line="419"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="408"/>
+        <location filename="../../../ui/wlanPage.py" line="404"/>
         <source>Available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/wlanPage.py" line="409"/>
+        <location filename="../../../ui/wlanPage.py" line="405"/>
         <source>Add network</source>
         <translation type="unfinished"></translation>
     </message>

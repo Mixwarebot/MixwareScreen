@@ -32,10 +32,6 @@ class GitRepository(QObject):
         self._state = None
         self.initial()
 
-        # self.check_timer = QTimer(None)
-        # self.check_timer.timeout.connect(self.start_check)
-        #self.check_timer.start(300000) # 10 min
-
         self.screen_check_thread = None
         self.screen_pull_thread = None
         self.firmware_check_thread = None
@@ -52,10 +48,7 @@ class GitRepository(QObject):
         git_local_path = os.path.join(self.local_path, '.git')
         if is_git_dir(git_local_path):
             self.screen_repo = Repo(self.local_path)
-            self.change_state(self.tr("Upgrade is ready."))
-
-            # self.check_thread = threading.Thread(target=self.check)
-            # self.check_thread.start()
+            self.change_state(self.tr("Initialize git repository succeeded."))
             
     def change_state(self, state: str):
         self._state = state
@@ -165,9 +158,12 @@ class GitRepository(QObject):
         try:
             self.firmware_url = f'https://github.com/Mixwarebot/Mixware-Hyper-X-Firmware/releases/download/{self.latest_firmware_version}/firmware.bin'
             firmware_request = requests.get(self.firmware_url)
-            with open(self.firmware_path, 'wb') as file:
-                file.write(firmware_request.content)
-                self.change_state(self.tr("Firmware download successful."))
+            if firmware_request.content != "Not Found":
+                with open(self.firmware_path, 'wb') as file:
+                    file.write(firmware_request.content)
+                    self.change_state(self.tr("Firmware download successful."))
+            else:
+                self.change_state(self.tr("Firmware download error."))
         except :
             self.change_state(self.tr("Firmware download error."))
 

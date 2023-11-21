@@ -6,11 +6,8 @@ MSENV="${MIXWARESCREEN_VENV:-${HOME}/.MixwareScreen-env}"
 
 XSERVER="xinit xinput x11-xserver-utils xserver-xorg-input-evdev xserver-xorg-input-libinput"
 FBDEV="xserver-xorg-video-fbdev"
-OPTIONAL="xserver-xorg-legacy"
-
-# moonraker will check this list when updating
-# if new packages are required for existing installs add them below too.
-PKGLIST=""
+MISC="librsvg2-common libopenjp2-7 libatlas-base-dev wireless-tools libdbus-glib-1-dev autoconf"
+OPTIONAL="xserver-xorg-legacy fonts-nanum fonts-ipafont libmpv-dev"
 PYQTLIST="python3-pyqt5 python3-pyqt5.qtquick python3-pyqt5.qtserialport qml-module-qt*"
 
 Red='\033[0;31m'
@@ -69,6 +66,20 @@ install_packages()
         echo_error "Installation of FBdev failed ($FBDEV)"
         exit 1
     fi
+    sudo apt-get install -y $PYTHON
+    if [ $? -eq 0 ]; then
+        echo_ok "Installed Python dependencies"
+    else
+        echo_error "Installation of Python dependencies failed ($PYTHON)"
+        exit 1
+    fi
+    sudo apt-get install -y $MISC
+    if [ $? -eq 0 ]; then
+        echo_ok "Installed Misc packages"
+    else
+        echo_error "Installation of Misc packages failed ($MISC)"
+        exit 1
+    fi
 	  sudo apt-get install -y $PYQTLIST
     if [ $? -eq 0 ]; then
         echo_ok "Installed PyQt packages"
@@ -76,25 +87,12 @@ install_packages()
         echo_error "Installation of PyQt packages failed ($PYQTLIST)"
         exit 1
     fi
-#     ModemManager interferes with Mixware comms
-#     on buster it's installed as a dependency of mpv
-#     it doesn't happen on bullseye
-    sudo systemctl mask ModemManager.service
 }
 
-create_virtualenv()
+pip_requirements()
 {
     echo_text "Creating virtual environment"
-    # if [ ! -d ${MSENV} ]; then
-        # virtualenv -p /usr/bin/python3 ${MSENV}
-#         GET_PIP="${HOME}/get-pip.py"
-#         virtualenv --no-pip -p /usr/bin/python3 ${MSENV}
-#         curl https://bootstrap.pypa.io/pip/3.6/get-pip.py -o ${GET_PIP}
-#         ${MSENV}/bin/python ${GET_PIP}
-#         rm ${GET_PIP}
-    # fi
 
-    # source ${MSENV}/bin/activate
     pip --disable-pip-version-check install -r ${MSPATH}/scripts/MixwareScreen-requirements.txt
     if [ $? -gt 0 ]; then
         echo_error "Error: pip install exited with status code $?"
@@ -110,7 +108,7 @@ create_virtualenv()
     fi
     # sed -ie 's/include-system-site-packages = false/include-system-site-packages = true/g' ${MSENV}/pyvenv.cfg
     # deactivate
-    echo_ok "Virtual enviroment created"
+    echo_ok "Pip requirements installed"
 }
 
 install_systemd_service()
@@ -148,28 +146,21 @@ update_x11()
     fi
 }
 
-add_desktop_file()
-{
-    DESKTOP=$(<$SCRIPTPATH/MixwareScreen.desktop)
-    mkdir -p $HOME/.local/share/applications/
-    echo "$DESKTOP" | tee $HOME/.local/share/applications/MixwareScreen.desktop > /dev/null
-}
-
 start_MixwareScreen()
 {
     echo_text "Starting service..."
     sudo systemctl stop MixwareScreen
     sudo systemctl start MixwareScreen
 }
+
 if [ "$EUID" == 0 ]
     then echo_error "Please do not run this script as root"
     exit 1
 fi
 install_packages
-create_virtualenv
+pip_requirements
 modify_user
 install_systemd_service
 update_x11
 echo_ok "MixwareScreen was installed"
-#add_desktop_file
 start_MixwareScreen

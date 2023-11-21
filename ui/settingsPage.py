@@ -44,7 +44,6 @@ class SettingsPage(QWidget):
         self.aboutPage = AboutPage(self._printer, self._parent)
         self.about = SettingsButton()
         self.about.clicked.connect(self.gotoAboutPage)
-        # self.about.clicked.connect(self.openAboutDialog)
         self.layout.addWidget(self.about)
 
         self.re_translate_ui()
@@ -67,23 +66,6 @@ class SettingsPage(QWidget):
 
         self.theme.hide()
         self.language.hide()
-
-    @pyqtSlot()
-    def openAboutDialog(self):
-        info = ""
-        if self._printer.version():
-            info += self.tr("Version: {}\n").format(self._printer.version())
-        if "Unknown" not in self._printer.deviceName():
-            info += self.tr("Printer Name: {}\n").format(self._printer.deviceName())
-            info += self.tr("Printer Version: {}\n").format(self._printer.deviceVersion())
-        else:
-            info += self.tr("Printer disconnected.\n")
-        if self._printer.get_ip_addr("wlan0"):
-            info += self.tr("IP Address: {}\n").format(self._printer.get_ip_addr("wlan0"))
-
-        self._parent.showShadowScreen()
-        self._parent.message.start(self.tr("About"), info, buttons=QMessageBox.Yes)
-        self._parent.closeShadowScreen()
 
     @pyqtSlot()
     def gotoAboutPage(self):

@@ -6,10 +6,9 @@ from ui.base.baseLine import BaseHLine, BaseVLine
 from ui.base.basePushButton import BasePushButton
 from ui.base.handleBar import HandleBar
 from ui.base.messageBar import MessageBar
-from ui.levelPages.bedMeshGraph import BedMeshGraph
 
 
-class DialIndicatorPage(QWidget):
+class PrintVerifyPage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
         self._printer = printer
@@ -17,7 +16,7 @@ class DialIndicatorPage(QWidget):
 
         self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
 
-        self.setObjectName("dialIndicatorPage")
+        self.setObjectName("printVerifyPage")
         self.setMinimumSize(self._printer.config.get_width(), self._printer.config.get_height() / 2)
         self.setMaximumSize(self._printer.config.get_window_size())
 
@@ -35,10 +34,7 @@ class DialIndicatorPage(QWidget):
         self.message_text_list = [
             self.tr("Clean platform debris."),
             self.tr("Preheat extruder."),
-            self.tr("Clean the nozzle."),
-            self.tr("Place dial indicator."),
-            self.tr("Measure compensation value(Left)."),
-            self.tr("Measure compensation value(Right)."),
+            self.tr("Working."),
             self.tr("Finish.")
         ]
         for i in range(len(self.message_text_list)):
@@ -130,82 +126,23 @@ class DialIndicatorPage(QWidget):
         self.preheat_body_layout.addWidget(self.preheat_text)
         self.handle_stacked_widget.addWidget(self.preheat_handle)
 
-        self.clean_handle = HandleBar()
-        self.clean_handle.previous_button.hide()
-        self.clean_handle.next_button.clicked.connect(self.on_clean_next_button_clicked)
-        self.clean_body_layout = QVBoxLayout(self.clean_handle.body)
-        self.clean_body_layout.setContentsMargins(20, 0, 20, 0)
-        self.clean_body_layout.setSpacing(0)
-        self.clean_body_layout.setAlignment(Qt.AlignCenter)
-        self.clean_logo = QLabel()
-        self.clean_logo.setFixedSize(320, 320)
-        self.clean_logo.setScaledContents(True)
-        self.clean_logo.setPixmap(QPixmap("resource/image/level_clean_nozzle.jpg"))
-        self.clean_body_layout.addWidget(self.clean_logo)
-        self.clean_text = QLabel()
-        self.clean_text.setWordWrap(True)
-        self.clean_text.setAlignment(Qt.AlignCenter)
-        self.clean_body_layout.addWidget(self.clean_text)
-        self.handle_stacked_widget.addWidget(self.clean_handle)
-
-        self.place_handle = HandleBar()
-        self.place_handle.previous_button.hide()
-        self.place_handle.next_button.clicked.connect(self.on_place_next_button_clicked)
-        self.place_body_layout = QVBoxLayout(self.place_handle.body)
-        self.place_body_layout.setContentsMargins(20, 0, 20, 0)
-        self.place_body_layout.setSpacing(0)
-        self.place_body_layout.setAlignment(Qt.AlignCenter)
-        self.place_logo = QLabel()
-        self.place_logo.setFixedSize(320, 320)
-        self.place_logo_movie = QMovie("resource/image/level_measure.gif")
-        self.place_logo_movie.setScaledSize(self.remind_logo.size())
-        # self.place_logo_movie.start()
-        self.place_logo.setMovie(self.place_logo_movie)
-        self.place_body_layout.addWidget(self.place_logo)
-        self.place_text = QLabel()
-        self.place_text.setWordWrap(True)
-        self.place_text.setAlignment(Qt.AlignCenter)
-        self.place_body_layout.addWidget(self.place_text)
-        self.handle_stacked_widget.addWidget(self.place_handle)
-
-        self.measure_left_handle = HandleBar()
-        self.measure_left_handle.previous_button.hide()
-        self.measure_left_handle.next_button.clicked.connect(self.on_measure_left_next_button_clicked)
-        self.measure_left_body_layout = QVBoxLayout(self.measure_left_handle.body)
-        self.measure_left_body_layout.setContentsMargins(20, 0, 20, 0)
-        self.measure_left_body_layout.setSpacing(0)
-        self.measure_left_body_layout.setAlignment(Qt.AlignCenter)
-        self.measure_left_logo = QLabel()
-        self.measure_left_logo.setFixedSize(320, 320)
-        self.measure_left_logo_movie = QMovie("resource/image/level_measure_left.gif")
-        self.measure_left_logo_movie.setScaledSize(self.remind_logo.size())
-        self.measure_left_logo.setMovie(self.measure_left_logo_movie)
-        self.measure_left_body_layout.addWidget(self.measure_left_logo)
-        self.measure_left_text = QLabel()
-        self.measure_left_text.setWordWrap(True)
-        self.measure_left_text.setAlignment(Qt.AlignCenter)
-        self.measure_left_body_layout.addWidget(self.measure_left_text)
-        self.handle_stacked_widget.addWidget(self.measure_left_handle)
-
-        self.measure_right_handle = HandleBar()
-        self.measure_right_handle.previous_button.hide()
-        self.measure_right_handle.next_button.clicked.connect(self.on_measure_right_next_button_clicked)
-        self.measure_right_body_layout = QVBoxLayout(self.measure_right_handle.body)
-        self.measure_right_body_layout.setContentsMargins(20, 0, 20, 0)
-        self.measure_right_body_layout.setSpacing(0)
-        self.measure_right_body_layout.setAlignment(Qt.AlignCenter)
-        self.measure_right_logo = QLabel()
-        self.measure_right_logo.setFixedSize(320, 320)
-        self.measure_right_logo_movie = QMovie("resource/image/level_measure_right.gif")
-        self.measure_right_logo_movie.setScaledSize(self.remind_logo.size())
-        # self.measure_right_logo_movie.start()
-        self.measure_right_logo.setMovie(self.measure_right_logo_movie)
-        self.measure_right_body_layout.addWidget(self.measure_right_logo)
-        self.measure_right_text = QLabel()
-        self.measure_right_text.setWordWrap(True)
-        self.measure_right_text.setAlignment(Qt.AlignCenter)
-        self.measure_right_body_layout.addWidget(self.measure_right_text)
-        self.handle_stacked_widget.addWidget(self.measure_right_handle)
+        self.work_handle = HandleBar()
+        self.work_handle.previous_button.hide()
+        self.work_handle.next_button.clicked.connect(self.on_clean_next_button_clicked)
+        self.work_body_layout = QVBoxLayout(self.work_handle.body)
+        self.work_body_layout.setContentsMargins(20, 0, 20, 0)
+        self.work_body_layout.setSpacing(0)
+        self.work_body_layout.setAlignment(Qt.AlignCenter)
+        # self.work_logo = QLabel()
+        # self.work_logo.setFixedSize(320, 320)
+        # self.work_logo.setScaledContents(True)
+        # self.work_logo.setPixmap(QPixmap("resource/image/level_clean_nozzle.jpg"))
+        # self.work_body_layout.addWidget(self.work_logo)
+        self.work_text = QLabel()
+        self.work_text.setWordWrap(True)
+        self.work_text.setAlignment(Qt.AlignCenter)
+        self.work_body_layout.addWidget(self.work_text)
+        self.handle_stacked_widget.addWidget(self.work_handle)
 
         self.finished_handle = HandleBar()
         self.finished_handle.previous_button.hide()
@@ -253,7 +190,7 @@ class DialIndicatorPage(QWidget):
         self.preheat_abs.setText("ABS")
         self.preheat_pet.setText("PET")
         self.preheat_pa.setText("PA")
-        self.clean_text.setText(self.tr("Please use a metal brush to clean the nozzle residue"))
+        self.work_text.setText(self.tr("Please wait."))
         self.place_text.setText(self.tr("Place the dial indicator at the specified location."))
         self.measure_left_text.setText(self.tr("Click <Next> to start measure compensation value(Left)."))
         self.measure_right_text.setText(self.tr("Click <Next> to start measure compensation value(Right)."))

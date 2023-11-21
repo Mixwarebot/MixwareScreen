@@ -97,9 +97,6 @@ class WLANConnectBox(BaseRoundDialog):
         self.confirm_button.clicked.connect(self.on_confirm)
         button_frame_layout.addWidget(self.confirm_button, 1)
 
-        # self.keyboard_layout_1 = QHBoxLayout()
-        # self.keyboard_layout_1.setContentsMargins(10, 0, 10, 0)
-        # self.keyboard_layout_1.setSpacing(2)
         self.keyboard_frame = QFrame()
         self.keyboard_frame.setFixedSize(360, 180)
         self.keyboard_frame_layout = QVBoxLayout(self.keyboard_frame)
@@ -187,7 +184,6 @@ class WLANConnectBox(BaseRoundDialog):
         frame_layout.addWidget(BaseHLine())
         frame_layout.addWidget(self.footer_frame)
         self.keyboard_frame.setFocusPolicy(Qt.NoFocus)
-        # self.keyboard_frame.hide()
         layout.addWidget(self.frame)
 
         self.re_translate_ui()

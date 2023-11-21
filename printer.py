@@ -736,7 +736,6 @@ class MixwareScreenPrinter(QObject):
             command = "M141"
         if command:
             command += " S" + str(target) + "\nM105"
-            print(command)
             self.write_gcode_command(command)
 
     @pyqtSlot(result=str)
@@ -766,7 +765,6 @@ class MixwareScreenPrinter(QObject):
         elif 'exhaust' in fan:
             command += " P2"
         command += " S" + str(int(speed * 255))
-        print(command)
         self.write_gcode_command(command)
 
     @pyqtSlot(result=float)

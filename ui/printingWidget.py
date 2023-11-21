@@ -47,8 +47,6 @@ class PrintingWidget(BasePrintWidget):
         self.printingPage.fan_right_button.clicked.connect(self.on_fan_right_button_clicked)
         self.printingPage.fan_exhaust_button.clicked.connect(self.on_fan_exhaust_button_clicked)
 
-        # self.printingPage.button.clicked.connect(self.onButtonClicked)#test
-
     def onButtonClicked(self):#test
         filepath, _ = QFileDialog.getOpenFileName(None, "pic", ".", "*.png")
         picture = QPixmap()
