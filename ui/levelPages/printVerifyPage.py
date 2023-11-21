@@ -98,7 +98,7 @@ class PrintVerifyPage(QWidget):
         self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_right_button, 2, 1, 1, 1)
         self.preheat_thermal_frame_layout.addWidget(BaseHLine(), 3, 0, 1, 2)
         self.preheat_thermal_bed = QLabel()
-        self.preheat_thermal_bed.setObjectName("rightLogo")
+        self.preheat_thermal_bed.setObjectName("bedLogo")
         self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_bed, 4, 0, 1, 1)
         self.preheat_thermal_bed_button = QPushButton()
         self.preheat_thermal_bed_button.setFixedHeight(64)
