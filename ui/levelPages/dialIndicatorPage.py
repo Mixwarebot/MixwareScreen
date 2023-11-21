@@ -356,7 +356,7 @@ class DialIndicatorPage(QWidget):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
-        self._printer.write_gcode_commands("G1 Z150 F960\nG28\nT0\nT1\nG1 X190 Y20 Z150 F8400")
+        self._printer.write_gcode_commands("G1 Z150 F960\nG28O\nT1\nG1 X190 Y20 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
         self.measure_right_logo_movie.start()
