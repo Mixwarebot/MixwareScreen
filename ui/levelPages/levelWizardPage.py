@@ -422,7 +422,7 @@ class LevelWizardPage(QWidget):
                 self.message_list[index + 2].show()
 
     def on_remind_next_button_clicked(self):
-        logging.debug(f"start preheat")
+        logging.debug(f"Start preheat")
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
@@ -471,7 +471,7 @@ class LevelWizardPage(QWidget):
             # self._printer.set_thermal('right', 0)
             self._printer.write_gcode_command('M104 S0 T0\nM104 S0 T1\nG28\nD28\nG29\nM500')
             self.level_handle.next_button.setEnabled(False)
-        self._parent.footer.setVisible(False)
+        self._parent.footer.setEnabled(False)
         self.goto_next_step_stacked_widget()
         self.level_load.show()
         self.level_load_timer.start(250)
@@ -541,7 +541,7 @@ class LevelWizardPage(QWidget):
 
     def on_finished_next_button_clicked(self):
         self._printer.save_dial_indicator_value()
-        self._parent.footer.setVisible(True)
+        self._parent.footer.setEnabled(True)
         self.reset_ui()
 
     def rotate_image(self, label:QLabel, image:str, angle:int):

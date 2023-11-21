@@ -4,6 +4,7 @@ from ui.levelPages.autoLevelPage import AutoLevelPage
 from ui.levelPages.bedLevelPage import BedLevelPage
 from ui.levelPages.dialIndicatorPage import DialIndicatorPage
 from ui.levelPages.offsetPage import OffsetPage
+from ui.levelPages.printVerifyPage import PrintVerifyPage
 
 
 class LevelPage(QWidget):
@@ -30,11 +31,15 @@ class LevelPage(QWidget):
         self.offset_z = BasePushButton()
         self.offset_z.clicked.connect(self.goto_offset_z_page)
         self.layout.addWidget(self.offset_z, 1, 1)
+        self.offset_xy = BasePushButton()
+        self.offset_xy.clicked.connect(self.goto_offset_xy_page)
+        self.layout.addWidget(self.offset_xy, 2, 0)
 
         self.bedLevelPage = BedLevelPage(self._printer, self._parent)
         self.autoLevelPage = AutoLevelPage(self._printer, self._parent)
         self.offsetPage = OffsetPage(self._printer, self._parent)
         self.dialIndicatorPage = DialIndicatorPage(self._printer, self._parent)
+        self.printVerifyPage = PrintVerifyPage(self._printer, self._parent)
 
         self.re_translate_ui()
 
@@ -44,8 +49,9 @@ class LevelPage(QWidget):
     def re_translate_ui(self):
         self.bed_mesh.setText(self.tr("Auto Bed Level"))
         self.bed_level.setText(self.tr("Bed Level"))
-        self.offset.setText(self.tr("Adjust Probe Offsets"))
-        self.offset_z.setText(self.tr("Z-axis"))
+        self.offset.setText(self.tr("Probe Offsets"))
+        self.offset_z.setText(self.tr("Dial Indicator"))
+        self.offset_xy.setText(self.tr("Print Verify"))
 
     @pyqtSlot()
     def goto_auto_level_page(self):
@@ -64,3 +70,7 @@ class LevelPage(QWidget):
     @pyqtSlot()
     def goto_offset_z_page(self):
         self._parent.gotoPage(self.dialIndicatorPage, self.tr("Dial Indicator"))
+
+    @pyqtSlot()
+    def goto_offset_xy_page(self):
+        self._parent.gotoPage(self.printVerifyPage, self.tr("Print Verify"))

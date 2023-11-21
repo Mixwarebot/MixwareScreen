@@ -88,6 +88,7 @@ class TemperaturePage(QWidget):
         self.layout.addWidget(self.frame, 4)
 
         self.re_translate_ui()
+        self.on_temperature_button_group_clicked(0)
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()

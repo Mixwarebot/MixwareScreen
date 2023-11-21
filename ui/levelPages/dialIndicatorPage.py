@@ -293,7 +293,7 @@ class DialIndicatorPage(QWidget):
                 self.message_list[index + 2].show()
 
     def on_remind_next_button_clicked(self):
-        logging.debug(f"start preheat")
+        logging.debug(f"Start preheat")
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
@@ -373,4 +373,5 @@ class DialIndicatorPage(QWidget):
 
     def on_finished_next_button_clicked(self):
         self._printer.save_dial_indicator_value()
+        self._parent.footer.setEnabled(True)
         self.reset_ui()

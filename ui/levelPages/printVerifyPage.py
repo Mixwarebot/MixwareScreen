@@ -26,7 +26,7 @@ class PrintVerifyPage(QWidget):
 
         self.message_frame = QFrame()
         self.message_frame.setObjectName("frameBox")
-        self.message_frame.setFixedSize(360, 240)
+        self.message_frame.setFixedSize(360, 310)
         self.message_layout = QVBoxLayout(self.message_frame)
         self.message_layout.setContentsMargins(20, 20, 20, 20)
         self.message_layout.setSpacing(10)
@@ -96,6 +96,14 @@ class PrintVerifyPage(QWidget):
         self.preheat_thermal_right_button.setFixedHeight(64)
         self.preheat_thermal_right_button.clicked.connect(self.on_preheat_thermal_right_button_clicked)
         self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_right_button, 2, 1, 1, 1)
+        self.preheat_thermal_frame_layout.addWidget(BaseHLine(), 3, 0, 1, 2)
+        self.preheat_thermal_bed = QLabel()
+        self.preheat_thermal_bed.setObjectName("rightLogo")
+        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_bed, 4, 0, 1, 1)
+        self.preheat_thermal_bed_button = QPushButton()
+        self.preheat_thermal_bed_button.setFixedHeight(64)
+        self.preheat_thermal_bed_button.clicked.connect(self.on_preheat_thermal_bed_button_clicked)
+        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_right_button, 4, 1, 1, 1)
         self.preheat_body_layout.addWidget(self.preheat_thermal_frame)
         self.preheat_body_layout.addWidget(BaseHLine())
         self.preheat_filament_layout = QHBoxLayout()
@@ -164,19 +172,14 @@ class PrintVerifyPage(QWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         self.reset_ui()
         self.re_translate_ui()
+
     def hideEvent(self, a0: QHideEvent) -> None:
-        self.place_logo_movie.stop()
-        self.measure_left_logo_movie.stop()
-        self.measure_right_logo_movie.stop()
+        pass
 
     def reset_ui(self):
         for count in range(len(self.message_list)):
             self.message_list[count].setText(self.message_text_list[count])
             self.message_list[count].setEnabled(False)
-            if count < 3:
-                self.message_list[count].show()
-            else:
-                self.message_list[count].hide()
         self.message_list[0].setEnabled(True)
         self.handle_stacked_widget.setCurrentIndex(0)
 
@@ -191,9 +194,6 @@ class PrintVerifyPage(QWidget):
         self.preheat_pet.setText("PET")
         self.preheat_pa.setText("PA")
         self.work_text.setText(self.tr("Please wait."))
-        self.place_text.setText(self.tr("Place the dial indicator at the specified location."))
-        self.measure_left_text.setText(self.tr("Click <Next> to start measure compensation value(Left)."))
-        self.measure_right_text.setText(self.tr("Click <Next> to start measure compensation value(Right)."))
         self.finished_handle.next_button.setText(self.tr("Done"))
         self.finished_text.setText(self.tr("Measure completed."))
 
@@ -215,9 +215,6 @@ class PrintVerifyPage(QWidget):
             self.message_list[index].setEnabled(False)
             self.message_list[index - 1].setEnabled(True)
             self.handle_stacked_widget.setCurrentIndex(index - 1)
-            if 1 < index < self.handle_stacked_widget.count():
-                self.message_list[index + 1].hide()
-                self.message_list[index - 2].show()
 
     def goto_next_step_stacked_widget(self):
         index = self.handle_stacked_widget.currentIndex()
@@ -225,12 +222,9 @@ class PrintVerifyPage(QWidget):
             self.message_list[index].setEnabled(False)
             self.message_list[index + 1].setEnabled(True)
             self.handle_stacked_widget.setCurrentIndex(index + 1)
-            if 0 < index < (self.handle_stacked_widget.count() - 2):
-                self.message_list[index - 1].hide()
-                self.message_list[index + 2].show()
 
     def on_remind_next_button_clicked(self):
-        logging.debug(f"start preheat")
+        logging.debug(f"Start preheat")
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
@@ -258,6 +252,10 @@ class PrintVerifyPage(QWidget):
         self._parent.open_thermal_right_numberPad()
         self.reset_preheat_handle_ui()
 
+    def on_preheat_thermal_bed_button_clicked(self):
+        self._parent.open_thermal_bed_numberPad()
+        self.reset_preheat_handle_ui()
+
     def on_preheat_pla_clicked(self):
         self.preheat_filament(210)
 
@@ -280,12 +278,9 @@ class PrintVerifyPage(QWidget):
             self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y20 Z150 F8400")
 
         self.goto_next_step_stacked_widget()
-        self.place_logo_movie.start()
 
     def on_place_next_button_clicked(self):
         self.goto_next_step_stacked_widget()
-        self.place_logo_movie.stop()
-        self.measure_left_logo_movie.start()
 
     def on_measure_left_next_button_clicked(self):
         self._printer.write_gcode_command(
@@ -295,8 +290,6 @@ class PrintVerifyPage(QWidget):
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
         self._printer.write_gcode_commands("G1 Z150 F960\nG28\nT1\nG1 X190 Y20 Z150 F8400")
         self.goto_next_step_stacked_widget()
-        self.measure_left_logo_movie.stop()
-        self.measure_right_logo_movie.start()
 
     def on_measure_right_next_button_clicked(self):
         self._printer.write_gcode_command(
@@ -306,7 +299,6 @@ class PrintVerifyPage(QWidget):
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_right")
         self._printer.write_gcode_command("G1 Z150 F960\nG28X")
         self.goto_next_step_stacked_widget()
-        self.measure_right_logo_movie.stop()
 
     def on_finished_next_button_clicked(self):
         self._printer.save_dial_indicator_value()
