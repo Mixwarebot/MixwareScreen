@@ -91,7 +91,7 @@ install_packages()
 
 pip_requirements()
 {
-    echo_text "Creating virtual environment"
+    echo_text "Install pip requirements"
 
     pip --disable-pip-version-check install -r ${MSPATH}/scripts/MixwareScreen-requirements.txt
     if [ $? -gt 0 ]; then
