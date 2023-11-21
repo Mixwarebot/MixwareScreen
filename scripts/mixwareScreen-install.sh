@@ -101,7 +101,7 @@ pip_requirements()
         pip install --upgrade pip setuptools
         pip install -r ${MSPATH}/scripts/MixwareScreen-requirements.txt
         if [ $? -gt 0 ]; then
-            echo_error "Unable to install dependencies, aborting install."
+            echo_error "Unable to install dependencies, aborting install"
             deactivate
             exit 1
         fi
