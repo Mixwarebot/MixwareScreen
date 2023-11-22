@@ -140,6 +140,7 @@ class PrintingWidget(BasePrintWidget):
         self.showShadowScreen()
         ret = self.printDoneDialog.start("Mixware Screen", self.tr("Print Done.\nPrint time: {}").format(self.printingPage.print_time.text()))
         if ret == QMessageBox.Yes:
+            self.reset_time()
             self._printer.print_again()
         elif ret == QMessageBox.Cancel:
             self.print_done.emit()

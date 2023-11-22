@@ -43,7 +43,7 @@ class MachinePage(QWidget):
         layout = QVBoxLayout(self)
         # layout.addWidget(self.printMode)
         # layout.addWidget(self.heatingMode)
-        layout.addWidget(self.movementMode)
+        # layout.addWidget(self.movementMode)
         # layout.addWidget(self.filamentDetector)
         # layout.addWidget(self.powerLossRecovery)
         # layout.addWidget(self.thermalProtection)

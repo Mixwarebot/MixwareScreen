@@ -774,33 +774,28 @@ click &lt;Next&gt; to start working.</source>
 <context>
     <name>LevelPage</name>
     <message>
-        <location filename="../../../ui/levelPages/levelPage.py" line="48"/>
-        <source>Z-axis</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/levelPages/levelPage.py" line="58"/>
+        <location filename="../../../ui/levelPages/levelPage.py" line="62"/>
         <source>Bed Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/levelPage.py" line="53"/>
+        <location filename="../../../ui/levelPages/levelPage.py" line="58"/>
         <source>Auto Bed Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/levelPage.py" line="47"/>
-        <source>Adjust Probe Offsets</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/levelPages/levelPage.py" line="62"/>
+        <location filename="../../../ui/levelPages/levelPage.py" line="66"/>
         <source>Probe Offsets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/levelPage.py" line="66"/>
+        <location filename="../../../ui/levelPages/levelPage.py" line="70"/>
         <source>Dial Indicator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/levelPage.py" line="74"/>
+        <source>Print Verify</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1094,48 +1089,33 @@ Motor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="186"/>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="187"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="247"/>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="239"/>
         <source>Preheating extruder.
 (Default 170°C)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="195"/>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="196"/>
         <source>Please wait.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="196"/>
-        <source>Place the dial indicator at the specified location.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../ui/levelPages/printVerifyPage.py" line="197"/>
-        <source>Click &lt;Next&gt; to start measure compensation value(Left).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="198"/>
-        <source>Click &lt;Next&gt; to start measure compensation value(Right).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="199"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="200"/>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="198"/>
         <source>Measure completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="212"/>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="210"/>
         <source>Heat completed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1169,22 +1149,22 @@ Motor</source>
 <context>
     <name>PrintingWidget</name>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="63"/>
+        <location filename="../../../ui/printingWidget.py" line="64"/>
         <source>Left Model Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="69"/>
+        <location filename="../../../ui/printingWidget.py" line="70"/>
         <source>Right Model Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="75"/>
+        <location filename="../../../ui/printingWidget.py" line="76"/>
         <source>Exhaust Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="135"/>
+        <location filename="../../../ui/printingWidget.py" line="141"/>
         <source>Print Done.
 Print time: {}</source>
         <translation type="unfinished"></translation>
@@ -1323,17 +1303,17 @@ Print time: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/temperaturePage.py" line="96"/>
+        <location filename="../../../ui/temperaturePage.py" line="97"/>
         <source>PLA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/temperaturePage.py" line="97"/>
+        <location filename="../../../ui/temperaturePage.py" line="98"/>
         <source>PA-CF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/temperaturePage.py" line="98"/>
+        <location filename="../../../ui/temperaturePage.py" line="99"/>
         <source>Cool</source>
         <translation type="unfinished"></translation>
     </message>
