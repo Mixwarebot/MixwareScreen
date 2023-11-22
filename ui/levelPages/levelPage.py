@@ -25,15 +25,15 @@ class LevelPage(QWidget):
         self.bed_level = BasePushButton()
         self.bed_level.clicked.connect(self.goto_bed_level_page)
         self.layout.addWidget(self.bed_level, 0, 1)
-        self.offset = BasePushButton()
-        self.offset.clicked.connect(self.goto_offset_page)
-        self.layout.addWidget(self.offset, 1, 0)
         self.offset_z = BasePushButton()
         self.offset_z.clicked.connect(self.goto_offset_z_page)
-        self.layout.addWidget(self.offset_z, 1, 1)
+        self.layout.addWidget(self.offset_z, 1, 0)
         self.offset_xy = BasePushButton()
         self.offset_xy.clicked.connect(self.goto_offset_xy_page)
-        self.layout.addWidget(self.offset_xy, 2, 0)
+        # self.layout.addWidget(self.offset_xy, 1, 1)
+        self.offset = BasePushButton()
+        self.offset.clicked.connect(self.goto_offset_page)
+        self.layout.addWidget(self.offset, 1, 1)
 
         self.bedLevelPage = BedLevelPage(self._printer, self._parent)
         self.autoLevelPage = AutoLevelPage(self._printer, self._parent)
@@ -55,12 +55,10 @@ class LevelPage(QWidget):
 
     @pyqtSlot()
     def goto_auto_level_page(self):
-        # self._printer.write_gcode_command("D105")
         self._parent.gotoPage(self.autoLevelPage, self.tr("Auto Bed Level"))
 
     @pyqtSlot()
     def goto_bed_level_page(self):
-        # self._printer.write_gcode_command("D105")
         self._parent.gotoPage(self.bedLevelPage, self.tr("Bed Level"))
 
     @pyqtSlot()

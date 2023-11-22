@@ -209,7 +209,8 @@ class MixwareScreenPrinter(QObject):
                 continue
 
             if 'echo:' in self.serial_data and 'Failed' in self.serial_data:
-                self.updatePrinterMessage.emit(self.serial_data[self.serial_data.find('echo:') + 5:self.serial_data.rfind('\n')])
+                self.updatePrinterMessage.emit(
+                    self.serial_data[self.serial_data.find('echo:') + 5:self.serial_data.rfind('\n')])
                 logging.error(F"Printer error: {self.serial_data}")
                 continue
 
@@ -228,7 +229,7 @@ class MixwareScreenPrinter(QObject):
 
             if self._last_temperature_request is None or time() > self._last_temperature_request + self._timeout:
                 # Timeout, or no request has been sent at all.
-                if not self._printer_busy: # Don't flood the printer with temperature requests while it is busy
+                if not self._printer_busy:  # Don't flood the printer with temperature requests while it is busy
                     # self.sendCommand("M105")
                     if pull_thermal:
                         self.sendCommand("M105")
@@ -236,7 +237,7 @@ class MixwareScreenPrinter(QObject):
                         self.sendCommand("M114")
                     pull_thermal ^= True
                     self._last_temperature_request = time()
-                    
+
             if "FIRMWARE_NAME:" in self.serial_data:
                 self._setPrinterInformation(self.serial_data)
                 self.updatePrinterStatus.emit(self.connected)
@@ -342,7 +343,8 @@ class MixwareScreenPrinter(QObject):
                         self.information['flow']['right'] = int(self.re_data[0][1])
                     self.re_data.clear()
             elif re.search("M218 T1", self.serial_data):
-                self.re_data = re.findall("M218 T1 X(-?\\d+\\.?\\d*) Y(-?\\d+\\.?\\d*) Z(-?\\d+\\.?\\d*)", self.serial_data)
+                self.re_data = re.findall("M218 T1 X(-?\\d+\\.?\\d*) Y(-?\\d+\\.?\\d*) Z(-?\\d+\\.?\\d*)",
+                                          self.serial_data)
                 if self.re_data:
                     logging.debug(F"Update printer right probe offset(M218): {self.re_data}")
                     self.information['probe']['offset']['right']['X'] = float(self.re_data[0][0])
@@ -350,7 +352,8 @@ class MixwareScreenPrinter(QObject):
                     self.information['probe']['offset']['right']['Z'] = float(self.re_data[0][2])
                     self.re_data.clear()
             elif re.search("M851", self.serial_data):
-                self.re_data = re.findall("M851 X(-?\\d+\\.?\\d*) Y(-?\\d+\\.?\\d*) Z(-?\\d+\\.?\\d*)", self.serial_data)
+                self.re_data = re.findall("M851 X(-?\\d+\\.?\\d*) Y(-?\\d+\\.?\\d*) Z(-?\\d+\\.?\\d*)",
+                                          self.serial_data)
                 if self.re_data:
                     logging.debug(F"Update printer left probe offset(M851): {self.re_data}")
                     self.information['probe']['offset']['left']['X'] = float(self.re_data[0][0])
@@ -358,7 +361,8 @@ class MixwareScreenPrinter(QObject):
                     self.information['probe']['offset']['left']['Z'] = float(self.re_data[0][2])
                     self.re_data.clear()
             elif re.search("M106", self.serial_data):  # Fan & LED speed
-                self.re_data = re.findall("M106 P\\d* S(\\d*) P\\d* S(\\d*) P\\d* S(\\d*) P\\d* S(\\d*)", self.serial_data)
+                self.re_data = re.findall("M106 P\\d* S(\\d*) P\\d* S(\\d*) P\\d* S(\\d*) P\\d* S(\\d*)",
+                                          self.serial_data)
                 if self.re_data:
                     logging.debug(F"Update fan status(M106): {self.re_data}")
                     self.information['fan']['left']['speed'] = int(self.re_data[0][0]) / 255
@@ -376,7 +380,8 @@ class MixwareScreenPrinter(QObject):
                     logging.debug(F"Update led status(M355): {self.information['led']['light']}")
             else:
                 if re.search("M92", self.serial_data):
-                    self.re_data = re.findall("M92 X(\\d+\\.?\\d*) Y(\\d+\\.?\\d*) Z(\\d+\\.?\\d*) E(\\d+\\.?\\d*)", self.serial_data)
+                    self.re_data = re.findall("M92 X(\\d+\\.?\\d*) Y(\\d+\\.?\\d*) Z(\\d+\\.?\\d*) E(\\d+\\.?\\d*)",
+                                              self.serial_data)
                     if self.re_data:
                         logging.debug(F"Update printer steps per unit(M92): {self.re_data}")
                         self.information['motor']['stepPerUnit']['X'] = float(self.re_data[0][0])
@@ -385,7 +390,8 @@ class MixwareScreenPrinter(QObject):
                         self.information['motor']['stepPerUnit']['E'] = float(self.re_data[0][3])
                         self.re_data.clear()
                 elif re.search("M201", self.serial_data):
-                    self.re_data = re.findall("M201 X(\\d+\\.?\\d*) Y(\\d+\\.?\\d*) Z(\\d+\\.?\\d*) E(\\d+\\.?\\d*)", self.serial_data)
+                    self.re_data = re.findall("M201 X(\\d+\\.?\\d*) Y(\\d+\\.?\\d*) Z(\\d+\\.?\\d*) E(\\d+\\.?\\d*)",
+                                              self.serial_data)
                     if self.re_data:
                         logging.debug(F"Update printer max acceleration(M201): {self.re_data}")
                         self.information['motor']['maxAcceleration']['X'] = float(self.re_data[0][0])
@@ -393,7 +399,8 @@ class MixwareScreenPrinter(QObject):
                         self.information['motor']['maxAcceleration']['Z'] = float(self.re_data[0][2])
                         self.information['motor']['maxAcceleration']['E'] = float(self.re_data[0][3])
                 elif re.search("M203", self.serial_data):
-                    self.re_data = re.findall("M203 X(\\d+\\.?\\d*) Y(\\d+\\.?\\d*) Z(\\d+\\.?\\d*) E(\\d+\\.?\\d*)", self.serial_data)
+                    self.re_data = re.findall("M203 X(\\d+\\.?\\d*) Y(\\d+\\.?\\d*) Z(\\d+\\.?\\d*) E(\\d+\\.?\\d*)",
+                                              self.serial_data)
                     if self.re_data:
                         logging.debug(F"Update printer max feed rate(M203): {self.re_data}")
                         self.information['motor']['maxFeedRate']['X'] = float(self.re_data[0][0])
@@ -858,6 +865,9 @@ class MixwareScreenPrinter(QObject):
         self._gcode.insert(0, "M110")
         self._gcode_position = 0
 
+        if self.get_extruder() == 'right':
+            self._sendCommand('M84\nG28\nT0\nG0 Y319 F6600')
+
         for i in range(0, 4):  # Push first 4 entries before accepting other inputs
             self._sendNextGcodeLine()
 
@@ -926,6 +936,7 @@ class MixwareScreenPrinter(QObject):
     @pyqtSlot(result=str)
     def version(self):
         return self._version
+
     # @QtCore.pyqtProperty(QtCore.QVariant)
 
     @pyqtSlot()
@@ -937,6 +948,6 @@ class MixwareScreenPrinter(QObject):
         self.dial_indicator[obj] = float(value)
 
     def save_dial_indicator_value(self):
-        offset = self.information['probe']['offset']['right']['Z'] + self.dial_indicator['left'] - self.dial_indicator['right']
+        offset = self.information['probe']['offset']['right']['Z'] + self.dial_indicator['left'] - self.dial_indicator[
+            'right']
         self.write_gcode_command(f"M218 T1 Z{offset}\nM500\nM218")
-

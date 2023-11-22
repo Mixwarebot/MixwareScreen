@@ -77,6 +77,7 @@ class MixwareScreen(QWidget):
         if index != self.stackedLayout.currentIndex():
             self.stackedLayout.setCurrentIndex(index)
 
+    @pyqtSlot(int)
     def on_update_printer_status(self, status):
         if status == 0:
             if self.stackedLayout.currentWidget() == self.splashWidget:

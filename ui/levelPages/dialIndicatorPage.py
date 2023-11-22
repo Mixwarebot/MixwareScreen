@@ -300,7 +300,7 @@ class DialIndicatorPage(QWidget):
         # preheat -> 170
         self._printer.set_thermal('left', 170)
         self._printer.set_thermal('right', 170)
-        self._printer.write_gcode_commands("M155 S2\nG28O\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        self._printer.write_gcode_commands("M155 S1\nG28O\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
         if platform.system().lower() == 'linux':
@@ -351,7 +351,7 @@ class DialIndicatorPage(QWidget):
         self.measure_left_logo_movie.start()
 
     def on_measure_left_next_button_clicked(self):
-        self._printer.write_gcode_command(
+        self._printer.write_gcode_commands(
             "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
@@ -362,12 +362,12 @@ class DialIndicatorPage(QWidget):
         self.measure_right_logo_movie.start()
 
     def on_measure_right_next_button_clicked(self):
-        self._printer.write_gcode_command(
+        self._printer.write_gcode_commands(
             "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_right")
-        self._printer.write_gcode_command("G1 Z150 F960\nG28X")
+        self._printer.write_gcode_commands("G1 Z150 F960\nG28X")
         self.goto_next_step_stacked_widget()
         self.measure_right_logo_movie.stop()
 

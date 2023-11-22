@@ -429,7 +429,7 @@ class LevelWizardPage(QWidget):
         # preheat -> 170
         self._printer.set_thermal('left', 170)
         self._printer.set_thermal('right', 170)
-        self._printer.write_gcode_command("M155 S2\nG28O\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        self._printer.write_gcode_commands("M155 S1\nG28O\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
         if platform.system().lower() == 'linux':
@@ -481,7 +481,7 @@ class LevelWizardPage(QWidget):
         self.offset = self._printer.information['probe']['offset']
         self.offset_button_title.setText(
             f"Z: {self.offset['left']['Z']}({self._printer.information['probe']['offset']['left']['Z']})")
-        self._printer.write_gcode_command("G28\nT0\nG1 X190 Y160 F4000\nG1 Z0 F600")
+        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 F4000\nG1 Z0 F600")
         self.goto_next_step_stacked_widget()
 
     @pyqtSlot(QAbstractButton)
@@ -508,8 +508,8 @@ class LevelWizardPage(QWidget):
 
     def on_offset_next_button_clicked(self):
         self.offset_distance_frame.hide()
-        self._printer.write_gcode_command(f"M851 Z{self.offset['left']['Z']}\nM500\nM851")
-        self._printer.write_gcode_command("G28\nT0\nG1 X190 Y20 Z150 F8400")
+        self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']}\nM500\nM851")
+        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y20 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.place_logo_movie.start()
 
@@ -519,23 +519,23 @@ class LevelWizardPage(QWidget):
         self.measure_left_logo_movie.start()
 
     def on_measure_left_next_button_clicked(self):
-        self._printer.write_gcode_command(
+        self._printer.write_gcode_commands(
             "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
-        self._printer.write_gcode_commands("G1 Z150 F960\nG28O\nT1\nG1 X190 Y20 Z150 F8400")
+        self._printer.write_gcode_commands("G1 Z150 F960\nG28\nG1 Y20 Z150 F8400\nT1\nG1 X190 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
         self.measure_right_logo_movie.start()
 
     def on_measure_right_next_button_clicked(self):
-        self._printer.write_gcode_command(
+        self._printer.write_gcode_commands(
             "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_right")
-        self._printer.write_gcode_command("G1 Z150 F960\nG28X")
+        self._printer.write_gcode_commands("G1 Z150 F960\nG28X")
         self.goto_next_step_stacked_widget()
         self.measure_right_logo_movie.stop()
 

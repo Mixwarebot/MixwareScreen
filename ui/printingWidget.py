@@ -124,9 +124,9 @@ class PrintingWidget(BasePrintWidget):
         self.printingPage.fan_right_button.setText(str(int(self._printer.get_fan_speed('right')*100))+"%")
         self.printingPage.fan_exhaust_button.setText(str(int(self._printer.get_fan_speed('exhaust')*100))+"%")
 
-    @pyqtSlot()
+    @pyqtSlot(int)
     def on_update_printer_status(self, status):
-        if status == 5:
+        if status == 3:
             self.on_print_finished()
 
     def on_stop_button_clicked(self):

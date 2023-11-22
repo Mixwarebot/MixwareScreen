@@ -163,10 +163,10 @@ class OffsetPage(QWidget):
         self.offset['right']['X'] = self._printer.information['probe']['offset']['right']['X']
         self.offset['right']['Y'] = self._printer.information['probe']['offset']['right']['Y']
         self.offset['right']['Z'] = self._printer.information['probe']['offset']['right']['Z']
-        self._printer.write_gcode_command("G28\nT0\nG1 X190 Y160 F2400\nG1 Z0 F600")
+        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 F2400\nG1 Z0 F600")
 
     def hideEvent(self, a0: QHideEvent) -> None:
-        self._printer.write_gcode_command("G28\nT0\nM84")
+        self._printer.write_gcode_commands("G28\nT0\nM84")
 
     def re_translate_ui(self):
         self.x_left_button.setText(self.tr("Left"))
@@ -260,10 +260,10 @@ class OffsetPage(QWidget):
     def on_button_clicked(self, button):
         if button.text() == self.tr("Left"):
             if self._printer.get_extruder() == "right":
-                self._printer.write_gcode_command("G28\nT0\nG1 Z15 F600\nG1 X190 Y160 F2400\nG1 Z0 F300")
+                self._printer.write_gcode_commands("G28\nT0\nG1 Z15 F600\nG1 X190 Y160 F8400\nG1 Z0 F300")
         elif button.text() == self.tr("Right"):
             if self._printer.get_extruder() == "left":
-                self._printer.write_gcode_command("G28O\nT1\nG1 Z15 F600\nG1 X190 Y160 F2400\nG1 Z0 F300")
+                self._printer.write_gcode_commands("G28\nG1 Y160 Z15 F8400\nM400\nT1\nG1 X190 F8400\nG1 Z0 F300")
         elif button.text() in self.offset_distance_list:
             if self.buttonGroup.id(button) != self.offset_distance_current_id:
                 self.buttonGroup.button(self.offset_distance_current_id).setStyleSheet(uncheckedStyleSheet)
@@ -272,9 +272,9 @@ class OffsetPage(QWidget):
 
     def on_save_button_clicked(self):
         if self._printer.get_extruder() == "left":
-            self._printer.write_gcode_command(f"M851 X{self.offset['left']['X']} Y{self.offset['left']['Y']} Z{self.offset['left']['Z']}\nM500\nM851")
+            self._printer.write_gcode_commands(f"M851 X{self.offset['left']['X']} Y{self.offset['left']['Y']} Z{self.offset['left']['Z']}\nM500\nM851")
         elif self._printer.get_extruder() == "right":
-            self._printer.write_gcode_command(f"M218 T1 X{self.offset['right']['X']} Y{self.offset['right']['Y']} Z{self.offset['right']['Z']}\nM500\nM218")
+            self._printer.write_gcode_commands(f"M218 T1 X{self.offset['right']['X']} Y{self.offset['right']['Y']} Z{self.offset['right']['Z']}\nM500\nM218")
 
     def on_update_printer_information(self):
         if self._printer.get_extruder() == "left":
