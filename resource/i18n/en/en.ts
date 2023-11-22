@@ -49,12 +49,6 @@ restart to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="101"/>
-        <source>Firmware download is successful,
-restart the printer to upgrade.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../ui/aboutPage.py" line="107"/>
         <source>Update failed.</source>
         <translation type="unfinished"></translation>
@@ -91,18 +85,23 @@ Mixware Screen is the latest version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="140"/>
+        <location filename="../../../ui/aboutPage.py" line="141"/>
         <source>Mixware Screen update successful.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="143"/>
+        <location filename="../../../ui/aboutPage.py" line="145"/>
         <source>Mixware Screen check failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="143"/>
+        <location filename="../../../ui/aboutPage.py" line="145"/>
         <source>Mixware Screen update failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/aboutPage.py" line="101"/>
+        <source>Firmware download is successful, restart the printer to upgrade.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

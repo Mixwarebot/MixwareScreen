@@ -81,10 +81,10 @@ class AboutPage(QWidget):
             self._printer.repository.start_firmware_check()
         else:
             self._printer.repository.start_screen_check()
+        self.update_button.setEnabled(False)
         self.re_translate_ui()
 
     def on_update_finished(self):
-        print('on_update_finished')
         self._parent.showShadowScreen()
         if self.need_reboot_system:
             ret = self._parent.message.start("Mixware Screen",
@@ -99,7 +99,7 @@ class AboutPage(QWidget):
         if self._printer.is_connected():
             if self.need_reboot_printer:
                 ret = self._parent.message.start("Mixware Screen", self.tr(
-                    "Firmware download is successful,\nrestart the printer to upgrade."),
+                    "Firmware download is successful, restart the printer to upgrade."),
                                                  buttons=QMessageBox.Yes | QMessageBox.Cancel)
                 if ret == QMessageBox.Yes:
                     self._printer.printer_reboot()
@@ -137,12 +137,15 @@ class AboutPage(QWidget):
                 state += self.tr("\nMixware Screen is the latest version.")
                 if self.need_reboot_printer:
                     self.on_update_finished()
+                self.update_button.setEnabled(True)
         elif state == self.tr("Mixware Screen update successful."):
             self.need_reboot_system = True
             self.on_update_finished()
+            self.update_button.setEnabled(True)
         elif state == self.tr("Mixware Screen check failed.") or state == self.tr("Mixware Screen update failed."):
             if self.need_reboot_printer:
                 self.on_update_finished()
+            self.update_button.setEnabled(True)
 
         self.update_info.setText(state)
 
