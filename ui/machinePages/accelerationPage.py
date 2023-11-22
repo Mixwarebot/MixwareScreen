@@ -8,45 +8,64 @@ class AccelerationPage(QWidget):
         self._printer = printer
         self._parent = parent
 
+        self._printer.updatePrinterInformation.connect(self.onUpdatePrinterInformation)
+
         self.setObjectName("accelerationPage")
 
+        self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(20, 0, 20, 0)
+        self.layout.setSpacing(0)
+        self.layout.setAlignment(Qt.AlignTop)
+
         self.acceleration_x = SettingsButton()
-        self.acceleration_y = SettingsButton()
-        self.acceleration_z = SettingsButton()
-        self.acceleration_e = SettingsButton()
-        self.acceleration_print = SettingsButton()
-        self.acceleration_retract = SettingsButton()
-        self.acceleration_travel = SettingsButton()
-
-        self.initForm()
-        self.initLayout()
-        self.initConnect()
-
-    def initForm(self):
-        self.reTranslateUi()
-
-    def initLayout(self):
-        layout = QVBoxLayout(self)
-        layout.addWidget(self.acceleration_x)
-        layout.addWidget(self.acceleration_y)
-        layout.addWidget(self.acceleration_z)
-        layout.addWidget(self.acceleration_e)
-        layout.addWidget(self.acceleration_print)
-        layout.addWidget(self.acceleration_retract)
-        layout.addWidget(self.acceleration_travel)
-        layout.setAlignment(Qt.AlignTop)
-        layout.setContentsMargins(20, 0, 20, 0)
-        layout.setSpacing(0)
-
-    def initConnect(self):
-        self._printer.updatePrinterInformation.connect(self.onUpdatePrinterInformation)
         self.acceleration_x.clicked.connect(self.on_acceleration_x_clicked)
+        self.layout.addWidget(self.acceleration_x)
+
+        self.acceleration_y = SettingsButton()
         self.acceleration_y.clicked.connect(self.on_acceleration_y_clicked)
+        self.layout.addWidget(self.acceleration_y)
+
+        self.acceleration_z = SettingsButton()
         self.acceleration_z.clicked.connect(self.on_acceleration_z_clicked)
+        self.layout.addWidget(self.acceleration_z)
+
+        self.acceleration_e = SettingsButton()
         self.acceleration_e.clicked.connect(self.on_acceleration_e_clicked)
+        self.layout.addWidget(self.acceleration_e)
+
+        self.acceleration_print = SettingsButton()
         self.acceleration_print.clicked.connect(self.on_acceleration_print_clicked)
+        self.layout.addWidget(self.acceleration_print)
+
+        self.acceleration_retract = SettingsButton()
         self.acceleration_retract.clicked.connect(self.on_acceleration_retract_clicked)
+        self.layout.addWidget(self.acceleration_retract)
+
+        self.acceleration_travel = SettingsButton()
         self.acceleration_travel.clicked.connect(self.on_acceleration_travel_clicked)
+        self.layout.addWidget(self.acceleration_travel)
+
+        self.re_translate_ui()
+
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.re_translate_ui()
+
+    def re_translate_ui(self):
+        self.acceleration_x.setText(self.tr("X-Axis Acceleration"))
+        self.acceleration_y.setText(self.tr("Y-Axis Acceleration"))
+        self.acceleration_z.setText(self.tr("Z-Axis Acceleration"))
+        self.acceleration_e.setText(self.tr("E-Axis Acceleration"))
+        self.acceleration_print.setText(self.tr("Acceleration"))
+        self.acceleration_retract.setText(self.tr("Retracts Acceleration"))
+        self.acceleration_travel.setText(self.tr("Travel Acceleration"))
+
+        self.acceleration_x.setTips(f"{self._printer.information['motor']['maxAcceleration']['X']}")
+        self.acceleration_y.setTips(f"{self._printer.information['motor']['maxAcceleration']['Y']}")
+        self.acceleration_z.setTips(f"{self._printer.information['motor']['maxAcceleration']['Z']}")
+        self.acceleration_e.setTips(f"{self._printer.information['motor']['maxAcceleration']['E']}")
+        self.acceleration_print.setTips(f"{self._printer.information['motor']['acceleration']}")
+        self.acceleration_retract.setTips(f"{self._printer.information['motor']['accelerationRetract']}")
+        self.acceleration_travel.setTips(f"{self._printer.information['motor']['accelerationTravel']}")
 
     @pyqtSlot()
     def on_acceleration_x_clicked(self):
@@ -91,24 +110,4 @@ class AccelerationPage(QWidget):
             self._parent.numberPad.start(f"{self.acceleration_travel.text()}: {self.acceleration_travel.tips()}", "acceleration_travel")
 
     def onUpdatePrinterInformation(self):
-        self.reTranslateUi()
-
-    def reTranslateUi(self):
-        self.acceleration_x.setText(self.tr("X-Axis Acceleration"))
-        self.acceleration_y.setText(self.tr("Y-Axis Acceleration"))
-        self.acceleration_z.setText(self.tr("Z-Axis Acceleration"))
-        self.acceleration_e.setText(self.tr("E-Axis Acceleration"))
-        self.acceleration_print.setText(self.tr("Acceleration"))
-        self.acceleration_retract.setText(self.tr("Retracts Acceleration"))
-        self.acceleration_travel.setText(self.tr("Travel Acceleration"))
-
-        self.acceleration_x.setTips(f"{self._printer.information['motor']['maxAcceleration']['X']}")
-        self.acceleration_y.setTips(f"{self._printer.information['motor']['maxAcceleration']['Y']}")
-        self.acceleration_z.setTips(f"{self._printer.information['motor']['maxAcceleration']['Z']}")
-        self.acceleration_e.setTips(f"{self._printer.information['motor']['maxAcceleration']['E']}")
-        self.acceleration_print.setTips(f"{self._printer.information['motor']['acceleration']}")
-        self.acceleration_retract.setTips(f"{self._printer.information['motor']['accelerationRetract']}")
-        self.acceleration_travel.setTips(f"{self._printer.information['motor']['accelerationTravel']}")
-
-    def showEvent(self, a0: QShowEvent) -> None:
-        self.reTranslateUi()
+        self.re_translate_ui()

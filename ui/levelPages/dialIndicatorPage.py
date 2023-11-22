@@ -159,7 +159,6 @@ class DialIndicatorPage(QWidget):
         self.place_logo.setFixedSize(320, 320)
         self.place_logo_movie = QMovie("resource/image/level_measure.gif")
         self.place_logo_movie.setScaledSize(self.remind_logo.size())
-        # self.place_logo_movie.start()
         self.place_logo.setMovie(self.place_logo_movie)
         self.place_body_layout.addWidget(self.place_logo)
         self.place_text = QLabel()
@@ -198,7 +197,6 @@ class DialIndicatorPage(QWidget):
         self.measure_right_logo.setFixedSize(320, 320)
         self.measure_right_logo_movie = QMovie("resource/image/level_measure_right.gif")
         self.measure_right_logo_movie.setScaledSize(self.remind_logo.size())
-        # self.measure_right_logo_movie.start()
         self.measure_right_logo.setMovie(self.measure_right_logo_movie)
         self.measure_right_body_layout.addWidget(self.measure_right_logo)
         self.measure_right_text = QLabel()
@@ -227,6 +225,7 @@ class DialIndicatorPage(QWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         self.reset_ui()
         self.re_translate_ui()
+
     def hideEvent(self, a0: QHideEvent) -> None:
         self.place_logo_movie.stop()
         self.measure_left_logo_movie.stop()
@@ -300,7 +299,7 @@ class DialIndicatorPage(QWidget):
         # preheat -> 170
         self._printer.set_thermal('left', 170)
         self._printer.set_thermal('right', 170)
-        self._printer.write_gcode_commands("M155 S1\nG28O\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        self._printer.write_gcode_commands("M155 S1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
         if platform.system().lower() == 'linux':
@@ -356,7 +355,7 @@ class DialIndicatorPage(QWidget):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
-        self._printer.write_gcode_commands("G1 Z150 F960\nG28O\nT1\nG1 X190 Y20 Z150 F8400")
+        self._printer.write_gcode_commands("G1 Z150 F960\nG28\nG1 Y20 Z150 F8400\nT1\nG1 X190 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
         self.measure_right_logo_movie.start()

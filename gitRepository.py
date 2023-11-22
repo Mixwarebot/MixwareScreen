@@ -110,7 +110,9 @@ class GitRepository(QObject):
         try:
             self.change_state(self.tr("Updating Mixware Screen."))
             self.screen_repo.git.pull()
-            self.screen_check()
+            # self.screen_check()
+            self.screen_local_commit = str(self.commits()[0]['commit'])
+            logging.debug(f'local: {self.screen_local_commit}, remote: {self.screen_remote_commit}')
             if self.screen_remote_commit and self.screen_local_commit == self.screen_remote_commit:
                 self.change_state(self.tr("Mixware Screen update successful."))
                 # os.system('sudo systemctl restart MixwareScreen')

@@ -42,20 +42,20 @@ class AdvancedPage(QWidget):
         self.reTranslateUi()
 
     def initLayout(self):
-        layout = QVBoxLayout(self)
-        layout.addWidget(self.step_per_unit)
-        layout.addWidget(self.feed_rate)
-        layout.addWidget(self.acceleration)
-        layout.addWidget(self.jerk)
-        layout.addWidget(self.tmc_current)
-        # layout.addWidget(self.pid)
-        layout.addWidget(self.input_shaping)
-        layout.addWidget(self.linear_advance)
-        layout.addWidget(self.save)
-        layout.addWidget(self.restore_factory)
-        layout.setAlignment(Qt.AlignTop)
-        layout.setContentsMargins(20, 0, 20, 0)
-        layout.setSpacing(0)
+        self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(20, 0, 20, 0)
+        self.layout.setSpacing(0)
+        self.layout.setAlignment(Qt.AlignTop)
+        self.layout.addWidget(self.step_per_unit)
+        self.layout.addWidget(self.feed_rate)
+        self.layout.addWidget(self.acceleration)
+        self.layout.addWidget(self.jerk)
+        self.layout.addWidget(self.tmc_current)
+        # self.layout.addWidget(self.pid)
+        self.layout.addWidget(self.input_shaping)
+        self.layout.addWidget(self.linear_advance)
+        self.layout.addWidget(self.save)
+        self.layout.addWidget(self.restore_factory)
 
     def initConnect(self):
         self._printer.updatePrinterInformation.connect(self.onUpdatePrinterInformation)
@@ -68,6 +68,23 @@ class AdvancedPage(QWidget):
         self.linear_advance.clicked.connect(self.on_linear_advance_clicked)
         self.restore_factory.clicked.connect(self.on_restore_factory_clicked)
         self.save.clicked.connect(self.on_save_clicked)
+
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.reTranslateUi()
+
+    def reTranslateUi(self):
+        self.step_per_unit.setText(self.tr("Step Per Unit Settings"))
+        self.feed_rate.setText(self.tr("Feed Rate Settings"))
+        self.acceleration.setText(self.tr("Acceleration Settings"))
+        self.jerk.setText(self.tr("Jerk Settings"))
+        self.tmc_current.setText(self.tr("TMC Current Settings"))
+        self.input_shaping.setText(self.tr("Input Shaping Settings"))
+        self.linear_advance.setText(self.tr("Linear Advance Settings"))
+        self.pid.setText(self.tr("P.I.D.  Settings"))
+        self.restore_factory.setText(self.tr("Restore Factory Settings"))
+        self.save.setText(self.tr("Save Settings to Printer"))
+
+        self.linear_advance.setTips(f"{self._printer.information['linearAdvance']}")
 
     @pyqtSlot()
     def goto_step_per_unit_page(self):
@@ -118,21 +135,4 @@ class AdvancedPage(QWidget):
         self._parent.closeShadowScreen()
 
     def onUpdatePrinterInformation(self):
-        self.reTranslateUi()
-
-    def reTranslateUi(self):
-        self.step_per_unit.setText(self.tr("Step Per Unit Settings"))
-        self.feed_rate.setText(self.tr("Feed Rate Settings"))
-        self.acceleration.setText(self.tr("Acceleration Settings"))
-        self.jerk.setText(self.tr("Jerk Settings"))
-        self.tmc_current.setText(self.tr("TMC Current Settings"))
-        self.input_shaping.setText(self.tr("Input Shaping Settings"))
-        self.linear_advance.setText(self.tr("Linear Advance Settings"))
-        self.pid.setText(self.tr("P.I.D.  Settings"))
-        self.restore_factory.setText(self.tr("Restore Factory Settings"))
-        self.save.setText(self.tr("Save Settings to Printer"))
-
-        self.linear_advance.setTips(f"{self._printer.information['linearAdvance']}")
-
-    def showEvent(self, a0: QShowEvent) -> None:
         self.reTranslateUi()

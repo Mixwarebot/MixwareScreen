@@ -108,37 +108,37 @@ Mixware Screen is the latest version.</source>
 <context>
     <name>AccelerationPage</name>
     <message>
-        <location filename="../../../ui/machinePages/accelerationPage.py" line="97"/>
+        <location filename="../../../ui/machinePages/accelerationPage.py" line="54"/>
         <source>X-Axis Acceleration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/accelerationPage.py" line="98"/>
+        <location filename="../../../ui/machinePages/accelerationPage.py" line="55"/>
         <source>Y-Axis Acceleration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/accelerationPage.py" line="99"/>
+        <location filename="../../../ui/machinePages/accelerationPage.py" line="56"/>
         <source>Z-Axis Acceleration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/accelerationPage.py" line="100"/>
+        <location filename="../../../ui/machinePages/accelerationPage.py" line="57"/>
         <source>E-Axis Acceleration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/accelerationPage.py" line="101"/>
+        <location filename="../../../ui/machinePages/accelerationPage.py" line="58"/>
         <source>Acceleration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/accelerationPage.py" line="102"/>
+        <location filename="../../../ui/machinePages/accelerationPage.py" line="59"/>
         <source>Retracts Acceleration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/accelerationPage.py" line="103"/>
+        <location filename="../../../ui/machinePages/accelerationPage.py" line="60"/>
         <source>Travel Acceleration</source>
         <translation type="unfinished"></translation>
     </message>
@@ -217,17 +217,17 @@ Mixware Screen is the latest version.</source>
 <context>
     <name>BabyStepPad</name>
     <message>
-        <location filename="../../../ui/levelPages/babyStepPad.py" line="59"/>
+        <location filename="../../../ui/levelPages/babyStepPad.py" line="58"/>
         <source>(Tips: Baby Step will be delayed.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/babyStepPad.py" line="50"/>
+        <location filename="../../../ui/levelPages/babyStepPad.py" line="49"/>
         <source>Baby Step({})</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/babyStepPad.py" line="64"/>
+        <location filename="../../../ui/levelPages/babyStepPad.py" line="63"/>
         <source>Move Distance (mm)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -299,12 +299,12 @@ Mixware Screen is the latest version.</source>
 <context>
     <name>BedMeshGraph</name>
     <message>
-        <location filename="../../../ui/levelPages/bedMeshGraph.py" line="27"/>
+        <location filename="../../../ui/levelPages/bedMeshGraph.py" line="31"/>
         <source>Auto-level Mesh Graph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/bedMeshGraph.py" line="59"/>
+        <location filename="../../../ui/levelPages/bedMeshGraph.py" line="56"/>
         <source>No data.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -391,48 +391,48 @@ Preheat temperature: 170°C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="247"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="246"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="308"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="307"/>
         <source>Preheating extruder.
 (Default 170°C)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="256"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="255"/>
         <source>Please use a metal brush to clean the nozzle residue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="257"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="256"/>
         <source>Place the dial indicator at the specified location.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="258"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="257"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Left).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="259"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="258"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Right).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="260"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="259"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="273"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="272"/>
         <source>Heat completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="261"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="260"/>
         <source>Measure completed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -638,42 +638,42 @@ click &lt;Next&gt; to start working.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="115"/>
+        <location filename="../../../gitRepository.py" line="117"/>
         <source>Mixware Screen update successful.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="120"/>
+        <location filename="../../../gitRepository.py" line="122"/>
         <source>Mixware Screen update failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="137"/>
+        <location filename="../../../gitRepository.py" line="139"/>
         <source>Checking firmware.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="141"/>
+        <location filename="../../../gitRepository.py" line="143"/>
         <source>Latest firmware version is Marlin {}.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="143"/>
+        <location filename="../../../gitRepository.py" line="145"/>
         <source>firmware check error.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="157"/>
+        <location filename="../../../gitRepository.py" line="159"/>
         <source>Start download firmware.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="164"/>
+        <location filename="../../../gitRepository.py" line="166"/>
         <source>Firmware download successful.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="168"/>
+        <location filename="../../../gitRepository.py" line="170"/>
         <source>Firmware download error.</source>
         <translation type="unfinished"></translation>
     </message>

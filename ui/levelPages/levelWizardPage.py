@@ -429,7 +429,7 @@ class LevelWizardPage(QWidget):
         # preheat -> 170
         self._printer.set_thermal('left', 170)
         self._printer.set_thermal('right', 170)
-        self._printer.write_gcode_commands("M155 S1\nG28O\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        self._printer.write_gcode_commands("M155 S1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
         if platform.system().lower() == 'linux':

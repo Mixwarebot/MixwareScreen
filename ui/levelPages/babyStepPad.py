@@ -40,7 +40,6 @@ class BabyStepPad(BaseRoundDialog):
         self.resize(self._width-40, self._height/2)
         self.move((self._width - self.width())/2, (self._height - self.height())/2)
 
-        # self.frame.setObjectName("frameBox")
         self.frame.setObjectName("babyStepFrame")
         self.frame.setStyleSheet("QFrame#babyStepFrame { border-radius: 10px; background: #FFFFFF; }")
 
