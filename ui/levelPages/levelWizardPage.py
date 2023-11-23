@@ -373,7 +373,7 @@ class LevelWizardPage(QWidget):
         self.measure_left_text.setText(self.tr("Click <Next> to start measure compensation value(Left)."))
         self.measure_right_text.setText(self.tr("Click <Next> to start measure compensation value(Right)."))
         self.finished_handle.next_button.setText(self.tr("Done"))
-        self.finished_text.setText(self.tr("Level wizard completed.\nXY offset ..."))
+        self.finished_text.setText(self.tr("Level wizard completed."))
 
     def on_update_printer_status(self, state):
         if state == 4:
@@ -481,7 +481,7 @@ class LevelWizardPage(QWidget):
         self.offset = self._printer.information['probe']['offset']
         self.offset_button_title.setText(
             f"Z: {self.offset['left']['Z']}({self._printer.information['probe']['offset']['left']['Z']})")
-        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 F4000\nG1 Z0 F600")
+        self._printer.write_gcode_commands("G28\nT0\nG1 Y160 F8400\nG1 X190 F8400\nG1 Z0 F600")
         self.goto_next_step_stacked_widget()
 
     @pyqtSlot(QAbstractButton)
@@ -509,7 +509,7 @@ class LevelWizardPage(QWidget):
     def on_offset_next_button_clicked(self):
         self.offset_distance_frame.hide()
         self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']}\nM500\nM851")
-        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y20 Z150 F8400")
+        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.place_logo_movie.start()
 
@@ -524,7 +524,7 @@ class LevelWizardPage(QWidget):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
-        self._printer.write_gcode_commands("G1 Z150 F960\nG28\nG1 Y20 Z150 F8400\nT1\nG1 X190 Z150 F8400")
+        self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28\nG1 Y160 Z150 F8400\nM400\nT1\nG1 X190 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
         self.measure_right_logo_movie.start()
@@ -535,7 +535,7 @@ class LevelWizardPage(QWidget):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_right")
-        self._printer.write_gcode_commands("G1 Z150 F960\nG28X")
+        self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28X")
         self.goto_next_step_stacked_widget()
         self.measure_right_logo_movie.stop()
 
@@ -543,6 +543,7 @@ class LevelWizardPage(QWidget):
         self._printer.save_dial_indicator_value()
         self._parent.footer.setEnabled(True)
         self.reset_ui()
+        self._parent.gotoPreviousPage()
 
     def rotate_image(self, label:QLabel, image:str, angle:int):
         transform = QTransform().rotate(angle)

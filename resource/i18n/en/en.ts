@@ -146,62 +146,62 @@ Mixware Screen is the latest version.</source>
 <context>
     <name>AdvancedPage</name>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="124"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="91"/>
         <source>Step Per Unit Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="125"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="95"/>
         <source>Feed Rate Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="126"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="99"/>
         <source>Acceleration Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="127"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="103"/>
         <source>Jerk Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="128"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="107"/>
         <source>TMC Current Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="129"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="111"/>
         <source>Input Shaping Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="130"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="82"/>
         <source>Linear Advance Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="131"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="83"/>
         <source>P.I.D.  Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="132"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="84"/>
         <source>Restore Factory Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="133"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="85"/>
         <source>Save Settings to Printer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="105"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="122"/>
         <source>Click &lt;Confirm&gt; to restore factory setting.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="114"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="131"/>
         <source>Click &lt;Confirm&gt; to save.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -931,8 +931,7 @@ click &lt;Next&gt; to start working.</source>
     </message>
     <message>
         <location filename="../../../ui/levelPages/levelWizardPage.py" line="376"/>
-        <source>Level wizard completed.
-XY offset ...</source>
+        <source>Level wizard completed.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

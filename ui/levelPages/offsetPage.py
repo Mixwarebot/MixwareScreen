@@ -260,10 +260,10 @@ class OffsetPage(QWidget):
     def on_button_clicked(self, button):
         if button.text() == self.tr("Left"):
             if self._printer.get_extruder() == "right":
-                self._printer.write_gcode_commands("G28\nT0\nG1 Y20 Z15 F8400\nG1 X190 F8400\nG1 Z0 F300")
+                self._printer.write_gcode_commands("G28\nT0\nG1 Y160 Z15 F8400\nG1 X190 F8400\nG1 Z0 F300")
         elif button.text() == self.tr("Right"):
             if self._printer.get_extruder() == "left":
-                self._printer.write_gcode_commands("G28\nG1 Y20 Z15 F8400\nT1\nG1 X190 F8400\nG1 Z0 F300")
+                self._printer.write_gcode_commands("G28\nG1 Y160 Z15 F8400\nT1\nG1 X190 F8400\nG1 Z0 F300")
         elif button.text() in self.offset_distance_list:
             if self.buttonGroup.id(button) != self.offset_distance_current_id:
                 self.buttonGroup.button(self.offset_distance_current_id).setStyleSheet(uncheckedStyleSheet)

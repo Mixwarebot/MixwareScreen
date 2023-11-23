@@ -87,6 +87,10 @@ install_packages()
         echo_error "Installation of PyQt packages failed ($PYQTLIST)"
         exit 1
     fi
+#     ModemManager interferes with Mixware comms
+#     on buster it's installed as a dependency of mpv
+#     it doesn't happen on bullseye
+    sudo systemctl mask ModemManager.service
 }
 
 pip_requirements()
