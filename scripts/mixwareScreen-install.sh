@@ -6,7 +6,7 @@ MSENV="${MIXWARESCREEN_VENV:-${HOME}/.MixwareScreen-env}"
 
 XSERVER="xinit xinput x11-xserver-utils xserver-xorg-input-evdev xserver-xorg-input-libinput"
 FBDEV="xserver-xorg-video-fbdev"
-MISC="librsvg2-common libopenjp2-7 libatlas-base-dev wireless-tools libdbus-glib-1-dev autoconf"
+MISC="librsvg2-common libopenjp2-7 libatlas-base-dev wireless-tools libdbus-glib-1-dev autoconf python3-pip"
 OPTIONAL="xserver-xorg-legacy fonts-nanum fonts-ipafont libmpv-dev"
 PYQTLIST="python3-pyqt5 python3-pyqt5.qtquick python3-pyqt5.qtserialport qml-module-qt*"
 
