@@ -1,6 +1,6 @@
 from qtCore import *
 from ui.base.basePushButton import BasePushButton
-from ui.printerPage import TemperatureBox
+from ui.temperatureBox import TemperatureBox
 
 
 class TemperaturePage(QWidget):
@@ -8,7 +8,13 @@ class TemperaturePage(QWidget):
         super().__init__()
         self._printer = printer
         self._parent = parent
-        self.heater = 'left'
+        self.heater = {
+            'left': False,
+            'right': False,
+            'bed': False,
+            'chamber': False
+        }
+        self.thermal = list(self.heater.keys())
 
         self.setObjectName("temperaturePage")
 
@@ -63,8 +69,12 @@ class TemperaturePage(QWidget):
         self.frame.setObjectName("frameBox")
         self.frame.setStyleSheet("BasePushButton {border: 1px solid #D4D4D4;}")
         button_layout = QHBoxLayout(self.frame)
+        button_layout.setContentsMargins(20, 20, 20, 20)
+        button_layout.setSpacing(20)
 
         button_left_layout = QVBoxLayout()
+        button_left_layout.setContentsMargins(0, 0, 0, 0)
+        button_left_layout.setSpacing(20)
         self.pla_button = BasePushButton()
         self.pla_button.clicked.connect(self.on_pla_button_clicked)
         button_left_layout.addWidget(self.pla_button)
@@ -76,6 +86,8 @@ class TemperaturePage(QWidget):
         button_left_layout.addWidget(self.cool_button)
         button_layout.addLayout(button_left_layout, 1)
         button_right_layout = QVBoxLayout()
+        button_right_layout.setContentsMargins(0, 0, 0, 0)
+        button_right_layout.setSpacing(20)
         self.add_button = BasePushButton()
         self.add_button.setText("+")
         self.add_button.clicked.connect(self.on_add_button_clicked)
@@ -117,38 +129,59 @@ class TemperaturePage(QWidget):
 
     @pyqtSlot(int)
     def on_temperature_button_group_clicked(self, _id):
-        thermal = ['left', 'right', 'bed', 'chamber']
-        if 0 <= _id <= 3:
-            self.heater = thermal[_id]
-            for i in range(4):
-                if i == _id: self.temperature_group.button(i).setStyleSheet(checkedStyleSheet)
-                else: self.temperature_group.button(i).setStyleSheet(uncheckedStyleSheet)
+        self.heater[self.thermal[_id]] = not self.heater[self.thermal[_id]]
+        self.temperature_group.button(_id).setStyleSheet(
+            checkedStyleSheet if self.heater[self.thermal[_id]] else uncheckedStyleSheet)
+
+    def show_tips(self):
+        have_heater = False
+        for thermal in self.thermal:
+            if self.heater[thermal]: have_heater = True
+        if not have_heater:
+            self._printer.updatePrinterMessage.emit("Please select a heater.", 1)
+
 
     @pyqtSlot()
     def on_add_button_clicked(self):
-        self.change_target_temperature(self.heater, int(self.degree_list[self.degree_current_id]))
+        for thermal in self.thermal:
+            if self.heater[thermal]:
+                self.change_target_temperature(thermal, int(self.degree_list[self.degree_current_id]))
+        self.show_tips()
 
     @pyqtSlot()
     def on_dec_button_clicked(self):
-        self.change_target_temperature(self.heater, -int(self.degree_list[self.degree_current_id]))
+        for thermal in self.thermal:
+            if self.heater[thermal]:
+                self.change_target_temperature(thermal, -int(self.degree_list[self.degree_current_id]))
+        self.show_tips()
 
     @pyqtSlot()
     def on_cool_button_clicked(self):
-        self._printer.set_thermal('left', 0)
-        self._printer.set_thermal('right', 0)
-        self._printer.set_thermal('bed', 0)
-        # self._printer.set_temperatures('chamber', 0)
+        for thermal in self.thermal:
+            if self.heater[thermal]:
+                self._printer.set_thermal(thermal, 0)
+        self.show_tips()
 
     @pyqtSlot()
     def on_pla_button_clicked(self):
-        self._printer.set_thermal('left', 210)
-        self._printer.set_thermal('right', 210)
-        self._printer.set_thermal('bed', 60)
-        # self._printer.set_temperatures('chamber', 35)
+        if self.heater['left']:
+            self._printer.set_thermal('left', 210)
+        if self.heater['right']:
+            self._printer.set_thermal('right', 210)
+        if self.heater['bed']:
+            self._printer.set_thermal('bed', 60)
+        if self.heater['chamber']:
+            self._printer.set_thermal('chamber', 35)
+        self.show_tips()
 
     @pyqtSlot()
     def on_pa_cf_button_clicked(self):
-        self._printer.set_thermal('left', 300)
-        self._printer.set_thermal('right', 300)
-        self._printer.set_thermal('bed', 90)
-        # self._printer.set_temperatures('chamber', 50)
+        if self.heater['left']:
+            self._printer.set_thermal('left', 300)
+        if self.heater['right']:
+            self._printer.set_thermal('right', 300)
+        if self.heater['bed']:
+            self._printer.set_thermal('bed', 90)
+        if self.heater['chamber']:
+            self._printer.set_thermal('chamber', 55)
+        self.show_tips()

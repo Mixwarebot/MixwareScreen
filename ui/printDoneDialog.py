@@ -85,15 +85,9 @@ class PrintDoneDialog(BaseRoundDialog):
     def on_again(self):
         self.done(QMessageBox.Yes)
 
-    def setTitle(self, title: str):
-        self.title_label.setText(title)
-
-    def setText(self, text: str):
-        self.message_label.setText(text)
-
     def start(self, title="", text="") -> int:
-        self.setTitle(title)
-        self.setText(text)
+        self.title_label.setText(title)
+        self.message_label.setText(text)
         self.message_label.setAlignment(Qt.AlignCenter)
 
         return self.exec()

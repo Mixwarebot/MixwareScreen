@@ -57,7 +57,7 @@ class AutoLevelPage(QWidget):
         self._parent.showShadowScreen()
         ret = self._parent.message.start("Mixware Screen", "Start Auto bed level?", buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
-            self._printer.write_gcode_command('G28\nD28\nG29\nM500')
+            self._printer.write_gcode_command('G28\nD28\nG29\nM500\nM503')
             self.tips.show()
             self.bed_mesh_graph.hide()
             self.start_button.hide()

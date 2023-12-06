@@ -1,7 +1,7 @@
 
 QWidget {
     font-family: "HarmonyOS Sans SC";
-    font-size: 19px;
+    font-size: 18px;
     /*background: transparent;*/
 }
 

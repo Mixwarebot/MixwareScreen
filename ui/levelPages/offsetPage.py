@@ -155,8 +155,8 @@ class OffsetPage(QWidget):
         self.re_translate_ui()
 
     def showEvent(self, a0: QShowEvent) -> None:
+        self._printer.write_gcode_command("M851\nM218")
         self.re_translate_ui()
-        # self.offset = self._printer.information['probe']['offset']
         self.offset['left']['X'] = self._printer.information['probe']['offset']['left']['X']
         self.offset['left']['Y'] = self._printer.information['probe']['offset']['left']['Y']
         self.offset['left']['Z'] = self._printer.information['probe']['offset']['left']['Z']

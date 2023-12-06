@@ -12,9 +12,9 @@ class MovePage(QWidget):
         self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
 
         self.setObjectName("movePage")
-        self._layout = QVBoxLayout(self)
-        self._layout.setContentsMargins(20, 0, 20, 0)
-        self._layout.setSpacing(0)
+        self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(20, 0, 20, 0)
+        self.layout.setSpacing(0)
 
         self.frame = QFrame()
         self.frame.setObjectName("frameBox")
@@ -192,8 +192,7 @@ class MovePage(QWidget):
         axis_frame_layout.addLayout(axis_frame_layout_2, 1)
         frame_midle_layout.addLayout(axis_frame_layout, 3)
         frame_layout.addLayout(frame_midle_layout, 5)
-
-        self._layout.addWidget(self.frame)
+        self.layout.addWidget(self.frame)
 
         self.button_group.addButton(self.x_left_button)
         self.button_group.addButton(self.x_right_button)
@@ -205,6 +204,12 @@ class MovePage(QWidget):
         self.re_translate_ui()
 
     def re_translate_ui(self):
+        self.x_button_1.setTitle(self.tr("Move\nLeft"))
+        self.x_button_2.setTitle(self.tr("Move\nRight"))
+        self.y_button_1.setTitle(self.tr("Move\nBack"))
+        self.y_button_2.setTitle(self.tr("Move\nForward"))
+        self.z_button_1.setTitle(self.tr("Lift\nBed"))
+        self.z_button_2.setTitle(self.tr("Drop\nBed"))
         self.x_left_button.setText(self.tr("Left"))
         self.x_right_button.setText(self.tr("Right"))
         self.speed_title.setText(self.tr("Speed"))

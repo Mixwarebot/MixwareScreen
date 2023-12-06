@@ -5,9 +5,9 @@ class ExampleWidget(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
         self._printer = printer
-        self._parent = parent
-
         self._printer.updatePrinterInformation.connect(self.onUpdatePrinterInformation)
+
+        self._parent = parent
 
         self.setObjectName("exampleWidget")
         self.layout = QVBoxLayout(self)

@@ -1,4 +1,70 @@
+import base64
+import os
+import platform
+import re
+import logging
+
+from typing import List, Optional, Dict, Any
+
+from PIL import Image
+
 from qtCore import *
+
+
+def regex_find_ints(pattern: str, data: str) -> List[int]:
+    pattern = pattern.replace(r"(%D)", r"([0-9]+)")
+    matches = re.findall(pattern, data)
+    if matches:
+        # return the maximum height value found
+        try:
+            return [int(h) for h in matches]
+        except Exception:
+            pass
+    return []
+
+def parse_thumbnails(path: str) -> Optional[List[Dict[str, Any]]]:
+    with open(path, 'r') as file:
+        header_data = file.read()
+        file.close()
+    for data in [header_data]:
+        thumb_matches: List[str] = re.findall(
+            r"; thumbnail begin[;/\+=\w\s]+?; thumbnail end", data)
+        if thumb_matches:
+            break
+    else:
+        return None
+    thumb_dir = os.path.join(os.path.dirname(path), ".thumbs")
+    if not os.path.exists(thumb_dir):
+        try:
+            os.mkdir(thumb_dir)
+        except Exception:
+            print(f"Unable to create thumb dir: {thumb_dir}")
+    thumb_base = os.path.splitext(os.path.basename(path))[0]
+    parsed_matches: List[Dict[str, Any]] = []
+    for match in thumb_matches:
+        lines = re.split(r"\r?\n", match.replace('; ', ''))
+        info = regex_find_ints(r"(%D)", lines[0])
+        data = "".join(lines[1:-1])
+        if len(info) != 3:
+            logging.info(
+                f"MetadataError: Error parsing thumbnail"
+                f" header: {lines[0]}")
+            continue
+        if len(data) != info[2]:
+            logging.info(
+                f"MetadataError: Thumbnail Size Mismatch: "
+                f"detected {info[2]}, actual {len(data)}")
+            continue
+        thumb_name = f"{thumb_base}.png"
+        thumb_path = os.path.join(thumb_dir, thumb_name)
+        abs_thumb_path = QFileInfo(thumb_path).absoluteFilePath()
+        with open(thumb_path, "wb") as f:
+            f.write(base64.b64decode(data.encode()))
+        parsed_matches.append({
+            'width': info[0], 'height': info[1],
+            'size': os.path.getsize(thumb_path),
+            'absolute_path': abs_thumb_path})
+    return parsed_matches
 
 class PrintFileBar(QFrame):
     clicked = pyqtSignal(str)
@@ -13,12 +79,17 @@ class PrintFileBar(QFrame):
             file_icon = QPixmap("resource/icon/dir.svg")
             file_size = 0
         else:
-            file_icon = QPixmap("resource/icon/file.svg")
+            thumbnails = parse_thumbnails(file.absoluteFilePath())
+
+            if thumbnails:
+                file_icon = QPixmap(thumbnails[0]['absolute_path'])
+            else:
+                file_icon = QPixmap("resource/icon/file.svg")
             file_size = self._file.size()
         file_time = file.fileTime(QFileDevice.FileModificationTime).toString("yyyy/MM/dd  hh:mm:ss")
 
         self.logo_label = QLabel()
-        self.logo_label.setPixmap(QPixmap(file_icon))
+        self.logo_label.setPixmap(file_icon.scaledToWidth(108))
         self.logo_label.setFixedSize(108, 108)
 
         self.name_label = QLabel()
@@ -80,24 +151,34 @@ class PrintFilePage(QScrollArea):
         self._parent = parent
 
         self.setObjectName("printFilePage")
-
         self.setStyleSheet("QScrollArea {border: none; background: transparent;}")
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setWidgetResizable(True)
 
         self.frame = QFrame()
-        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-
-        self.root_path = self._printer.config.get_folder_rootPath()
-        self.current_path = self._printer.config.get_folder_rootPath()
-        self.filters = ["*.gcode"]
-        self.files = {}
-
         self.layout = QVBoxLayout(self.frame)
         self.layout.setAlignment(Qt.AlignTop)
         self.layout.setContentsMargins(20, 10, 20, 10)
         self.layout.setSpacing(10)
         self.setWidget(self.frame)
+
+        self.root_path = ''
+        self.current_path = ''
+        self.filters = ["*.gcode"]
+        self.files = {}
+
+        self.set_usb_path()
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.update_file(self.root_path)
+
+    def set_local_path(self):
+        self.root_path = QDir('resource/gcode').absolutePath()
+
+    def set_usb_path(self):
+        self.root_path = QDir('./').absolutePath()
+        if platform.system().lower() == 'linux':
+            self.root_path = QDir(self._printer.config.get_folder_rootPath()).absolutePath()
 
     def update_file(self, path: str):
         dir = QDir(path)
@@ -112,8 +193,12 @@ class PrintFilePage(QScrollArea):
         for file in files:
             if file.isDir() or (file.isFile() and file.suffix() == "gcode"):
 
-                if file.isDir() and file.exists(f'{file.absoluteFilePath()}/firmware.cur'):
-                    continue
+                if file.isDir():
+                    if file.exists(f'{file.absoluteFilePath()}/firmware.cur'):
+                        continue
+                    if len(QDir(file.absoluteFilePath()).entryInfoList()) <= 2:
+                        continue
+
                 print_file_bar = PrintFileBar(file)
                 print_file_bar.clicked.connect(self.on_printFileBar_clicked)
                 self.layout.addWidget(print_file_bar)
@@ -124,10 +209,18 @@ class PrintFilePage(QScrollArea):
             self.update_file(path)
         else:
             self._parent.showShadowScreen()
-            ret = self._parent.message.start("Mixware Screen", self.tr("Print {} ?").format(file_info.fileName()), buttons=QMessageBox.Yes | QMessageBox.Cancel)
+            if len(file_info.fileName()) > 20:
+                file_name = list(file_info.fileName())
+                file_name.insert(19, '\n')
+                file_name = ''.join(file_name)
+            else:
+                file_name = file_info.fileName()
+
+            image = f'{file_info.absolutePath()}/.thumbs/{file_info.baseName()}.png'
+            if not os.path.isfile(image):
+                image = ''
+
+            ret = self._parent.message.start("Mixware Screen", self.tr("Print {} ?").format(file_name), image, buttons=QMessageBox.Yes | QMessageBox.Cancel)
             if ret == QMessageBox.Yes:
                 self._printer.print_start(path)
             self._parent.closeShadowScreen()
-
-    def showEvent(self, a0: QShowEvent) -> None:
-        self.update_file(self.root_path)

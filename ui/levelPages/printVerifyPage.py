@@ -77,7 +77,7 @@ class PrintVerifyPage(QWidget):
         self.preheat_body_layout.setSpacing(0)
 
         self.preheat_thermal_frame = QFrame()
-        self.preheat_thermal_frame.setFixedSize(360, 140)
+        self.preheat_thermal_frame.setFixedSize(360, 210)
         self.preheat_thermal_frame_layout = QGridLayout(self.preheat_thermal_frame)
         self.preheat_thermal_frame_layout.setContentsMargins(10, 10, 10, 0)
         self.preheat_thermal_frame_layout.setSpacing(0)
@@ -103,7 +103,7 @@ class PrintVerifyPage(QWidget):
         self.preheat_thermal_bed_button = QPushButton()
         self.preheat_thermal_bed_button.setFixedHeight(64)
         self.preheat_thermal_bed_button.clicked.connect(self.on_preheat_thermal_bed_button_clicked)
-        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_right_button, 4, 1, 1, 1)
+        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_bed_button, 4, 1, 1, 1)
         self.preheat_body_layout.addWidget(self.preheat_thermal_frame)
         self.preheat_body_layout.addWidget(BaseHLine())
         self.preheat_filament_layout = QHBoxLayout()
@@ -138,9 +138,39 @@ class PrintVerifyPage(QWidget):
         self.work_handle.previous_button.hide()
         self.work_handle.next_button.clicked.connect(self.on_clean_next_button_clicked)
         self.work_body_layout = QVBoxLayout(self.work_handle.body)
-        self.work_body_layout.setContentsMargins(20, 0, 20, 0)
+        self.work_body_layout.setContentsMargins(0, 0, 0, 0)
         self.work_body_layout.setSpacing(0)
-        self.work_body_layout.setAlignment(Qt.AlignCenter)
+        # self.work_body_layout.setAlignment(Qt.AlignCenter)
+        self.work_thermal_frame = QFrame()
+        self.work_thermal_frame.setFixedSize(360, 210)
+        self.work_thermal_frame_layout = QGridLayout(self.work_thermal_frame)
+        self.work_thermal_frame_layout.setContentsMargins(10, 10, 10, 0)
+        self.work_thermal_frame_layout.setSpacing(0)
+        self.work_thermal_left = QLabel()
+        self.work_thermal_left.setObjectName("leftLogo")
+        self.work_thermal_frame_layout.addWidget(self.work_thermal_left, 0, 0, 1, 1)
+        self.work_thermal_left_button = QPushButton()
+        self.work_thermal_left_button.setFixedHeight(64)
+        self.work_thermal_left_button.clicked.connect(self.on_preheat_thermal_left_button_clicked)
+        self.work_thermal_frame_layout.addWidget(self.work_thermal_left_button, 0, 1, 1, 1)
+        self.work_thermal_frame_layout.addWidget(BaseHLine(), 1, 0, 1, 2)
+        self.work_thermal_right = QLabel()
+        self.work_thermal_right.setObjectName("rightLogo")
+        self.work_thermal_frame_layout.addWidget(self.work_thermal_right, 2, 0, 1, 1)
+        self.work_thermal_right_button = QPushButton()
+        self.work_thermal_right_button.setFixedHeight(64)
+        self.work_thermal_right_button.clicked.connect(self.on_preheat_thermal_right_button_clicked)
+        self.work_thermal_frame_layout.addWidget(self.work_thermal_right_button, 2, 1, 1, 1)
+        self.work_thermal_frame_layout.addWidget(BaseHLine(), 3, 0, 1, 2)
+        self.work_thermal_bed = QLabel()
+        self.work_thermal_bed.setObjectName("bedLogo")
+        self.work_thermal_frame_layout.addWidget(self.work_thermal_bed, 4, 0, 1, 1)
+        self.work_thermal_bed_button = QPushButton()
+        self.work_thermal_bed_button.setFixedHeight(64)
+        self.work_thermal_bed_button.clicked.connect(self.on_preheat_thermal_bed_button_clicked)
+        self.work_thermal_frame_layout.addWidget(self.work_thermal_bed_button, 4, 1, 1, 1)
+        self.work_body_layout.addWidget(self.work_thermal_frame)
+        self.work_body_layout.addWidget(BaseHLine())
         # self.work_logo = QLabel()
         # self.work_logo.setFixedSize(320, 320)
         # self.work_logo.setScaledContents(True)
@@ -156,8 +186,44 @@ class PrintVerifyPage(QWidget):
         self.finished_handle.previous_button.hide()
         self.finished_handle.next_button.clicked.connect(self.on_finished_next_button_clicked)
         self.finished_body_layout = QVBoxLayout(self.finished_handle.body)
-        self.finished_body_layout.setContentsMargins(20, 0, 20, 0)
+        self.finished_body_layout.setContentsMargins(0, 0, 0, 0)
         self.finished_body_layout.setSpacing(0)
+
+        self.finished_offset_frame = QFrame()
+        self.finished_offset_frame.setFixedSize(360, 148)
+        self.finished_offset_frame_layout = QGridLayout(self.finished_offset_frame)
+        self.finished_offset_frame_layout.setContentsMargins(20, 10, 20, 10)
+        self.finished_offset_frame_layout.setSpacing(0)
+        self.finished_offset_x = QLabel()
+        self.finished_offset_x.setAlignment(Qt.AlignHCenter | Qt.AlignBottom)
+        self.finished_offset_x.setText("X offset: ")
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_x, 0, 0, 1, 1)
+        self.finished_offset_x_button = QPushButton()
+        self.finished_offset_x_button.setFixedHeight(64)
+        self.finished_offset_x_button.clicked.connect(self.on_finished_offset_x_button_clicked)
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_x_button, 0, 1, 2, 1)
+        self.finished_offset_x_tips = QLabel()
+        self.finished_offset_x_tips.setObjectName('tips')
+        self.finished_offset_x_tips.setFixedHeight(24)
+        self.finished_offset_x_tips.setAlignment(Qt.AlignCenter)
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_x_tips, 1, 0, 1, 1)
+        self.finished_offset_frame_layout.addWidget(BaseHLine(), 2, 0, 1, 2)
+        self.finished_offset_y = QLabel()
+        self.finished_offset_y.setAlignment(Qt.AlignHCenter | Qt.AlignBottom)
+        self.finished_offset_y.setText("Y offset: ")
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_y, 3, 0, 1, 1)
+        self.finished_offset_y_button = QPushButton()
+        self.finished_offset_y_button.setFixedHeight(64)
+        self.finished_offset_y_button.clicked.connect(self.on_finished_offset_y_button_clicked)
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_y_button, 3, 1, 2, 1)
+        self.finished_offset_y_tips = QLabel()
+        self.finished_offset_y_tips.setObjectName('tips')
+        self.finished_offset_y_tips.setFixedHeight(24)
+        self.finished_offset_y_tips.setAlignment(Qt.AlignCenter)
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_y_tips, 4, 0, 1, 1)
+        self.finished_body_layout.addWidget(self.finished_offset_frame)
+        self.finished_body_layout.addWidget(BaseHLine())
+
         self.finished_text = QLabel()
         self.finished_text.setWordWrap(True)
         self.finished_text.setAlignment(Qt.AlignCenter)
@@ -188,33 +254,42 @@ class PrintVerifyPage(QWidget):
             self.tr("Please place the PEI platform in a standardized manner, with no debris on the platform."))
         self.preheat_thermal_left_button.setText("-")
         self.preheat_thermal_right_button.setText("-")
-        self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 170°C)"))
+        self.preheat_thermal_bed_button.setText("-")
+        self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 210°C)"))
         self.preheat_pla.setText("PLA")
         self.preheat_abs.setText("ABS")
         self.preheat_pet.setText("PET")
         self.preheat_pa.setText("PA")
+        self.work_thermal_left_button.setText("-")
+        self.work_thermal_right_button.setText("-")
+        self.work_thermal_bed_button.setText("-")
         self.work_text.setText(self.tr("Please wait."))
         self.finished_handle.next_button.setText(self.tr("Done"))
-        self.finished_text.setText(self.tr("Measure completed."))
+        self.finished_offset_x_button.setText('0')
+        self.finished_offset_y_button.setText('0')
+        self.finished_offset_x_tips.setText("<: -; >: +")
+        self.finished_offset_y_tips.setText("∧: -; ∨: +")
+        self.finished_text.setText(self.tr("Measure completed.\nPlease enter offset."))
 
     @pyqtSlot()
     def on_update_printer_information(self):
         self.preheat_thermal_left_button.setText(self._printer.get_thermal('left'))
         self.preheat_thermal_right_button.setText(self._printer.get_thermal('right'))
+        self.preheat_thermal_bed_button.setText(self._printer.get_thermal('bed'))
+        self.work_thermal_left_button.setText(self._printer.get_thermal('left'))
+        self.work_thermal_right_button.setText(self._printer.get_thermal('right'))
+        self.work_thermal_bed_button.setText(self._printer.get_thermal('bed'))
 
         if self.handle_stacked_widget.currentWidget() == self.preheat_handle and not self.preheat_handle.next_button.isEnabled():
-            if self._printer.get_temperature(self._printer.get_extruder()) + 3 >= self._printer.get_target(
-                    self._printer.get_extruder()) >= 170:
-                logging.debug(f"heat completed.")
+            if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 170 \
+                    and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 170 \
+                    and self._printer.get_temperature('bed') + 3 >= self._printer.get_target('bed'):
+                logging.debug(f"Heat completed.")
                 self.preheat_handle.next_button.setEnabled(True)
                 self.preheat_text.setText(self.tr("Heat completed."))
-
-    def goto_previous_step_stacked_widget(self):
-        index = self.handle_stacked_widget.currentIndex()
-        if index > 0:
-            self.message_list[index].setEnabled(False)
-            self.message_list[index - 1].setEnabled(True)
-            self.handle_stacked_widget.setCurrentIndex(index - 1)
+        elif self.handle_stacked_widget.currentWidget() == self.work_handle:
+            if not self._printer.is_print_verify():
+                self.goto_next_step_stacked_widget()
 
     def goto_next_step_stacked_widget(self):
         index = self.handle_stacked_widget.currentIndex()
@@ -228,15 +303,16 @@ class PrintVerifyPage(QWidget):
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
-        # preheat -> 170
-        self._printer.set_thermal('left', 170)
-        self._printer.set_thermal('right', 170)
-        self._printer.write_gcode_commands("M155 S2\nG28O\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        # preheat -> 210
+        self._printer.set_thermal('left', 210)
+        self._printer.set_thermal('right', 210)
+        self._printer.set_thermal('bed', 60)
+        self._printer.write_gcode_commands("M155 S2\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
         if platform.system().lower() == 'linux':
             if self.preheat_handle.next_button.isEnabled():
-                self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 170°C)"))
+                self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 210°C)"))
                 self.preheat_handle.next_button.setEnabled(False)
 
     def preheat_filament(self, temperature):
@@ -269,37 +345,33 @@ class PrintVerifyPage(QWidget):
         self.preheat_filament(300)
 
     def on_preheat_next_button_clicked(self):
+        if platform.system().lower() == 'linux':
+            self.work_handle.next_button.setEnabled(False)
+        self._printer.print_verify()
         self.goto_next_step_stacked_widget()
 
     def on_clean_next_button_clicked(self):
         if platform.system().lower() == 'linux':
-            # self._printer.set_thermal('left', 0)
-            # self._printer.set_thermal('right', 0)
             self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y20 Z150 F8400")
 
         self.goto_next_step_stacked_widget()
 
-    def on_place_next_button_clicked(self):
-        self.goto_next_step_stacked_widget()
-
-    def on_measure_left_next_button_clicked(self):
-        self._printer.write_gcode_command(
-            "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
+    def on_finished_offset_x_button_clicked(self):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
-        self._printer.write_gcode_commands("G1 Z150 F960\nG28\nT1\nG1 X190 Y20 Z150 F8400")
-        self.goto_next_step_stacked_widget()
+            self._parent.numberPad.start(f"Please enter x offset", "")
+        self.finished_offset_x_button.setText(self._parent.numberPad.number)
 
-    def on_measure_right_next_button_clicked(self):
-        self._printer.write_gcode_command(
-            "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
+    def on_finished_offset_y_button_clicked(self):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_right")
-        self._printer.write_gcode_command("G1 Z150 F960\nG28X")
-        self.goto_next_step_stacked_widget()
+            self._parent.numberPad.start(f"Please enter y offset", "")
+        self.finished_offset_y_button.setText(self._parent.numberPad.number)
 
     def on_finished_next_button_clicked(self):
-        self._printer.save_dial_indicator_value()
+        self._printer.save_right_offset('X', self._printer.information['probe']['offset']['right']['X'] + float(
+            self.finished_offset_x_button.text()))
+        self._printer.save_right_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
+            self.finished_offset_y_button.text()))
         self.reset_ui()
+        self._parent.gotoPreviousPage()

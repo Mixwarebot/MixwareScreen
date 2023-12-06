@@ -10,70 +10,64 @@ class HomePage(QWidget):
 
         self.setObjectName("homePage")
 
+        self.layout = QGridLayout(self)
+        self.layout.setAlignment(Qt.AlignCenter)
+        self.layout.setContentsMargins(20, 0, 20, 0)
+        self.layout.setSpacing(10)
+
         self.homeAllButton = BasePushButton()
+        self.homeAllButton.setObjectName("allButton")
+        self.homeAllButton.clicked.connect(self.home_all)
+        self.layout.addWidget(self.homeAllButton, 0, 0)
+
         self.homeXButton = BasePushButton()
+        self.homeXButton.setObjectName("xButton")
+        self.homeXButton.clicked.connect(self.home_x)
+        self.layout.addWidget(self.homeXButton, 0, 1)
+
         self.homeYButton = BasePushButton()
+        self.homeYButton.setObjectName("yButton")
+        self.homeYButton.clicked.connect(self.home_y)
+        self.layout.addWidget(self.homeYButton, 1, 0)
+
         self.homeZButton = BasePushButton()
+        self.homeZButton.setObjectName("zButton")
+        self.homeZButton.clicked.connect(self.home_z)
+        self.layout.addWidget(self.homeZButton, 1, 1)
+
         self.disableButton = BasePushButton()
+        self.disableButton.setObjectName("disableButton")
+        self.disableButton.clicked.connect(self.disable_steppers)
+        self.layout.addWidget(self.disableButton, 2, 0)
 
-        self.initForm()
-        self.initLayout()
-        self.initConnect()
+        self.re_translate_ui()
 
-    def initForm(self):
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.re_translate_ui()
+
+    def re_translate_ui(self):
         self.homeAllButton.setText(self.tr("Home All"))
         self.homeXButton.setText(self.tr("Home X"))
         self.homeYButton.setText(self.tr("Home Y"))
         self.homeZButton.setText(self.tr("Home Z"))
         self.disableButton.setText(self.tr("Disable Steppers"))
 
-        self.homeAllButton.setObjectName("allButton")
-        self.homeXButton.setObjectName("xButton")
-        self.homeYButton.setObjectName("yButton")
-        self.homeZButton.setObjectName("zButton")
-        self.disableButton.setObjectName("disableButton")
-
-        self.homeAllButton.setFixedHeight(64)
-        self.homeXButton.setFixedHeight(64)
-        self.homeYButton.setFixedHeight(64)
-        self.homeZButton.setFixedHeight(64)
-        self.disableButton.setFixedHeight(64)
-
-    def initLayout(self):
-        layout = QVBoxLayout(self)
-        layout.setAlignment(Qt.AlignCenter)
-        layout.setContentsMargins(20, 0, 20, 0)
-        layout.setSpacing(10)
-
-        layout.addWidget(self.homeAllButton)
-        layout.addWidget(self.homeXButton)
-        layout.addWidget(self.homeYButton)
-        layout.addWidget(self.homeZButton)
-        layout.addWidget(self.disableButton)
-
-    def initConnect(self):
-        self.homeAllButton.clicked.connect(self.homeAll)
-        self.homeXButton.clicked.connect(self.homeX)
-        self.homeYButton.clicked.connect(self.homeY)
-        self.homeZButton.clicked.connect(self.homeZ)
-        self.disableButton.clicked.connect(self.disableSteppers)
-
     @pyqtSlot()
-    def homeAll(self):
+    def home_all(self):
         self._printer.write_gcode_command("G28")
 
     @pyqtSlot()
-    def homeX(self):
+    def home_x(self):
         self._printer.write_gcode_command("G28X")
 
     @pyqtSlot()
-    def homeY(self):
+    def home_y(self):
         self._printer.write_gcode_command("G28Y")
 
     @pyqtSlot()
-    def homeZ(self):
+    def home_z(self):
         self._printer.write_gcode_command("G28Z")
 
     @pyqtSlot()
-    def disableSteppers(self):
+    def disable_steppers(self):
         self._printer.write_gcode_command("M84")

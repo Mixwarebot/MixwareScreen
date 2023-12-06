@@ -1,3 +1,5 @@
+import os
+
 from qtCore import *
 from ui.base.basePrintWidget import BasePrintWidget
 from ui.levelPages.babyStepPad import BabyStepPad
@@ -10,43 +12,38 @@ class PrintingWidget(BasePrintWidget):
     def __init__(self, printer, parent=None):
         super().__init__(printer, parent)
         self._printer = printer
-        self.timerHours = 0
-        self.timerMinutes = 0
-        self.timerSeconds = 0
+        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
+        self._printer.updatePrinterStatus.connect(self.on_update_printer_status)
 
-        self.printingPage = PrintingPage()
-        self.timer = QTimer()
-        self.reset_time()
-
-        self.printingPage.setObjectName("printingPage")
-        self.stackedLayout.addWidget(self.printingPage)
         self.footer.hide()
 
-        self.babyStepPad = BabyStepPad(self._printer)
-        self.printDoneDialog = PrintDoneDialog(self._printer)
-
-        self.initConnect()
-        self.timer.start(1000)
-
-    def initConnect(self):
-        self._printer.updatePrinterInformation.connect(self.onUpdatePrinterInformation)
-        self._printer.updatePrinterStatus.connect(self.on_update_printer_status)
+        self.printingPage = PrintingPage()
+        self.printingPage.setObjectName("printingPage")
         self.printingPage.print_progress_bar.valueChanged.connect(self.on_print_progress_bar_value_changed)
-        self.timer.timeout.connect(self.onTimerTriggered)
-
+        self.printingPage.stop_print_button.clicked.connect(self.on_stop_button_clicked)
+        self.printingPage.motor_z_button.clicked.connect(self.on_motor_z_button_clicked)
         self.printingPage.thermal_left_button.clicked.connect(self.open_thermal_left_numberPad)
         self.printingPage.thermal_right_button.clicked.connect(self.open_thermal_right_numberPad)
         self.printingPage.thermal_bed_button.clicked.connect(self.open_thermal_bed_numberPad)
         self.printingPage.thermal_chamber_button.clicked.connect(self.open_thermal_chamber_numberPad)
-
-        self.printingPage.stop_print_button.clicked.connect(self.on_stop_button_clicked)
-
-        self.printingPage.motor_z_button.clicked.connect(self.on_motor_z_button_clicked)
-        self.babyStepPad.rejected.connect(self.closeShadowScreen)
-
         self.printingPage.fan_left_button.clicked.connect(self.on_fan_left_button_clicked)
         self.printingPage.fan_right_button.clicked.connect(self.on_fan_right_button_clicked)
         self.printingPage.fan_exhaust_button.clicked.connect(self.on_fan_exhaust_button_clicked)
+        self.stackedLayout.addWidget(self.printingPage)
+
+        self.babyStepPad = BabyStepPad(self._printer)
+        self.babyStepPad.rejected.connect(self.closeShadowScreen)
+
+        self.printDoneDialog = PrintDoneDialog(self._printer)
+
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.onTimerTriggered)
+
+        self.timerHours = 0
+        self.timerMinutes = 0
+        self.timerSeconds = 0
+        self.reset_time()
+        self.timer.start(1000)
 
     def onButtonClicked(self):#test
         filepath, _ = QFileDialog.getOpenFileName(None, "pic", ".", "*.png")
@@ -78,7 +75,14 @@ class PrintingWidget(BasePrintWidget):
             self.numberPad.start(message, "fan_exhaust")
 
     def set_file_name(self, path):
-        self.printingPage.file_name.setText(QFileInfo(path).fileName())
+        file_info = QFileInfo(path)
+        self.printingPage.file_name.setText(file_info.fileName())
+
+        image = f'{file_info.absolutePath()}/.thumbs/{file_info.baseName()}.png'
+        if os.path.isfile(image):
+            self.printingPage.file_image.setPixmap(QPixmap(image).scaledToWidth(360))
+        else:
+            self.printingPage.file_image.setPixmap(QPixmap("resource/image/hyper-x").scaledToWidth(360))
 
     def reset_time(self):
         self.timerSeconds = 0
@@ -106,7 +110,7 @@ class PrintingWidget(BasePrintWidget):
                 self.printingPage.print_progress_bar.setValue(int(self._printer.print_progress()*100))
 
     @pyqtSlot()
-    def onUpdatePrinterInformation(self):
+    def on_update_printer_information(self):
         self.printingPage.thermal_left_button.setText(self._printer.get_thermal('left'))
         self.printingPage.thermal_right_button.setText(self._printer.get_thermal('right'))
         self.printingPage.thermal_bed_button.setText(self._printer.get_thermal('bed'))

@@ -139,11 +139,11 @@ class BabyStepPad(BaseRoundDialog):
 
     @pyqtSlot()
     def on_z_button_1_clicked(self):
-        self._printer.write_gcode_command('M290 Z-' + self.baby_step_distance_list[self.baby_step_distance_current_id])
+        self._printer.write_gcode_command(f'M290 Z-{self.baby_step_distance_list[self.baby_step_distance_current_id]}\nM851\nM218')
 
     @pyqtSlot()
     def on_z_button_2_clicked(self):
-        self._printer.write_gcode_command('M290 Z' + self.baby_step_distance_list[self.baby_step_distance_current_id])
+        self._printer.write_gcode_command(f'M290 Z{self.baby_step_distance_list[self.baby_step_distance_current_id]}\nM851\nM218')
 
     def close_button_on_clicked(self):
         self.reject()

@@ -265,8 +265,8 @@ class DialIndicatorPage(QWidget):
         self.preheat_thermal_right_button.setText(self._printer.get_thermal('right'))
 
         if self.handle_stacked_widget.currentWidget() == self.preheat_handle and not self.preheat_handle.next_button.isEnabled():
-            if self._printer.get_temperature(self._printer.get_extruder()) + 3 >= self._printer.get_target(
-                    self._printer.get_extruder()) >= 170:
+            if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 170 \
+                    and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 170:
                 logging.debug(f"heat completed.")
                 self.preheat_handle.next_button.setEnabled(True)
                 self.preheat_text.setText(self.tr("Heat completed."))
@@ -336,10 +336,10 @@ class DialIndicatorPage(QWidget):
         self.goto_next_step_stacked_widget()
 
     def on_clean_next_button_clicked(self):
-        if platform.system().lower() == 'linux':
-            # self._printer.set_thermal('left', 0)
-            # self._printer.set_thermal('right', 0)
-            self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
+        # if platform.system().lower() == 'linux':
+        self._printer.set_thermal('left', 0)
+        self._printer.set_thermal('right', 0)
+        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
 
         self.goto_next_step_stacked_widget()
         self.place_logo_movie.start()

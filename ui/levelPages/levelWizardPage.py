@@ -389,8 +389,8 @@ class LevelWizardPage(QWidget):
         self.preheat_thermal_right_button.setText(self._printer.get_thermal('right'))
 
         if self.handle_stacked_widget.currentWidget() == self.preheat_handle and not self.preheat_handle.next_button.isEnabled():
-            if self._printer.get_temperature(self._printer.get_extruder()) + 3 >= self._printer.get_target(
-                    self._printer.get_extruder()) >= 170:
+            if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 170 \
+                    and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 170:
                 logging.debug(f"heat completed.")
                 self.preheat_handle.next_button.setEnabled(True)
                 self.preheat_text.setText(self.tr("Heat completed."))
@@ -469,7 +469,7 @@ class LevelWizardPage(QWidget):
         if platform.system().lower() == 'linux':
             # self._printer.set_thermal('left', 0)
             # self._printer.set_thermal('right', 0)
-            self._printer.write_gcode_command('M104 S0 T0\nM104 S0 T1\nG28\nD28\nG29\nM500')
+            self._printer.write_gcode_command('M104 S0 T0\nM104 S0 T1\nG28\nD28\nG29\nM500\nM503')
             self.level_handle.next_button.setEnabled(False)
         self._parent.footer.setEnabled(False)
         self.goto_next_step_stacked_widget()

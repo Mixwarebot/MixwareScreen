@@ -4,6 +4,7 @@ from ui.base.baseRound import BaseRoundDialog
 
 
 class NumberPad(BaseRoundDialog):
+
     def __init__(self, printer, parent=None):
         super().__init__(parent)
         self._printer = printer
@@ -13,62 +14,110 @@ class NumberPad(BaseRoundDialog):
         self.numberObject = ""
         self._source = ""
 
-        self.frame = QFrame()
-
-        self.title_frame = QFrame()
-        self.title_label = QLabel()
-        self.title_close_button = BasePushButton()
-
-        self.informationLabel = QLabel()
-        self.inputLabel = QLabel()
-        self.deleteButton = BasePushButton()
-        self.button0 = BasePushButton()
-        self.button1 = BasePushButton()
-        self.button2 = BasePushButton()
-        self.button3 = BasePushButton()
-        self.button4 = BasePushButton()
-        self.button5 = BasePushButton()
-        self.button6 = BasePushButton()
-        self.button7 = BasePushButton()
-        self.button8 = BasePushButton()
-        self.button9 = BasePushButton()
-        self.dotButton = BasePushButton()
-        self.enterButton = BasePushButton()
-
-        self.initForm()
-        self.initLayout()
-        self.initConnect()
-
-    def initForm(self):
-        self.setWindowTitle("NumberPad")
         self.resize(self._width-40, self._height/2)
         self.move((self._width - self.width())/2, (self._height - self.height())/2)
 
+        self.frame = QFrame()
         self.frame.setObjectName("frameBox")
         self.frame.setStyleSheet("QFrame#frameBox { border: none; background: #F2F2F2; }")
+        self.frame_layout = QVBoxLayout(self.frame)
+        self.frame_layout.setContentsMargins(0, 0, 0, 0)
+        self.frame_layout.setSpacing(0)
+        self.frame_layout.setAlignment(Qt.AlignTop)
 
+        self.title_frame = QFrame()
         self.title_frame.setFixedHeight(40)
         self.title_frame.setObjectName("title")
+        title_frame_layout = QHBoxLayout(self.title_frame)
+        title_frame_layout.setContentsMargins(0, 0, 0, 0)
+        title_frame_layout.setSpacing(0)
+        self.title_label = QLabel()
+        self.title_label.setFixedHeight(40)
+        title_frame_layout.addWidget(self.title_label)
+        self.title_close_button = BasePushButton()
         self.title_close_button.setText("x")
         self.title_close_button.setObjectName("closeButton")
         self.title_close_button.setFlat(True)
         self.title_close_button.setFixedSize(40, 40)
-
-        self.inputLabel.setObjectName("numberPadInputLabel")
+        self.title_close_button.clicked.connect(self.on_close_button_clicked)
+        title_frame_layout.addWidget(self.title_close_button)
+        self.frame_layout.addWidget(self.title_frame)
+        self.informationLabel = QLabel()
         self.informationLabel.setObjectName("numberPadInformationLabel")
-        self.deleteButton.setObjectName("deleteButton")
-
-        self.title_label.setFixedHeight(40)
         self.informationLabel.setFixedSize(self.width(), 90)
-        self.deleteButton.setFixedSize(100, 60)
-
-        self.inputLabel.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
-
-        self.title_label.setText(self.tr("Parameter Setting"))
-        self.informationLabel.setText("Parameter Information.")
         self.informationLabel.setWordWrap(True)
-        self.inputLabel.setText(self.number)
+        self.frame_layout.addWidget(self.informationLabel)
+
+        self.input_layout = QHBoxLayout()
+        self.input_layout.setContentsMargins(10, 0, 10, 0)
+        self.inputLabel = QLabel()
+        self.inputLabel.setObjectName("numberPadInputLabel")
+        self.inputLabel.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        self.input_layout.addWidget(self.inputLabel, 3)
+        self.deleteButton = BasePushButton()
+        self.deleteButton.setObjectName("deleteButton")
+        self.deleteButton.setFixedSize(100, 60)
+        self.deleteButton.clicked.connect(self.on_delete_button_clicked)
+        self.input_layout.addWidget(self.deleteButton, 1)
+        self.frame_layout.addLayout(self.input_layout)
+
+        self.keyboard_layout = QGridLayout()
+        self.keyboard_layout.setContentsMargins(10, 10, 10, 10)
+        self.keyboard_layout.setSpacing(10)
+        self.button7 = BasePushButton()
+        self.button7.clicked.connect(self.on_button7_clicked)
+        self.keyboard_layout.addWidget(self.button7, 0, 0)
+        self.button8 = BasePushButton()
+        self.button8.clicked.connect(self.on_button8_clicked)
+        self.keyboard_layout.addWidget(self.button8, 0, 1)
+        self.button9 = BasePushButton()
+        self.button9.clicked.connect(self.on_button9_clicked)
+        self.keyboard_layout.addWidget(self.button9, 0, 2)
+        self.button4 = BasePushButton()
+        self.button4.clicked.connect(self.on_button4_clicked)
+        self.keyboard_layout.addWidget(self.button4, 1, 0)
+        self.button5 = BasePushButton()
+        self.button5.clicked.connect(self.on_button5_clicked)
+        self.keyboard_layout.addWidget(self.button5, 1, 1)
+        self.button6 = BasePushButton()
+        self.button6.clicked.connect(self.on_button6_clicked)
+        self.keyboard_layout.addWidget(self.button6, 1, 2)
+        self.button1 = BasePushButton()
+        self.button1.clicked.connect(self.on_button1_clicked)
+        self.keyboard_layout.addWidget(self.button1, 2, 0)
+        self.button2 = BasePushButton()
+        self.button2.clicked.connect(self.on_button2_clicked)
+        self.keyboard_layout.addWidget(self.button2, 2, 1)
+        self.button3 = BasePushButton()
+        self.button3.clicked.connect(self.on_button3_clicked)
+        self.keyboard_layout.addWidget(self.button3, 2, 2)
+        self.button0 = BasePushButton()
+        self.button0.clicked.connect(self.on_button0_clicked)
+        self.keyboard_layout.addWidget(self.button0, 3, 0)
+        self.dotButton = BasePushButton()
+        self.dotButton.clicked.connect(self.on_dot_button_clicked)
+        self.keyboard_layout.addWidget(self.dotButton, 3, 1)
+        self.enterButton = BasePushButton()
+        self.enterButton.clicked.connect(self.on_enterButton_clicked)
+        self.keyboard_layout.addWidget(self.enterButton, 3, 2)
+        self.frame_layout.addLayout(self.keyboard_layout)
+
+        self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setSpacing(0)
+        self.layout.addWidget(self.frame)
+
+        self.re_translate_ui()
+
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.re_translate_ui()
+
+    def re_translate_ui(self):
+        self.title_label.setText(self.tr("Parameter Setting"))
+        self.informationLabel.setText(self.tr("Parameter Information."))
         self.deleteButton.setText(self.tr("Delete"))
+        self.enterButton.setText(self.tr("Enter"))
+        self.inputLabel.setText(self.number)
         self.button0.setText("0")
         self.button1.setText("1")
         self.button2.setText("2")
@@ -80,67 +129,6 @@ class NumberPad(BaseRoundDialog):
         self.button8.setText("8")
         self.button9.setText("9")
         self.dotButton.setText(".")
-        self.enterButton.setText(self.tr("Enter"))
-
-    def initLayout(self):
-        title_frame_layout = QHBoxLayout(self.title_frame)
-        title_frame_layout.setContentsMargins(0, 0, 0, 0)
-        title_frame_layout.setSpacing(0)
-        title_frame_layout.addWidget(self.title_label)
-        title_frame_layout.addWidget(self.title_close_button)
-
-        layout3 = QHBoxLayout()
-        layout3.addWidget(self.inputLabel)
-        layout3.addWidget(self.deleteButton)
-        layout3.setContentsMargins(10, 0, 10, 0)
-        layout3.setStretch(0, 3)
-        layout3.setStretch(1, 1)
-
-        layout2 = QGridLayout()
-        layout2.addWidget(self.button7, 0, 0)
-        layout2.addWidget(self.button8, 0, 1)
-        layout2.addWidget(self.button9, 0, 2)
-        layout2.addWidget(self.button4, 1, 0)
-        layout2.addWidget(self.button5, 1, 1)
-        layout2.addWidget(self.button6, 1, 2)
-        layout2.addWidget(self.button1, 2, 0)
-        layout2.addWidget(self.button2, 2, 1)
-        layout2.addWidget(self.button3, 2, 2)
-        layout2.addWidget(self.button0, 3, 0)
-        layout2.addWidget(self.dotButton, 3, 1)
-        layout2.addWidget(self.enterButton, 3, 2)
-        layout2.setContentsMargins(10, 10, 10, 10)
-        layout2.setSpacing(10)
-
-        layout = QVBoxLayout(self.frame)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)
-        layout.addWidget(self.title_frame)
-        layout.addWidget(self.informationLabel)
-        layout.addLayout(layout3)
-        layout.addLayout(layout2)
-        layout.setAlignment(Qt.AlignTop)
-
-        _layout = QVBoxLayout(self)
-        _layout.setContentsMargins(0, 0, 0, 0)
-        _layout.setSpacing(0)
-        _layout.addWidget(self.frame)
-
-    def initConnect(self):
-        self.title_close_button.clicked.connect(self.closeButton_onClicked)
-        self.enterButton.clicked.connect(self.on_enterButton_clicked)
-        self.button0.clicked.connect(self.on_button0_clicked)
-        self.button1.clicked.connect(self.on_button1_clicked)
-        self.button2.clicked.connect(self.on_button2_clicked)
-        self.button3.clicked.connect(self.on_button3_clicked)
-        self.button4.clicked.connect(self.on_button4_clicked)
-        self.button5.clicked.connect(self.on_button5_clicked)
-        self.button6.clicked.connect(self.on_button6_clicked)
-        self.button7.clicked.connect(self.on_button7_clicked)
-        self.button8.clicked.connect(self.on_button8_clicked)
-        self.button9.clicked.connect(self.on_button9_clicked)
-        self.dotButton.clicked.connect(self.on_dotButton_clicked)
-        self.deleteButton.clicked.connect(self.on_deleteButton_clicked)
 
     def add_number(self, n: str):
         if len(self.number) == 1 and self.number == "0" and n != ".":
@@ -184,18 +172,18 @@ class NumberPad(BaseRoundDialog):
     def on_button9_clicked(self):
         self.add_number("9")
 
-    def on_dotButton_clicked(self):
+    def on_dot_button_clicked(self):
         if "." not in self.number:
             self.add_number(".")
 
-    def on_deleteButton_clicked(self):
+    def on_delete_button_clicked(self):
         if len(self.number) > 1:
             self.number = self.number[:-1]
         else:
             self.number = "0"
         self.inputLabel.setText(self.number)
 
-    def closeButton_onClicked(self):
+    def on_close_button_clicked(self):
         if self._source in ["dial_indicator_left", "dial_indicator_right"]:
             return
         self.reject()

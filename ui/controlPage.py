@@ -17,93 +17,90 @@ class ControlPage(QWidget):
 
         self.setObjectName("controlPage")
 
+        self.layout = QGridLayout(self)
+        self.layout.setContentsMargins(20, 0, 20, 0)
+        self.layout.setSpacing(10)
+
         self.temperatureButton = BasePushButton()
-        self.fanButton = BasePushButton()
-        self.filamentButton = BasePushButton()
-        self.homeButton = BasePushButton()
-        self.levelButton = BasePushButton()
-        self.moveButton = BasePushButton()
-
-        self.temperaturePage = TemperaturePage(self._printer, self._parent)
-        self.fanPage = FanPage(self._printer, self._parent)
-        self.filamentPage = FilamentPage(self._printer, self._parent)
-        self.homePage = HomePage(self._printer, self._parent)
-        self.levelPage = LevelPreParePage(self._printer, self._parent)
-        self.movePage = MovePage(self._printer, self._parent)
-
-        self.initForm()
-        self.initLayout()
-        self.initConnect()
-
-    def initForm(self):
         self.temperatureButton.setObjectName("temperatureButton")
+        self.temperatureButton.clicked.connect(self.goto_temperature_page)
+        self.layout.addWidget(self.temperatureButton, 0, 0)
+
+        self.fanButton = BasePushButton()
         self.fanButton.setObjectName("fanButton")
+        self.fanButton.clicked.connect(self.goto_fan_page)
+        self.layout.addWidget(self.fanButton, 0, 1)
+
+        self.filamentButton = BasePushButton()
         self.filamentButton.setObjectName("filamentButton")
+        self.filamentButton.clicked.connect(self.goto_filament_page)
+        self.layout.addWidget(self.filamentButton, 1, 0)
+
+        self.homeButton = BasePushButton()
         self.homeButton.setObjectName("homeButton")
+        self.homeButton.clicked.connect(self.goto_home_page)
+        self.layout.addWidget(self.homeButton, 1, 1)
+
+        self.levelButton = BasePushButton()
         self.levelButton.setObjectName("levelButton")
+        self.levelButton.clicked.connect(self.goto_level_page)
+        self.layout.addWidget(self.levelButton, 2, 0)
+
+        self.moveButton = BasePushButton()
         self.moveButton.setObjectName("moveButton")
-        self.reTranslateUi()
+        self.moveButton.clicked.connect(self.goto_move_page)
+        self.layout.addWidget(self.moveButton, 2, 1)
 
-    def initLayout(self):
-        button_layout = QGridLayout(self)
-        button_layout.setContentsMargins(20, 0, 20, 0)
-        button_layout.setSpacing(10)
-        button_layout.addWidget(self.temperatureButton, 0, 0)
-        button_layout.addWidget(self.fanButton, 0, 1)
-        button_layout.addWidget(self.filamentButton, 1, 0)
-        button_layout.addWidget(self.homeButton, 1, 1)
-        button_layout.addWidget(self.levelButton, 2, 0)
-        button_layout.addWidget(self.moveButton, 2, 1)
+        self.temperature_page = TemperaturePage(self._printer, self._parent)
+        self.fan_page = FanPage(self._printer, self._parent)
+        self.filament_page = FilamentPage(self._printer, self._parent)
+        self.home_page = HomePage(self._printer, self._parent)
+        self.level_page = LevelPreParePage(self._printer, self._parent)
+        self.move_page = MovePage(self._printer, self._parent)
 
-    def initConnect(self):
-        self.temperatureButton.clicked.connect(self.gotoTemperaturePage)
-        self.fanButton.clicked.connect(self.gotoFanPage)
-        self.filamentButton.clicked.connect(self.gotoFilamentPage)
-        self.homeButton.clicked.connect(self.gotoHomePage)
-        self.levelButton.clicked.connect(self.gotoLevelPage)
-        self.moveButton.clicked.connect(self.gotoMovePage)
+        self.re_translate_ui()
 
-    @pyqtSlot()
-    def gotoTemperaturePage(self):
-        self._printer.write_gcode_command("D105")
-        self._parent.gotoPage(self.temperaturePage, self.tr("Temperature"))
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.re_translate_ui()
 
-    @pyqtSlot()
-    def gotoFilamentPage(self):
-        self.filamentPage.backup_target()
-        self._parent.showShadowScreen()
-        ret = self._parent.message.start(self.tr("Filament"), self.tr("Whether preheating is required？\nPreheat temperature: 170°C"), buttons=QMessageBox.Yes | QMessageBox.Cancel)
-        if ret == QMessageBox.Yes:
-            self.filamentPage.need_preheat = True
-            self._printer.write_gcode_command('M104 S170 T0\nM104 S170 T1')
-        self._parent.closeShadowScreen()
-        self._parent.gotoPage(self.filamentPage, self.tr("Filament"))
-
-    @pyqtSlot()
-    def gotoLevelPage(self):
-        self._parent.gotoPage(self.levelPage, self.tr("Level Perpare"))
-
-    @pyqtSlot()
-    def gotoMovePage(self):
-        self._printer.write_gcode_command("D114")
-        self._parent.gotoPage(self.movePage, self.tr("Move"))
-
-    @pyqtSlot()
-    def gotoHomePage(self):
-        self._parent.gotoPage(self.homePage, self.tr("Home"))
-
-    @pyqtSlot()
-    def gotoFanPage(self):
-        self._printer.write_gcode_command("D106")
-        self._parent.gotoPage(self.fanPage, self.tr("Fan"))
-
-    def reTranslateUi(self):
+    def re_translate_ui(self):
         self.temperatureButton.setTitle(self.tr("Temperature"))
         self.fanButton.setTitle(self.tr("Fan"))
         self.filamentButton.setTitle(self.tr("Filament"))
         self.homeButton.setTitle(self.tr("Home"))
-        self.levelButton.setTitle(self.tr("Level Prepare"))
+        self.levelButton.setTitle(self.tr("Level"))
         self.moveButton.setTitle(self.tr("Move"))
 
-    def showEvent(self, a0: QShowEvent) -> None:
-        self.reTranslateUi()
+    @pyqtSlot()
+    def goto_temperature_page(self):
+        self._printer.write_gcode_command("D105")
+        self._parent.gotoPage(self.temperature_page, self.tr("Temperature"))
+
+    @pyqtSlot()
+    def goto_filament_page(self):
+        self.filament_page.backup_target()
+        self._parent.showShadowScreen()
+        ret = self._parent.message.start(self.tr("Filament"), self.tr("Whether preheating is required？\nPreheat temperature: 170°C"), buttons=QMessageBox.Yes | QMessageBox.Cancel)
+        if ret == QMessageBox.Yes:
+            self.filament_page.need_preheat = True
+            self._printer.write_gcode_command('M104 S170 T0\nM104 S170 T1')
+        self._parent.closeShadowScreen()
+        self._parent.gotoPage(self.filament_page, self.tr("Filament"))
+
+    @pyqtSlot()
+    def goto_level_page(self):
+        self._parent.gotoPage(self.level_page, self.tr("Level Prepare"))
+
+    @pyqtSlot()
+    def goto_move_page(self):
+        self._printer.write_gcode_command("D114")
+        self._parent.gotoPage(self.move_page, self.tr("Move"))
+
+    @pyqtSlot()
+    def goto_home_page(self):
+        self._parent.gotoPage(self.home_page, self.tr("Home"))
+
+    @pyqtSlot()
+    def goto_fan_page(self):
+        self._printer.write_gcode_command("D106")
+        self._parent.gotoPage(self.fan_page, self.tr("Fan"))

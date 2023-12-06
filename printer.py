@@ -32,6 +32,7 @@ def scan_serial_list():
 
 class MixwareScreenPrinter(QObject):
     config = None
+    _version = None
 
     updatePrinterStatus = pyqtSignal(int)
     """
@@ -43,7 +44,14 @@ class MixwareScreenPrinter(QObject):
     5: filament finished;
     """
     updatePrinterInformation = pyqtSignal()
-    updatePrinterMessage = pyqtSignal(str)
+    updatePrinterMessage = pyqtSignal(str, int)
+    """
+    message: str
+    level: int
+        0: info
+        1: warning
+        2: error
+    """
 
     def __init__(self):
         super(MixwareScreenPrinter, self).__init__()
@@ -65,6 +73,7 @@ class MixwareScreenPrinter(QObject):
         self.connecting = False
         self._printer_busy = False
         self._is_printing = False
+        self._is_print_verify = False
         self._is_paused = False
         self.leveling_working = 0
         self.filament_working = 0
@@ -182,6 +191,7 @@ class MixwareScreenPrinter(QObject):
                 self.connected = False
                 self.connecting = True
                 self._is_printing = False
+                self._is_print_verify = False
                 self._update_thread.start()
                 self.connect_check_timer.start(500)
                 QTimer.singleShot(5000, self.connect_check_timeout)
@@ -197,11 +207,11 @@ class MixwareScreenPrinter(QObject):
                 if self._serial_error_count > 99:
                     # ClearCommError failed (PermissionError(13, '设备不识别此命令。', None, 22))
                     if "ClearCommError failed" in str(e):
-                        self.updatePrinterMessage.emit("The printer disconnected abnormally.")
+                        self.updatePrinterMessage.emit("The printer disconnected abnormally.", 2)
                         self.serial_error()
                     # device reports readiness to read but returned no data (device disconnected or multiple access on port?)
                     elif "device reports readiness to read but returned no data" in str(e):
-                        self.updatePrinterMessage.emit("The printer disconnected abnormally.")
+                        self.updatePrinterMessage.emit("The printer disconnected abnormally.", 2)
                         self.serial_error()
                     else:
                         logging.error(F"Serial error.@{e}")
@@ -210,7 +220,7 @@ class MixwareScreenPrinter(QObject):
 
             if 'echo:' in self.serial_data and 'Failed' in self.serial_data:
                 self.updatePrinterMessage.emit(
-                    self.serial_data[self.serial_data.find('echo:') + 5:self.serial_data.rfind('\n')])
+                    self.serial_data[self.serial_data.find('echo:') + 5:self.serial_data.rfind('\n')], 2)
                 logging.error(F"Printer error: {self.serial_data}")
                 continue
 
@@ -503,12 +513,6 @@ class MixwareScreenPrinter(QObject):
                         logging.debug(F"Update printer auto-leveling data(G29): {self.re_data}")
                         self.information['bedMesh'].append(float(self.re_data[0]))
                         self.re_data.clear()
-                elif re.search("Bilinear Leveling Grid:", self.serial_data):
-                    self.re_data = re.findall(" [+|-](\\d+\\.?\\d*)", self.serial_data)
-                    if self.re_data:
-                        logging.debug(F"Update printer auto-leveling data(G29): {self.re_data}")
-                        self.information['bedMesh'].append(self.re_data[0])
-                        self.re_data.clear()
                 elif re.search("D28", self.serial_data):  # Home status.
                     self.re_data = re.findall("D28 X(\\d*) Y(\\d*) Z(\\d*)", self.serial_data)
                     if self.re_data:
@@ -543,16 +547,18 @@ class MixwareScreenPrinter(QObject):
                 if not self._command_queue.empty():
                     self._sendCommand(self._command_queue.get())
                 elif self._is_printing:
-
                     if self._is_paused:
                         pass  # Nothing to do!
                     else:
                         self._sendNextGcodeLine()
 
+                elif self._is_print_verify:
+                    self._sendNextGcodeLine()
+
             if self.serial_data.startswith("echo:busy:"):
                 self._printer_busy = True
 
-            if self._is_printing:
+            if self._is_printing or self._is_print_verify:
                 if self.serial_data.startswith('!!'):
                     logging.error("Printer signals fatal error. Cancelling print. {}".format(self.serial_data))
                     self.print_stop()
@@ -601,6 +607,8 @@ class MixwareScreenPrinter(QObject):
             if b'G29' in new_command:
                 logging.info("Start Auto-leveling(G29).")
                 self.set_level_state(new_command.count(b"\n"))
+            elif b'M502' in new_command:
+                self.information['bedMesh'] = []
             elif b'M605' in new_command:
                 if b'S1' in new_command:
                     logging.info("Dual x-carriage movement mode changed to DXC_AUTO_PARK_MODE")
@@ -629,12 +637,15 @@ class MixwareScreenPrinter(QObject):
         try:
             self._gcode_line = self._gcode[self._gcode_position]
         except IndexError:  # End of print, or print got cancelled.
-            self._is_printing = False
             if self._gcode_position >= len(self._gcode):
-                logging.debug(F"Printing finished.")
-                self._is_printing = False
-                self.updatePrinterStatus.emit(3)
-                self._sendCommand("M500")
+                if self._is_printing:
+                    logging.debug(F"Printing finished.")
+                    self._is_printing = False
+                    self.updatePrinterStatus.emit(3)
+                    self._sendCommand("M500")
+                elif self._is_print_verify:
+                    logging.debug(F"Print verify finished.")
+                    self._is_print_verify = False
             return
 
         if ";" in self._gcode_line:
@@ -743,7 +754,7 @@ class MixwareScreenPrinter(QObject):
             command = "M141"
         if command:
             command += " S" + str(target) + "\nM105"
-            self.write_gcode_command(command)
+            self.write_gcode_commands(command)
 
     @pyqtSlot(result=str)
     def get_extruder(self):
@@ -847,19 +858,23 @@ class MixwareScreenPrinter(QObject):
     @pyqtSlot(str)
     def print_start(self, path):
         logging.debug(F"Start print {path}.")
-        file = QFile()
+        # file = QFile()
         self.print_file = path
         if 'file:' in path:
             if platform.system().lower() == 'windows':
                 path = path[8:]
             elif platform.system().lower() == 'linux':
                 path = path[7:]
-        file.setFileName(path)
-        if not file.open(QIODevice.ReadOnly | QIODevice.Text):
-            logging.warning(F"Print file open failed.")
-            return
-        self._gcode.clear()
-        self._gcode.extend(str(file.readAll(), encoding='utf-8').split("\n"))
+        # file.setFileName(path)
+        # if not file.open(QIODevice.ReadOnly | QIODevice.Text):
+        #     logging.warning(F"Print file open failed.")
+        #     return
+        # self._gcode.clear()
+        # self._gcode.extend(str(file.readAll(), encoding='utf-8').split("\n"))
+        with open(path, 'rt') as f:
+            self._gcode.clear()
+            self._gcode.extend(f.read().split("\n"))
+            f.close()
 
         # Reset line number. If this is not done, first line is sometimes ignored
         self._gcode.insert(0, "M110")
@@ -877,8 +892,8 @@ class MixwareScreenPrinter(QObject):
         self._is_paused = False
         self._is_printing = True
 
-        file.close()
-        del file
+        # file.close()
+        # del file
 
     @pyqtSlot()
     def print_again(self):
@@ -919,6 +934,8 @@ class MixwareScreenPrinter(QObject):
     @pyqtSlot(bool)
     def set_level_state(self, state=0):
         self.leveling_working = state
+        if self.leveling_working:
+            self.information['bedMesh'] = []
 
     @pyqtSlot(result=int)
     def get_filament_state(self):
@@ -937,8 +954,6 @@ class MixwareScreenPrinter(QObject):
     def version(self):
         return self._version
 
-    # @QtCore.pyqtProperty(QtCore.QVariant)
-
     @pyqtSlot()
     def onTimerTriggered(self):
         if not self.is_connected() and not self.is_connecting():
@@ -947,7 +962,32 @@ class MixwareScreenPrinter(QObject):
     def set_dial_indicator_value(self, obj, value):
         self.dial_indicator[obj] = float(value)
 
+    def save_right_offset(self, axis: str, offset: float):
+        self.write_gcode_command(f"M218 T1 {axis}{offset}\nM500\nM218")
+
     def save_dial_indicator_value(self):
         offset = self.information['probe']['offset']['right']['Z'] + self.dial_indicator['left'] - self.dial_indicator[
             'right']
-        self.write_gcode_command(f"M218 T1 Z{offset}\nM500\nM218")
+        self.save_right_offset('Z', offset)
+
+    @pyqtSlot()
+    def print_verify(self):
+        logging.debug(F"Start print verify.")
+        path = "resource/gcode/print_verify.gcode"
+        with open(path, 'rt') as f:
+            self._gcode.clear()
+            self._gcode.extend(f.read().split("\n"))
+            f.close()
+
+        # Reset line number. If this is not done, first line is sometimes ignored
+        self._gcode.insert(0, "M110")
+        self._gcode_position = 0
+        # Push first 4 entries before accepting other inputs
+        for i in range(0, 4):
+            self._sendNextGcodeLine()
+
+        self._is_print_verify = True
+
+    @pyqtSlot()
+    def is_print_verify(self):
+        return self._is_print_verify

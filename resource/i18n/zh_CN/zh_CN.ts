@@ -235,12 +235,12 @@ Mixware Screen is the latest version.</source>
 <context>
     <name>BaseMessageBox</name>
     <message>
-        <location filename="../../../ui/base/baseMessageBox.py" line="59"/>
+        <location filename="../../../ui/base/baseMessageBox.py" line="85"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/base/baseMessageBox.py" line="60"/>
+        <location filename="../../../ui/base/baseMessageBox.py" line="86"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -312,44 +312,44 @@ Mixware Screen is the latest version.</source>
 <context>
     <name>ControlPage</name>
     <message>
-        <location filename="../../../ui/controlPage.py" line="101"/>
+        <location filename="../../../ui/controlPage.py" line="77"/>
         <source>Temperature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/controlPage.py" line="103"/>
+        <location filename="../../../ui/controlPage.py" line="88"/>
         <source>Filament</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/controlPage.py" line="75"/>
+        <location filename="../../../ui/controlPage.py" line="83"/>
         <source>Whether preheating is required？
 Preheat temperature: 170°C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/controlPage.py" line="84"/>
-        <source>Level Perpare</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/controlPage.py" line="106"/>
+        <location filename="../../../ui/controlPage.py" line="97"/>
         <source>Move</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/controlPage.py" line="104"/>
+        <location filename="../../../ui/controlPage.py" line="101"/>
         <source>Home</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/controlPage.py" line="102"/>
+        <location filename="../../../ui/controlPage.py" line="106"/>
         <source>Fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/controlPage.py" line="105"/>
+        <location filename="../../../ui/controlPage.py" line="92"/>
         <source>Level Prepare</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/controlPage.py" line="71"/>
+        <source>Level</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -440,38 +440,40 @@ Preheat temperature: 170°C</source>
 <context>
     <name>FanPage</name>
     <message>
-        <location filename="../../../ui/fanPage.py" line="217"/>
-        <source>Extruder Fan(Left)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/fanPage.py" line="218"/>
-        <source>Extruder Fan(Right)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/fanPage.py" line="219"/>
+        <location filename="../../../ui/fanPage.py" line="176"/>
         <source>Chamber Fan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/fanPage.py" line="220"/>
-        <source>Motherboard Fan</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/fanPage.py" line="221"/>
+        <location filename="../../../ui/fanPage.py" line="178"/>
         <source>Model Fan(Left)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/fanPage.py" line="222"/>
+        <location filename="../../../ui/fanPage.py" line="179"/>
         <source>Model Fan(Right)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/fanPage.py" line="223"/>
+        <location filename="../../../ui/fanPage.py" line="180"/>
         <source>Exhaust Fan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/fanPage.py" line="174"/>
+        <source>Extruder Fan
+(Left)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/fanPage.py" line="175"/>
+        <source>Extruder Fan
+(Right)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/fanPage.py" line="177"/>
+        <source>Main-board Fan</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -501,107 +503,107 @@ Preheat temperature: 170°C</source>
 <context>
     <name>FilamentPage</name>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="43"/>
+        <location filename="../../../ui/filamentPage.py" line="67"/>
         <source>Select the extruder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="44"/>
+        <location filename="../../../ui/filamentPage.py" line="68"/>
         <source>Select the work mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="45"/>
+        <location filename="../../../ui/filamentPage.py" line="69"/>
         <source>Select the filament.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="46"/>
+        <location filename="../../../ui/filamentPage.py" line="70"/>
         <source>Wait to heat up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="47"/>
+        <location filename="../../../ui/filamentPage.py" line="71"/>
         <source>Wait for the job to finish.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="48"/>
+        <location filename="../../../ui/filamentPage.py" line="72"/>
         <source>Done.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="70"/>
+        <location filename="../../../ui/filamentPage.py" line="211"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="71"/>
+        <location filename="../../../ui/filamentPage.py" line="212"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="379"/>
+        <location filename="../../../ui/filamentPage.py" line="365"/>
         <source>Load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="227"/>
+        <location filename="../../../ui/filamentPage.py" line="362"/>
         <source>Unload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="76"/>
+        <location filename="../../../ui/filamentPage.py" line="215"/>
         <source>PLA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="77"/>
+        <location filename="../../../ui/filamentPage.py" line="216"/>
         <source>ABS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="78"/>
+        <location filename="../../../ui/filamentPage.py" line="217"/>
         <source>PET</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="79"/>
+        <location filename="../../../ui/filamentPage.py" line="218"/>
         <source>PA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="81"/>
+        <location filename="../../../ui/filamentPage.py" line="219"/>
         <source>Heating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="83"/>
+        <location filename="../../../ui/filamentPage.py" line="220"/>
         <source>Working</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="87"/>
+        <location filename="../../../ui/filamentPage.py" line="222"/>
         <source>Finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="189"/>
+        <location filename="../../../ui/filamentPage.py" line="324"/>
         <source>Current filament: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="211"/>
+        <location filename="../../../ui/filamentPage.py" line="346"/>
         <source>Current work mode: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="277"/>
+        <location filename="../../../ui/filamentPage.py" line="221"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="396"/>
+        <location filename="../../../ui/filamentPage.py" line="393"/>
         <source>Heat completed,
 click &lt;Next&gt; to start working.</source>
         <translation type="unfinished"></translation>
@@ -699,27 +701,27 @@ click &lt;Next&gt; to start working.</source>
 <context>
     <name>HomePage</name>
     <message>
-        <location filename="../../../ui/homePage.py" line="24"/>
+        <location filename="../../../ui/homePage.py" line="49"/>
         <source>Home All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/homePage.py" line="25"/>
+        <location filename="../../../ui/homePage.py" line="50"/>
         <source>Home X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/homePage.py" line="26"/>
+        <location filename="../../../ui/homePage.py" line="51"/>
         <source>Home Y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/homePage.py" line="27"/>
+        <location filename="../../../ui/homePage.py" line="52"/>
         <source>Home Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/homePage.py" line="28"/>
+        <location filename="../../../ui/homePage.py" line="53"/>
         <source>Disable Steppers</source>
         <translation type="unfinished"></translation>
     </message>
@@ -976,47 +978,88 @@ click &lt;Next&gt; to start working.</source>
 <context>
     <name>MovePage</name>
     <message>
-        <location filename="../../../ui/movePage.py" line="279"/>
+        <location filename="../../../ui/movePage.py" line="284"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/movePage.py" line="281"/>
+        <location filename="../../../ui/movePage.py" line="286"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/movePage.py" line="210"/>
+        <location filename="../../../ui/movePage.py" line="215"/>
         <source>Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/movePage.py" line="211"/>
+        <location filename="../../../ui/movePage.py" line="216"/>
         <source>Move Distance (mm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/movePage.py" line="212"/>
+        <location filename="../../../ui/movePage.py" line="217"/>
         <source>Unlock
 Motor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/movePage.py" line="207"/>
+        <source>Move
+Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/movePage.py" line="208"/>
+        <source>Move
+Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/movePage.py" line="210"/>
+        <source>Move
+Forward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/movePage.py" line="209"/>
+        <source>Move
+Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/movePage.py" line="211"/>
+        <source>Lift
+Bed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/movePage.py" line="212"/>
+        <source>Drop
+Bed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>NumberPad</name>
     <message>
-        <location filename="../../../ui/numberPad.py" line="67"/>
+        <location filename="../../../ui/numberPad.py" line="116"/>
         <source>Parameter Setting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/numberPad.py" line="71"/>
+        <location filename="../../../ui/numberPad.py" line="118"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/numberPad.py" line="83"/>
+        <location filename="../../../ui/numberPad.py" line="119"/>
         <source>Enter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/numberPad.py" line="117"/>
+        <source>Parameter Information.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1059,8 +1102,31 @@ Motor</source>
 <context>
     <name>PrintFilePage</name>
     <message>
-        <location filename="../../../ui/printFilePage.py" line="127"/>
+        <location filename="../../../ui/printFilePage.py" line="223"/>
         <source>Print {} ?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PrintPreparePage</name>
+    <message>
+        <location filename="../../../ui/printPreparePage.py" line="64"/>
+        <source>XY Verity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/printPreparePage.py" line="62"/>
+        <source>Local Print</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/printPreparePage.py" line="63"/>
+        <source>USB Print</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/printPreparePage.py" line="72"/>
+        <source>Verity XY offset ?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1087,59 +1153,75 @@ Motor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="187"/>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="253"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="239"/>
-        <source>Preheating extruder.
-(Default 170°C)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="196"/>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="266"/>
         <source>Please wait.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="197"/>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="267"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="198"/>
-        <source>Measure completed.</source>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="289"/>
+        <source>Heat completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/printVerifyPage.py" line="210"/>
-        <source>Heat completed.</source>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="315"/>
+        <source>Preheating extruder.
+(Default 210°C)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="272"/>
+        <source>Measure completed.
+Please enter offset.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PrinterPage</name>
     <message>
-        <location filename="../../../ui/printerPage.py" line="34"/>
+        <location filename="../../../ui/printerPage.py" line="59"/>
         <source>Print</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printerPage.py" line="35"/>
+        <location filename="../../../ui/printerPage.py" line="80"/>
         <source>Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printerPage.py" line="36"/>
+        <location filename="../../../ui/printerPage.py" line="84"/>
         <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/printerPage.py" line="66"/>
+        <source>Print Prepare</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/printerPage.py" line="71"/>
+        <source>Local Print</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/printerPage.py" line="76"/>
+        <source>USB Print</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>PrintingPage</name>
     <message>
-        <location filename="../../../ui/printingPage.py" line="236"/>
+        <location filename="../../../ui/printingPage.py" line="214"/>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1147,22 +1229,22 @@ Motor</source>
 <context>
     <name>PrintingWidget</name>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="64"/>
+        <location filename="../../../ui/printingWidget.py" line="61"/>
         <source>Left Model Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="70"/>
+        <location filename="../../../ui/printingWidget.py" line="67"/>
         <source>Right Model Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="76"/>
+        <location filename="../../../ui/printingWidget.py" line="73"/>
         <source>Exhaust Fan Speed: {}%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="141"/>
+        <location filename="../../../ui/printingWidget.py" line="145"/>
         <source>Print Done.
 Print time: {}</source>
         <translation type="unfinished"></translation>
@@ -1171,43 +1253,48 @@ Print time: {}</source>
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="93"/>
+        <location filename="../../../ui/settingsPage.py" line="59"/>
         <source>Machine Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="57"/>
+        <location filename="../../../ui/settingsPage.py" line="60"/>
         <source>WLAN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="58"/>
+        <location filename="../../../ui/settingsPage.py" line="61"/>
         <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="59"/>
+        <location filename="../../../ui/settingsPage.py" line="62"/>
         <source>Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="60"/>
+        <location filename="../../../ui/settingsPage.py" line="63"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="61"/>
+        <location filename="../../../ui/settingsPage.py" line="65"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="63"/>
+        <location filename="../../../ui/settingsPage.py" line="67"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="65"/>
+        <location filename="../../../ui/settingsPage.py" line="69"/>
         <source>English</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/settingsPage.py" line="64"/>
+        <source>User manual</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1288,7 +1375,7 @@ Print time: {}</source>
 <context>
     <name>TemperatureBox</name>
     <message>
-        <location filename="../../../ui/temperatureBox.py" line="35"/>
+        <location filename="../../../ui/temperatureBox.py" line="62"/>
         <source>Temperature</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1296,22 +1383,22 @@ Print time: {}</source>
 <context>
     <name>TemperaturePage</name>
     <message>
-        <location filename="../../../ui/temperaturePage.py" line="33"/>
+        <location filename="../../../ui/temperaturePage.py" line="39"/>
         <source>Heating Degeee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/temperaturePage.py" line="97"/>
+        <location filename="../../../ui/temperaturePage.py" line="109"/>
         <source>PLA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/temperaturePage.py" line="98"/>
+        <location filename="../../../ui/temperaturePage.py" line="110"/>
         <source>PA-CF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/temperaturePage.py" line="99"/>
+        <location filename="../../../ui/temperaturePage.py" line="111"/>
         <source>Cool</source>
         <translation type="unfinished"></translation>
     </message>

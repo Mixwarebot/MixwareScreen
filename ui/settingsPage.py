@@ -35,11 +35,15 @@ class SettingsPage(QWidget):
         self.layout.addWidget(self.wlan)
 
         self.theme = SettingsButton()
-        self.layout.addWidget(self.theme)
+        # self.layout.addWidget(self.theme)
 
         self.language = SettingsButton()
         self.language.clicked.connect(self.trans)
-        self.layout.addWidget(self.language)
+        # self.layout.addWidget(self.language)
+
+        self.user_manual = SettingsButton()
+        # self.user_manual.clicked.connect(self.gotoWLANPage)
+        # self.layout.addWidget(self.user_manual)
 
         self.aboutPage = AboutPage(self._printer, self._parent)
         self.about = SettingsButton()
@@ -51,21 +55,18 @@ class SettingsPage(QWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 
-
     def re_translate_ui(self):
         self.machine.setText(self.tr("Machine Configuration"))
         self.wlan.setText(self.tr("WLAN"))
         self.theme.setText(self.tr("Theme"))
         self.theme.setTips(self.tr("Light"))
         self.language.setText(self.tr("Language"))
+        self.user_manual.setText(self.tr("User manual"))
         self.about.setText(self.tr("About"))
         if self._printer.config.get_language() == 'Chinese':
             self.language.setTips(self.tr("Chinese"))
         elif self._printer.config.get_language() == 'English':
             self.language.setTips(self.tr("English"))
-
-        self.theme.hide()
-        self.language.hide()
 
     @pyqtSlot()
     def gotoAboutPage(self):
@@ -88,9 +89,3 @@ class SettingsPage(QWidget):
         else:
             self._parent.updateTranslator.emit('English')
             self._printer.config.set_language('English')
-
-    def reTranslateUi(self):
-        self.machine.setText(self.tr("Machine Configuration"))
-
-    def showEvent(self, a0: QShowEvent) -> None:
-        self.reTranslateUi()

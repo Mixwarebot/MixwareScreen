@@ -1,7 +1,7 @@
 from qtCore import *
 
 
-class HeaderBar(QWidget):
+class HeaderBar(QFrame):
     clicked = pyqtSignal()
     def __init__(self, parent=None):
         super().__init__(parent)
