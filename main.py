@@ -46,12 +46,6 @@ if __name__ == "__main__":
     if platform.system().lower() == 'windows':
         # 输出翻译文件
         trans()
-        # 子版本号叠加
-        version = config.get_version().split('.')
-        config.set_version(f"{version[0]}.{version[1]}.{version[2]}.{int(version[3])+1}")
-
-    if platform.system().lower() == 'linux':
-        os.system('pip3 install Image')
 
     ms_logger = MixLogger()
     ms_logger.log_file = root_path / "MixwareScreen.log"

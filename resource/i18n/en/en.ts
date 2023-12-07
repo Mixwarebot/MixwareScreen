@@ -1102,7 +1102,7 @@ Bed</source>
 <context>
     <name>PrintFilePage</name>
     <message>
-        <location filename="../../../ui/printFilePage.py" line="223"/>
+        <location filename="../../../ui/printFilePage.py" line="221"/>
         <source>Print {} ?</source>
         <translation type="unfinished"></translation>
     </message>

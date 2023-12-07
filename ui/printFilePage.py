@@ -6,8 +6,6 @@ import logging
 
 from typing import List, Optional, Dict, Any
 
-from PIL import Image
-
 from qtCore import *
 
 
