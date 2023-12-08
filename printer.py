@@ -642,6 +642,7 @@ class MixwareScreenPrinter(QObject):
                     logging.debug(F"Printing finished.")
                     self._is_printing = False
                     self.updatePrinterStatus.emit(3)
+                    self._sendCommand('M77')
                     self._sendCommand("M500")
                 elif self._is_print_verify:
                     logging.debug(F"Print verify finished.")
@@ -821,6 +822,7 @@ class MixwareScreenPrinter(QObject):
     def print_pause(self):
         if self._is_printing:
             logging.debug(F"Pause printing.")
+            self._sendCommand('M76')
             self._sendCommand('G91')
             self._sendCommand('G1 Z10')
             self._sendCommand('G90')
@@ -839,6 +841,7 @@ class MixwareScreenPrinter(QObject):
             self._sendCommand('G91')
             self._sendCommand('G1 Z-10')
             self._sendCommand('G90')
+            self._sendCommand('M75')
             self._is_paused = False
             self._sendNextGcodeLine()
 
@@ -852,7 +855,7 @@ class MixwareScreenPrinter(QObject):
         while not self._command_queue.empty():
             self._command_queue.get()
 
-        self._sendCommand('M108\nM140 S0\nM141 S0\nM104 T0 S0\nM104 T1 S0\nM107 P0\nM107 P1\nG28XY\nM400\nM84')
+        self._sendCommand('M108\nM140 S0\nM141 S0\nM104 T0 S0\nM104 T1 S0\nM107 P0\nM107 P1\nG28XY\nM400\nM77\nM84')
         self.updatePrinterStatus.emit(1)
 
     @pyqtSlot(str)
@@ -882,6 +885,7 @@ class MixwareScreenPrinter(QObject):
 
         if self.get_extruder() == 'right':
             self._sendCommand('M84\nG28\nT0\nG0 Y319 F6600')
+        self._sendCommand('M75')
 
         for i in range(0, 4):  # Push first 4 entries before accepting other inputs
             self._sendNextGcodeLine()

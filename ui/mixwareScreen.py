@@ -67,7 +67,7 @@ class MixwareScreen(QWidget):
         self.stackedLayout.addWidget(self.printingWidget)
 
         if platform.system().lower() == 'windows':
-            self.stackedLayout.setCurrentIndex(1)
+            self.stackedLayout.setCurrentIndex(2)
         self.notify_frame = NotifyFrame(self)
         self.notify_frame.resize(self.width(), 100)
         self.notify_frame.move(0, 10)

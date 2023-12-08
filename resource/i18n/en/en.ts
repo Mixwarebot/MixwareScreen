@@ -722,7 +722,7 @@ click &lt;Next&gt; to start working.</source>
     </message>
     <message>
         <location filename="../../../ui/homePage.py" line="53"/>
-        <source>Disable Steppers</source>
+        <source>Unlock Motor</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

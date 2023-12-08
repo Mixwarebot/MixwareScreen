@@ -11,7 +11,7 @@ class FanProgressBar(QWidget):
         self.layout.setSpacing(0)
 
         self.title = QLabel()
-        self.title.setFixedHeight(44)
+        self.title.setFixedHeight(48)
         self.title.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.title)
 

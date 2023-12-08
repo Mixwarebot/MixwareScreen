@@ -13,7 +13,7 @@ class BasePushButton(QPushButton):
 
         layout = QVBoxLayout(self)
         layout.setAlignment(Qt.AlignBottom)
-        layout.setContentsMargins(20, 0, 20, 20)
+        layout.setContentsMargins(10, 0, 10, 20)
         layout.addWidget(self.title)
 
     def setTitle(self, text: str):

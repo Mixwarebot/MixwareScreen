@@ -50,7 +50,7 @@ class HomePage(QWidget):
         self.homeXButton.setText(self.tr("Home X"))
         self.homeYButton.setText(self.tr("Home Y"))
         self.homeZButton.setText(self.tr("Home Z"))
-        self.disableButton.setText(self.tr("Disable Steppers"))
+        self.disableButton.setText(self.tr("Unlock Motor"))
 
     @pyqtSlot()
     def home_all(self):
