@@ -160,8 +160,9 @@ class MixwareScreenPrinter(QObject):
             self.serial.close()
             self.serial = None
 
-            # Re-create the thread, so it can be started again later.
-            self._update_thread = Thread(target=self._update, daemon=True, name="USBPrinterUpdate")
+        # Re-create the thread, so it can be started again later.
+        self._update_thread = Thread(target=self._update, daemon=True, name="USBPrinterUpdate")
+        self.connected = False
 
     @pyqtSlot()
     def connect_serial(self):
@@ -909,6 +910,7 @@ class MixwareScreenPrinter(QObject):
     def printer_reboot(self):
         logging.debug(F"Reboot printer.")
         self._sendCommand(b'D0\n')  # Reboot
+        self.serial_close()
 
     @pyqtSlot(result=bool)
     def is_printing(self):
