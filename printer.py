@@ -151,7 +151,8 @@ class MixwareScreenPrinter(QObject):
             'printMode': 'Normal',
             'feedRate': 100,
             'flow': {'left': 100, 'right': 100},
-            'linearAdvance': 0.0
+            'linearAdvance': 0.0,
+            'runOut': {'enabled': False, 'distance': 0}
         }
 
     def serial_close(self):
@@ -522,6 +523,20 @@ class MixwareScreenPrinter(QObject):
                         self.information['home']['Y'] = bool(self.re_data[0][1])
                         self.information['home']['Z'] = bool(self.re_data[0][2])
                         self.re_data.clear()
+                elif re.search("M412", self.serial_data):  # Run out status.
+                    self.re_data = re.findall("M412 S(\\d*) D(\\d+\\.?\\d*)", self.serial_data)
+                    if self.re_data:
+                        logging.debug(F"Update run out status(M412): {self.re_data}")
+                        self.information['runOut']['enabled'] = bool(self.re_data[0][0])
+                        self.information['runOut']['distance'] = float(self.re_data[0][1])
+                elif re.search("D412", self.serial_data):  # Run out status.
+                    logging.debug(F"M412: {self.serial_data}")
+                    self.re_data = re.findall("D412 B(\\d*) S(\\d*) T(\\d*)", self.serial_data)
+                    logging.debug(F"M412: {self.re_data}")
+                    if self.re_data:
+                        if bool(self.re_data[0][0]) and self._is_printing and not self._is_paused:
+                            self.print_pause()
+
 
             if self.serial_data == "":
                 # An empty line means that the firmware is idle
