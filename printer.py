@@ -926,6 +926,8 @@ class MixwareScreenPrinter(QObject):
         logging.debug(F"Reboot printer.")
         self._sendCommand(b'D0\n')  # Reboot
         self.serial_close()
+        self.updatePrinterMessage.emit("The device is restarting.", 1)
+        self.updatePrinterStatus.emit(self.connected)
 
     @pyqtSlot(result=bool)
     def is_printing(self):
