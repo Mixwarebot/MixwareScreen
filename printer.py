@@ -921,7 +921,7 @@ class MixwareScreenPrinter(QObject):
             self._sendCommand('G91')
             self._sendCommand('G1 Z-10')
             self._sendCommand('G90')
-            if self.self.information['runOut']['enabled']:
+            if self.information['runOut']['enabled']:
                 self._sendCommand('M412R')  # Reset run out status
             self._sendCommand('M75')  # Start print timer
             self._is_paused = False
@@ -963,7 +963,7 @@ class MixwareScreenPrinter(QObject):
 
             if self.get_extruder() == 'right':
                 self._sendCommand('M84\nG28\nT0\nG0 Y319 F6600')
-            if self.self.information['runOut']['enabled']:
+            if self.information['runOut']['enabled']:
                 self._sendCommand('M412R')  # Reset run out status
 
             for i in range(0, 4):  # Push first 4 entries before accepting other inputs

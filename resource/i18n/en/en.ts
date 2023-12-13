@@ -1300,7 +1300,7 @@ Print time: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="202"/>
+        <location filename="../../../ui/runoutPad.py" line="203"/>
         <source>- 加热完成.</source>
         <translation type="unfinished"></translation>
     </message>
