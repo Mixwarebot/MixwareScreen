@@ -167,6 +167,7 @@ class PrintingWidget(BasePrintWidget):
                         self.print_pause()
                         self._printer.write_gcode_command("G1 Y20 F8400")
                         self.runOutPad.start()
+                        self.closeShadowScreen()
 
     def print_resume(self):
         self._printer.print_resume()
