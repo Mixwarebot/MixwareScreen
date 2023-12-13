@@ -143,7 +143,9 @@ class RunOutPad(BaseRoundDialog):
             self.message_print = self.tr("- 检测到耗材状态异常, 暂停打印.")
             self.message_unload = self.tr("- 卸载异常耗材.")
             self.update_message()
+            self.progress_bar.show()
             self.footer.hide()
+            self.next_button.setEnabled(True)
             self.start_unload()
         elif self.status == RunOutStatus.RUNOUT_UNLOAD:
             self.status = RunOutStatus.RUNOUT_CLEAN
