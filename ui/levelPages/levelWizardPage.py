@@ -1,6 +1,7 @@
 import logging
 import platform
 
+from printer import MixwareScreenPrinterStatus
 from qtCore import *
 from ui.base.baseLine import BaseHLine, BaseVLine
 from ui.base.basePushButton import BasePushButton
@@ -19,8 +20,8 @@ class LevelWizardPage(QWidget):
             'right': {'X': 0.0, 'Y': 0.0, 'Z': 0.0}
         }
 
-        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
         self._printer.updatePrinterStatus.connect(self.on_update_printer_status)
+        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
 
         self.setObjectName("levelWizardPage")
         self.setMinimumSize(self._printer.config.get_width(), self._printer.config.get_height() / 2)
@@ -375,8 +376,9 @@ class LevelWizardPage(QWidget):
         self.finished_handle.next_button.setText(self.tr("Done"))
         self.finished_text.setText(self.tr("Level wizard completed."))
 
+    @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
-        if state == 4:
+        if state == MixwareScreenPrinterStatus.PRINTER_G29:
             logging.debug(f"Auto bed leveling completed.")
             self.level_handle.next_button.setEnabled(True)
             self.level_text.setText(self.tr("Auto bed leveling completed."))

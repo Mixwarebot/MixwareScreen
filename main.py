@@ -7,11 +7,11 @@ from pathlib import Path
 
 from config import MixwareScreenConfig
 from gitRepository import GitRepository
-from qtCore import *
-
 from logger import MixLogger
 from printer import MixwareScreenPrinter
+from qtCore import *
 from ui.mixwareScreen import MixwareScreen
+
 
 def trans():
     cmd = "pylupdate5 "
@@ -64,6 +64,7 @@ if __name__ == "__main__":
 
     if platform.system().lower() == 'linux':
         app.setOverrideCursor(QCursor(QtCore.Qt.BlankCursor))
+
     mixwareScreen = MixwareScreen(printer)
     if platform.system().lower() == 'windows':
         mixwareScreen.show()

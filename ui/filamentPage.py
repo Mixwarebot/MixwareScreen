@@ -3,15 +3,8 @@ from ui.base.basePushButton import BasePushButton
 from ui.base.handleBar import HandleBar
 from ui.base.messageBar import MessageBar
 
-work_position = { 'X': 190, 'Y': 20, 'Z': 50 }
-load_length = 100
-load_speed = 200
-load_time = load_length * 60 / load_speed
-unload_purge_length = 15
-unload_purge_speed = load_speed
-unload_length = 100
-unload_speed = 1500
-unload_time = unload_purge_length * 60 / unload_purge_speed + unload_length * 60 / unload_speed
+work_position = {'X': 190, 'Y': 20, 'Z': 50}
+
 
 class FilamentPage(QWidget):
     def __init__(self, printer, parent):
@@ -19,10 +12,10 @@ class FilamentPage(QWidget):
         self._printer = printer
         self._parent = parent
 
-        self._printer.updatePrinterInformation.connect(self.onUpdatePrinterInformation)
-        
+        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
+
         self.setObjectName("filamentPage")
-        self.setMinimumSize(self._printer.config.get_width(), self._printer.config.get_height()/2)
+        self.setMinimumSize(self._printer.config.get_width(), self._printer.config.get_height() / 2)
         self.setMaximumSize(self._printer.config.get_window_size())
 
         self.layout = QVBoxLayout(self)
@@ -73,7 +66,7 @@ class FilamentPage(QWidget):
         ]
         self.message_list = []
         for count in range(len(self.message_text_list)):
-            self.message_list.append(MessageBar(count+1, self.message_text_list[count]))
+            self.message_list.append(MessageBar(count + 1, self.message_text_list[count]))
         for i in range(len(self.message_list)):
             message_layout.addWidget(self.message_list[i])
         self.layout.addWidget(self.message_frame)
@@ -85,7 +78,7 @@ class FilamentPage(QWidget):
         frame_layout.setSpacing(10)
 
         self.handle_stacked_widget = QStackedWidget()
-        
+
         self.extruder_handle = HandleBar()
         self.extruder_handle.next_button.clicked.connect(self.on_extruder_next_button_clicked)
         extruder_body_layout = QHBoxLayout(self.extruder_handle.body)
@@ -101,7 +94,7 @@ class FilamentPage(QWidget):
         extruder_body_layout.addWidget(self.extruder_right_button)
         self.extruder_handle.previous_button.hide()
         self.handle_stacked_widget.addWidget(self.extruder_handle)
-        
+
         self.work_mode_handle = HandleBar()
         self.work_mode_handle.previous_button.clicked.connect(self.on_work_mode_previous_button_clicked)
         self.work_mode_handle.next_button.clicked.connect(self.on_work_mode_next_button_clicked)
@@ -117,7 +110,7 @@ class FilamentPage(QWidget):
         self.work_mode_unload_button.clicked.connect(self.on_work_mode_unload_button_clicked)
         work_mode_body_layout.addWidget(self.work_mode_unload_button)
         self.handle_stacked_widget.addWidget(self.work_mode_handle)
-        
+
         self.filament_handle = HandleBar()
         self.filament_handle.previous_button.clicked.connect(self.on_filament_previous_button_clicked)
         self.filament_handle.next_button.clicked.connect(self.on_filament_next_button_clicked)
@@ -141,7 +134,7 @@ class FilamentPage(QWidget):
         self.filament_pa_button.clicked.connect(self.on_filament_pa_button_clicked)
         filament_body_layout.addWidget(self.filament_pa_button, 1, 1)
         self.handle_stacked_widget.addWidget(self.filament_handle)
-        
+
         self.heating_handle = HandleBar()
         self.heating_handle.previous_button.clicked.connect(self.on_heating_previous_button_clicked)
         self.heating_handle.next_button.clicked.connect(self.on_heating_next_button_clicked)
@@ -152,7 +145,7 @@ class FilamentPage(QWidget):
         self.heating_text.setAlignment(Qt.AlignCenter)
         heating_body_layout.addWidget(self.heating_text)
         self.handle_stacked_widget.addWidget(self.heating_handle)
-        
+
         self.working_handle = HandleBar()
         self.working_handle.footer.hide()
         working_body_layout = QVBoxLayout(self.working_handle.body)
@@ -167,7 +160,7 @@ class FilamentPage(QWidget):
         self.working_timer = QTimer()
         self.working_timer.timeout.connect(self.on_working_timer_timeout)
         self.handle_stacked_widget.addWidget(self.working_handle)
-        
+
         self.finished_handle = HandleBar()
         self.finished_handle.previous_button.hide()
         self.finished_handle.next_button.clicked.connect(self.on_finished_next_button_clicked)
@@ -228,14 +221,14 @@ class FilamentPage(QWidget):
         index = self.handle_stacked_widget.currentIndex()
         if index > 0:
             self.message_list[index].setEnabled(False)
-            self.message_list[index-1].setEnabled(True)
-            self.handle_stacked_widget.setCurrentIndex(index-1)
+            self.message_list[index - 1].setEnabled(True)
+            self.handle_stacked_widget.setCurrentIndex(index - 1)
 
     def goto_next_step_stacked_widget(self):
         index = self.handle_stacked_widget.currentIndex()
         if index < self.handle_stacked_widget.count():
             self.message_list[index].setEnabled(False)
-            self.message_list[index+1].setEnabled(True)
+            self.message_list[index + 1].setEnabled(True)
             self.handle_stacked_widget.setCurrentIndex(index + 1)
 
     def on_finished_next_button_clicked(self):
@@ -377,7 +370,7 @@ class FilamentPage(QWidget):
             self._printer.write_gcode_command('T0')
 
     @pyqtSlot()
-    def onUpdatePrinterInformation(self):
+    def on_update_printer_information(self):
         if self._printer.get_extruder() == "left":
             self.extruder_left_button.setStyleSheet(checkedStyleSheet)
             self.extruder_right_button.setStyleSheet(uncheckedStyleSheet)
@@ -388,7 +381,8 @@ class FilamentPage(QWidget):
         self.thermal_right_button.setText(self._printer.get_thermal('right'))
 
         if self.handle_stacked_widget.currentWidget() == self.heating_handle and not self.heating_handle.next_button.isEnabled():
-            if self._printer.get_temperature(self._printer.get_extruder()) + 3 >= self._printer.get_target(self._printer.get_extruder()) > 170:
+            if self._printer.get_temperature(self._printer.get_extruder()) + 3 >= self._printer.get_target(
+                    self._printer.get_extruder()) > 170:
                 self.heating_handle.next_button.setEnabled(True)
                 self.heating_text.setText(self.tr("Heat completed,\nclick <Next> to start working."))
         elif self.handle_stacked_widget.currentWidget() == self.working_handle:
@@ -396,4 +390,3 @@ class FilamentPage(QWidget):
                 self.working_progress_bar.setValue(0)
                 self.working_timer.stop()
                 self.goto_next_step_stacked_widget()
-

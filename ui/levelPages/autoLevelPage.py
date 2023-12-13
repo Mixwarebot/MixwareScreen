@@ -1,6 +1,4 @@
-import math
-import numpy
-
+from printer import MixwareScreenPrinterStatus
 from qtCore import *
 from ui.base.basePushButton import BasePushButton
 from ui.levelPages.bedMeshGraph import BedMeshGraph
@@ -46,8 +44,9 @@ class AutoLevelPage(QWidget):
         self.start_button.show()
         self.tips.hide()
 
+    @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
-        if state == 4:
+        if state == MixwareScreenPrinterStatus.PRINTER_G29:
             self.re_translate_ui()
             self.tips.setText("Auto bed level done.")
             self.tips.show()

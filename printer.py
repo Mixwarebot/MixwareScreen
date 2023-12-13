@@ -1,23 +1,21 @@
 # This Python file uses the following encoding: utf-8
 import functools
+import json
 import logging
 import platform
 import re
-import sys
-from pathlib import Path
-from time import time
+from enum import Enum, auto
 from queue import Queue
 from threading import Thread, Event
+from time import time
 from typing import Union, cast
 
 import netifaces
 import serial
 import serial.tools.list_ports
-
-from qtCore import *
 from serial import SerialException, SerialTimeoutException
 
-from config import MixwareScreenConfig
+from qtCore import *
 
 
 def scan_serial_list():
@@ -30,11 +28,22 @@ def scan_serial_list():
     return serial_list_name
 
 
+class MixwareScreenPrinterStatus(Enum):
+    PRINTER_DISCONNECTED = auto()
+    PRINTER_CONNECTED = auto()
+    PRINTER_PAUSED = auto()
+    PRINTER_PRINTING = auto()
+    PRINTER_PRINT_FINISHED = auto()
+    PRINTER_RUN_OUT = auto()
+    PRINTER_G29 = auto()
+    PRINTER_FILAMENT = auto()
+
+
 class MixwareScreenPrinter(QObject):
     config = None
     _version = None
 
-    updatePrinterStatus = pyqtSignal(int)
+    updatePrinterStatus = pyqtSignal(MixwareScreenPrinterStatus)
     """
     0: printer disconnected; 
     1: printer connected; 
@@ -65,7 +74,7 @@ class MixwareScreenPrinter(QObject):
         self._device_name = "Unknown"
         self._device_version = "Unknown"
         self.information = {}
-        self.printing_information = {}
+        self._printing_information = {}
         self._gcode = []
         self._gcode_line = ""
 
@@ -150,9 +159,18 @@ class MixwareScreenPrinter(QObject):
             },
             'printMode': 'Normal',
             'feedRate': 100,
-            'flow': {'left': 100, 'right': 100},
+            'flow': {"left": 100, "right": 100},
             'linearAdvance': 0.0,
             'runOut': {'enabled': False, 'distance': 0}
+        }
+
+        self._printing_information = {
+            "file": {"path": "", "gcode_position": 0},
+            "temperature": {"left": 0, "right": 0, "bed": 0, "chamber": 0},
+            "position": {"X": 0.0, "Y": 0.0, "Z": 0.0, "E": 0.0},
+            "fan": {"left": 0.0, "right": 0.0, "exhaust": 0.0},
+            "speed": 0.0,
+            'flow': {"left": 100, "right": 100},
         }
 
     def serial_close(self):
@@ -252,7 +270,7 @@ class MixwareScreenPrinter(QObject):
 
             if "FIRMWARE_NAME:" in self.serial_data:
                 self._setPrinterInformation(self.serial_data)
-                self.updatePrinterStatus.emit(self.connected)
+                self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_CONNECTED)
 
             if "Active Extruder" in self.serial_data:  # Active extruder.
                 self.re_data = re.findall("Active Extruder: (\\d+)", self.serial_data)
@@ -530,13 +548,16 @@ class MixwareScreenPrinter(QObject):
                         self.information['runOut']['enabled'] = bool(self.re_data[0][0])
                         self.information['runOut']['distance'] = float(self.re_data[0][1])
                 elif re.search("D412", self.serial_data):  # Run out status.
-                    logging.debug(F"M412: {self.serial_data}")
+                    logging.debug(F"D412: {self.serial_data}")
                     self.re_data = re.findall("D412 B(\\d*) S(\\d*) T(\\d*)", self.serial_data)
-                    logging.debug(F"M412: {self.re_data}")
+                    logging.debug(F"D412: {self.re_data}")
                     if self.re_data:
                         if bool(self.re_data[0][0]) and self._is_printing and not self._is_paused:
-                            self.print_pause()
-
+                            logging.debug(F"The material detection device is triggered.")
+                            self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_RUN_OUT)
+                        else:
+                            self._sendCommand('M412R')  # reset run out status
+                            logging.warning(F"The material detection device is triggered abnormally.")
 
             if self.serial_data == "":
                 # An empty line means that the firmware is idle
@@ -552,12 +573,12 @@ class MixwareScreenPrinter(QObject):
                 if self.leveling_working:
                     self.leveling_working -= 1
                     if self.leveling_working == 0:
-                        self.updatePrinterStatus.emit(4)
+                        self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_G29)
                 if self.filament_working:
                     self.filament_working += 1
                     if self.filament_working > 5:
                         self.set_filament_state()
-                        self.updatePrinterStatus.emit(5)
+                        self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_FILAMENT)
 
                 self._command_received.set()
                 if not self._command_queue.empty():
@@ -657,7 +678,7 @@ class MixwareScreenPrinter(QObject):
                 if self._is_printing:
                     logging.debug(F"Printing finished.")
                     self._is_printing = False
-                    self.updatePrinterStatus.emit(3)
+                    self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_PRINT_FINISHED)
                     self._sendCommand('M77')
                     self._sendCommand("M500")
                 elif self._is_print_verify:
@@ -682,7 +703,7 @@ class MixwareScreenPrinter(QObject):
         if self.is_connected():
             self.serial_close()
             self.connected = False
-            self.updatePrinterStatus.emit(self.connected)
+            self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_DISCONNECTED)
             logging.error(F"Serial error, printer disconnected.")
 
     def _setPrinterInformation(self, name):
@@ -802,6 +823,30 @@ class MixwareScreenPrinter(QObject):
         command += " S" + str(int(speed * 255))
         self.write_gcode_command(command)
 
+    def get_print_feed_rate(self):
+        return self.information['feedRate']
+
+    @pyqtSlot(int)
+    def set_print_feed_rate(self, percent):
+        """
+        Gcode: M220 - Set Feedrate Percentage.
+        """
+        if percent > 0:
+            command = f"M220 S{percent}"
+            self.write_gcode_command(command)
+
+    def get_print_flow(self):
+        return self.information['feedRate']
+
+    @pyqtSlot(int)
+    def set_print_flow(self, percent):
+        """
+        Gcode: M221 - Set Flow Percentage.
+        """
+        if percent > 0:
+            command = f" T{0 if self.get_extruder() == 'left' else 1} S{percent}"
+            self.write_gcode_command(command)
+
     @pyqtSlot(result=float)
     def set_led_light(self):
         return self.information['led']['light']
@@ -834,6 +879,29 @@ class MixwareScreenPrinter(QObject):
             logging.warning(F"Printer connection failed.")
             self.serial_close()
 
+    @property
+    def printing_information(self):
+        return self._printing_information
+
+    def print_backup(self):
+        self._printing_information["file"]["path"] = self.print_file
+        self._printing_information["file"]["gcode_position"] = self._gcode_position
+        self._printing_information["temperature"]["left"] = self.information['thermal']['left']['target']
+        self._printing_information["temperature"]["right"] = self.information['thermal']['right']['target']
+        self._printing_information["temperature"]["bed"] = self.information['thermal']['bed']['target']
+        self._printing_information["temperature"]["chamber"] = self.information['thermal']['chamber']['target']
+        self._printing_information["position"] = self.information['motor']['position']
+        self._printing_information["fan"]['left'] = self.information['fan']['left']['speed']
+        self._printing_information["fan"]['right'] = self.information['fan']['right']['speed']
+        self._printing_information["fan"]['exhaust'] = self.information['fan']['exhaust']['speed']
+        self._printing_information["feedRate"] = self.information['feedRate']
+        self._printing_information["flow"] = self.information['flow']
+
+        # test
+        print(self._printing_information)
+        with open('.PLR.json', 'w') as file:
+            file.write(json.dumps(self._printing_information))
+
     @pyqtSlot()
     def print_pause(self):
         if self._is_printing:
@@ -843,12 +911,8 @@ class MixwareScreenPrinter(QObject):
             self._sendCommand('G1 Z10')
             self._sendCommand('G90')
             self._is_paused = True
-            self.printing_information = {
-                "speed": 0.0,
-                "motor": {"X": 0.0, "Y": 0.0, "Z": 0.0, "E": 0.0},
-                "temperature": {"left": 0, "right": 0, "bed": 0, "chamber": 0},
-                "fan": {"left": 0.0, "right": 0.0, "chamber": 0.0}
-            }
+
+            self.print_backup()
 
     @pyqtSlot()
     def print_resume(self):
@@ -857,7 +921,9 @@ class MixwareScreenPrinter(QObject):
             self._sendCommand('G91')
             self._sendCommand('G1 Z-10')
             self._sendCommand('G90')
-            self._sendCommand('M75')
+            if self.self.information['runOut']['enabled']:
+                self._sendCommand('M412R')  # Reset run out status
+            self._sendCommand('M75')  # Start print timer
             self._is_paused = False
             self._sendNextGcodeLine()
 
@@ -872,48 +938,42 @@ class MixwareScreenPrinter(QObject):
             self._command_queue.get()
 
         self._sendCommand('M108\nM140 S0\nM141 S0\nM104 T0 S0\nM104 T1 S0\nM107 P0\nM107 P1\nG28XY\nM400\nM77\nM84')
-        self.updatePrinterStatus.emit(1)
+        self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_CONNECTED)
 
     @pyqtSlot(str)
     def print_start(self, path):
         logging.debug(F"Start print {path}.")
-        # file = QFile()
         self.print_file = path
         if 'file:' in path:
             if platform.system().lower() == 'windows':
                 path = path[8:]
             elif platform.system().lower() == 'linux':
                 path = path[7:]
-        # file.setFileName(path)
-        # if not file.open(QIODevice.ReadOnly | QIODevice.Text):
-        #     logging.warning(F"Print file open failed.")
-        #     return
-        # self._gcode.clear()
-        # self._gcode.extend(str(file.readAll(), encoding='utf-8').split("\n"))
-        with open(path, 'rt') as f:
-            self._gcode.clear()
-            self._gcode.extend(f.read().split("\n"))
-            f.close()
 
-        # Reset line number. If this is not done, first line is sometimes ignored
-        self._gcode.insert(0, "M110")
-        self._gcode_position = 0
+        try:
+            with open(path, 'rt') as f:
+                self._gcode.clear()
+                self._gcode.extend(f.read().split("\n"))
+        except OSError as error:
+            print('出错啦!%s' % str(error))
+        else:
+            # Reset line number. If this is not done, first line is sometimes ignored
+            self._gcode.insert(0, "M110")
+            self._gcode_position = 0
 
-        if self.get_extruder() == 'right':
-            self._sendCommand('M84\nG28\nT0\nG0 Y319 F6600')
-        self._sendCommand('M75')
+            if self.get_extruder() == 'right':
+                self._sendCommand('M84\nG28\nT0\nG0 Y319 F6600')
+            if self.self.information['runOut']['enabled']:
+                self._sendCommand('M412R')  # Reset run out status
 
-        for i in range(0, 4):  # Push first 4 entries before accepting other inputs
-            self._sendNextGcodeLine()
+            for i in range(0, 4):  # Push first 4 entries before accepting other inputs
+                self._sendNextGcodeLine()
 
-        self.printing_information['path'] = path
+            self._printing_information['path'] = path
 
-        self.updatePrinterStatus.emit(2)
-        self._is_paused = False
-        self._is_printing = True
-
-        # file.close()
-        # del file
+            self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_PRINTING)
+            self._is_paused = False
+            self._is_printing = True
 
     @pyqtSlot()
     def print_again(self):
@@ -927,7 +987,7 @@ class MixwareScreenPrinter(QObject):
         self._sendCommand(b'D0\n')  # Reboot
         self.serial_close()
         self.updatePrinterMessage.emit("The device is restarting.", 1)
-        self.updatePrinterStatus.emit(self.connected)
+        self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_DISCONNECTED)
 
     @pyqtSlot(result=bool)
     def is_printing(self):
@@ -935,7 +995,7 @@ class MixwareScreenPrinter(QObject):
 
     @pyqtSlot(result=bool)
     def is_paused(self):
-        return self._is_printing and self._is_paused
+        return self._is_paused
 
     @pyqtSlot(result=bool)
     def printer_all_homed(self):

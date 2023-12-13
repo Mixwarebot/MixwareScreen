@@ -212,73 +212,73 @@ class NumberPad(BaseRoundDialog):
             self._printer.set_fan_speed("exhaust", value/100.0)
         elif "print_feed_rate" in self._source:
             value = 500 if int(self.number) > 500 else int(self.number)
-            self._printer.write_gcode_command("M220 S" + str(value) + "\nM220")
+            self._printer.write_gcode_command(f"M220 S{value}\nM220")
         elif "print_flow" in self._source:
             value = 500 if int(self.number) > 500 else int(self.number)
-            self._printer.write_gcode_command("M221 T0 S" + str(value) + "\nM221 T0")
-            self._printer.write_gcode_command("M221 T1 S" + str(value) + "\nM221 T1")
+            extruder = 0 if self._printer.get_extruder() == 'left' else 1
+            self._printer.write_gcode_command(f"M221 T{extruder} S{value}\nM221 T{extruder}")
         elif "step_x" in self._source:
-            self._printer.write_gcode_command("M92 X" + self.number + "\nM500\nM92")
+            self._printer.write_gcode_command(f"fM92 X{self.number}\nM500\nM92")
         elif "step_y" in self._source:
-            self._printer.write_gcode_command("M92 Y" + self.number + "\nM500\nM92")
+            self._printer.write_gcode_command(f"M92 Y{self.number}\nM500\nM92")
         elif "step_z" in self._source:
-            self._printer.write_gcode_command("M92 Z" + self.number + "\nM500\nM92")
+            self._printer.write_gcode_command(f"M92 Z{self.number}\nM500\nM92")
         elif "step_e" in self._source:
-            self._printer.write_gcode_command("M92 E" + self.number + "\nM500\nM92")
+            self._printer.write_gcode_command(f"M92 E{self.number}\nM500\nM92")
         elif "feed_rate_x" in self._source:
-            self._printer.write_gcode_command("M203 X" + self.number + "\nM500\nM203")
+            self._printer.write_gcode_command(f"M203 X{self.number}\nM500\nM203")
         elif "feed_rate_y" in self._source:
-            self._printer.write_gcode_command("M203 Y" + self.number + "\nM500\nM203")
+            self._printer.write_gcode_command(f"M203 Y{self.number}\nM500\nM203")
         elif "feed_rate_z" in self._source:
-            self._printer.write_gcode_command("M203 Z" + self.number + "\nM500\nM203")
+            self._printer.write_gcode_command(f"M203 Z{self.number}\nM500\nM203")
         elif "feed_rate_e" in self._source:
-            self._printer.write_gcode_command("M203 E" + self.number + "\nM500\nM203")
+            self._printer.write_gcode_command(f"M203 E{self.number}\nM500\nM203")
         elif "acceleration_x" in self._source:
-            self._printer.write_gcode_command("M201 X" + self.number + "\nM500\nM201")
+            self._printer.write_gcode_command(f"M201 X{self.number}\nM500\nM201")
         elif "acceleration_y" in self._source:
-            self._printer.write_gcode_command("M201 Y" + self.number + "\nM500\nM201")
+            self._printer.write_gcode_command(f"M201 Y{self.number}\nM500\nM201")
         elif "acceleration_z" in self._source:
-            self._printer.write_gcode_command("M201 Z" + self.number + "\nM500\nM201")
+            self._printer.write_gcode_command(f"M201 Z{self.number}\nM500\nM201")
         elif "acceleration_e" in self._source:
-            self._printer.write_gcode_command("M201 E" + self.number + "\nM500\nM201")
+            self._printer.write_gcode_command(f"M201 E{self.number}\nM500\nM201")
         elif "acceleration_print" in self._source:
-            self._printer.write_gcode_command("M204 P" + self.number + "\nM500\nM204")
+            self._printer.write_gcode_command(f"M204 P{self.number}\nM500\nM204")
         elif "acceleration_retract" in self._source:
-            self._printer.write_gcode_command("M204 R" + self.number + "\nM500\nM204")
+            self._printer.write_gcode_command(f"M204 R{self.number}\nM500\nM204")
         elif "acceleration_travel" in self._source:
-            self._printer.write_gcode_command("M204 T" + self.number + "\nM500\nM204")
+            self._printer.write_gcode_command(f"M204 T{self.number}\nM500\nM204")
         elif "jerk_x" in self._source:
-            self._printer.write_gcode_command("M205 X" + self.number + "\nM500\nM205")
+            self._printer.write_gcode_command(f"M205 X{self.number}\nM500\nM205")
         elif "jerk_y" in self._source:
-            self._printer.write_gcode_command("M205 Y" + self.number + "\nM500\nM205")
+            self._printer.write_gcode_command(f"M205 Y{self.number}\nM500\nM205")
         elif "jerk_z" in self._source:
-            self._printer.write_gcode_command("M205 Z" + self.number + "\nM500\nM205")
+            self._printer.write_gcode_command(f"M205 Z{self.number}\nM500\nM205")
         elif "jerk_e" in self._source:
-            self._printer.write_gcode_command("M205 E" + self.number + "\nM500\nM205")
+            self._printer.write_gcode_command(f"M205 E{self.number}\nM500\nM205")
         elif "current_x" in self._source:
-            self._printer.write_gcode_command("M906 X" + self.number + "\nM500\nM906")
+            self._printer.write_gcode_command(f"M906 X{self.number}\nM500\nM906")
         elif "current_x2" in self._source:
-            self._printer.write_gcode_command("M906 I1 X" + self.number + "\nM500\nM906")
+            self._printer.write_gcode_command(f"M906 I1 X{self.number}\nM500\nM906")
         elif "current_y" in self._source:
-            self._printer.write_gcode_command("M906 Y" + self.number + "\nM500\nM906")
+            self._printer.write_gcode_command(f"M906 Y{self.number}\nM500\nM906")
         elif "current_z" in self._source:
-            self._printer.write_gcode_command("M906 Z" + self.number + "\nM500\nM906")
+            self._printer.write_gcode_command(f"M906 Z{self.number}\nM500\nM906")
         elif "current_z2" in self._source:
-            self._printer.write_gcode_command("M906 I1 Z" + self.number + "\nM500\nM906")
+            self._printer.write_gcode_command(f"M906 I1 Z{self.number}\nM500\nM906")
         elif "current_e" in self._source:
-            self._printer.write_gcode_command("M906 T0 E" + self.number + "\nM500\nM906")
+            self._printer.write_gcode_command(f"M906 T0 E{self.number}\nM500\nM906")
         elif "current_e2" in self._source:
-            self._printer.write_gcode_command("M906 T1 E" + self.number + "\nM500\nM906")
+            self._printer.write_gcode_command(f"M906 T1 E{self.number}\nM500\nM906")
         elif "frequency_x" in self._source:
-            self._printer.write_gcode_command("M593 X F" + self.number + "\nM500\nM593")
+            self._printer.write_gcode_command(f"M593 X F{self.number}\nM500\nM593")
         elif "frequency_y" in self._source:
-            self._printer.write_gcode_command("M593 Y F" + self.number + "\nM500\nM593")
+            self._printer.write_gcode_command(f"M593 Y F{self.number}\nM500\nM593")
         elif "damping_x" in self._source:
-            self._printer.write_gcode_command("M593 X D" + self.number + "\nM500\nM593")
+            self._printer.write_gcode_command(f"M593 X D{self.number}\nM500\nM593")
         elif "damping_y" in self._source:
-            self._printer.write_gcode_command("M593 Y D" + self.number + "\nM500\nM593")
+            self._printer.write_gcode_command(f"M593 Y D{self.number}\nM500\nM593")
         elif "linear_advance" in self._source:
-            self._printer.write_gcode_command("M900 K" + self.number + "\nM500\nM900")
+            self._printer.write_gcode_command(f"M900 K{self.number}\nM500\nM900")
         elif "dial_indicator_left" in self._source:
             if self.number != "0":
                 self._printer.set_dial_indicator_value("left", self.number)

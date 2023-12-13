@@ -138,19 +138,19 @@ class FanPage(QWidget):
         self.layout_2.addWidget(self.chamberFan)
 
         self.motherboardFan = FanProgressBar()
-        self.motherboardFan.imageButton.setObjectName("fanChamberLogo")
+        self.motherboardFan.imageButton.setObjectName("fanBoardLogo")
         self.layout_2.addWidget(self.motherboardFan)
         self.frame_layout.addLayout(self.layout_2)
 
         self.modelFanLeft = FanSliderBar()
-        self.modelFanLeft.imageButton.setObjectName("fanLeftLogo")
+        self.modelFanLeft.imageButton.setObjectName("fanModelLeftLogo")
         self.modelFanLeft.slider.valueChanged.connect(self.change_model_left_fan_speed)
         self.modelFanLeft.slider.sliderReleased.connect(self.set_model_left_fan_speed)
         self.modelFanLeft.imageButton.clicked.connect(self.model_left_fan_on_off)
         self.frame_layout.addWidget(self.modelFanLeft)
 
         self.modelFanRight = FanSliderBar()
-        self.modelFanRight.imageButton.setObjectName("fanRightLogo")
+        self.modelFanRight.imageButton.setObjectName("fanModelRightLogo")
         self.modelFanRight.slider.valueChanged.connect(self.change_model_right_fan_speed)
         self.modelFanRight.slider.sliderReleased.connect(self.set_model_right_fan_speed)
         self.modelFanRight.imageButton.clicked.connect(self.model_right_fan_on_off)

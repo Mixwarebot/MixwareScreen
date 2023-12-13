@@ -1,13 +1,16 @@
 import logging
 import platform
 
+from printer import MixwareScreenPrinterStatus
 from qtCore import *
 from ui.printerWidget import PrinterWidget
 from ui.printingWidget import PrintingWidget
 from ui.splashWidget import SplashWidget
 
+
 class NotifyFrame(QFrame):
     clicked = pyqtSignal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.is_move = None
@@ -19,7 +22,8 @@ class NotifyFrame(QFrame):
         self.notify.setFixedSize(360, 80)
         self.notify.setText("This is a Mixware Screen message. Click anywhere to close it.")
         self.notify.setWordWrap(True)
-        self.notify.setStyleSheet("QLabel {background: rgba(0, 0, 0, 0.75); color: #FFFFFF; border: none; border-radius: 10px; padding-left: 20px;}")
+        self.notify.setStyleSheet(
+            "QLabel {background: rgba(0, 0, 0, 0.75); color: #FFFFFF; border: none; border-radius: 10px; padding-left: 20px;}")
         self.layout.addWidget(self.notify)
 
     def mousePressEvent(self, a0: QMouseEvent) -> None:
@@ -35,6 +39,7 @@ class NotifyFrame(QFrame):
     def set_text(self, text):
         self.notify.setText(text)
 
+
 class MixwareScreen(QWidget):
     def __init__(self, printer, parent=None):
         super().__init__(parent)
@@ -45,6 +50,7 @@ class MixwareScreen(QWidget):
         theme = self._printer.config.get_theme()
         # with open(root_path / "resource" / str(theme) / "style.qss", 'r', encoding='utf-8') as file:
         with open("resource/style.qss", 'r', encoding='utf-8') as file:
+            logging.info("Initialize style")
             style = file.read()
             qApp.setStyleSheet(style)
             file.close()
@@ -68,6 +74,7 @@ class MixwareScreen(QWidget):
 
         if platform.system().lower() == 'windows':
             self.stackedLayout.setCurrentIndex(2)
+
         self.notify_frame = NotifyFrame(self)
         self.notify_frame.resize(self.width(), 100)
         self.notify_frame.move(0, 10)
@@ -95,25 +102,25 @@ class MixwareScreen(QWidget):
         if self.notify_frame.isVisible():
             self.notify_frame.raise_()
 
-    @pyqtSlot(int)
+    @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, status):
-        if status == 0:
+        if status == MixwareScreenPrinterStatus.PRINTER_DISCONNECTED:
             if self.stackedLayout.currentWidget() == self.splashWidget:
                 self.splashWidget.button.setText("Update")
                 self.splashWidget.tips.setText("No printer detected.")
             else:
-                self.set_stacked_index(status)
-        elif status == 1:
+                self.set_stacked_index(0)
+        elif status == MixwareScreenPrinterStatus.PRINTER_CONNECTED:
             if self.stackedLayout.currentWidget() == self.splashWidget:
                 self.splashWidget.button.setText("Start")
                 self.splashWidget.tips.setText("Click <Start> to start using the printer.")
             elif self.stackedLayout.currentWidget() == self.printingWidget:
-                self.set_stacked_index(status)
-        elif status == 2:
+                self.set_stacked_index(1)
+        elif status == MixwareScreenPrinterStatus.PRINTER_PRINTING:
             if self.stackedLayout.currentWidget() == self.printerWidget:
                 self.printingWidget.reset_time()
                 self.printingWidget.set_file_name(self._printer.printing_information['path'])
-                self.set_stacked_index(status)
+                self.set_stacked_index(2)
 
     @pyqtSlot(str, int)
     def on_update_printer_message(self, message, level):
