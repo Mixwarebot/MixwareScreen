@@ -20,6 +20,7 @@ class RunOutPad(BaseRoundDialog):
     def __init__(self, printer, parent=None):
         super().__init__(parent)
         self._printer = printer
+        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
         self._width = self._printer.config.get_width()
         self._height = self._printer.config.get_height()
         self.message_print = ""

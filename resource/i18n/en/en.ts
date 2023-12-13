@@ -1236,7 +1236,7 @@ Please enter offset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/printingWidget.py" line="207"/>
+        <location filename="../../../ui/printingWidget.py" line="208"/>
         <source>Print Done.
 Print time: {}</source>
         <translation type="unfinished"></translation>
@@ -1255,57 +1255,57 @@ Print time: {}</source>
 <context>
     <name>RunOutPad</name>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="112"/>
+        <location filename="../../../ui/runoutPad.py" line="113"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="110"/>
+        <location filename="../../../ui/runoutPad.py" line="111"/>
         <source>Filament Detector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="149"/>
+        <location filename="../../../ui/runoutPad.py" line="150"/>
         <source>- 请清理喷嘴或装载新的耗材</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="142"/>
+        <location filename="../../../ui/runoutPad.py" line="143"/>
         <source>- 检测到耗材状态异常, 暂停打印.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="143"/>
+        <location filename="../../../ui/runoutPad.py" line="144"/>
         <source>- 卸载异常耗材.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="156"/>
+        <location filename="../../../ui/runoutPad.py" line="157"/>
         <source>- 正在加热...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="182"/>
+        <location filename="../../../ui/runoutPad.py" line="183"/>
         <source>- 耗材装载完成，请选择再次装载或恢复打印</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="111"/>
+        <location filename="../../../ui/runoutPad.py" line="112"/>
         <source>Reload.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="122"/>
+        <location filename="../../../ui/runoutPad.py" line="123"/>
         <source>Resume Print.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="203"/>
+        <location filename="../../../ui/runoutPad.py" line="204"/>
         <source>- 加热完成.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="120"/>
+        <location filename="../../../ui/runoutPad.py" line="121"/>
         <source>- 装载耗材中...</source>
         <translation type="unfinished"></translation>
     </message>
