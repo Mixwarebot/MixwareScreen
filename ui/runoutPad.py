@@ -121,12 +121,14 @@ class RunOutPad(BaseRoundDialog):
         self.message_load = self.tr("- 装载耗材中...")
         self.update_message()
         self.next_button.setText(self.tr("Resume Print."))
+        self.reload_button.show()
         self.reload_button.setEnabled(False)
         self.next_button.setEnabled(False)
         timer_frame = 2
         self._printer.write_gcode_command(f"G91\nG0\nG1 E{load_length} F{load_speed}\nG90\nM400")
-        self.progress_bar.setMaximum(int(unload_time * timer_frame))
+        self.progress_bar.setMaximum(int(load_time * timer_frame))
         self.working_progress = 0
+        self.progress_bar.show()
         self.working_timer.start(int(1000 / timer_frame))
 
     def start_unload(self):
@@ -135,6 +137,7 @@ class RunOutPad(BaseRoundDialog):
                                           f"G1 E-{unload_length} F{unload_speed}\nG90\nM400")
         self.progress_bar.setMaximum(int(unload_time * timer_frame))
         self.working_progress = 0
+        self.progress_bar.show()
         self.working_timer.start(int(1000 / timer_frame))
 
     def goto_next_stage(self):
@@ -143,7 +146,6 @@ class RunOutPad(BaseRoundDialog):
             self.message_print = self.tr("- 检测到耗材状态异常, 暂停打印.")
             self.message_unload = self.tr("- 卸载异常耗材.")
             self.update_message()
-            self.progress_bar.show()
             self.footer.hide()
             self.next_button.setEnabled(True)
             self.start_unload()
@@ -168,6 +170,7 @@ class RunOutPad(BaseRoundDialog):
         elif self.status == RunOutStatus.RUNOUT_LOAD:
             self._printer.print_resume()
             self.status = RunOutStatus.RUNOUT_NULL
+            self.reload_button.hide()
             self.reject()
 
     def on_close_button_clicked(self):
