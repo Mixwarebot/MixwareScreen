@@ -1,6 +1,8 @@
 import logging
 import platform
+import re
 
+from printer import MixwareScreenPrinterStatus
 from qtCore import *
 from ui.base.baseLine import BaseHLine, BaseVLine
 from ui.base.basePushButton import BasePushButton
@@ -175,13 +177,17 @@ class PrintVerifyPage(QWidget):
         self.work_text.setWordWrap(True)
         self.work_text.setAlignment(Qt.AlignCenter)
         self.work_body_layout.addWidget(self.work_text)
+        self.work_progress_bar = QProgressBar()
+        self.work_progress_bar.setTextVisible(False)
+        self.work_progress_bar.setFixedHeight(18)
+        self.work_body_layout.addWidget(self.work_progress_bar)
         self.handle_stacked_widget.addWidget(self.work_handle)
 
         self.finished_handle = HandleBar()
         self.finished_handle.previous_button.hide()
         self.finished_handle.next_button.clicked.connect(self.on_finished_next_button_clicked)
         self.finished_body_layout = QVBoxLayout(self.finished_handle.body)
-        self.finished_body_layout.setContentsMargins(0, 0, 0, 0)
+        self.finished_body_layout.setContentsMargins(0, 20, 0, 0)
         self.finished_body_layout.setSpacing(0)
 
         self.finished_offset_frame = QFrame()
@@ -189,33 +195,69 @@ class PrintVerifyPage(QWidget):
         self.finished_offset_frame_layout = QGridLayout(self.finished_offset_frame)
         self.finished_offset_frame_layout.setContentsMargins(20, 10, 20, 10)
         self.finished_offset_frame_layout.setSpacing(0)
-        self.finished_offset_x = QLabel()
-        self.finished_offset_x.setAlignment(Qt.AlignHCenter | Qt.AlignBottom)
-        self.finished_offset_x.setText("X offset: ")
-        self.finished_offset_frame_layout.addWidget(self.finished_offset_x, 0, 0, 1, 1)
-        self.finished_offset_x_button = QPushButton()
-        self.finished_offset_x_button.setFixedHeight(64)
-        self.finished_offset_x_button.clicked.connect(self.on_finished_offset_x_button_clicked)
-        self.finished_offset_frame_layout.addWidget(self.finished_offset_x_button, 0, 1, 2, 1)
-        self.finished_offset_x_tips = QLabel()
-        self.finished_offset_x_tips.setObjectName('tips')
-        self.finished_offset_x_tips.setFixedHeight(24)
-        self.finished_offset_x_tips.setAlignment(Qt.AlignCenter)
-        self.finished_offset_frame_layout.addWidget(self.finished_offset_x_tips, 1, 0, 1, 1)
-        self.finished_offset_frame_layout.addWidget(BaseHLine(), 2, 0, 1, 2)
-        self.finished_offset_y = QLabel()
-        self.finished_offset_y.setAlignment(Qt.AlignHCenter | Qt.AlignBottom)
-        self.finished_offset_y.setText("Y offset: ")
-        self.finished_offset_frame_layout.addWidget(self.finished_offset_y, 3, 0, 1, 1)
-        self.finished_offset_y_button = QPushButton()
-        self.finished_offset_y_button.setFixedHeight(64)
-        self.finished_offset_y_button.clicked.connect(self.on_finished_offset_y_button_clicked)
-        self.finished_offset_frame_layout.addWidget(self.finished_offset_y_button, 3, 1, 2, 1)
-        self.finished_offset_y_tips = QLabel()
-        self.finished_offset_y_tips.setObjectName('tips')
-        self.finished_offset_y_tips.setFixedHeight(24)
-        self.finished_offset_y_tips.setAlignment(Qt.AlignCenter)
-        self.finished_offset_frame_layout.addWidget(self.finished_offset_y_tips, 4, 0, 1, 1)
+        self.finished_distance_frame = QFrame()
+        self.finished_distance_frame.setFixedHeight(128)
+        self.finished_distance_frame_layout = QVBoxLayout(self.finished_distance_frame)
+        self.finished_distance_frame_layout.setContentsMargins(20, 0, 20, 0)
+        self.finished_distance_frame_layout.setSpacing(0)
+        self.finished_distance_title = QLabel()
+        self.finished_distance_title.setObjectName("frame_title")
+        self.finished_distance_title.setFixedHeight(40)
+        self.finished_distance_frame_layout.addWidget(self.finished_distance_title)
+        self.finished_distance_button_frame = QFrame()
+        self.finished_distance_button_frame.setObjectName("frameBox")
+        self.finished_distance_button_frame.setFixedHeight(88)
+        self.finished_distance_button_frame_layout = QHBoxLayout(self.finished_distance_button_frame)
+        self.finished_distance_button_frame_layout.setContentsMargins(5, 1, 5, 1)
+        self.finished_distance_button_frame_layout.setSpacing(0)
+        self._button_group = QButtonGroup()
+        self._button_group.buttonClicked.connect(self.on_offset_distance_button_clicked)
+        self._distance_list = ["0.01", "0.05", "0.1", "0.5", "1"]
+        self._distance_default = "0.1"
+        self._distance_current_id = 0
+        for d in range(len(self._distance_list)):
+            button = BasePushButton()
+            button.setText(self._distance_list[d])
+            button.setObjectName("dataButton")
+            self._button_group.addButton(button, d)
+            if self._distance_list[d] == self._distance_default:
+                self.on_offset_distance_button_clicked(
+                    self._button_group.button(d))
+            self.finished_distance_button_frame_layout.addWidget(button)
+        self.finished_distance_frame_layout.addWidget(self.finished_distance_button_frame)
+        self.finished_body_layout.addWidget(self.finished_distance_frame)
+        self.finished_offset_frame = QFrame()
+        self.finished_offset_frame.setFixedSize(360, 210)
+        self.finished_offset_frame_layout = QGridLayout(self.finished_offset_frame)
+        self.finished_offset_frame_layout.setContentsMargins(10, 0, 10, 0)
+        self.finished_offset_frame_layout.setSpacing(0)
+        self.finished_offset_x_label = QLabel()
+        self.finished_offset_x_label.setAlignment(Qt.AlignCenter)
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_x_label, 0, 0, 1, 2)
+        self.finished_offset_x_dec_button = QPushButton()
+        self.finished_offset_x_dec_button.setObjectName("leftLogo")
+        self.finished_offset_x_dec_button.setFixedHeight(48)
+        self.finished_offset_x_dec_button.clicked.connect(self.on_finished_offset_x_dec_button_clicked)
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_x_dec_button, 0, 2, 1, 1)
+        self.finished_offset_x_add_button = QPushButton()
+        self.finished_offset_x_add_button.setObjectName("rightLogo")
+        self.finished_offset_x_add_button.setFixedHeight(48)
+        self.finished_offset_x_add_button.clicked.connect(self.on_finished_offset_x_add_button_clicked)
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_x_add_button, 0, 3, 1, 1)
+        self.finished_offset_frame_layout.addWidget(BaseHLine(), 1, 0, 1, 4)
+        self.finished_offset_y_label = QLabel()
+        self.finished_offset_y_label.setAlignment(Qt.AlignCenter)
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_y_label, 2, 0, 1, 2)
+        self.finished_offset_y_dec_button = QPushButton()
+        self.finished_offset_y_dec_button.setObjectName("downLogo")
+        self.finished_offset_y_dec_button.setFixedHeight(48)
+        self.finished_offset_y_dec_button.clicked.connect(self.on_finished_offset_y_dec_button_clicked)
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_y_dec_button, 2, 2, 1, 1)
+        self.finished_offset_y_add_button = QPushButton()
+        self.finished_offset_y_add_button.setObjectName("upLogo")
+        self.finished_offset_y_add_button.setFixedHeight(48)
+        self.finished_offset_y_add_button.clicked.connect(self.on_finished_offset_y_add_button_clicked)
+        self.finished_offset_frame_layout.addWidget(self.finished_offset_y_add_button, 2, 3, 1, 1)
         self.finished_body_layout.addWidget(self.finished_offset_frame)
         self.finished_body_layout.addWidget(BaseHLine())
 
@@ -247,10 +289,15 @@ class PrintVerifyPage(QWidget):
     def re_translate_ui(self):
         self.remind_text.setText(
             self.tr("Please place the PEI platform in a standardized manner, with no debris on the platform."))
+        self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 210°C)"))
+        self.work_text.setText(self.tr("Verification model printing, please wait."))
+        self.finished_handle.next_button.setText(self.tr("Done"))
+        self.finished_distance_title.setText(self.tr("Move Distance (mm)"))
+        self.finished_text.setText(self.tr("Please level the XY offset according to the printing situation."))
+
         self.preheat_thermal_left_button.setText("-")
         self.preheat_thermal_right_button.setText("-")
         self.preheat_thermal_bed_button.setText("-")
-        self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 210°C)"))
         self.preheat_pla.setText("PLA")
         self.preheat_abs.setText("ABS")
         self.preheat_pet.setText("PET")
@@ -258,13 +305,8 @@ class PrintVerifyPage(QWidget):
         self.work_thermal_left_button.setText("-")
         self.work_thermal_right_button.setText("-")
         self.work_thermal_bed_button.setText("-")
-        self.work_text.setText(self.tr("Please wait."))
-        self.finished_handle.next_button.setText(self.tr("Done"))
-        self.finished_offset_x_button.setText('0')
-        self.finished_offset_y_button.setText('0')
-        self.finished_offset_x_tips.setText("<: -; >: +")
-        self.finished_offset_y_tips.setText("∧: -; ∨: +")
-        self.finished_text.setText(self.tr("Measure completed.\nPlease enter offset."))
+        self.finished_offset_x_label.setText("X: 0.0")
+        self.finished_offset_y_label.setText("Y: 0.0")
 
     @pyqtSlot()
     def on_update_printer_information(self):
@@ -274,6 +316,9 @@ class PrintVerifyPage(QWidget):
         self.work_thermal_left_button.setText(self._printer.get_thermal('left'))
         self.work_thermal_right_button.setText(self._printer.get_thermal('right'))
         self.work_thermal_bed_button.setText(self._printer.get_thermal('bed'))
+
+        if self._printer.is_print_verify():
+            self.work_progress_bar.setValue(int(self._printer.print_progress() * 100))
 
         if self.handle_stacked_widget.currentWidget() == self.preheat_handle and not self.preheat_handle.next_button.isEnabled():
             if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 170 \
@@ -286,12 +331,28 @@ class PrintVerifyPage(QWidget):
             if not self._printer.is_print_verify():
                 self.goto_next_step_stacked_widget()
 
+    @pyqtSlot(MixwareScreenPrinterStatus)
+    def on_update_printer_status(self, state):
+        if state == MixwareScreenPrinterStatus.PRINTER_VERITY:
+            self.work_thermal_frame.hide()
+            self.work_text.setText(
+                "Printing is completed.")
+            self.work_handle.next_button.setEnabled(True)
+
     def goto_next_step_stacked_widget(self):
         index = self.handle_stacked_widget.currentIndex()
         if index < self.handle_stacked_widget.count():
             self.message_list[index].setEnabled(False)
             self.message_list[index + 1].setEnabled(True)
             self.handle_stacked_widget.setCurrentIndex(index + 1)
+
+    @pyqtSlot(QAbstractButton)
+    def on_offset_distance_button_clicked(self, button):
+        if button.text() in self._distance_list:
+            if self._button_group.id(button) != self._distance_current_id:
+                self._button_group.button(self._distance_current_id).setStyleSheet(uncheckedStyleSheet)
+                self._button_group.button(self._button_group.id(button)).setStyleSheet(checkedStyleSheet)
+                self._distance_current_id = self._button_group.id(button)
 
     def on_remind_next_button_clicked(self):
         logging.debug(f"Start preheat")
@@ -350,23 +411,40 @@ class PrintVerifyPage(QWidget):
             self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y20 Z150 F8400")
 
         self.goto_next_step_stacked_widget()
+        self.finished_handle.next_button.setText(self.tr("Done"))
 
-    def on_finished_offset_x_button_clicked(self):
-        if not self._parent.numberPad.isVisible():
-            self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"Please enter x offset", "")
-        self.finished_offset_x_button.setText(self._parent.numberPad.number)
+    def on_finished_offset_x_dec_button_clicked(self):
+        text = re.findall("X: (-?\\d+\\.?\\d*)", self.finished_offset_x_label.text())
+        offset = float(text[0])
+        offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        self.finished_offset_x_label.setText(f"X: {offset}")
 
-    def on_finished_offset_y_button_clicked(self):
-        if not self._parent.numberPad.isVisible():
-            self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"Please enter y offset", "")
-        self.finished_offset_y_button.setText(self._parent.numberPad.number)
+    def on_finished_offset_x_add_button_clicked(self):
+        text = re.findall("X: (-?\\d+\\.?\\d*)", self.finished_offset_x_label.text())
+        offset = float(text[0])
+        offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        self.finished_offset_x_label.setText(f"X: {offset}")
+
+    def on_finished_offset_y_dec_button_clicked(self):
+        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.finished_offset_y_label.text())
+        offset = float(text[0])
+        offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        self.finished_offset_y_label.setText(f"Y: {offset}")
+
+    def on_finished_offset_y_add_button_clicked(self):
+        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.finished_offset_y_label.text())
+        offset = float(text[0])
+        offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        self.finished_offset_y_label.setText(f"Y: {offset}")
 
     def on_finished_next_button_clicked(self):
+        text = re.findall("X: (-?\\d+\\.?\\d*)", self.finished_offset_x_label.text())
+        hotend_offset_x = float(text[0])
+        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.finished_offset_y_label.text())
+        hotend_offset_y = float(text[0])
         self._printer.save_hotend_offset('X', self._printer.information['probe']['offset']['right']['X'] + float(
-            self.finished_offset_x_button.text()))
+            hotend_offset_x))
         self._printer.save_hotend_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
-            self.finished_offset_y_button.text()))
+            hotend_offset_y))
         self.reset_ui()
         self._parent.gotoPreviousPage()
