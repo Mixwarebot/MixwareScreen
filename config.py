@@ -45,7 +45,7 @@ class MixwareScreenConfig:
         self.theme = self.config.value('window/theme')
         self.language = self.config.value('window/language')
         self.folder_rootPath = self.config.value('folder/root')
-        self._should_show_welcome = self.config.value('window/welcome') == 1
+        self._should_show_welcome = bool(int(self.config.value('window/welcome')) == 1)
 
     def set_value(self, key: str, value):
         self.config.setValue(key, value)
