@@ -1,23 +1,14 @@
 import re
-
-from qtCore import *
-from ui.base.baseLine import BaseHLine
-from ui.base.basePrintWidget import BasePrintWidget
-from ui.base.basePushButton import BasePushButton
-from ui.base.handleBar import HandleBar
-from ui.base.messageBar import MessageBar
-from ui.levelPages.levelWizardPage import LevelWizardPage
-
 import logging
 import platform
 
-from printer import MixwareScreenPrinterStatus
 from qtCore import *
+from ui.base.basePrintWidget import BasePrintWidget
+from printer import MixwareScreenPrinterStatus
 from ui.base.baseLine import BaseHLine, BaseVLine
 from ui.base.basePushButton import BasePushButton
 from ui.base.handleBar import HandleBar
 from ui.base.messageBar import MessageBar
-from ui.levelPages.bedMeshGraph import BedMeshGraph
 
 
 class UsePreparePage(QWidget):
@@ -25,13 +16,30 @@ class UsePreparePage(QWidget):
         super().__init__()
         self._printer = printer
         self._parent = parent
+
+        self._printer.updatePrinterStatus.connect(self.on_update_printer_status)
+        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
+
         self.offset = {
             'left': {'X': 0.0, 'Y': 0.0, 'Z': 0.0},
             'right': {'X': 0.0, 'Y': 0.0, 'Z': 0.0}
         }
-
-        self._printer.updatePrinterStatus.connect(self.on_update_printer_status)
-        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
+        self._message_title_list = [
+            self.tr("Clean platform debris."),
+            self.tr("Place filament, select temperature"),
+            self.tr("Load filament."),
+            self.tr("Clean the nozzle."),
+            self.tr("Auto bed level."),
+            self.tr("Adjust probe offset."),
+            self.tr("Measure dial indicator."),
+            self.tr("Print Verify."),
+        ]
+        self._message_list = []
+        self._button_group = QButtonGroup()
+        self._button_group.buttonClicked.connect(self.on_offset_distance_button_clicked)
+        self._distance_list = ["0.01", "0.05", "0.1", "0.5", "1"]
+        self._distance_default = "0.1"
+        self._distance_current_id = 0
 
         self.setObjectName("usePreparePage")
         self.setMinimumSize(self._printer.config.get_width(), self._printer.config.get_height() / 2)
@@ -58,20 +66,9 @@ class UsePreparePage(QWidget):
         self.message_layout = QVBoxLayout(self.message_frame)
         self.message_layout.setContentsMargins(20, 20, 20, 20)
         self.message_layout.setSpacing(10)
-        self.message_text_list = [
-            self.tr("Clean platform debris."),
-            self.tr("Place filament, select temperature"),
-            self.tr("loading."),
-            self.tr("Clean the nozzle."),
-            self.tr("Auto bed leveling."),
-            self.tr("Adjust offset."),
-            self.tr("Place dial indicator."),
-            self.tr("Print Verify."),
-        ]
-        self.message_list = []
-        for i in range(len(self.message_text_list)):
-            self.message_list.append(MessageBar(i + 1, self.message_text_list[i]))
-            self.message_layout.addWidget(self.message_list[i])
+        for i in range(len(self._message_title_list)):
+            self._message_list.append(MessageBar(i + 1, self._message_title_list[i]))
+            self.message_layout.addWidget(self._message_list[i])
         self.layout.addWidget(self.message_frame)
 
         self.handle_frame = QFrame()
@@ -176,6 +173,7 @@ class UsePreparePage(QWidget):
         self.load_handle_body_layout.addWidget(self.load_text)
         self.load_progress = 0
         self.load_progress_bar = QProgressBar()
+        self.load_progress_bar.setTextVisible(False)
         self.load_progress_bar.setFixedHeight(18)
         self.load_handle_body_layout.addWidget(self.load_progress_bar)
         self.load_timer = QTimer()
@@ -238,33 +236,28 @@ class UsePreparePage(QWidget):
         self.offset_body_layout.addWidget(self.offset_text)
         self.offset_distance_frame = QFrame()
         self.offset_distance_frame.setFixedHeight(128)
-        self.distance_layout = QVBoxLayout(self.offset_distance_frame)
-        self.distance_layout.setContentsMargins(0, 0, 0, 0)
-        self.distance_layout.setSpacing(0)
+        self.offset_distance_frame_layout = QVBoxLayout(self.offset_distance_frame)
+        self.offset_distance_frame_layout.setContentsMargins(0, 0, 0, 0)
+        self.offset_distance_frame_layout.setSpacing(0)
         self.offset_distance_title = QLabel()
         self.offset_distance_title.setObjectName("frame_title")
         self.offset_distance_title.setFixedHeight(40)
-        self.distance_layout.addWidget(self.offset_distance_title)
+        self.offset_distance_frame_layout.addWidget(self.offset_distance_title)
         self.offset_distance_button_frame = QFrame()
         self.offset_distance_button_frame.setObjectName("frameBox")
         self.offset_distance_button_frame.setFixedHeight(88)
-        self.distance_frame_layout = QHBoxLayout(self.offset_distance_button_frame)
-        self.distance_frame_layout.setContentsMargins(5, 1, 5, 1)
-        self.distance_frame_layout.setSpacing(0)
-        self.offset_button_group = QButtonGroup()
-        self.offset_button_group.buttonClicked.connect(self.on_offset_distance_button_clicked)
-        self.offset_distance_list = ["0.01", "0.05", "0.1", "0.5", "1"]
-        self.offset_distance_default = "0.1"
-        self.offset_distance_current_id = 0
-        for d in range(len(self.offset_distance_list)):
+        self.offset_distance_button_frame_layout = QHBoxLayout(self.offset_distance_button_frame)
+        self.offset_distance_button_frame_layout.setContentsMargins(5, 1, 5, 1)
+        self.offset_distance_button_frame_layout.setSpacing(0)
+        for d in range(len(self._distance_list)):
             button = BasePushButton()
-            button.setText(self.offset_distance_list[d])
+            button.setText(self._distance_list[d])
             button.setObjectName("dataButton")
-            self.offset_button_group.addButton(button, d)
-            if self.offset_distance_list[d] == self.offset_distance_default:
-                self.on_offset_distance_button_clicked(self.offset_button_group.button(d))
-            self.distance_frame_layout.addWidget(button)
-        self.distance_layout.addWidget(self.offset_distance_button_frame)
+            self._button_group.addButton(button, d)
+            if self._distance_list[d] == self._distance_default:
+                self.on_offset_distance_button_clicked(self._button_group.button(d))
+            self.offset_distance_button_frame_layout.addWidget(button)
+        self.offset_distance_frame_layout.addWidget(self.offset_distance_button_frame)
         self.offset_body_layout.addWidget(self.offset_distance_frame)
         self.offset_frame_layout = QVBoxLayout()
         self.offset_frame_layout.setContentsMargins(0, 10, 0, 10)
@@ -292,138 +285,139 @@ class UsePreparePage(QWidget):
         self.offset_body_layout.addLayout(self.offset_frame_layout)
         self.handle_stacked_widget.addWidget(self.offset_handle)
 
-        self.place_handle = HandleBar()
-        self.place_handle.previous_button.hide()
-        self.place_handle.next_button.clicked.connect(self.on_place_next_button_clicked)
-        self.place_body_layout = QVBoxLayout(self.place_handle.body)
-        self.place_body_layout.setContentsMargins(20, 0, 20, 0)
-        self.place_body_layout.setSpacing(0)
-        self.place_body_layout.setAlignment(Qt.AlignCenter)
-        self.place_logo = QLabel()
-        self.place_logo.setFixedSize(320, 320)
-        self.place_logo_movie = QMovie("resource/image/level_measure.gif")
-        self.place_logo_movie.setScaledSize(self.remind_logo.size())
-        self.place_logo.setMovie(self.place_logo_movie)
-        self.place_body_layout.addWidget(self.place_logo)
-        self.place_text = QLabel()
-        self.place_text.setWordWrap(True)
-        self.place_text.setAlignment(Qt.AlignCenter)
-        self.place_body_layout.addWidget(self.place_text)
-        self.place_button = BasePushButton()
-        self.place_button.setFixedSize(320, 48)
-        self.place_button.clicked.connect(self.on_place_button_clicked)
-        self.place_body_layout.addWidget(self.place_button)
-        self.handle_stacked_widget.addWidget(self.place_handle)
+        self.dial_handle = HandleBar()
+        self.dial_handle.previous_button.hide()
+        self.dial_handle.next_button.clicked.connect(self.on_place_next_button_clicked)
+        self.dial_body_layout = QVBoxLayout(self.dial_handle.body)
+        self.dial_body_layout.setContentsMargins(20, 0, 20, 20)
+        self.dial_body_layout.setSpacing(0)
+        self.dial_body_layout.setAlignment(Qt.AlignCenter)
+        self.dial_placeholder = QLabel()
+        self.dial_body_layout.addWidget(self.dial_placeholder)
+        self.dial_logo = QLabel()
+        self.dial_logo.setFixedSize(320, 320)
+        self.dial_place_movie = QMovie("resource/image/level_measure.gif")
+        self.dial_place_movie.setScaledSize(self.remind_logo.size())
+        self.dial_measure_left_movie = QMovie("resource/image/level_measure_left.gif")
+        self.dial_measure_left_movie.setScaledSize(self.remind_logo.size())
+        self.dial_measure_right_movie = QMovie("resource/image/level_measure_right.gif")
+        self.dial_measure_right_movie.setScaledSize(self.remind_logo.size())
+        self.dial_logo.setMovie(self.dial_place_movie)
+        self.dial_body_layout.addWidget(self.dial_logo)
+        self.dial_text = QLabel()
+        self.dial_text.setWordWrap(True)
+        self.dial_text.setAlignment(Qt.AlignCenter)
+        self.dial_body_layout.addWidget(self.dial_text)
+        self.dial_button = BasePushButton()
+        self.dial_button.setFixedSize(320, 48)
+        self.dial_button.clicked.connect(self.on_place_button_clicked)
+        self.dial_body_layout.addWidget(self.dial_button)
+        self.handle_stacked_widget.addWidget(self.dial_handle)
 
-        self.measure_left_logo_movie = QMovie("resource/image/level_measure_left.gif")
-        self.measure_left_logo_movie.setScaledSize(self.remind_logo.size())
-
-        self.measure_right_logo_movie = QMovie("resource/image/level_measure_right.gif")
-        self.measure_right_logo_movie.setScaledSize(self.remind_logo.size())
-
-        self.work_handle = HandleBar()
-        self.work_handle.previous_button.hide()
-        self.work_handle.next_button.clicked.connect(self.on_work_next_button_clicked)
-        self.work_body_layout = QVBoxLayout(self.work_handle.body)
-        self.work_body_layout.setContentsMargins(0, 0, 0, 0)
-        self.work_body_layout.setSpacing(0)
-        self.work_thermal_frame = QFrame()
-        self.work_thermal_frame.setFixedSize(360, 210)
-        self.work_thermal_frame_layout = QGridLayout(self.work_thermal_frame)
-        self.work_thermal_frame_layout.setContentsMargins(10, 10, 10, 0)
-        self.work_thermal_frame_layout.setSpacing(0)
-        self.work_thermal_left = QLabel()
-        self.work_thermal_left.setObjectName("leftLogo")
-        self.work_thermal_frame_layout.addWidget(self.work_thermal_left, 0, 0, 1, 1)
-        self.work_thermal_left_button = QPushButton()
-        self.work_thermal_left_button.setFixedHeight(64)
-        self.work_thermal_left_button.clicked.connect(self.on_preheat_thermal_left_button_clicked)
-        self.work_thermal_frame_layout.addWidget(self.work_thermal_left_button, 0, 1, 1, 1)
-        self.work_thermal_frame_layout.addWidget(BaseHLine(), 1, 0, 1, 2)
-        self.work_thermal_right = QLabel()
-        self.work_thermal_right.setObjectName("rightLogo")
-        self.work_thermal_frame_layout.addWidget(self.work_thermal_right, 2, 0, 1, 1)
-        self.work_thermal_right_button = QPushButton()
-        self.work_thermal_right_button.setFixedHeight(64)
-        self.work_thermal_right_button.clicked.connect(self.on_preheat_thermal_right_button_clicked)
-        self.work_thermal_frame_layout.addWidget(self.work_thermal_right_button, 2, 1, 1, 1)
-        self.work_thermal_frame_layout.addWidget(BaseHLine(), 3, 0, 1, 2)
-        self.work_thermal_bed = QLabel()
-        self.work_thermal_bed.setObjectName("bedLogo")
-        self.work_thermal_frame_layout.addWidget(self.work_thermal_bed, 4, 0, 1, 1)
-        self.work_thermal_bed_button = QPushButton()
-        self.work_thermal_bed_button.setFixedHeight(64)
-        self.work_thermal_bed_button.clicked.connect(self.on_preheat_thermal_bed_button_clicked)
-        self.work_thermal_frame_layout.addWidget(self.work_thermal_bed_button, 4, 1, 1, 1)
-        self.work_body_layout.addWidget(self.work_thermal_frame)
-        self.work_body_layout.addWidget(BaseHLine())
-        self.work_text = QLabel()
-        self.work_text.setWordWrap(True)
-        self.work_text.setAlignment(Qt.AlignCenter)
-        self.work_body_layout.addWidget(self.work_text)
-        self.work_distance_frame = QFrame()
-        self.work_distance_frame.setFixedHeight(128)
-        self.work_distance_frame_layout = QVBoxLayout(self.work_distance_frame)
-        self.work_distance_frame_layout.setContentsMargins(20, 0, 20, 0)
-        self.work_distance_frame_layout.setSpacing(0)
-        self.work_distance_title = QLabel()
-        self.work_distance_title.setObjectName("frame_title")
-        self.work_distance_title.setFixedHeight(40)
-        self.work_distance_frame_layout.addWidget(self.work_distance_title)
-        self.work_distance_button_frame = QFrame()
-        self.work_distance_button_frame.setObjectName("frameBox")
-        self.work_distance_button_frame.setFixedHeight(88)
-        self.work_distance_button_frame_layout = QHBoxLayout(self.work_distance_button_frame)
-        self.work_distance_button_frame_layout.setContentsMargins(5, 1, 5, 1)
-        self.work_distance_button_frame_layout.setSpacing(0)
-        for d in range(len(self.offset_distance_list)):
+        self.verity_handle = HandleBar()
+        self.verity_handle.previous_button.hide()
+        self.verity_handle.next_button.clicked.connect(self.on_work_next_button_clicked)
+        self.verity_body_layout = QVBoxLayout(self.verity_handle.body)
+        self.verity_body_layout.setContentsMargins(0, 0, 0, 0)
+        self.verity_body_layout.setSpacing(0)
+        self.verity_thermal_frame = QFrame()
+        self.verity_thermal_frame.setFixedSize(360, 210)
+        self.verity_thermal_frame_layout = QGridLayout(self.verity_thermal_frame)
+        self.verity_thermal_frame_layout.setContentsMargins(10, 10, 10, 0)
+        self.verity_thermal_frame_layout.setSpacing(0)
+        self.verity_thermal_left = QLabel()
+        self.verity_thermal_left.setObjectName("leftLogo")
+        self.verity_thermal_frame_layout.addWidget(self.verity_thermal_left, 0, 0, 1, 1)
+        self.verity_thermal_left_button = QPushButton()
+        self.verity_thermal_left_button.setFixedHeight(64)
+        self.verity_thermal_left_button.clicked.connect(self.on_preheat_thermal_left_button_clicked)
+        self.verity_thermal_frame_layout.addWidget(self.verity_thermal_left_button, 0, 1, 1, 1)
+        self.verity_thermal_frame_layout.addWidget(BaseHLine(), 1, 0, 1, 2)
+        self.verity_thermal_right = QLabel()
+        self.verity_thermal_right.setObjectName("rightLogo")
+        self.verity_thermal_frame_layout.addWidget(self.verity_thermal_right, 2, 0, 1, 1)
+        self.verity_thermal_right_button = QPushButton()
+        self.verity_thermal_right_button.setFixedHeight(64)
+        self.verity_thermal_right_button.clicked.connect(self.on_preheat_thermal_right_button_clicked)
+        self.verity_thermal_frame_layout.addWidget(self.verity_thermal_right_button, 2, 1, 1, 1)
+        self.verity_thermal_frame_layout.addWidget(BaseHLine(), 3, 0, 1, 2)
+        self.verity_thermal_bed = QLabel()
+        self.verity_thermal_bed.setObjectName("bedLogo")
+        self.verity_thermal_frame_layout.addWidget(self.verity_thermal_bed, 4, 0, 1, 1)
+        self.verity_thermal_bed_button = QPushButton()
+        self.verity_thermal_bed_button.setFixedHeight(64)
+        self.verity_thermal_bed_button.clicked.connect(self.on_preheat_thermal_bed_button_clicked)
+        self.verity_thermal_frame_layout.addWidget(self.verity_thermal_bed_button, 4, 1, 1, 1)
+        self.verity_body_layout.addWidget(self.verity_thermal_frame)
+        self.verity_body_layout.addWidget(BaseHLine())
+        self.verity_text = QLabel()
+        self.verity_text.setWordWrap(True)
+        self.verity_text.setAlignment(Qt.AlignCenter)
+        self.verity_body_layout.addWidget(self.verity_text)
+        self.verity_distance_frame = QFrame()
+        self.verity_distance_frame.setFixedHeight(128)
+        self.verity_distance_frame_layout = QVBoxLayout(self.verity_distance_frame)
+        self.verity_distance_frame_layout.setContentsMargins(20, 0, 20, 0)
+        self.verity_distance_frame_layout.setSpacing(0)
+        self.verity_distance_title = QLabel()
+        self.verity_distance_title.setObjectName("frame_title")
+        self.verity_distance_title.setFixedHeight(40)
+        self.verity_distance_frame_layout.addWidget(self.verity_distance_title)
+        self.verity_distance_button_frame = QFrame()
+        self.verity_distance_button_frame.setObjectName("frameBox")
+        self.verity_distance_button_frame.setFixedHeight(88)
+        self.verity_distance_button_frame_layout = QHBoxLayout(self.verity_distance_button_frame)
+        self.verity_distance_button_frame_layout.setContentsMargins(5, 1, 5, 1)
+        self.verity_distance_button_frame_layout.setSpacing(0)
+        for d in range(len(self._distance_list)):
             button = BasePushButton()
-            button.setText(self.offset_distance_list[d])
+            button.setText(self._distance_list[d])
             button.setObjectName("dataButton")
-            self.offset_button_group.addButton(button, len(self.offset_distance_list) + d)
-            if self.offset_distance_list[d] == self.offset_distance_default:
+            self._button_group.addButton(button, len(self._distance_list) + d)
+            if self._distance_list[d] == self._distance_default:
                 self.on_offset_distance_button_clicked(
-                    self.offset_button_group.button(len(self.offset_distance_list) + d))
-            self.work_distance_button_frame_layout.addWidget(button)
-        self.work_distance_frame_layout.addWidget(self.work_distance_button_frame)
-        self.work_body_layout.addWidget(self.work_distance_frame)
-        self.work_offset_frame = QFrame()
-        self.work_offset_frame.setFixedSize(360, 210)
-        self.work_offset_frame_layout = QGridLayout(self.work_offset_frame)
-        self.work_offset_frame_layout.setContentsMargins(10, 0, 10, 0)
-        self.work_offset_frame_layout.setSpacing(0)
-        self.work_offset_x = QLabel()
-        self.work_offset_x.setAlignment(Qt.AlignCenter)
-        self.work_offset_frame_layout.addWidget(self.work_offset_x, 0, 0, 1, 2)
-        self.work_offset_x_button = QPushButton()
-        self.work_offset_x_button.setObjectName("leftLogo")
-        self.work_offset_x_button.setFixedHeight(48)
-        self.work_offset_x_button.clicked.connect(self.on_work_offset_x_button_clicked)
-        self.work_offset_frame_layout.addWidget(self.work_offset_x_button, 0, 2, 1, 1)
-        self.work_offset_x2_button = QPushButton()
-        self.work_offset_x2_button.setObjectName("rightLogo")
-        self.work_offset_x2_button.setFixedHeight(48)
-        self.work_offset_x2_button.clicked.connect(self.on_work_offset_x2_button_clicked)
-        self.work_offset_frame_layout.addWidget(self.work_offset_x2_button, 0, 3, 1, 1)
-        self.work_offset_frame_layout.addWidget(BaseHLine(), 1, 0, 1, 4)
-        self.work_offset_y = QLabel()
-        self.work_offset_y.setAlignment(Qt.AlignCenter)
-        self.work_offset_frame_layout.addWidget(self.work_offset_y, 2, 0, 1, 2)
-        self.work_offset_y_button = QPushButton()
-        self.work_offset_y_button.setObjectName("downLogo")
-        self.work_offset_y_button.setFixedHeight(48)
-        self.work_offset_y_button.clicked.connect(self.on_work_offset_y_button_clicked)
-        self.work_offset_frame_layout.addWidget(self.work_offset_y_button, 2, 2, 1, 1)
-        self.work_offset_y2_button = QPushButton()
-        self.work_offset_y2_button.setObjectName("upLogo")
-        self.work_offset_y2_button.setFixedHeight(48)
-        self.work_offset_y2_button.clicked.connect(self.on_work_offset_y2_button_clicked)
-        self.work_offset_frame_layout.addWidget(self.work_offset_y2_button, 2, 3, 1, 1)
-        self.work_body_layout.addWidget(self.work_offset_frame)
-        self.work_progress_bar = QProgressBar()
-        self.work_progress_bar.setFixedHeight(18)
-        self.work_body_layout.addWidget(self.work_progress_bar)
-        self.handle_stacked_widget.addWidget(self.work_handle)
+                    self._button_group.button(len(self._distance_list) + d))
+            self.verity_distance_button_frame_layout.addWidget(button)
+        self.verity_distance_frame_layout.addWidget(self.verity_distance_button_frame)
+        self.verity_body_layout.addWidget(self.verity_distance_frame)
+        self.verity_offset_frame = QFrame()
+        self.verity_offset_frame.setFixedSize(360, 210)
+        self.verity_offset_frame_layout = QGridLayout(self.verity_offset_frame)
+        self.verity_offset_frame_layout.setContentsMargins(10, 0, 10, 0)
+        self.verity_offset_frame_layout.setSpacing(0)
+        self.verity_offset_x_label = QLabel()
+        self.verity_offset_x_label.setAlignment(Qt.AlignCenter)
+        self.verity_offset_frame_layout.addWidget(self.verity_offset_x_label, 0, 0, 1, 2)
+        self.verity_offset_x_dec_button = QPushButton()
+        self.verity_offset_x_dec_button.setObjectName("leftLogo")
+        self.verity_offset_x_dec_button.setFixedHeight(48)
+        self.verity_offset_x_dec_button.clicked.connect(self.on_verity_offset_x_dec_button_clicked)
+        self.verity_offset_frame_layout.addWidget(self.verity_offset_x_dec_button, 0, 2, 1, 1)
+        self.verity_offset_x_add_button = QPushButton()
+        self.verity_offset_x_add_button.setObjectName("rightLogo")
+        self.verity_offset_x_add_button.setFixedHeight(48)
+        self.verity_offset_x_add_button.clicked.connect(self.on_verity_offset_x_add_button_clicked)
+        self.verity_offset_frame_layout.addWidget(self.verity_offset_x_add_button, 0, 3, 1, 1)
+        self.verity_offset_frame_layout.addWidget(BaseHLine(), 1, 0, 1, 4)
+        self.verity_offset_y_label = QLabel()
+        self.verity_offset_y_label.setAlignment(Qt.AlignCenter)
+        self.verity_offset_frame_layout.addWidget(self.verity_offset_y_label, 2, 0, 1, 2)
+        self.verity_offset_y_dec_button = QPushButton()
+        self.verity_offset_y_dec_button.setObjectName("downLogo")
+        self.verity_offset_y_dec_button.setFixedHeight(48)
+        self.verity_offset_y_dec_button.clicked.connect(self.on_verity_offset_y_dec_button_clicked)
+        self.verity_offset_frame_layout.addWidget(self.verity_offset_y_dec_button, 2, 2, 1, 1)
+        self.verity_offset_y_add_button = QPushButton()
+        self.verity_offset_y_add_button.setObjectName("upLogo")
+        self.verity_offset_y_add_button.setFixedHeight(48)
+        self.verity_offset_y_add_button.clicked.connect(self.on_verity_offset_y_add_button_clicked)
+        self.verity_offset_frame_layout.addWidget(self.verity_offset_y_add_button, 2, 3, 1, 1)
+        self.verity_body_layout.addWidget(self.verity_offset_frame)
+        self.verity_progress_bar = QProgressBar()
+        self.verity_progress_bar.setTextVisible(False)
+        self.verity_progress_bar.setFixedHeight(18)
+        self.verity_body_layout.addWidget(self.verity_progress_bar)
+        self.handle_stacked_widget.addWidget(self.verity_handle)
         self.handle_frame_layout.addWidget(self.handle_stacked_widget)
         self.layout.addWidget(self.handle_frame)
 
@@ -435,19 +429,19 @@ class UsePreparePage(QWidget):
         self.re_translate_ui()
 
     def hideEvent(self, a0: QHideEvent) -> None:
-        self.place_logo_movie.stop()
-        self.measure_left_logo_movie.stop()
-        self.measure_right_logo_movie.stop()
+        self.dial_place_movie.stop()
+        self.dial_measure_left_movie.stop()
+        self.dial_measure_right_movie.stop()
 
     def reset_ui(self):
-        for count in range(len(self.message_list)):
-            self.message_list[count].setText(self.message_text_list[count])
-            self.message_list[count].setEnabled(False)
+        for count in range(len(self._message_list)):
+            self._message_list[count].setText(self._message_title_list[count])
+            self._message_list[count].setEnabled(False)
             if count < 3:
-                self.message_list[count].show()
+                self._message_list[count].show()
             else:
-                self.message_list[count].hide()
-        self.message_list[0].setEnabled(True)
+                self._message_list[count].hide()
+        self._message_list[0].setEnabled(True)
         self.message_frame.hide()
         self.start_frame.show()
         self.handle_frame.hide()
@@ -472,12 +466,12 @@ class UsePreparePage(QWidget):
         self.offset_text.setText(self.tr("Adjust offset."))
         self.offset_distance_title.setText(self.tr("Move Distance (mm)"))
         self.offset_button_title.setText("Z: -")
-        self.place_text.setText(self.tr("Place the dial indicator at the specified location."))
-        self.place_button.setText(self.tr("Placed"))
-        self.work_text.setText(self.tr("Verification model printing, please wait."))
-        self.work_distance_title.setText(self.tr("Move Distance (mm)"))
-        self.work_offset_x.setText("X: 0.0")
-        self.work_offset_y.setText("Y: 0.0")
+        self.dial_text.setText(self.tr("Place the dial indicator at the specified location."))
+        self.dial_button.setText(self.tr("Placed"))
+        self.verity_text.setText(self.tr("Verification model printing, please wait."))
+        self.verity_distance_title.setText(self.tr("Move Distance (mm)"))
+        self.verity_offset_x_label.setText("X: 0.0")
+        self.verity_offset_y_label.setText("Y: 0.0")
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
@@ -488,24 +482,24 @@ class UsePreparePage(QWidget):
             self.level_load_timer.stop()
             self.level_load.hide()
         elif state == MixwareScreenPrinterStatus.PRINTER_VERITY:
-            self.work_thermal_frame.hide()
-            self.work_progress_bar.hide()
-            self.work_distance_frame.show()
-            self.work_offset_frame.show()
-            self.work_text.setText(
+            self.verity_thermal_frame.hide()
+            self.verity_progress_bar.hide()
+            self.verity_distance_frame.show()
+            self.verity_offset_frame.show()
+            self.verity_text.setText(
                 "Printing is completed, please level the XY offset according to the printing situation.")
-            self.work_handle.next_button.setEnabled(True)
+            self.verity_handle.next_button.setEnabled(True)
 
     @pyqtSlot()
     def on_update_printer_information(self):
         self.preheat_thermal_left_button.setText(self._printer.get_thermal('left'))
         self.preheat_thermal_right_button.setText(self._printer.get_thermal('right'))
         self.preheat_thermal_bed_button.setText(self._printer.get_thermal('bed'))
-        self.work_thermal_left_button.setText(self._printer.get_thermal('left'))
-        self.work_thermal_right_button.setText(self._printer.get_thermal('right'))
-        self.work_thermal_bed_button.setText(self._printer.get_thermal('bed'))
+        self.verity_thermal_left_button.setText(self._printer.get_thermal('left'))
+        self.verity_thermal_right_button.setText(self._printer.get_thermal('right'))
+        self.verity_thermal_bed_button.setText(self._printer.get_thermal('bed'))
         if self._printer.is_print_verify():
-            self.work_progress_bar.setValue(int(self._printer.print_progress() * 100))
+            self.verity_progress_bar.setValue(int(self._printer.print_progress() * 100))
         if self.handle_stacked_widget.currentWidget() == self.preheat_handle and not self.preheat_handle.next_button.isEnabled():
             if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 170 \
                     and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 170:
@@ -524,22 +518,22 @@ class UsePreparePage(QWidget):
     def goto_previous_step_stacked_widget(self):
         index = self.handle_stacked_widget.currentIndex()
         if index > 0:
-            self.message_list[index].setEnabled(False)
-            self.message_list[index - 1].setEnabled(True)
+            self._message_list[index].setEnabled(False)
+            self._message_list[index - 1].setEnabled(True)
             self.handle_stacked_widget.setCurrentIndex(index - 1)
             if 1 < index < self.handle_stacked_widget.count():
-                self.message_list[index + 1].hide()
-                self.message_list[index - 2].show()
+                self._message_list[index + 1].hide()
+                self._message_list[index - 2].show()
 
     def goto_next_step_stacked_widget(self):
         index = self.handle_stacked_widget.currentIndex()
         if index < self.handle_stacked_widget.count():
-            self.message_list[index].setEnabled(False)
-            self.message_list[index + 1].setEnabled(True)
+            self._message_list[index].setEnabled(False)
+            self._message_list[index + 1].setEnabled(True)
             self.handle_stacked_widget.setCurrentIndex(index + 1)
             if 0 < index < (self.handle_stacked_widget.count() - 2):
-                self.message_list[index - 1].hide()
-                self.message_list[index + 2].show()
+                self._message_list[index - 1].hide()
+                self._message_list[index + 2].show()
 
     def on_remind_next_button_clicked(self):
         logging.debug(f"Start preheat")
@@ -637,23 +631,23 @@ class UsePreparePage(QWidget):
 
     @pyqtSlot(QAbstractButton)
     def on_offset_distance_button_clicked(self, button):
-        if button.text() in self.offset_distance_list:
-            if self.offset_button_group.id(button) != self.offset_distance_current_id:
-                self.offset_button_group.button(self.offset_distance_current_id).setStyleSheet(uncheckedStyleSheet)
-                self.offset_button_group.button(self.offset_button_group.id(button)).setStyleSheet(checkedStyleSheet)
-                self.offset_distance_current_id = self.offset_button_group.id(button)
+        if button.text() in self._distance_list:
+            if self._button_group.id(button) != self._distance_current_id:
+                self._button_group.button(self._distance_current_id).setStyleSheet(uncheckedStyleSheet)
+                self._button_group.button(self._button_group.id(button)).setStyleSheet(checkedStyleSheet)
+                self._distance_current_id = self._button_group.id(button)
 
     def on_offset_button_up_clicked(self):
-        self.offset['left']['Z'] -= float(self.offset_distance_list[self.offset_distance_current_id])
+        self.offset['left']['Z'] -= float(self._distance_list[self._distance_current_id])
         self._printer.write_gcode_command(
-            'G91\nG0 F600 Z-' + self.offset_distance_list[self.offset_distance_current_id] + '\nG90')
+            'G91\nG0 F600 Z-' + self._distance_list[self._distance_current_id] + '\nG90')
         self.offset_button_title.setText(
             f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
 
     def on_offset_button_down_clicked(self):
-        self.offset['left']['Z'] += float(self.offset_distance_list[self.offset_distance_current_id])
+        self.offset['left']['Z'] += float(self._distance_list[self._distance_current_id])
         self._printer.write_gcode_command(
-            'G91\nG0 F600 Z' + self.offset_distance_list[self.offset_distance_current_id] + '\nG90')
+            'G91\nG0 F600 Z' + self._distance_list[self._distance_current_id] + '\nG90')
         self.offset_button_title.setText(
             f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
 
@@ -662,26 +656,26 @@ class UsePreparePage(QWidget):
         self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']}\nM500\nM851")
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
-        self.place_logo_movie.start()
-        self.place_handle.next_button.setEnabled(False)
+        self.dial_place_movie.start()
+        self.dial_handle.next_button.setEnabled(False)
 
     def on_place_next_button_clicked(self):
-        self.work_distance_frame.hide()
-        self.work_offset_frame.hide()
-        self.work_handle.next_button.setEnabled(False)
+        self.verity_distance_frame.hide()
+        self.verity_offset_frame.hide()
+        self.verity_handle.next_button.setEnabled(False)
         self._printer.print_verify()
         self.goto_next_step_stacked_widget()
         # self.place_logo_movie.stop()
         # self.measure_left_logo_movie.start()
 
     def on_place_button_clicked(self):
-        if self.place_button.text() == self.tr("Placed"):
-            self.place_logo_movie.stop()
-            self.place_logo.setMovie(self.measure_left_logo_movie)
-            self.measure_left_logo_movie.start()
-            self.place_text.setText(self.tr("Measure compensation value(Left)."))
-            self.place_button.setText(self.tr("Measure Left"))
-        elif self.place_button.text() == self.tr("Measure Left"):
+        if self.dial_button.text() == self.tr("Placed"):
+            self.dial_place_movie.stop()
+            self.dial_logo.setMovie(self.dial_measure_left_movie)
+            self.dial_measure_left_movie.start()
+            self.dial_text.setText(self.tr("Measure compensation value(Left)."))
+            self.dial_button.setText(self.tr("Measure Left"))
+        elif self.dial_button.text() == self.tr("Measure Left"):
             self._printer.write_gcode_commands(
                 "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
             if not self._parent.numberPad.isVisible():
@@ -689,16 +683,16 @@ class UsePreparePage(QWidget):
                 self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
             self._printer.write_gcode_commands(
                 "G1 Z150 F960\nM400\nG28\nG1 Y160 Z150 F8400\nM400\nT1\nG1 X190 Z150 F8400")
-            self.measure_left_logo_movie.stop()
-            self.place_logo.setMovie(self.measure_right_logo_movie)
-            self.measure_right_logo_movie.start()
-            self.place_text.setText(self.tr("Measure compensation value(Right)."))
-            self.place_button.setText(self.tr("Measure Right"))
-        elif self.place_button.text() == self.tr("Measure Right"):
-            self.measure_right_logo_movie.stop()
-            self.place_text.setText(self.tr("Measurement completed.\nPlease remove the dial indicator on the hot bed."))
-            self.place_logo.hide()
-            self.place_button.hide()
+            self.dial_measure_left_movie.stop()
+            self.dial_logo.setMovie(self.dial_measure_right_movie)
+            self.dial_measure_right_movie.start()
+            self.dial_text.setText(self.tr("Measure compensation value(Right)."))
+            self.dial_button.setText(self.tr("Measure Right"))
+        elif self.dial_button.text() == self.tr("Measure Right"):
+            self.dial_measure_right_movie.stop()
+            self.dial_text.setText(self.tr("Measurement completed.\nPlease remove the dial indicator on the hot bed."))
+            self.dial_logo.hide()
+            self.dial_button.hide()
             self._printer.write_gcode_commands(
                 "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
             if not self._parent.numberPad.isVisible():
@@ -706,36 +700,36 @@ class UsePreparePage(QWidget):
                 self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_right")
             self._printer.save_dial_indicator_value()
             self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28X")
-            self.place_handle.next_button.setEnabled(True)
+            self.dial_handle.next_button.setEnabled(True)
 
-    def on_work_offset_x_button_clicked(self):
-        text = re.findall("X: (-?\\d+\\.?\\d*)", self.work_offset_x.text())
+    def on_verity_offset_x_dec_button_clicked(self):
+        text = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
         offset = float(text[0])
-        offset += float(self.offset_distance_list[self.offset_distance_current_id - len(self.offset_distance_list)])
-        self.work_offset_x.setText(f"X: {offset}")
+        offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        self.verity_offset_x_label.setText(f"X: {offset}")
 
-    def on_work_offset_x2_button_clicked(self):
-        text = re.findall("X: (-?\\d+\\.?\\d*)", self.work_offset_x.text())
+    def on_verity_offset_x_add_button_clicked(self):
+        text = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
         offset = float(text[0])
-        offset -= float(self.offset_distance_list[self.offset_distance_current_id - len(self.offset_distance_list)])
-        self.work_offset_x.setText(f"X: {offset}")
+        offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        self.verity_offset_x_label.setText(f"X: {offset}")
 
-    def on_work_offset_y_button_clicked(self):
-        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.work_offset_y.text())
+    def on_verity_offset_y_dec_button_clicked(self):
+        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
         offset = float(text[0])
-        offset -= float(self.offset_distance_list[self.offset_distance_current_id - len(self.offset_distance_list)])
-        self.work_offset_y.setText(f"Y: {offset}")
+        offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        self.verity_offset_y_label.setText(f"Y: {offset}")
 
-    def on_work_offset_y2_button_clicked(self):
-        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.work_offset_y.text())
+    def on_verity_offset_y_add_button_clicked(self):
+        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
         offset = float(text[0])
-        offset += float(self.offset_distance_list[self.offset_distance_current_id - len(self.offset_distance_list)])
-        self.work_offset_y.setText(f"Y: {offset}")
+        offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        self.verity_offset_y_label.setText(f"Y: {offset}")
 
     def on_work_next_button_clicked(self):
-        text = re.findall("X: (-?\\d+\\.?\\d*)", self.work_offset_x.text())
+        text = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
         hotend_offset_x = float(text[0])
-        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.work_offset_y.text())
+        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
         hotend_offset_y = float(text[0])
         self._printer.save_hotend_offset('X', self._printer.information['probe']['offset']['right']['X'] + float(
             hotend_offset_x))
@@ -763,7 +757,6 @@ class WelcomeMainPage(BasePrintWidget):
         super().__init__(printer, parent)
         self.current_index = 0
         self._printer = printer
-        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
 
         self.setObjectName("welcomeMainPage")
         self.footer.hide()
@@ -802,9 +795,11 @@ class WelcomeMainPage(BasePrintWidget):
         self.usePreparePage.setObjectName('usePreparePage')
         self.body_frame_layout.addWidget(self.usePreparePage)
 
+        self.re_translate_ui()
+
         self._page_list = [
             # {"page": self.language_frame, "title": self.tr("Language")},
-            # "wlan": { "page": self.wlan_frame, "title": self.tr("WLAN")},
+            # {"page": self.wlan_frame, "title": self.tr("WLAN")},
             # {"page": self.usePreparePage, "title": self.tr("Use Prepare")},
             {"page": self.usePreparePage, "title": self.tr("Use Prepare")},
             # { "page": self.level_frame, "title": self.tr("Auto Bed Level")},
@@ -812,20 +807,10 @@ class WelcomeMainPage(BasePrintWidget):
             # { "page": self.dial_frame, "title": self.tr("Dial Indicator")},
             # { "page": self.verify_frame, "title": self.tr("Print Verify")},
         ]
-
-        self.gotoPage(self._page_list[0]['page'], self._page_list[0]['title'], False)
-        self.re_translate_ui()
-
-    def showEvent(self, a0: QShowEvent) -> None:
-        self.re_translate_ui()
+        self.goto_next_index(0, False)
 
     def re_translate_ui(self):
         self.next_button.setText(self.tr('Next'))
-        pass
-
-    @pyqtSlot()
-    def on_update_printer_information(self):
-        pass
 
     @pyqtSlot()
     def on_next_button_clicked(self):
@@ -834,11 +819,12 @@ class WelcomeMainPage(BasePrintWidget):
         else:
             self.goto_next_index(self.current_index + 1)
 
-    def goto_next_index(self, next_index: int):
+    def goto_next_index(self, next_index: int, record=True):
         self.gotoPage(self._page_list[next_index]['page'], self._page_list[next_index]['title'], False)
         if self._page_list[next_index]['page'] == self.usePreparePage:
             self.next_button.setText(self.tr("Skip"))
-        self.current_index = next_index + 1
+        if record:
+            self.current_index = next_index + 1
 
     @pyqtSlot()
     def on_language_e_clicked(self):

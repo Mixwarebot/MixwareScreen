@@ -81,15 +81,21 @@ class MixwareScreen(QWidget):
         self.printingWidget.setObjectName("printingWidget")
         self.stackedLayout.addWidget(self.printingWidget)
 
-        if platform.system().lower() == 'windows':
-            self.stackedLayout.setCurrentIndex(0)
-
         self.notify_frame = NotifyFrame(self)
         self.notify_frame.resize(self.width(), 100)
         self.notify_frame.move(0, 10)
         if platform.system().lower() == 'linux':
             self.notify_frame.hide()
         self.notify_timer = QTimer(self)
+
+        # test
+        if platform.system().lower() == 'windows':
+            self.stackedLayout.setCurrentIndex(0)
+        else:
+            if self._printer.config.should_show_welcome():
+                self.stackedLayout.setCurrentIndex(0)
+            else:
+                self.stackedLayout.setCurrentIndex(1)
 
     def on_print_done(self):
         self.on_update_printer_status(MixwareScreenPrinterStatus.PRINTER_CONNECTED)
@@ -150,6 +156,8 @@ class MixwareScreen(QWidget):
         self._printer.config.set_language(language)
 
     def on_welcome_complete(self):
+        if self._printer.config.should_show_welcome():
+            self._printer.config.set_value('window/welcome', 0)
         if self._printer.is_connected():
             self.set_stacked_index(self.printerWidget)
         else:
