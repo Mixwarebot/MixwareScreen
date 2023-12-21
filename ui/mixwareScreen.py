@@ -92,7 +92,7 @@ class MixwareScreen(QWidget):
         if platform.system().lower() == 'windows':
             self.stackedLayout.setCurrentIndex(0)
         else:
-            if self._printer.config.should_show_welcome():
+            if self._printer.config.should_show_welcome:
                 self.stackedLayout.setCurrentIndex(0)
             else:
                 self.stackedLayout.setCurrentIndex(1)
@@ -156,7 +156,7 @@ class MixwareScreen(QWidget):
         self._printer.config.set_language(language)
 
     def on_welcome_complete(self):
-        if self._printer.config.should_show_welcome():
+        if self._printer.config.should_show_welcome:
             self._printer.config.set_value('window/welcome', 0)
         if self._printer.is_connected():
             self.set_stacked_index(self.printerWidget)
