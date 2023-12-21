@@ -18,3 +18,8 @@ unload_purge_speed = load_speed
 unload_length = 100
 unload_speed = 1500
 unload_time = unload_purge_length * 60 / unload_purge_speed + unload_length * 60 / unload_speed
+
+
+def update_style(w: QWidget, o: str):
+    w.setObjectName(o)
+    w.setStyle(w.style())

@@ -256,7 +256,6 @@ class DialIndicatorPage(QWidget):
         self.place_text.setText(self.tr("Place the dial indicator at the specified location."))
         self.measure_left_text.setText(self.tr("Click <Next> to start measure compensation value(Left)."))
         self.measure_right_text.setText(self.tr("Click <Next> to start measure compensation value(Right)."))
-        self.finished_handle.next_button.setText(self.tr("Done"))
         self.finished_text.setText(self.tr("Measure completed."))
 
     @pyqtSlot()
@@ -355,7 +354,8 @@ class DialIndicatorPage(QWidget):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
-        self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28\nG1 Y160 Z150 F8400\nM400\nT1\nG1 X190 Z150 F8400\nM400")
+        self._printer.write_gcode_commands(
+            "G1 Z150 F960\nM400\nG28\nG1 Y160 Z150 F8400\nM400\nT1\nG1 X190 Z150 F8400\nM400")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
         self.measure_right_logo_movie.start()
@@ -375,3 +375,4 @@ class DialIndicatorPage(QWidget):
         self._parent.footer.setEnabled(True)
         self.reset_ui()
         self._parent.gotoPreviousPage()
+        self.finished_handle.next_button.setText(self.tr("Done"))

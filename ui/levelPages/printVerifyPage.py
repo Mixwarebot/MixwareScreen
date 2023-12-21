@@ -171,11 +171,6 @@ class PrintVerifyPage(QWidget):
         self.work_thermal_frame_layout.addWidget(self.work_thermal_bed_button, 4, 1, 1, 1)
         self.work_body_layout.addWidget(self.work_thermal_frame)
         self.work_body_layout.addWidget(BaseHLine())
-        # self.work_logo = QLabel()
-        # self.work_logo.setFixedSize(320, 320)
-        # self.work_logo.setScaledContents(True)
-        # self.work_logo.setPixmap(QPixmap("resource/image/level_clean_nozzle.jpg"))
-        # self.work_body_layout.addWidget(self.work_logo)
         self.work_text = QLabel()
         self.work_text.setWordWrap(True)
         self.work_text.setAlignment(Qt.AlignCenter)
@@ -369,9 +364,9 @@ class PrintVerifyPage(QWidget):
         self.finished_offset_y_button.setText(self._parent.numberPad.number)
 
     def on_finished_next_button_clicked(self):
-        self._printer.save_right_offset('X', self._printer.information['probe']['offset']['right']['X'] + float(
+        self._printer.save_hotend_offset('X', self._printer.information['probe']['offset']['right']['X'] + float(
             self.finished_offset_x_button.text()))
-        self._printer.save_right_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
+        self._printer.save_hotend_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
             self.finished_offset_y_button.text()))
         self.reset_ui()
         self._parent.gotoPreviousPage()

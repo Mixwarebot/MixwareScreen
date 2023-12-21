@@ -1,8 +1,10 @@
 from qtCore import *
+from ui.base.baseLine import BaseHLine
 
 
 class HeaderBar(QFrame):
     clicked = pyqtSignal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.is_move = None
@@ -14,8 +16,9 @@ class HeaderBar(QFrame):
         self.title.setAlignment(Qt.AlignCenter)
 
         layout = QVBoxLayout(self)
-        layout.addWidget(self.title)
         layout.setContentsMargins(0, 20, 0, 0)
+        layout.addWidget(self.title)
+        layout.addWidget(BaseHLine())
 
     def mousePressEvent(self, a0: QMouseEvent) -> None:
         self.is_move = False
@@ -26,4 +29,3 @@ class HeaderBar(QFrame):
 
     def mouseMoveEvent(self, a0: QMouseEvent) -> None:
         self.is_move = True
-

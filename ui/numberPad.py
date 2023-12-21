@@ -14,8 +14,8 @@ class NumberPad(BaseRoundDialog):
         self.numberObject = ""
         self._source = ""
 
-        self.resize(self._width-40, self._height/2)
-        self.move((self._width - self.width())/2, (self._height - self.height())/2)
+        self.resize(self._width - 40, self._height / 2)
+        self.move((self._width - self.width()) / 2, (self._height - self.height()) / 2)
 
         self.frame = QFrame()
         self.frame.setObjectName("frameBox")
@@ -109,8 +109,8 @@ class NumberPad(BaseRoundDialog):
 
         self.re_translate_ui()
 
-    def showEvent(self, a0: QShowEvent) -> None:
-        self.re_translate_ui()
+    # def showEvent(self, a0: QShowEvent) -> None:
+    #     self.re_translate_ui()
 
     def re_translate_ui(self):
         self.title_label.setText(self.tr("Parameter Setting"))
@@ -203,13 +203,13 @@ class NumberPad(BaseRoundDialog):
             self._printer.set_thermal("chamber", value)
         elif "fan_left" in self._source:
             value = 100 if int(self.number) > 100 else int(self.number)
-            self._printer.set_fan_speed("left", value/100.0)
+            self._printer.set_fan_speed("left", value / 100.0)
         elif "fan_right" in self._source:
             value = 100 if int(self.number) > 100 else int(self.number)
-            self._printer.set_fan_speed("right", value/100.0)
+            self._printer.set_fan_speed("right", value / 100.0)
         elif "fan_exhaust" in self._source:
             value = 100 if int(self.number) > 100 else int(self.number)
-            self._printer.set_fan_speed("exhaust", value/100.0)
+            self._printer.set_fan_speed("exhaust", value / 100.0)
         elif "print_feed_rate" in self._source:
             value = 500 if int(self.number) > 500 else int(self.number)
             self._printer.write_gcode_command(f"M220 S{value}\nM220")
@@ -292,6 +292,7 @@ class NumberPad(BaseRoundDialog):
         self.close()
 
     def start(self, message: str, source: str):
+        self.re_translate_ui()
         self.number = "0"
         self.inputLabel.setText(self.number)
         self.informationLabel.setText(message)

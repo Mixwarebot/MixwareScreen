@@ -152,8 +152,8 @@ class PrintingWidget(BasePrintWidget):
         self.printingPage.fan_right_button.setText(str(int(self._printer.get_fan_speed('right') * 100)) + "%")
         self.printingPage.fan_exhaust_button.setText(str(int(self._printer.get_fan_speed('exhaust') * 100)) + "%")
 
-        self.printingPage.speed_print_button.setText(f'{self._printer.get_print_feed_rate()}')
-        self.printingPage.speed_flow_button.setText(f'{self._printer.get_print_flow()}')
+        self.printingPage.speed_print_button.setText(f'{self._printer.get_print_feed_rate()}%')
+        self.printingPage.speed_flow_button.setText(f'{self._printer.get_print_flow()}%')
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, status):
@@ -171,13 +171,11 @@ class PrintingWidget(BasePrintWidget):
 
     def print_resume(self):
         self._printer.print_resume()
-        self.printingPage.pause_print_button.setObjectName("pausePrintButton")
-        self.printingPage.pause_print_button.setStyle(self.printingPage.pause_print_button.style())
+        update_style(self.printingPage.pause_print_button, "pausePrintButton")
 
     def print_pause(self):
         self._printer.print_pause()
-        self.printingPage.pause_print_button.setObjectName("resumePrintButton")
-        self.printingPage.pause_print_button.setStyle(self.printingPage.pause_print_button.style())
+        update_style(self.printingPage.pause_print_button, "resumePrintButton")
 
     def on_pause_button_clicked(self):
         if self._printer.is_printing():

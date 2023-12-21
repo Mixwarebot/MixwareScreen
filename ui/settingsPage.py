@@ -9,6 +9,7 @@ from ui.wlanPage import WlanPage
 
 class SettingsPage(QWidget):
     new_trans = pyqtSignal(str)
+
     def __init__(self, printer, parent):
         super().__init__()
         self._printer = printer
@@ -82,10 +83,7 @@ class SettingsPage(QWidget):
 
     @pyqtSlot()
     def trans(self):
-        print(self._printer.config.get_language())
         if self._printer.config.get_language() == 'English':
             self._parent.updateTranslator.emit('Chinese')
-            self._printer.config.set_language('Chinese')
         else:
             self._parent.updateTranslator.emit('English')
-            self._printer.config.set_language('English')

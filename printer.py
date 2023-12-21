@@ -37,6 +37,7 @@ class MixwareScreenPrinterStatus(Enum):
     PRINTER_RUN_OUT = auto()
     PRINTER_G29 = auto()
     PRINTER_FILAMENT = auto()
+    PRINTER_VERITY = auto()
 
 
 class MixwareScreenPrinter(QObject):
@@ -360,7 +361,7 @@ class MixwareScreenPrinter(QObject):
                 self.re_data = re.findall("FR:(\\d*)%", self.serial_data)
                 if self.re_data:
                     logging.debug(F"Update printer feed rate(M220): {self.re_data[0]}")
-                    self.information['feedrate'] = int(self.re_data[0])
+                    self.information['feedRate'] = int(self.re_data[0])
                     self.re_data.clear()
             elif re.search("E\\d* Flow: \\d*%", self.serial_data):
                 self.re_data = re.findall("E(\\d) Flow: (\\d*)%", self.serial_data)
@@ -684,6 +685,7 @@ class MixwareScreenPrinter(QObject):
                 elif self._is_print_verify:
                     logging.debug(F"Print verify finished.")
                     self._is_print_verify = False
+                    self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_VERITY)
             return
 
         if ";" in self._gcode_line:
@@ -836,7 +838,7 @@ class MixwareScreenPrinter(QObject):
             self.write_gcode_command(command)
 
     def get_print_flow(self):
-        return self.information['feedRate']
+        return self.information['flow'][self.get_extruder()]
 
     @pyqtSlot(int)
     def set_print_flow(self, percent):
@@ -921,7 +923,7 @@ class MixwareScreenPrinter(QObject):
             self._sendCommand('G91')
             self._sendCommand('G1 F300 Z-10')
             self._sendCommand('G90')
-            self._sendCommand('G28XY')
+            # self._sendCommand('G28R0XY')
             self._sendCommand(
                 f'G1 F8400 X{self._printing_information["position"]["X"]} Y{self._printing_information["position"]["Y"]}')
             self._sendCommand(f'G92 E{self._printing_information["position"]["E"]}')
@@ -965,8 +967,6 @@ class MixwareScreenPrinter(QObject):
             self._gcode.insert(0, "M110")
             self._gcode_position = 0
 
-            if self.get_extruder() == 'right':
-                self._sendCommand('M84\nG28\nT0\nG0 Y319 F6600')
             if self.information['runOut']['enabled']:
                 self._sendCommand('M412R')  # Reset run out status
 
@@ -1049,13 +1049,13 @@ class MixwareScreenPrinter(QObject):
     def set_dial_indicator_value(self, obj, value):
         self.dial_indicator[obj] = float(value)
 
-    def save_right_offset(self, axis: str, offset: float):
+    def save_hotend_offset(self, axis: str, offset: float):
         self.write_gcode_command(f"M218 T1 {axis}{offset}\nM500\nM218")
 
     def save_dial_indicator_value(self):
         offset = self.information['probe']['offset']['right']['Z'] + self.dial_indicator['left'] - self.dial_indicator[
             'right']
-        self.save_right_offset('Z', offset)
+        self.save_hotend_offset('Z', offset)
 
     @pyqtSlot()
     def print_verify(self):

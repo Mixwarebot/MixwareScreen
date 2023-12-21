@@ -6,6 +6,7 @@ from qtCore import *
 from ui.printerWidget import PrinterWidget
 from ui.printingWidget import PrintingWidget
 from ui.splashWidget import SplashWidget
+from ui.welcomePages.welcomeWidget import WelcomeWidget
 
 
 class NotifyFrame(QFrame):
@@ -41,6 +42,8 @@ class NotifyFrame(QFrame):
 
 
 class MixwareScreen(QWidget):
+    updateTranslator = pyqtSignal(str)
+
     def __init__(self, printer, parent=None):
         super().__init__(parent)
         self._printer = printer
@@ -60,12 +63,18 @@ class MixwareScreen(QWidget):
 
         self.stackedLayout = QStackedLayout(self)
         self.stackedLayout.setObjectName("stackedLayout")
+        self.welcomeWidget = WelcomeWidget(printer)
+        self.welcomeWidget.setObjectName("welcomeWidget")
+        self.welcomeWidget.updateTranslator.connect(self.on_update_translator)
+        self.welcomeWidget.complete.connect(self.on_welcome_complete)
+        self.stackedLayout.addWidget(self.welcomeWidget)
         self.splashWidget = SplashWidget(printer)
         self.splashWidget.setObjectName("splashWidget")
         self.splashWidget.button.clicked.connect(self.splash_button_clicked)
         self.stackedLayout.addWidget(self.splashWidget)
         self.printerWidget = PrinterWidget(printer)
         self.printerWidget.setObjectName("printerWidget")
+        self.printerWidget.updateTranslator.connect(self.on_update_translator)
         self.stackedLayout.addWidget(self.printerWidget)
         self.printingWidget = PrintingWidget(printer)
         self.printingWidget.print_done.connect(self.on_print_done)
@@ -73,7 +82,7 @@ class MixwareScreen(QWidget):
         self.stackedLayout.addWidget(self.printingWidget)
 
         if platform.system().lower() == 'windows':
-            self.stackedLayout.setCurrentIndex(2)
+            self.stackedLayout.setCurrentIndex(0)
 
         self.notify_frame = NotifyFrame(self)
         self.notify_frame.resize(self.width(), 100)
@@ -83,7 +92,7 @@ class MixwareScreen(QWidget):
         self.notify_timer = QTimer(self)
 
     def on_print_done(self):
-        self.on_update_printer_status(1)
+        self.on_update_printer_status(MixwareScreenPrinterStatus.PRINTER_CONNECTED)
 
     def splash_button_clicked(self):
         if self.splashWidget.button.text() == "Start" and self._printer.is_connected():
@@ -96,31 +105,34 @@ class MixwareScreen(QWidget):
         if self.notify_frame.isVisible():
             self.notify_frame.raise_()
 
-    def set_stacked_index(self, index: int):
-        if index != self.stackedLayout.currentIndex():
-            self.stackedLayout.setCurrentIndex(index)
+    def set_stacked_index(self, w: QWidget):
+        if w != self.stackedLayout.currentWidget():
+            self.stackedLayout.setCurrentWidget(w)
         if self.notify_frame.isVisible():
             self.notify_frame.raise_()
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, status):
+        if self.stackedLayout.currentWidget() == self.welcomeWidget:
+            return
+
         if status == MixwareScreenPrinterStatus.PRINTER_DISCONNECTED:
             if self.stackedLayout.currentWidget() == self.splashWidget:
                 self.splashWidget.button.setText("Update")
                 self.splashWidget.tips.setText("No printer detected.")
             else:
-                self.set_stacked_index(0)
+                self.set_stacked_index(self.splashWidget)
         elif status == MixwareScreenPrinterStatus.PRINTER_CONNECTED:
             if self.stackedLayout.currentWidget() == self.splashWidget:
                 self.splashWidget.button.setText("Start")
                 self.splashWidget.tips.setText("Click <Start> to start using the printer.")
             elif self.stackedLayout.currentWidget() == self.printingWidget:
-                self.set_stacked_index(1)
+                self.set_stacked_index(self.printerWidget)
         elif status == MixwareScreenPrinterStatus.PRINTER_PRINTING:
             if self.stackedLayout.currentWidget() == self.printerWidget:
                 self.printingWidget.reset_time()
                 self.printingWidget.set_file_name(self._printer.printing_information['path'])
-                self.set_stacked_index(2)
+                self.set_stacked_index(self.printingWidget)
 
     @pyqtSlot(str, int)
     def on_update_printer_message(self, message, level):
@@ -131,3 +143,14 @@ class MixwareScreen(QWidget):
 
         if level == 1:
             self.notify_timer.singleShot(3000, self.notify_frame.hide)
+
+    @pyqtSlot(str)
+    def on_update_translator(self, language: str):
+        self.updateTranslator.emit(language)
+        self._printer.config.set_language(language)
+
+    def on_welcome_complete(self):
+        if self._printer.is_connected():
+            self.set_stacked_index(self.printerWidget)
+        else:
+            self.set_stacked_index(self.splashWidget)

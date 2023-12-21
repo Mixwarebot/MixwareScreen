@@ -211,7 +211,6 @@ class FilamentPage(QWidget):
         self.filament_pa_button.setText(self.tr("PA"))
         self.heating_text.setText(self.tr("Heating"))
         self.working_text.setText(self.tr("Working"))
-        self.finished_handle.next_button.setText(self.tr("Confirm"))
         self.finished_text.setText(self.tr("Finished"))
 
         self.reset_work_mode()
@@ -242,6 +241,12 @@ class FilamentPage(QWidget):
     def on_working_timer_timeout(self):
         self.working_progress += 1
         self.working_progress_bar.setValue(self.working_progress)
+        if self.handle_stacked_widget.currentWidget() == self.working_handle:
+            if self.working_progress_bar.value() >= self.working_progress_bar.maximum():
+                self.working_timer.stop()
+                self.goto_next_step_stacked_widget()
+                self.finished_handle.next_button.setText(self.tr("Confirm"))
+                self.working_progress_bar.setValue(0)
 
     def backup_target(self):
         self._backup_target['left'] = self._printer.get_target('left')
@@ -358,7 +363,7 @@ class FilamentPage(QWidget):
         self.set_work_mode(self.tr("Load"))
 
     def on_extruder_next_button_clicked(self):
-        self.message_list[0].setText(f"Current extruder: {self._printer.get_extruder().title()}")
+        self.message_list[0].setText(self.tr("Current extruder: {}").format(self._printer.get_extruder().title()))
         self.goto_next_step_stacked_widget()
 
     def on_extruder_right_button_clicked(self):
@@ -377,6 +382,7 @@ class FilamentPage(QWidget):
         elif self._printer.get_extruder() == "right":
             self.extruder_left_button.setStyleSheet(uncheckedStyleSheet)
             self.extruder_right_button.setStyleSheet(checkedStyleSheet)
+
         self.thermal_left_button.setText(self._printer.get_thermal('left'))
         self.thermal_right_button.setText(self._printer.get_thermal('right'))
 
@@ -385,8 +391,3 @@ class FilamentPage(QWidget):
                     self._printer.get_extruder()) > 170:
                 self.heating_handle.next_button.setEnabled(True)
                 self.heating_text.setText(self.tr("Heat completed,\nclick <Next> to start working."))
-        elif self.handle_stacked_widget.currentWidget() == self.working_handle:
-            if self.working_progress_bar.value() == self.working_progress_bar.maximum():
-                self.working_progress_bar.setValue(0)
-                self.working_timer.stop()
-                self.goto_next_step_stacked_widget()

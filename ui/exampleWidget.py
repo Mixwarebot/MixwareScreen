@@ -5,7 +5,7 @@ class ExampleWidget(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
         self._printer = printer
-        self._printer.updatePrinterInformation.connect(self.onUpdatePrinterInformation)
+        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
 
         self._parent = parent
 
@@ -27,5 +27,5 @@ class ExampleWidget(QWidget):
         pass
 
     @pyqtSlot()
-    def onUpdatePrinterInformation(self):
+    def on_update_printer_information(self):
         pass

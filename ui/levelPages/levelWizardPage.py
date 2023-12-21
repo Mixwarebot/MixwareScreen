@@ -373,7 +373,6 @@ class LevelWizardPage(QWidget):
         self.place_text.setText(self.tr("Place the dial indicator at the specified location."))
         self.measure_left_text.setText(self.tr("Click <Next> to start measure compensation value(Left)."))
         self.measure_right_text.setText(self.tr("Click <Next> to start measure compensation value(Right)."))
-        self.finished_handle.next_button.setText(self.tr("Done"))
         self.finished_text.setText(self.tr("Level wizard completed."))
 
     @pyqtSlot(MixwareScreenPrinterStatus)
@@ -546,8 +545,9 @@ class LevelWizardPage(QWidget):
         self._parent.footer.setEnabled(True)
         self.reset_ui()
         self._parent.gotoPreviousPage()
+        self.finished_handle.next_button.setText(self.tr("Done"))
 
-    def rotate_image(self, label:QLabel, image:str, angle:int):
+    def rotate_image(self, label: QLabel, image: str, angle: int):
         transform = QTransform().rotate(angle)
         rotated_image = QPixmap(image).transformed(transform, Qt.SmoothTransformation)
         label.setPixmap(rotated_image)

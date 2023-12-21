@@ -1,3 +1,4 @@
+T0
 M82 ;absolute extrusion mode
 G28 ;Home
 G1 Z15.0 F6000 ;Move the platform down 15mm

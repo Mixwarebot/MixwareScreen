@@ -24,6 +24,7 @@ def trans():
     os.system(cmd + '-ts ./resource/i18n/en/en.ts -noobsolete')
     os.system(cmd + '-ts ./resource/i18n/zh_CN/zh_CN.ts -noobsolete')
 
+
 def reInstallTranslator(language="English"):
     app.removeTranslator(translator)
 
@@ -33,6 +34,7 @@ def reInstallTranslator(language="English"):
         translator.load('en.qm', 'resource/i18n/en')
 
     app.installTranslator(translator)
+
 
 if __name__ == "__main__":
     QCoreApplication.setOrganizationName('rootFolder')
@@ -71,6 +73,6 @@ if __name__ == "__main__":
     elif platform.system().lower() == 'linux':
         mixwareScreen.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint | Qt.Tool)
         mixwareScreen.showFullScreen()
-    mixwareScreen.printerWidget.updateTranslator.connect(reInstallTranslator)
+    mixwareScreen.updateTranslator.connect(reInstallTranslator)
 
     sys.exit(app.exec())
