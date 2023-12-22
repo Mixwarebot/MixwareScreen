@@ -293,7 +293,8 @@ class PrintVerifyPage(QWidget):
         self.work_text.setText(self.tr("Verification model printing, please wait."))
         self.finished_handle.next_button.setText(self.tr("Done"))
         self.finished_distance_title.setText(self.tr("Move Distance (mm)"))
-        self.finished_text.setText(self.tr("Please level the XY offset according to the printing situation."))
+        self.finished_text.setText(self.tr(
+            "Observe the XY test model, find aligned lines, with each grid measuring 0.1mm, and adjust the offset values of the left and right nozzles."))
 
         self.preheat_thermal_left_button.setText("-")
         self.preheat_thermal_right_button.setText("-")

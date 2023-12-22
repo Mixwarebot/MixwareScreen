@@ -19,7 +19,7 @@ class MixwareScreenConfig:
         self.path = path
 
         # Create a local config.ini if it does not exist
-        if not os.path.isfile(self.file):
+        if not os.path.isfile(self.path + self.file):
             self.reset_local_config()
 
         # Automatically increment the version number during testing

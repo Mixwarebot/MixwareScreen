@@ -666,8 +666,6 @@ class UsePreparePage(QWidget):
         self.verity_handle.next_button.setEnabled(False)
         self._printer.print_verify()
         self.goto_next_step_stacked_widget()
-        # self.place_logo_movie.stop()
-        # self.measure_left_logo_movie.start()
 
     def on_place_button_clicked(self):
         if self.dial_button.text() == self.tr("Placed"):
