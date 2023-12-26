@@ -1,3 +1,4 @@
+import logging
 import os
 import platform
 
@@ -18,10 +19,6 @@ class MixwareScreenConfig:
     def __init__(self, path: str):
         self.path = path
 
-        # Create a local config.ini if it does not exist
-        if not os.path.isfile(self.path + self.file):
-            self.reset_local_config()
-
         # Automatically increment the version number during testing
         self.default_config = QSettings(str(self.path + self.default_file), self.format)
         self.latest_version = self.default_config.value('app/version')
@@ -34,6 +31,10 @@ class MixwareScreenConfig:
                                          f"{int(self.latest_version_array[3]) + 1}")
             self.default_config.sync()
 
+        # Create a local config.ini if it does not exist
+        if not os.path.isfile(self.path + self.file):
+            self.reset_local_config()
+
         self.config = QSettings(str(self.path + self.file), self.format)
 
         # Check the latest version
@@ -45,7 +46,13 @@ class MixwareScreenConfig:
         self.theme = self.config.value('window/theme')
         self.language = self.config.value('window/language')
         self.folder_rootPath = self.config.value('folder/root')
-        self._should_show_welcome = bool(int(self.config.value('window/welcome')) == 1)
+        self._should_show_welcome = False
+        try:
+            self._should_show_welcome = int(self.config.value('window/welcome')) == 1
+        except:
+            self.reset_local_config()
+            logging.error("Related configuration not found")
+            os.system("sudo systemctl restart MixwareScreen.service")
 
     def set_value(self, key: str, value):
         self.config.setValue(key, value)

@@ -1485,47 +1485,47 @@ Print time: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="453"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="476"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="466"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="483"/>
         <source>Auto bed leveling, please wait.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="467"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="484"/>
         <source>Adjust offset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="473"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="489"/>
         <source>Move Distance (mm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="470"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="486"/>
         <source>Place the dial indicator at the specified location.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="482"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="506"/>
         <source>Auto bed leveling completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="509"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="539"/>
         <source>Heat completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="452"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="475"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="513"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="547"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1535,12 +1535,12 @@ Print time: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="675"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="712"/>
         <source>Measure compensation value(Left).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="688"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="725"/>
         <source>Measure compensation value(Right).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1550,52 +1550,47 @@ Print time: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="465"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="482"/>
         <source>Start level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="677"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="714"/>
         <source>Measure Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="690"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="727"/>
         <source>Measure Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="464"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="481"/>
         <source>Please use a metal brush to clean the nozzle residue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="457"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="478"/>
         <source>Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="463"/>
-        <source>Loading filament.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="671"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="708"/>
         <source>Placed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="472"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="488"/>
         <source>Verification model printing, please wait.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="601"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="636"/>
         <source>Filament loading completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="692"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="729"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation type="unfinished"></translation>
@@ -1618,6 +1613,21 @@ Please remove the dial indicator on the hot bed.</source>
     <message>
         <location filename="../../../ui/welcomePages/welcomeWidget.py" line="34"/>
         <source>Measure dial indicator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="480"/>
+        <source>Loading filament(Left).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="541"/>
+        <source>Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="542"/>
+        <source>Loading filament(Right).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1662,27 +1672,27 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeMainPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="778"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="816"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="783"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="821"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="812"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="850"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="803"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="841"/>
         <source>Use Prepare</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="824"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="862"/>
         <source>Skip</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1690,12 +1700,12 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeStartPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="870"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="908"/>
         <source>Welcome</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="871"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="909"/>
         <source>Get started</source>
         <translation type="unfinished"></translation>
     </message>

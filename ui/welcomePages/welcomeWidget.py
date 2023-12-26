@@ -54,6 +54,11 @@ class UsePreparePage(QWidget):
         self.start_frame_layout.setContentsMargins(0, 0, 0, 0)
         self.start_frame_layout.setSpacing(10)
         self.start_frame_layout.setAlignment(Qt.AlignCenter)
+        self.start_logo = QLabel()
+        self.start_logo.setFixedSize(360, 640)
+        self.start_logo.setAlignment(Qt.AlignCenter)
+        self.start_logo.setPixmap(QPixmap("resource/image/hyper-x-893").scaledToWidth(350))
+        self.start_frame_layout.addWidget(self.start_logo)
         self.start_button = BasePushButton()
         self.start_button.setFixedSize(360, 64)
         self.start_button.clicked.connect(self.on_start_button_clicked)
@@ -157,6 +162,12 @@ class UsePreparePage(QWidget):
         self.preheat_filament_layout.addWidget(self.preheat_pa)
         self.preheat_body_layout.addLayout(self.preheat_filament_layout)
         self.preheat_body_layout.addWidget(BaseHLine())
+        self.preheat_logo = QLabel()
+        self.preheat_logo.setFixedSize(360, 512)
+        self.preheat_place_movie = QMovie("resource/image/place_filament.gif")
+        self.preheat_place_movie.setScaledSize(self.preheat_logo.size())
+        self.preheat_logo.setMovie(self.preheat_place_movie)
+        self.preheat_body_layout.addWidget(self.preheat_logo)
         self.preheat_text = QLabel()
         self.preheat_text.setWordWrap(True)
         self.preheat_text.setAlignment(Qt.AlignCenter)
@@ -168,6 +179,11 @@ class UsePreparePage(QWidget):
         self.load_handle_body_layout = QVBoxLayout(self.load_handle.body)
         self.load_handle_body_layout.setContentsMargins(0, 0, 0, 0)
         self.load_handle_body_layout.setSpacing(0)
+        self.load_logo = QLabel()
+        self.load_logo.setFixedSize(360, 640)
+        self.load_logo.setAlignment(Qt.AlignCenter)
+        self.load_logo.setPixmap(QPixmap("resource/image/load_filament_left").scaledToWidth(350))
+        self.load_handle_body_layout.addWidget(self.load_logo)
         self.load_text = QLabel()
         self.load_text.setAlignment(Qt.AlignCenter)
         self.load_handle_body_layout.addWidget(self.load_text)
@@ -206,8 +222,8 @@ class UsePreparePage(QWidget):
         self.level_body_layout.setSpacing(0)
         self.level_body_layout.setAlignment(Qt.AlignCenter)
         self.level_button = BasePushButton()
-        self.level_button.setFixedSize(120, 120)
-        self.level_button.setStyleSheet("border-radius: 60px; border: 1px solid #D4D4D4")
+        self.level_button.setFixedSize(240, 240)
+        self.level_button.setStyleSheet("border-radius: 120px; border: 3px solid #ff5a00")
         self.level_button.clicked.connect(self.on_level_button_clicked)
         self.level_body_layout.addWidget(self.level_button)
         self.level_load = QLabel()
@@ -317,7 +333,7 @@ class UsePreparePage(QWidget):
 
         self.verity_handle = HandleBar()
         self.verity_handle.previous_button.hide()
-        self.verity_handle.next_button.clicked.connect(self.on_work_next_button_clicked)
+        self.verity_handle.next_button.clicked.connect(self.on_verity_next_button_clicked)
         self.verity_body_layout = QVBoxLayout(self.verity_handle.body)
         self.verity_body_layout.setContentsMargins(0, 0, 0, 0)
         self.verity_body_layout.setSpacing(0)
@@ -351,6 +367,13 @@ class UsePreparePage(QWidget):
         self.verity_thermal_frame_layout.addWidget(self.verity_thermal_bed_button, 4, 1, 1, 1)
         self.verity_body_layout.addWidget(self.verity_thermal_frame)
         self.verity_body_layout.addWidget(BaseHLine())
+        self.verity_logo = QLabel()
+        self.verity_logo.setFixedSize(320, 320)
+        self.verity_logo.setStyleSheet("padding-left: 20px")
+        self.verity_movie = QMovie("resource/image/verity.gif")
+        self.verity_movie.setScaledSize(self.verity_logo.size())
+        self.verity_logo.setMovie(self.verity_movie)
+        self.verity_body_layout.addWidget(self.verity_logo)
         self.verity_text = QLabel()
         self.verity_text.setWordWrap(True)
         self.verity_text.setAlignment(Qt.AlignCenter)
@@ -452,25 +475,26 @@ class UsePreparePage(QWidget):
         self.start_button.setText(self.tr("Start"))
         self.remind_text.setText(
             self.tr("Please place the PEI platform in a standardized manner, with no debris on the platform."))
-        self.preheat_thermal_left_button.setText("-")
-        self.preheat_thermal_right_button.setText("-")
         self.preheat_text.setText(self.tr(
             "Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete."))
-        self.preheat_pla.setText("PLA")
-        self.preheat_abs.setText("ABS")
-        self.preheat_pet.setText("PET")
-        self.preheat_pa.setText("PA")
-        self.load_text.setText(self.tr("Loading filament."))
+        self.load_text.setText(self.tr("Loading filament(Left)."))
         self.clean_text.setText(self.tr("Please use a metal brush to clean the nozzle residue."))
         self.level_button.setText(self.tr("Start level"))
         self.level_text.setText(self.tr("Auto bed leveling, please wait."))
         self.offset_text.setText(self.tr("Adjust offset."))
         self.offset_distance_title.setText(self.tr("Move Distance (mm)"))
-        self.offset_button_title.setText("Z: -")
         self.dial_text.setText(self.tr("Place the dial indicator at the specified location."))
         self.dial_button.setText(self.tr("Placed"))
         self.verity_text.setText(self.tr("Verification model printing, please wait."))
         self.verity_distance_title.setText(self.tr("Move Distance (mm)"))
+        self.preheat_thermal_left_button.setText("-")
+        self.preheat_thermal_right_button.setText("-")
+        self.preheat_thermal_bed_button.setText("-")
+        self.preheat_pla.setText("PLA")
+        self.preheat_abs.setText("ABS")
+        self.preheat_pet.setText("PET")
+        self.preheat_pa.setText("PA")
+        self.offset_button_title.setText("Z: -")
         self.verity_offset_x_label.setText("X: 0.0")
         self.verity_offset_y_label.setText("Y: 0.0")
 
@@ -482,11 +506,15 @@ class UsePreparePage(QWidget):
             self.level_text.setText(self.tr("Auto bed leveling completed."))
             self.level_load_timer.stop()
             self.level_load.hide()
+            self._printer.set_thermal('left', self._printer.get_target('left') + 50)
+            self._printer.set_thermal('right', self._printer.get_target('right') + 50)
         elif state == MixwareScreenPrinterStatus.PRINTER_VERITY:
             self.verity_thermal_frame.hide()
             self.verity_progress_bar.hide()
             self.verity_distance_frame.show()
             self.verity_offset_frame.show()
+            self.verity_logo.show()
+            self.verity_movie.start()
             self.verity_text.setText(
                 "Printing is completed, please level the XY offset according to the printing situation.")
             self.verity_handle.next_button.setEnabled(True)
@@ -506,7 +534,13 @@ class UsePreparePage(QWidget):
                     and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 170:
                 logging.debug(f"heat completed.")
                 self.preheat_handle.next_button.setEnabled(True)
+                self.preheat_place_movie.stop()
+                self.preheat_logo.hide()
                 self.preheat_text.setText(self.tr("Heat completed."))
+        if self.handle_stacked_widget.currentWidget() == self.load_handle:
+            if self.tr('Left') in self.load_text.text() and self._printer.get_extruder() == 'right':
+                self.load_text.setText(self.tr("Loading filament(Right)."))
+                self.load_logo.setPixmap(QPixmap("resource/image/load_filament_right").scaledToWidth(350))
 
     @pyqtSlot()
     def on_start_button_clicked(self):
@@ -541,6 +575,7 @@ class UsePreparePage(QWidget):
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
         self.preheat_handle.next_button.setEnabled(False)  # test
+        self.preheat_place_movie.start()
         self.goto_next_step_stacked_widget()
         # preheat -> 170
         self._printer.set_thermal('left', 210)
@@ -600,10 +635,11 @@ class UsePreparePage(QWidget):
             if self.load_progress_bar.value() >= self.load_progress_bar.maximum():
                 self.load_text.setText(self.tr("Filament loading completed."))
                 self.load_timer.stop()
+                self.load_logo.hide()
                 self.load_progress_bar.hide()
                 self.load_handle.next_button.setEnabled(True)
-                # self.goto_next_step_stacked_widget()
-                # self.load_progress_bar.setValue(0)
+                self._printer.set_thermal('left', self._printer.get_target('left') - 50)
+                self._printer.set_thermal('right', self._printer.get_target('right') - 50)
 
     def on_load_next_button_clicked(self):
         self.goto_next_step_stacked_widget()
@@ -663,6 +699,7 @@ class UsePreparePage(QWidget):
     def on_place_next_button_clicked(self):
         self.verity_distance_frame.hide()
         self.verity_offset_frame.hide()
+        self.verity_logo.hide()
         self.verity_handle.next_button.setEnabled(False)
         self._printer.print_verify()
         self.goto_next_step_stacked_widget()
@@ -725,7 +762,7 @@ class UsePreparePage(QWidget):
         offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
         self.verity_offset_y_label.setText(f"Y: {offset}")
 
-    def on_work_next_button_clicked(self):
+    def on_verity_next_button_clicked(self):
         text = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
         hotend_offset_x = float(text[0])
         text = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
@@ -734,6 +771,7 @@ class UsePreparePage(QWidget):
             hotend_offset_x))
         self._printer.save_hotend_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
             hotend_offset_y))
+        self.verity_movie.stop()
         self._parent.on_next_button_clicked()
 
     def rotate_image(self, label: QLabel, image: str, angle: int):
