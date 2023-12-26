@@ -369,7 +369,7 @@ class UsePreparePage(QWidget):
         self.verity_body_layout.addWidget(BaseHLine())
         self.verity_logo = QLabel()
         self.verity_logo.setFixedSize(320, 320)
-        self.verity_logo.setStyleSheet("padding: 20px")
+        self.verity_logo.setStyleSheet("padding-left: 20px; padding-top: 20px;")
         self.verity_movie = QMovie("resource/image/verity.gif")
         self.verity_movie.setScaledSize(self.verity_logo.size())
         self.verity_logo.setMovie(self.verity_movie)
@@ -572,9 +572,7 @@ class UsePreparePage(QWidget):
 
     def on_remind_next_button_clicked(self):
         logging.debug(f"Start preheat")
-        if platform.system().lower() == 'linux':
-            self.preheat_handle.next_button.setEnabled(False)
-        self.preheat_handle.next_button.setEnabled(False)  # test
+        self.preheat_handle.next_button.setEnabled(False)
         self.preheat_place_movie.start()
         self.goto_next_step_stacked_widget()
         # preheat -> 170
@@ -585,7 +583,6 @@ class UsePreparePage(QWidget):
 
     def reset_preheat_handle_ui(self):
         if self.preheat_handle.next_button.isEnabled():
-            # self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 170°C)"))
             self.preheat_handle.next_button.setEnabled(False)
 
     def preheat_filament(self, temperature):
@@ -625,7 +622,7 @@ class UsePreparePage(QWidget):
         self.working_progress = 0
         self.load_timer.start(int(1000 / timer_frame))
         self.load_handle.previous_button.hide()
-        self.load_handle.next_button.setEnabled(False)  # test
+        self.load_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
 
     def on_load_timer_timeout(self):

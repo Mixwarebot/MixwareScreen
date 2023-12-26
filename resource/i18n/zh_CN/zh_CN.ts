@@ -1535,12 +1535,12 @@ Print time: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="712"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="717"/>
         <source>Measure compensation value(Left).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="725"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="730"/>
         <source>Measure compensation value(Right).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1555,12 +1555,12 @@ Print time: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="714"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="719"/>
         <source>Measure Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="727"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="732"/>
         <source>Measure Right</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1575,7 +1575,7 @@ Print time: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="708"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="713"/>
         <source>Placed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1585,12 +1585,12 @@ Print time: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="636"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="638"/>
         <source>Filament loading completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="729"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="734"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation type="unfinished"></translation>
@@ -1672,27 +1672,27 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeMainPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="816"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="821"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="821"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="826"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="850"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="855"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="841"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="846"/>
         <source>Use Prepare</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="862"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="867"/>
         <source>Skip</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1700,12 +1700,12 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeStartPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="908"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="913"/>
         <source>Welcome</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="909"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="914"/>
         <source>Get started</source>
         <translation type="unfinished"></translation>
     </message>
