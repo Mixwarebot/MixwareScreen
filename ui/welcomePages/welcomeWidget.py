@@ -369,7 +369,7 @@ class UsePreparePage(QWidget):
         self.verity_body_layout.addWidget(BaseHLine())
         self.verity_logo = QLabel()
         self.verity_logo.setFixedSize(320, 320)
-        self.verity_logo.setStyleSheet("padding-left: 20px")
+        self.verity_logo.setStyleSheet("padding: 20px")
         self.verity_movie = QMovie("resource/image/verity.gif")
         self.verity_movie.setScaledSize(self.verity_logo.size())
         self.verity_logo.setMovie(self.verity_movie)
