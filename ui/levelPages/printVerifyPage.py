@@ -443,9 +443,9 @@ class PrintVerifyPage(QWidget):
         hotend_offset_x = float(text[0])
         text = re.findall("Y: (-?\\d+\\.?\\d*)", self.finished_offset_y_label.text())
         hotend_offset_y = float(text[0])
-        self._printer.save_hotend_offset('X', self._printer.information['probe']['offset']['right']['X'] + float(
+        self._printer.set_hotend_offset('X', self._printer.information['probe']['offset']['right']['X'] + float(
             hotend_offset_x))
-        self._printer.save_hotend_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
+        self._printer.set_hotend_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
             hotend_offset_y))
         self.reset_ui()
         self._parent.gotoPreviousPage()

@@ -1049,13 +1049,13 @@ class MixwareScreenPrinter(QObject):
     def set_dial_indicator_value(self, obj, value):
         self.dial_indicator[obj] = float(value)
 
-    def save_hotend_offset(self, axis: str, offset: float):
+    def set_hotend_offset(self, axis: str, offset: float):
         self.write_gcode_command(f"M218 T1 {axis}{offset}\nM500\nM218")
 
     def save_dial_indicator_value(self):
         offset = self.information['probe']['offset']['right']['Z'] + self.dial_indicator['left'] - self.dial_indicator[
             'right']
-        self.save_hotend_offset('Z', offset)
+        self.set_hotend_offset('Z', offset)
 
     @pyqtSlot()
     def print_verify(self):

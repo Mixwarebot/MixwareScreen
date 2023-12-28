@@ -57,7 +57,7 @@ class UsePreparePage(QWidget):
         self.start_logo = QLabel()
         self.start_logo.setFixedSize(360, 640)
         self.start_logo.setAlignment(Qt.AlignCenter)
-        self.start_logo.setPixmap(QPixmap("resource/image/hyper-x-893").scaledToWidth(350))
+        self.start_logo.setPixmap(QPixmap("resource/image/hyper-x-893").scaledToWidth(360))
         self.start_frame_layout.addWidget(self.start_logo)
         self.start_button = BasePushButton()
         self.start_button.setFixedSize(360, 64)
@@ -270,8 +270,6 @@ class UsePreparePage(QWidget):
             button.setText(self._distance_list[d])
             button.setObjectName("dataButton")
             self._button_group.addButton(button, d)
-            if self._distance_list[d] == self._distance_default:
-                self.on_offset_distance_button_clicked(self._button_group.button(d))
             self.offset_distance_button_frame_layout.addWidget(button)
         self.offset_distance_frame_layout.addWidget(self.offset_distance_button_frame)
         self.offset_body_layout.addWidget(self.offset_distance_frame)
@@ -310,6 +308,10 @@ class UsePreparePage(QWidget):
         self.dial_body_layout.setAlignment(Qt.AlignCenter)
         self.dial_placeholder = QLabel()
         self.dial_body_layout.addWidget(self.dial_placeholder)
+        self.dial_clean_logo = QLabel()
+        self.dial_clean_logo.setFixedSize(320, 320)
+        self.dial_clean_logo.setPixmap(QPixmap("resource/image/level_clean_bed.png").scaledToWidth(320))
+        self.dial_body_layout.addWidget(self.dial_clean_logo)
         self.dial_logo = QLabel()
         self.dial_logo.setFixedSize(320, 320)
         self.dial_place_movie = QMovie("resource/image/level_measure.gif")
@@ -367,6 +369,10 @@ class UsePreparePage(QWidget):
         self.verity_thermal_frame_layout.addWidget(self.verity_thermal_bed_button, 4, 1, 1, 1)
         self.verity_body_layout.addWidget(self.verity_thermal_frame)
         self.verity_body_layout.addWidget(BaseHLine())
+        self.verity_model_logo = QLabel()
+        self.verity_model_logo.setFixedSize(320, 320)
+        self.verity_model_logo.setPixmap(QPixmap("resource/image/xy_verity").scaledToWidth(320))
+        self.verity_body_layout.addWidget(self.verity_model_logo)
         self.verity_logo = QLabel()
         self.verity_logo.setFixedSize(320, 320)
         self.verity_logo.setStyleSheet("padding-left: 20px; padding-top: 20px;")
@@ -398,9 +404,6 @@ class UsePreparePage(QWidget):
             button.setText(self._distance_list[d])
             button.setObjectName("dataButton")
             self._button_group.addButton(button, len(self._distance_list) + d)
-            if self._distance_list[d] == self._distance_default:
-                self.on_offset_distance_button_clicked(
-                    self._button_group.button(len(self._distance_list) + d))
             self.verity_distance_button_frame_layout.addWidget(button)
         self.verity_distance_frame_layout.addWidget(self.verity_distance_button_frame)
         self.verity_body_layout.addWidget(self.verity_distance_frame)
@@ -511,6 +514,7 @@ class UsePreparePage(QWidget):
         elif state == MixwareScreenPrinterStatus.PRINTER_VERITY:
             self.verity_thermal_frame.hide()
             self.verity_progress_bar.hide()
+            self.verity_model_logo.hide()
             self.verity_distance_frame.show()
             self.verity_offset_frame.show()
             self.verity_logo.show()
@@ -575,6 +579,10 @@ class UsePreparePage(QWidget):
         self.preheat_handle.next_button.setEnabled(False)
         self.preheat_place_movie.start()
         self.goto_next_step_stacked_widget()
+        update_style(self.preheat_pla, "checked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
         # preheat -> 170
         self._printer.set_thermal('left', 210)
         self._printer.set_thermal('right', 210)
@@ -603,15 +611,31 @@ class UsePreparePage(QWidget):
         self.reset_preheat_handle_ui()
 
     def on_preheat_pla_clicked(self):
+        update_style(self.preheat_pla, "checked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
         self.preheat_filament(210)
 
     def on_preheat_abs_clicked(self):
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "checked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
         self.preheat_filament(240)
 
     def on_preheat_pet_clicked(self):
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "checked")
         self.preheat_filament(270)
 
     def on_preheat_pa_clicked(self):
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "checked")
+        update_style(self.preheat_pet, "unchecked")
         self.preheat_filament(300)
 
     def on_preheat_next_button_clicked(self):
@@ -661,6 +685,7 @@ class UsePreparePage(QWidget):
         self.offset_button_title.setText(
             f"Z: {self.offset['left']['Z']}({self._printer.information['probe']['offset']['left']['Z']})")
         self._printer.write_gcode_commands("G28\nT0\nG1 Y160 F8400\nG1 X190 F8400\nG1 Z0 F600")
+        self.on_offset_distance_button_clicked(self._button_group.button(2))
         self.goto_next_step_stacked_widget()
 
     @pyqtSlot(QAbstractButton)
@@ -687,6 +712,7 @@ class UsePreparePage(QWidget):
 
     def on_offset_next_button_clicked(self):
         self.offset_distance_frame.hide()
+        self.dial_clean_logo.hide()
         self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']}\nM500\nM851")
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
@@ -699,6 +725,7 @@ class UsePreparePage(QWidget):
         self.verity_logo.hide()
         self.verity_handle.next_button.setEnabled(False)
         self._printer.print_verify()
+        self.on_offset_distance_button_clicked(self._button_group.button(len(self._distance_list) + 2))
         self.goto_next_step_stacked_widget()
 
     def on_place_button_clicked(self):
@@ -733,6 +760,7 @@ class UsePreparePage(QWidget):
                 self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_right")
             self._printer.save_dial_indicator_value()
             self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28X")
+            self.dial_clean_logo.show()
             self.dial_handle.next_button.setEnabled(True)
 
     def on_verity_offset_x_dec_button_clicked(self):
@@ -764,9 +792,9 @@ class UsePreparePage(QWidget):
         hotend_offset_x = float(text[0])
         text = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
         hotend_offset_y = float(text[0])
-        self._printer.save_hotend_offset('X', self._printer.information['probe']['offset']['right']['X'] + float(
+        self._printer.set_hotend_offset('X', self._printer.information['probe']['offset']['right']['X'] + float(
             hotend_offset_x))
-        self._printer.save_hotend_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
+        self._printer.set_hotend_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
             hotend_offset_y))
         self.verity_movie.stop()
         self._parent.on_next_button_clicked()

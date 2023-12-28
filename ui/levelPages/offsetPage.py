@@ -254,7 +254,6 @@ class OffsetPage(QWidget):
                 f"Z: {self.offset['right']['Z']: .2f}({self._printer.information['probe']['offset']['right']['Z']: .2f})")
         self._printer.write_gcode_command(
             f"G91\nG0 F600 Z{self.offset_distance_list[self.offset_distance_current_id]}\nG90")
-        print(self.offset['left']['Z'], self._printer.information['probe']['offset']['left']['Z'], self.offset['right']['Z'], self._printer.information['probe']['offset']['right']['Z'])
 
     @pyqtSlot(QAbstractButton)
     def on_button_clicked(self, button):
@@ -272,9 +271,11 @@ class OffsetPage(QWidget):
 
     def on_save_button_clicked(self):
         if self._printer.get_extruder() == "left":
-            self._printer.write_gcode_commands(f"M851 X{self.offset['left']['X']} Y{self.offset['left']['Y']} Z{self.offset['left']['Z']}\nM500\nM851")
+            self._printer.write_gcode_commands(
+                f"M851 X{self.offset['left']['X']} Y{self.offset['left']['Y']} Z{self.offset['left']['Z']}\nM500\nM851")
         elif self._printer.get_extruder() == "right":
-            self._printer.write_gcode_commands(f"M218 T1 X{self.offset['right']['X']} Y{self.offset['right']['Y']} Z{self.offset['right']['Z']}\nM500\nM218")
+            self._printer.write_gcode_commands(
+                f"M218 T1 X{self.offset['right']['X']} Y{self.offset['right']['Y']} Z{self.offset['right']['Z']}\nM500\nM218")
 
     def on_update_printer_information(self):
         if self._printer.get_extruder() == "left":
