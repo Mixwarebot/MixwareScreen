@@ -55,7 +55,7 @@ class UsePreparePage(QWidget):
         self.start_frame_layout.setSpacing(10)
         self.start_frame_layout.setAlignment(Qt.AlignCenter)
         self.start_logo = QLabel()
-        self.start_logo.setFixedSize(360, 640)
+        self.start_logo.setFixedSize(360, 840)
         self.start_logo.setAlignment(Qt.AlignCenter)
         self.start_logo.setPixmap(QPixmap("resource/image/hyper-x-893").scaledToWidth(360))
         self.start_frame_layout.addWidget(self.start_logo)
@@ -370,7 +370,8 @@ class UsePreparePage(QWidget):
         self.verity_body_layout.addWidget(self.verity_thermal_frame)
         self.verity_body_layout.addWidget(BaseHLine())
         self.verity_model_logo = QLabel()
-        self.verity_model_logo.setFixedSize(320, 320)
+        self.verity_model_logo.setFixedSize(360, 360)
+        self.verity_model_logo.setAlignment(Qt.AlignCenter)
         self.verity_model_logo.setPixmap(QPixmap("resource/image/xy_verity").scaledToWidth(320))
         self.verity_body_layout.addWidget(self.verity_model_logo)
         self.verity_logo = QLabel()
@@ -575,8 +576,8 @@ class UsePreparePage(QWidget):
                 self._message_list[index + 2].show()
 
     def on_remind_next_button_clicked(self):
-        logging.debug(f"Start preheat")
-        self.preheat_handle.next_button.setEnabled(False)
+        if platform.system().lower() == 'linux':  # test
+            self.preheat_handle.next_button.setEnabled(False)
         self.preheat_place_movie.start()
         self.goto_next_step_stacked_widget()
         update_style(self.preheat_pla, "checked")
@@ -587,11 +588,16 @@ class UsePreparePage(QWidget):
         self._printer.set_thermal('left', 210)
         self._printer.set_thermal('right', 210)
         self._printer.set_thermal('bed', 60)
-        self._printer.write_gcode_commands("M155 S1\nG28\nT0\nG1 Y20 Z50 F8400\nM155 S0")
+        self._printer.write_gcode_command("M155 S1\nG28\nT0\nG1 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
         if self.preheat_handle.next_button.isEnabled():
-            self.preheat_handle.next_button.setEnabled(False)
+            if platform.system().lower() == 'linux':  # test
+                self.preheat_handle.next_button.setEnabled(False)
+            self.preheat_place_movie.start()
+            self.preheat_logo.show()
+            self.preheat_text.setText(self.tr(
+                "Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete."))
 
     def preheat_filament(self, temperature):
         self._printer.set_thermal('left', temperature)
@@ -640,13 +646,14 @@ class UsePreparePage(QWidget):
 
     def on_preheat_next_button_clicked(self):
         timer_frame = 2
-        self._printer.write_gcode_command(f"G91\nG0\nG1 E{load_length} F{load_speed}\nG90\nM400")
-        self._printer.write_gcode_command(f"T1\nG91\nG0\nG1 E{load_length} F{load_speed}\nG90\nM400\nT0")
+        self._printer.write_gcode_commands(f"G91\nG0\nG1 E{load_length} F{load_speed}\nG90\nM400")
+        self._printer.write_gcode_commands(f"T1\nG91\nG0\nG1 E{load_length} F{load_speed}\nG90\nM400\nT0")
         self.load_progress_bar.setMaximum(int((load_time * 2 + 1) * timer_frame))
         self.working_progress = 0
         self.load_timer.start(int(1000 / timer_frame))
         self.load_handle.previous_button.hide()
-        self.load_handle.next_button.setEnabled(False)
+        if platform.system().lower() == 'linux':  # test
+            self.load_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
 
     def on_load_timer_timeout(self):
@@ -667,13 +674,14 @@ class UsePreparePage(QWidget):
         self.load_progress_bar.setValue(0)
 
     def on_clean_next_button_clicked(self):
-        self.level_handle.next_button.setEnabled(False)
+        if platform.system().lower() == 'linux':  # test
+            self.level_handle.next_button.setEnabled(False)
         self.level_load.hide()
         self.level_text.hide()
         self.goto_next_step_stacked_widget()
 
     def on_level_button_clicked(self):
-        self._printer.write_gcode_command('G28\nD28\nG29\nM500\nM503')
+        self._printer.write_gcode_commands('G28\nD28\nG29\nM500\nM503')
         self.level_button.hide()
         self.level_load.show()
         self.level_text.show()
@@ -698,14 +706,14 @@ class UsePreparePage(QWidget):
 
     def on_offset_button_up_clicked(self):
         self.offset['left']['Z'] -= float(self._distance_list[self._distance_current_id])
-        self._printer.write_gcode_command(
+        self._printer.write_gcode_commands(
             'G91\nG0 F600 Z-' + self._distance_list[self._distance_current_id] + '\nG90')
         self.offset_button_title.setText(
             f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
 
     def on_offset_button_down_clicked(self):
         self.offset['left']['Z'] += float(self._distance_list[self._distance_current_id])
-        self._printer.write_gcode_command(
+        self._printer.write_gcode_commands(
             'G91\nG0 F600 Z' + self._distance_list[self._distance_current_id] + '\nG90')
         self.offset_button_title.setText(
             f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
@@ -717,13 +725,15 @@ class UsePreparePage(QWidget):
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.dial_place_movie.start()
-        self.dial_handle.next_button.setEnabled(False)
+        if platform.system().lower() == 'linux':  # test
+            self.dial_handle.next_button.setEnabled(False)
 
     def on_place_next_button_clicked(self):
         self.verity_distance_frame.hide()
         self.verity_offset_frame.hide()
         self.verity_logo.hide()
-        self.verity_handle.next_button.setEnabled(False)
+        if platform.system().lower() == 'linux':  # test
+            self.verity_handle.next_button.setEnabled(False)
         self._printer.print_verify()
         self.on_offset_distance_button_clicked(self._button_group.button(len(self._distance_list) + 2))
         self.goto_next_step_stacked_widget()
@@ -918,7 +928,7 @@ class WelcomeStartPage(QWidget):
         self.logo = QLabel()
         self.logo.setAlignment(Qt.AlignCenter)
         self.logo.setPixmap(QPixmap("resource/icon/Mixware").scaledToWidth(280))
-        self.logo.setFixedSize(280, 720)
+        self.logo.setFixedSize(280, 960)
         self.layout.addWidget(self.logo)
         self.start_button = QPushButton()
         self.start_button.setFixedSize(280, 48)
