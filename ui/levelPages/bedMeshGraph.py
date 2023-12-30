@@ -28,7 +28,7 @@ class BedMeshGraph(QFrame):
         self.re_translate_ui()
 
     def re_translate_ui(self):
-        self.title.setText(self.tr("Auto-level Mesh Graph"))
+        self.title.setText(self.tr("Auto-leveling Mesh Graph"))
 
     def get_opacity(self, model: list, num: int):
         minimum = numpy.min(model)

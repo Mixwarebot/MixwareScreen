@@ -340,6 +340,17 @@ class LevelWizardPage(QWidget):
         self.measure_right_logo_movie.stop()
 
     def reset_ui(self):
+        self.message_text_list = [
+            self.tr("Clean platform debris."),
+            self.tr("Preheat extruder."),
+            self.tr("Clean the nozzle."),
+            self.tr("Auto bed leveling."),
+            self.tr("Adjust offset."),
+            self.tr("Place dial indicator."),
+            self.tr("Measure compensation value(Left)."),
+            self.tr("Measure compensation value(Right)."),
+            self.tr("Finish.")
+        ]
         for count in range(len(self.message_list)):
             self.message_list[count].setText(self.message_text_list[count])
             self.message_list[count].setEnabled(False)
@@ -355,7 +366,7 @@ class LevelWizardPage(QWidget):
         self.handle_frame.hide()
 
     def re_translate_ui(self):
-        self.start_button.setText(self.tr("Start Auto-level"))
+        self.start_button.setText(self.tr("Start Auto-leveling"))
         self.remind_text.setText(
             self.tr("Please place the PEI platform in a standardized manner, with no debris on the platform."))
         self.preheat_thermal_left_button.setText("-")
@@ -365,22 +376,21 @@ class LevelWizardPage(QWidget):
         self.preheat_abs.setText("ABS")
         self.preheat_pet.setText("PET")
         self.preheat_pa.setText("PA")
-        self.clean_text.setText(self.tr("Please use a metal brush to clean the nozzle residue"))
-        self.level_text.setText(self.tr("Auto bed leveling, please wait."))
+        self.clean_text.setText(self.tr("Please use a metal brush to clean the nozzle residue."))
+        self.level_text.setText(self.tr("Auto-leveling, please wait."))
         self.offset_text.setText(self.tr("Adjust offset."))
         self.offset_distance_title.setText(self.tr("Move Distance (mm)"))
         self.offset_button_title.setText("Z: -")
         self.place_text.setText(self.tr("Place the dial indicator at the specified location."))
         self.measure_left_text.setText(self.tr("Click <Next> to start measure compensation value(Left)."))
         self.measure_right_text.setText(self.tr("Click <Next> to start measure compensation value(Right)."))
-        self.finished_text.setText(self.tr("Level wizard completed."))
+        self.finished_text.setText(self.tr("Leveling wizard completed."))
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
         if state == MixwareScreenPrinterStatus.PRINTER_G29:
-            logging.debug(f"Auto bed leveling completed.")
             self.level_handle.next_button.setEnabled(True)
-            self.level_text.setText(self.tr("Auto bed leveling completed."))
+            self.level_text.setText(self.tr("Auto-leveling completed."))
             self.level_load_timer.stop()
             self.level_load.hide()
 
@@ -392,7 +402,6 @@ class LevelWizardPage(QWidget):
         if self.handle_stacked_widget.currentWidget() == self.preheat_handle and not self.preheat_handle.next_button.isEnabled():
             if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 170 \
                     and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 170:
-                logging.debug(f"heat completed.")
                 self.preheat_handle.next_button.setEnabled(True)
                 self.preheat_text.setText(self.tr("Heat completed."))
 
@@ -468,8 +477,6 @@ class LevelWizardPage(QWidget):
 
     def on_clean_next_button_clicked(self):
         if platform.system().lower() == 'linux':
-            # self._printer.set_thermal('left', 0)
-            # self._printer.set_thermal('right', 0)
             self._printer.write_gcode_command('M104 S0 T0\nM104 S0 T1\nG28\nD28\nG29\nM500\nM503')
             self.level_handle.next_button.setEnabled(False)
         self._parent.footer.setEnabled(False)
@@ -524,7 +531,8 @@ class LevelWizardPage(QWidget):
             "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
+            self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
+                                         "dial_indicator_left")
         self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28\nG1 Y160 Z150 F8400\nM400\nT1\nG1 X190 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
@@ -535,7 +543,8 @@ class LevelWizardPage(QWidget):
             "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_right")
+            self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
+                                         "dial_indicator_right")
         self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28X")
         self.goto_next_step_stacked_widget()
         self.measure_right_logo_movie.stop()
@@ -545,7 +554,7 @@ class LevelWizardPage(QWidget):
         self._parent.footer.setEnabled(True)
         self.reset_ui()
         self._parent.gotoPreviousPage()
-        self.finished_handle.next_button.setText(self.tr("Done"))
+        self.finished_handle.next_button.setText(self.tr("Done."))
 
     def rotate_image(self, label: QLabel, image: str, angle: int):
         transform = QTransform().rotate(angle)

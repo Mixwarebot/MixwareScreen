@@ -99,6 +99,8 @@ class BaseMessageBox(BaseRoundDialog):
 
     def start(self, title="", text="", image='', align=Qt.AlignCenter, buttons=QMessageBox.NoButton) -> int:
         self.setTitle(title)
+        if text == "Restart the printer?":
+            text = self.tr("Restart the printer?")
         self.setText(text)
         self.logo_label.hide()
 

@@ -21,11 +21,11 @@ class HandleBar(QFrame):
         self.footer_layout = QHBoxLayout(self.footer)
         self.footer_layout.setContentsMargins(0, 0, 0, 0)
         self.footer_layout.setSpacing(0)
-        self.previous_button = BasePushButton(self.tr("Previous"))
+        self.previous_button = BasePushButton()
         self.footer_layout.addWidget(self.previous_button)
         self.footer_line = BaseVLine()
         self.footer_layout.addWidget(self.footer_line)
-        self.next_button = BasePushButton(self.tr("Next"))
+        self.next_button = BasePushButton()
         self.footer_layout.addWidget(self.next_button)
         self.layout.addWidget(self.footer)
 

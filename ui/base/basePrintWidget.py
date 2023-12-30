@@ -9,6 +9,7 @@ from ui.numberPad import NumberPad
 
 class BasePrintWidget(QWidget):
     openPopup = pyqtSignal()
+
     def __init__(self, printer, parent=None):
         super().__init__(parent)
         self._printer = printer
@@ -77,27 +78,23 @@ class BasePrintWidget(QWidget):
 
     def open_thermal_left_numberPad(self):
         if not self.numberPad.isVisible():
-            message = self.tr("Extruder Left Target Temperature: {}°C").format(int(self._printer.information['thermal']['left']['target']))
             self.showShadowScreen()
-            self.numberPad.start(message, "thermal_left")
+            self.numberPad.start("", "thermal_left")
 
     def open_thermal_right_numberPad(self):
         if not self.numberPad.isVisible():
-            message = self.tr("Extruder Right Target Temperature: {}°C").format(int(self._printer.information['thermal']['right']['target']))
             self.showShadowScreen()
-            self.numberPad.start(message, "thermal_right")
+            self.numberPad.start("", "thermal_right")
 
     def open_thermal_bed_numberPad(self):
         if not self.numberPad.isVisible():
-            message = self.tr("Hot Bed Target Temperature: {}°C").format(int(self._printer.information['thermal']['bed']['target']))
             self.showShadowScreen()
-            self.numberPad.start(message, "thermal_bed")
+            self.numberPad.start("", "thermal_bed")
 
     def open_thermal_chamber_numberPad(self):
         if not self.numberPad.isVisible():
-            message = self.tr("Chamber Target Temperature: {}°C").format(int(self._printer.information['thermal']['chamber']['target']))
             self.showShadowScreen()
-            self.numberPad.start(message, "thermal_chamber")
+            self.numberPad.start("", "thermal_chamber")
 
     def showShadowScreen(self):
         self.shadowScreen.show()
@@ -108,7 +105,8 @@ class BasePrintWidget(QWidget):
 
     def on_reboot_button_clicked(self):
         self.showShadowScreen()
-        ret = self.message.start("Mixware Screen", self.tr("Restart the printer?"), buttons=QMessageBox.Yes | QMessageBox.Cancel)
+        ret = self.message.start("Mixware Screen", "Restart the printer?",
+                                 buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
             self._printer.printer_reboot()
         self.closeShadowScreen()
@@ -116,9 +114,8 @@ class BasePrintWidget(QWidget):
     def on_header_clicked(self):
         if self._printer.information['led']['light'] == 0:
             self._printer.set_led_light(1)
-        else :
+        else:
             self._printer.set_led_light(0)
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.stackedLayout.setCurrentIndex(0)
-

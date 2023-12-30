@@ -47,19 +47,19 @@ class LevelPage(QWidget):
         self.re_translate_ui()
 
     def re_translate_ui(self):
-        self.bed_level.setText(self.tr("Bed Level"))
-        self.bed_mesh.setText(self.tr("Auto Bed Level"))
+        self.bed_level.setText(self.tr("Bed Leveling"))
+        self.bed_mesh.setText(self.tr("Auto-Leveling"))
         self.offset.setText(self.tr("Probe Offsets"))
         self.offset_z.setText(self.tr("Dial Indicator"))
         self.offset_xy.setText(self.tr("Print Verify"))
 
     @pyqtSlot()
     def goto_auto_level_page(self):
-        self._parent.gotoPage(self.autoLevelPage, self.tr("Auto Bed Level"))
+        self._parent.gotoPage(self.autoLevelPage, self.tr("Auto-Leveling"))
 
     @pyqtSlot()
     def goto_bed_level_page(self):
-        self._parent.gotoPage(self.bedLevelPage, self.tr("Bed Level"))
+        self._parent.gotoPage(self.bedLevelPage, self.tr("Bed Leveling"))
 
     @pyqtSlot()
     def goto_offset_page(self):

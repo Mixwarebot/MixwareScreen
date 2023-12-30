@@ -280,6 +280,12 @@ class PrintVerifyPage(QWidget):
         pass
 
     def reset_ui(self):
+        self.message_text_list = [
+            self.tr("Clean platform debris."),
+            self.tr("Preheat extruder."),
+            self.tr("Working."),
+            self.tr("Finish.")
+        ]
         for count in range(len(self.message_list)):
             self.message_list[count].setText(self.message_text_list[count])
             self.message_list[count].setEnabled(False)
@@ -325,7 +331,6 @@ class PrintVerifyPage(QWidget):
             if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 170 \
                     and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 170 \
                     and self._printer.get_temperature('bed') + 3 >= self._printer.get_target('bed'):
-                logging.debug(f"Heat completed.")
                 self.preheat_handle.next_button.setEnabled(True)
                 self.preheat_text.setText(self.tr("Heat completed."))
         elif self.handle_stacked_widget.currentWidget() == self.work_handle:
@@ -356,7 +361,6 @@ class PrintVerifyPage(QWidget):
                 self._distance_current_id = self._button_group.id(button)
 
     def on_remind_next_button_clicked(self):
-        logging.debug(f"Start preheat")
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
@@ -412,7 +416,7 @@ class PrintVerifyPage(QWidget):
             self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y20 Z150 F8400")
 
         self.goto_next_step_stacked_widget()
-        self.finished_handle.next_button.setText(self.tr("Done"))
+        self.finished_handle.next_button.setText(self.tr("Done."))
 
     def on_finished_offset_x_dec_button_clicked(self):
         text = re.findall("X: (-?\\d+\\.?\\d*)", self.finished_offset_x_label.text())

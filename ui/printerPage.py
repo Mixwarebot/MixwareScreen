@@ -7,7 +7,6 @@ from ui.printFilePage import PrintFilePage
 from ui.settingsPage import SettingsPage
 
 
-
 class PrinterPage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
@@ -62,7 +61,6 @@ class PrinterPage(QWidget):
 
     @pyqtSlot()
     def goto_print_prepare_page(self):
-        # self._parent.gotoPage(self.printFilePage, self.tr("File"))
         self._parent.gotoPage(self.printPreparePage, self.tr("Print Prepare"))
 
     @pyqtSlot()

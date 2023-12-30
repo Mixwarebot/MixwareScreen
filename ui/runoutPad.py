@@ -55,7 +55,6 @@ class RunOutPad(BaseRoundDialog):
         self.title_label.setFixedHeight(40)
         title_frame_layout.addWidget(self.title_label)
         self.title_close_button = BasePushButton()
-        self.title_close_button.setText("x")
         self.title_close_button.setObjectName("closeButton")
         self.title_close_button.setFlat(True)
         self.title_close_button.setFixedSize(40, 40)
@@ -85,9 +84,9 @@ class RunOutPad(BaseRoundDialog):
         self.footer_layout = QHBoxLayout(self.footer)
         self.footer_layout.setContentsMargins(0, 0, 0, 0)
         self.footer_layout.setSpacing(0)
-        self.reload_button = BasePushButton()
-        self.reload_button.clicked.connect(self.start_load)
-        self.footer_layout.addWidget(self.reload_button)
+        self.load_again_button = BasePushButton()
+        self.load_again_button.clicked.connect(self.start_load)
+        self.footer_layout.addWidget(self.load_again_button)
         self.footer_line = BaseVLine()
         self.footer_line.setFixedHeight(48)
         self.footer_layout.addWidget(self.footer_line)
@@ -108,8 +107,9 @@ class RunOutPad(BaseRoundDialog):
         self.re_translate_ui()
 
     def re_translate_ui(self):
+        self.title_close_button.setText("x")
         self.title_label.setText(self.tr("Filament Detector"))
-        self.reload_button.setText(self.tr("Reload."))
+        self.load_again_button.setText(self.tr("Load again."))
         self.next_button.setText(self.tr("Next"))
         self.update_message()
 
@@ -118,11 +118,11 @@ class RunOutPad(BaseRoundDialog):
             f"{self.message_print}\n{self.message_unload}\n{self.message_clean}\n{self.message_load}")
 
     def start_load(self):
-        self.message_load = self.tr("- 装载耗材中...")
+        self.message_load = self.tr("- Loading...")
         self.update_message()
         self.next_button.setText(self.tr("Resume Print."))
-        self.reload_button.show()
-        self.reload_button.setEnabled(False)
+        self.load_again_button.show()
+        self.load_again_button.setEnabled(False)
         self.next_button.setEnabled(False)
         timer_frame = 2
         self._printer.write_gcode_command(f"G91\nG0\nG1 E{load_length} F{load_speed}\nG90\nM400")
@@ -143,22 +143,23 @@ class RunOutPad(BaseRoundDialog):
     def goto_next_stage(self):
         if self.status == RunOutStatus.RUNOUT_NULL:
             self.status = RunOutStatus.RUNOUT_UNLOAD
-            self.message_print = self.tr("- 检测到耗材状态异常, 暂停打印.")
-            self.message_unload = self.tr("- 卸载异常耗材.")
+            self.message_print = self.tr(
+                "- A filament abnormality is detected and printing is paused.")
+            self.message_unload = self.tr("- Unload the abnormal filament.")
             self.update_message()
             self.footer.hide()
             self.next_button.setEnabled(True)
             self.start_unload()
         elif self.status == RunOutStatus.RUNOUT_UNLOAD:
             self.status = RunOutStatus.RUNOUT_CLEAN
-            self.message_clean = self.tr("- 请清理喷嘴或装载新的耗材")
+            self.message_clean = self.tr("- Please clean the nozzle or load the new filament.")
             self.update_message()
             self.progress_bar.hide()
-            self.reload_button.hide()
+            self.load_again_button.hide()
             self.footer.show()
         elif self.status == RunOutStatus.RUNOUT_CLEAN:
             self.status = RunOutStatus.RUNOUT_HEAT
-            self.message_load = self.tr("- 正在加热...")
+            self.message_load = self.tr("- Heating...")
             self.update_message()
             if platform.system().lower() == 'linux':
                 self.next_button.setEnabled(False)
@@ -170,7 +171,7 @@ class RunOutPad(BaseRoundDialog):
         elif self.status == RunOutStatus.RUNOUT_LOAD:
             self._printer.print_resume()
             self.status = RunOutStatus.RUNOUT_NULL
-            self.reload_button.hide()
+            self.load_again_button.hide()
             self.reject()
 
     def on_close_button_clicked(self):
@@ -185,9 +186,10 @@ class RunOutPad(BaseRoundDialog):
         if self.working_progress > self.progress_bar.maximum():
             self.working_timer.stop()
             if self.status == RunOutStatus.RUNOUT_LOAD:
-                self.message_load = self.tr("- 耗材装载完成，请选择再次装载或恢复打印")
+                self.message_load = self.tr(
+                    "- Filament loading is completed, please choose to load again or resume printing.")
                 self.update_message()
-                self.reload_button.setEnabled(True)
+                self.load_again_button.setEnabled(True)
                 self.next_button.setEnabled(True)
             else:
                 self.goto_next_stage()
@@ -206,7 +208,7 @@ class RunOutPad(BaseRoundDialog):
         if self.status == RunOutStatus.RUNOUT_HEAT:
             if self._printer.get_temperature(self._printer.get_extruder()) + 3 >= self._printer.get_target(
                     self._printer.get_extruder()) > 170:
-                self.message_load = self.tr("- 加热完成.")
+                self.message_load = self.tr("- Heating is complete.")
                 self.update_message()
                 if not self.next_button.isEnabled():
                     self.next_button.setEnabled(True)

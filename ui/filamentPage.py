@@ -194,6 +194,14 @@ class FilamentPage(QWidget):
         self.recovery_target()
 
     def reset_ui(self):
+        self.message_text_list = [
+            self.tr("Select the extruder."),
+            self.tr("Select the work mode."),
+            self.tr("Select the filament."),
+            self.tr("Wait to heat up."),
+            self.tr("Wait for the job to finish."),
+            self.tr("Done.")
+        ]
         for count in range(len(self.message_list)):
             self.message_list[count].setText(self.message_text_list[count])
             self.message_list[count].setEnabled(False)
@@ -363,7 +371,10 @@ class FilamentPage(QWidget):
         self.set_work_mode(self.tr("Load"))
 
     def on_extruder_next_button_clicked(self):
-        self.message_list[0].setText(self.tr("Current extruder: {}").format(self._printer.get_extruder().title()))
+        if self._printer.get_extruder() == "left":
+            self.message_list[0].setText(self.tr("Current extruder: Left."))
+        elif self._printer.get_extruder() == "right":
+            self.message_list[0].setText(self.tr("Current extruder: Right."))
         self.goto_next_step_stacked_widget()
 
     def on_extruder_right_button_clicked(self):

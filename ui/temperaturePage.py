@@ -36,7 +36,7 @@ class TemperaturePage(QWidget):
         degree_layout.setSpacing(0)
 
         self.degree_title = QLabel()
-        self.degree_title.setText(self.tr("Heating Degeee"))
+        self.degree_title.setText(self.tr("Heating Degree"))
         self.degree_title.setFixedHeight(40)
         self.degree_title.setStyleSheet("padding-left: 10px;")
         degree_layout.addWidget(self.degree_title)
@@ -138,8 +138,7 @@ class TemperaturePage(QWidget):
         for thermal in self.thermal:
             if self.heater[thermal]: have_heater = True
         if not have_heater:
-            self._printer.updatePrinterMessage.emit("Please select a heater.", 1)
-
+            self._printer.updatePrinterMessage.emit(self.tr("Please select a heater."), 1)
 
     @pyqtSlot()
     def on_add_button_clicked(self):

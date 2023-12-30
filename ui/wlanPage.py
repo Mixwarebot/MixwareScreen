@@ -56,29 +56,25 @@ class WLANConnectBox(BaseRoundDialog):
         self.ssid_label.setFixedHeight(40)
         self.ssid_label.setObjectName("message")
         self.ssid_label.setWordWrap(True)
-        self.ssid_label.setText(self.tr("Network Name"))
         self.body_frame_layout.addWidget(self.ssid_label)
         self.ssid_line_edit = QLineEdit()
         self.ssid_line_edit.setFixedHeight(40)
         self.ssid_line_edit.setMaxLength(64)
-        self.ssid_line_edit.setPlaceholderText(self.tr("Please input your network name."))
         self.body_frame_layout.addWidget(self.ssid_line_edit)
         self.passwd_label = QLabel()
         self.passwd_label.setFixedHeight(40)
-        self.passwd_label.setText(self.tr("Password"))
         self.body_frame_layout.addWidget(self.passwd_label)
         self.passwd_line_edit = QLineEdit()
         self.passwd_line_edit.setFixedHeight(40)
         self.passwd_line_edit.setMaxLength(64)
         self.passwd_line_edit.setEchoMode(QLineEdit.Password)
-        self.passwd_line_edit.setPlaceholderText(self.tr("Please input your password."))
         self.passwd_line_edit_layout = QHBoxLayout(self.passwd_line_edit)
         self.passwd_line_edit_layout.setContentsMargins(1, 1, 1, 1)
         self.passwd_line_edit_layout.setSpacing(0)
         self.passwd_line_edit_layout.setAlignment(Qt.AlignRight)
         self.passwd_line_edit_button = BasePushButton(self.passwd_line_edit)
         self.passwd_line_edit_button.setIcon(QIcon("resource/icon/preview_close"))
-        self.passwd_line_edit_button.setFixedSize(38,38)
+        self.passwd_line_edit_button.setFixedSize(38, 38)
         self.passwd_line_edit_button.clicked.connect(self.on_passwd_line_edit_button_clicked)
         self.passwd_line_edit_layout.addWidget(self.passwd_line_edit_button)
         self.body_frame_layout.addWidget(self.passwd_line_edit)
@@ -118,30 +114,30 @@ class WLANConnectBox(BaseRoundDialog):
                 ['i', 'I', '7', '7'],
                 ['o', 'O', '8', '8'],
                 ['p', 'P', '9', '9']
-            ],\
-            [
-                ['a', 'A', '\\', '<'],
-                ['s', 'S', '/', '>'],
-                ['d', 'D', ':', '['],
-                ['f', 'F', ';', ']'],
-                ['g', 'G', '(', '{'],
-                ['h', 'H', ')', '}'],
-                ['j', 'J', '#', '#'],
-                ['k', 'K', '\&', '%'],
-                ['l', 'L', '@', '^']
-            ],\
-            [
-                'shift',
-                ['z', 'Z', '_', '*'],
-                ['x', 'X', '-', '+'],
-                ['c', 'C', '`', '='],
-                ['v', 'V', '?', '|'],
-                ['b', 'B', '!', '~'],
-                ['n', 'N', ',', '"'],
-                ['m', 'M', '.', '\''],
-                'delete',
-            ],\
-            ['?123', 'space', 'enter']
+            ], \
+                [
+                    ['a', 'A', '\\', '<'],
+                    ['s', 'S', '/', '>'],
+                    ['d', 'D', ':', '['],
+                    ['f', 'F', ';', ']'],
+                    ['g', 'G', '(', '{'],
+                    ['h', 'H', ')', '}'],
+                    ['j', 'J', '#', '#'],
+                    ['k', 'K', '\&', '%'],
+                    ['l', 'L', '@', '^']
+                ], \
+                [
+                    'shift',
+                    ['z', 'Z', '_', '*'],
+                    ['x', 'X', '-', '+'],
+                    ['c', 'C', '`', '='],
+                    ['v', 'V', '?', '|'],
+                    ['b', 'B', '!', '~'],
+                    ['n', 'N', ',', '"'],
+                    ['m', 'M', '.', '\''],
+                    'delete',
+                ], \
+                ['?123', 'space', 'enter']
 
         for row_keys in self.keys_list:
             keyboard_layout = QHBoxLayout()
@@ -165,7 +161,7 @@ class WLANConnectBox(BaseRoundDialog):
                     keyboard_button.setFixedSize(54, 36)
                 elif key == 'space':
                     keyboard_button.setObjectName("keyboard_space")
-                    keyboard_button.setText(self.tr('space'))
+                    keyboard_button.setText(self.tr('Space'))
                     keyboard_button.setFixedSize(224, 36)
                 elif key == 'enter':
                     keyboard_button.setObjectName("keyboard_enter")
@@ -188,6 +184,18 @@ class WLANConnectBox(BaseRoundDialog):
 
         self.re_translate_ui()
 
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.re_translate_ui()
+
+    def re_translate_ui(self):
+        self.ssid_label.setText(self.tr("Network Name"))
+        self.passwd_label.setText(self.tr("Password"))
+        self.ssid_line_edit.setPlaceholderText(self.tr("Please input your network name."))
+        self.passwd_line_edit.setPlaceholderText(self.tr("Please input your password."))
+        self.title_label.setText(self.tr("Connect"))
+        self.confirm_button.setText(self.tr("Connect"))
+        self.cancel_button.setText(self.tr("Cancel"))
+
     def show_keyborad(self):
         self.keyboard_frame.show()
 
@@ -200,11 +208,11 @@ class WLANConnectBox(BaseRoundDialog):
                     for key in row_keys:
                         if button.text() in key[a0]:
                             button.setText(key[a1])
-                            had_break = True; break
+                            had_break = True;
+                            break
                         if had_break: break;
                     if had_break: break;
         self.keyboard_map = a1
-
 
     def on_keyboard_button_clicked(self, button: QAbstractButton):
         object_name = button.objectName()
@@ -233,9 +241,9 @@ class WLANConnectBox(BaseRoundDialog):
                 button.setText('?123')
         elif 'space' in object_name:
             if self.ssid_line_edit.hasFocus():
-                self.ssid_line_edit.setText(self.ssid_line_edit.text()+' ')
+                self.ssid_line_edit.setText(self.ssid_line_edit.text() + ' ')
             elif self.passwd_line_edit.hasFocus():
-                self.passwd_line_edit.setText(self.passwd_line_edit.text()+' ')
+                self.passwd_line_edit.setText(self.passwd_line_edit.text() + ' ')
         elif 'enter' in object_name:
             if self.ssid_line_edit.hasFocus():
                 self.passwd_line_edit.setFocus()
@@ -243,9 +251,9 @@ class WLANConnectBox(BaseRoundDialog):
                 self.on_confirm()
         else:
             if self.ssid_line_edit.hasFocus():
-                self.ssid_line_edit.setText(self.ssid_line_edit.text()+button.text())
+                self.ssid_line_edit.setText(self.ssid_line_edit.text() + button.text())
             elif self.passwd_line_edit.hasFocus():
-                self.passwd_line_edit.setText(self.passwd_line_edit.text()+button.text())
+                self.passwd_line_edit.setText(self.passwd_line_edit.text() + button.text())
 
     def on_passwd_line_edit_button_clicked(self):
         if self.passwd_line_edit.echoMode() == QLineEdit.Password:
@@ -254,14 +262,6 @@ class WLANConnectBox(BaseRoundDialog):
         else:
             self.passwd_line_edit.setEchoMode(QLineEdit.Password)
             self.passwd_line_edit_button.setIcon(QIcon("resource/icon/preview_close"))
-
-    def showEvent(self, a0: QShowEvent) -> None:
-        self.re_translate_ui()
-
-    def re_translate_ui(self):
-        self.title_label.setText(self.tr("Connect"))
-        self.confirm_button.setText(self.tr("Connect"))
-        self.cancel_button.setText(self.tr("Cancel"))
 
     def on_confirm(self):
         wlan.connect(self.ssid_line_edit.text(), self.passwd_line_edit.text())
@@ -276,9 +276,12 @@ class WLANConnectBox(BaseRoundDialog):
     def start(self, text=""):
         self.set_name(text)
         self.passwd_line_edit.clear()
-        if text: self.passwd_line_edit.setFocus()
-        else: self.ssid_line_edit.setFocus()
+        if text:
+            self.passwd_line_edit.setFocus()
+        else:
+            self.ssid_line_edit.setFocus()
         self.exec()
+
 
 class WlanBar(QFrame):
     clicked = pyqtSignal(str)
@@ -435,5 +438,6 @@ class WlanPage(QScrollArea):
         self._parent.showShadowScreen()
         self.wlan_connect_box.start()
         self._parent.closeShadowScreen()
+
 
 wlan = MixwareScreenWLAN()

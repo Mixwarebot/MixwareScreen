@@ -24,7 +24,7 @@ class LevelPreParePage(QWidget):
 
     def initForm(self):
         self.wizard_button.setText(self.tr("Leveling Wizard"))
-        self.custom_button.setText(self.tr("Customize Level"))
+        self.custom_button.setText(self.tr("Customize Leveling"))
 
     def initLayout(self):
         button_layout = QVBoxLayout(self)
@@ -39,7 +39,7 @@ class LevelPreParePage(QWidget):
 
     @pyqtSlot()
     def goto_level_wizard_page(self):
-        self._parent.gotoPage(self.wizardPage, self.tr("Level Wizard"))
+        self._parent.gotoPage(self.wizardPage, self.tr("Leveling Wizard"))
 
     @pyqtSlot()
     def goto_level_page(self):

@@ -21,7 +21,7 @@ class NotifyFrame(QFrame):
 
         self.notify = QLabel(self)
         self.notify.setFixedSize(360, 80)
-        self.notify.setText("This is a Mixware Screen message. Click anywhere to close it.")
+        self.notify.setText(self.tr("This is a Mixware Screen message. Click anywhere to close it."))
         self.notify.setWordWrap(True)
         self.notify.setStyleSheet(
             "QLabel {background: rgba(0, 0, 0, 0.75); color: #FFFFFF; border: none; border-radius: 10px; padding-left: 20px;}")
@@ -84,13 +84,12 @@ class MixwareScreen(QWidget):
         self.notify_frame = NotifyFrame(self)
         self.notify_frame.resize(self.width(), 100)
         self.notify_frame.move(0, 10)
-        # if platform.system().lower() == 'linux':
         self.notify_frame.hide()
         self.notify_timer = QTimer(self)
 
         # test
         if platform.system().lower() == 'windows':
-            self.stackedLayout.setCurrentIndex(0)
+            self.stackedLayout.setCurrentIndex(2)
         else:
             if self._printer.config.should_show_welcome:
                 self.stackedLayout.setCurrentIndex(0)
@@ -101,7 +100,7 @@ class MixwareScreen(QWidget):
         self.on_update_printer_status(MixwareScreenPrinterStatus.PRINTER_CONNECTED)
 
     def splash_button_clicked(self):
-        if self.splashWidget.button.text() == "Start" and self._printer.is_connected():
+        if self.splashWidget.button.text() == self.tr("Start") and self._printer.is_connected():
             self.printerWidget.gotoMainPage()
             self.stackedLayout.setCurrentWidget(self.printerWidget)
         elif self._printer.is_connecting():
@@ -124,14 +123,14 @@ class MixwareScreen(QWidget):
 
         if status == MixwareScreenPrinterStatus.PRINTER_DISCONNECTED:
             if self.stackedLayout.currentWidget() == self.splashWidget:
-                self.splashWidget.button.setText("Update")
-                self.splashWidget.tips.setText("No printer detected.")
+                self.splashWidget.button.setText(self.tr("Update"))
+                self.splashWidget.tips.setText(self.tr("No printer detected."))
             else:
                 self.set_stacked_index(self.splashWidget)
         elif status == MixwareScreenPrinterStatus.PRINTER_CONNECTED:
             if self.stackedLayout.currentWidget() == self.splashWidget:
-                self.splashWidget.button.setText("Start")
-                self.splashWidget.tips.setText("Click <Start> to start using the printer.")
+                self.splashWidget.button.setText(self.tr("Start"))
+                self.splashWidget.tips.setText(self.tr("Click <Start> to start using the printer."))
             elif self.stackedLayout.currentWidget() == self.printingWidget:
                 self.set_stacked_index(self.printerWidget)
         elif status == MixwareScreenPrinterStatus.PRINTER_PRINTING:

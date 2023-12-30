@@ -1,7 +1,9 @@
 # from main import installTranslator
+import os
+
 from qtCore import *
 from ui.aboutPage import AboutPage
-from ui.machinePages.accelerationPage import AccelerationPage
+from ui.languagePage import LanguagePage
 from ui.machinePages.machinePage import MachinePage
 from ui.settingsButton import SettingsButton
 from ui.wlanPage import WlanPage
@@ -38,9 +40,10 @@ class SettingsPage(QWidget):
         self.theme = SettingsButton()
         # self.layout.addWidget(self.theme)
 
+        self.languagePage = LanguagePage(self._printer, self._parent)
         self.language = SettingsButton()
-        self.language.clicked.connect(self.trans)
-        # self.layout.addWidget(self.language)
+        self.language.clicked.connect(self.gotoLanguagePage)
+        self.layout.addWidget(self.language)
 
         self.user_manual = SettingsButton()
         # self.user_manual.clicked.connect(self.gotoWLANPage)
@@ -50,6 +53,10 @@ class SettingsPage(QWidget):
         self.about = SettingsButton()
         self.about.clicked.connect(self.gotoAboutPage)
         self.layout.addWidget(self.about)
+
+        self.restore_factory = SettingsButton()
+        self.restore_factory.clicked.connect(self.on_restore_factory_clicked)
+        self.layout.addWidget(self.restore_factory)
 
         self.re_translate_ui()
 
@@ -64,26 +71,37 @@ class SettingsPage(QWidget):
         self.language.setText(self.tr("Language"))
         self.user_manual.setText(self.tr("User manual"))
         self.about.setText(self.tr("About"))
+        self.restore_factory.setText(self.tr("Reset Configuration"))
         if self._printer.config.get_language() == 'Chinese':
             self.language.setTips(self.tr("Chinese"))
         elif self._printer.config.get_language() == 'English':
             self.language.setTips(self.tr("English"))
 
     @pyqtSlot()
+    def gotoLanguagePage(self):
+        self._parent.gotoPage(self.languagePage, self.tr("Language"))
+
+    @pyqtSlot()
     def gotoAboutPage(self):
-        self._parent.gotoPage(self.aboutPage, "About")
+        self._parent.gotoPage(self.aboutPage, self.tr("About"))
 
     @pyqtSlot()
     def gotoWLANPage(self):
-        self._parent.gotoPage(self.wlanPage, "WLAN")
+        self._parent.gotoPage(self.wlanPage, self.tr("WLAN"))
 
     @pyqtSlot()
     def gotoMachinePage(self):
-        self._parent.gotoPage(self.machinePage, "Machine Configuration")
+        self._parent.gotoPage(self.machinePage, self.tr("Machine Configuration"))
 
     @pyqtSlot()
-    def trans(self):
-        if self._printer.config.get_language() == 'English':
-            self._parent.updateTranslator.emit('Chinese')
-        else:
-            self._parent.updateTranslator.emit('English')
+    def on_restore_factory_clicked(self):
+        self._parent.showShadowScreen()
+        ret = self._parent.message.start(self.restore_factory.text(),
+                                         self.tr(
+                                             "Click <Confirm> to\nreset the configuration and\nMixware Screen will restart."),
+                                         buttons=QMessageBox.Yes | QMessageBox.Cancel)
+        if ret == QMessageBox.Yes:
+            self._printer.config.reset_local_config()
+            os.system('sudo clear')
+            os.system('sudo systemctl restart MixwareScreen')
+        self._parent.closeShadowScreen()

@@ -46,7 +46,10 @@ class BabyStepPad(BaseRoundDialog):
         self.title_frame.setFixedHeight(40)
         self.title_frame.setObjectName("title")
         self.title_label.setFixedHeight(40)
-        self.title_label.setText(self.tr("Baby Step({})".format(self.tr(self._printer.get_extruder().title()))))
+        if self._printer.get_extruder() == "right":
+            self.title_label.setText(self.tr("Baby Step (Right)"))
+        else:
+            self.title_label.setText(self.tr("Baby Step (Left)"))
         self.title_close_button.setText("x")
         self.title_close_button.setObjectName("closeButton")
         self.title_close_button.setFlat(True)

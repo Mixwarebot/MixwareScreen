@@ -295,6 +295,20 @@ class NumberPad(BaseRoundDialog):
         self.re_translate_ui()
         self.number = "0"
         self.inputLabel.setText(self.number)
-        self.informationLabel.setText(message)
+
         self._source = source
+        if source == "thermal_left":
+            message = self.tr("Extruder Left Target Temperature: {}°C").format(
+                int(self._printer.information['thermal']['left']['target']))
+        elif source == "thermal_right":
+            message = self.tr("Extruder Right Target Temperature: {}°C").format(
+                int(self._printer.information['thermal']['right']['target']))
+        elif source == "thermal_bed":
+            message = self.tr("Hot Bed Target Temperature: {}°C").format(
+                int(self._printer.information['thermal']['bed']['target']))
+        elif source == "thermal_chamber":
+            message = self.tr("Chamber Target Temperature: {}°C").format(
+                int(self._printer.information['thermal']['chamber']['target']))
+        self.informationLabel.setText(message)
+
         self.exec()

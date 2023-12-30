@@ -182,13 +182,13 @@ class PrintingWidget(BasePrintWidget):
             self.showShadowScreen()
             # paused => printing
             if self._printer.is_paused():
-                ret = self.message.start("Mixware Screen", "Resume Printing?",
+                ret = self.message.start("Mixware Screen", self.tr("Resume Printing?"),
                                          buttons=QMessageBox.Yes | QMessageBox.Cancel)
                 if ret == QMessageBox.Yes:
                     self.print_resume()
             # printing => pause
             else:
-                ret = self.message.start("Mixware Screen", "Pause Printing?",
+                ret = self.message.start("Mixware Screen", self.tr("Pause Printing?"),
                                          buttons=QMessageBox.Yes | QMessageBox.Cancel)
                 if ret == QMessageBox.Yes:
                     self.print_pause()
@@ -196,7 +196,8 @@ class PrintingWidget(BasePrintWidget):
 
     def on_stop_button_clicked(self):
         self.showShadowScreen()
-        ret = self.message.start("Mixware Screen", "Stop Printing?", buttons=QMessageBox.Yes | QMessageBox.Cancel)
+        ret = self.message.start("Mixware Screen", self.tr("Stop Printing?"),
+                                 buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
             self._printer.print_stop()
         self.closeShadowScreen()

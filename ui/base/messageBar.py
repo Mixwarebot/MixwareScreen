@@ -14,7 +14,7 @@ class MessageBar(QFrame):
         self.serial_number_label.setFixedSize(40, 40)
         self.serial_number_label.setAlignment(Qt.AlignCenter)
         self.text_label.setWordWrap(True)
-        self.text_label.setFixedHeight(40)
+        self.text_label.setFixedWidth(320)
 
         self.layout = QHBoxLayout(self)
         self.layout.setContentsMargins(20, 0, 20, 0)

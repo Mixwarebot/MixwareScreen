@@ -29,7 +29,7 @@ class UsePreparePage(QWidget):
             self.tr("Place filament, select temperature"),
             self.tr("Load filament."),
             self.tr("Clean the nozzle."),
-            self.tr("Auto bed level."),
+            self.tr("Auto-leveling."),
             self.tr("Adjust probe offset."),
             self.tr("Measure dial indicator."),
             self.tr("Print Verify."),
@@ -462,6 +462,16 @@ class UsePreparePage(QWidget):
         self.dial_measure_right_movie.stop()
 
     def reset_ui(self):
+        self._message_title_list = [
+            self.tr("Clean platform debris."),
+            self.tr("Place filament, select temperature"),
+            self.tr("Load filament."),
+            self.tr("Clean the nozzle."),
+            self.tr("Auto-leveling."),
+            self.tr("Adjust probe offset."),
+            self.tr("Measure dial indicator."),
+            self.tr("Print Verify."),
+        ]
         for count in range(len(self._message_list)):
             self._message_list[count].setText(self._message_title_list[count])
             self._message_list[count].setEnabled(False)
@@ -483,8 +493,8 @@ class UsePreparePage(QWidget):
             "Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete."))
         self.load_text.setText(self.tr("Loading filament(Left)."))
         self.clean_text.setText(self.tr("Please use a metal brush to clean the nozzle residue."))
-        self.level_button.setText(self.tr("Start level"))
-        self.level_text.setText(self.tr("Auto bed leveling, please wait."))
+        self.level_button.setText(self.tr("Start Auto-leveling"))
+        self.level_text.setText(self.tr("Auto-leveling, please wait."))
         self.offset_text.setText(self.tr("Adjust offset."))
         self.offset_distance_title.setText(self.tr("Move Distance (mm)"))
         self.dial_text.setText(self.tr("Place the dial indicator at the specified location."))
@@ -505,9 +515,8 @@ class UsePreparePage(QWidget):
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
         if state == MixwareScreenPrinterStatus.PRINTER_G29:
-            logging.debug(f"Auto bed leveling completed.")
             self.level_handle.next_button.setEnabled(True)
-            self.level_text.setText(self.tr("Auto bed leveling completed."))
+            self.level_text.setText(self.tr("Auto-leveling completed."))
             self.level_load_timer.stop()
             self.level_load.hide()
             self._printer.set_thermal('left', self._printer.get_target('left') + 50)
@@ -520,8 +529,8 @@ class UsePreparePage(QWidget):
             self.verity_offset_frame.show()
             self.verity_logo.show()
             self.verity_movie.start()
-            self.verity_text.setText(
-                "Printing is completed, please level the XY offset according to the printing situation.")
+            self.verity_text.setText(self.tr(
+                "Printing is completed, please level the XY offset according to the printing situation."))
             self.verity_handle.next_button.setEnabled(True)
 
     @pyqtSlot()
@@ -537,7 +546,6 @@ class UsePreparePage(QWidget):
         if self.handle_stacked_widget.currentWidget() == self.preheat_handle and not self.preheat_handle.next_button.isEnabled():
             if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 170 \
                     and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 170:
-                logging.debug(f"heat completed.")
                 self.preheat_handle.next_button.setEnabled(True)
                 self.preheat_place_movie.stop()
                 self.preheat_logo.hide()
@@ -750,7 +758,8 @@ class UsePreparePage(QWidget):
                 "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
             if not self._parent.numberPad.isVisible():
                 self._parent.showShadowScreen()
-                self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_left")
+                self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
+                                             "dial_indicator_left")
             self._printer.write_gcode_commands(
                 "G1 Z150 F960\nM400\nG28\nG1 Y160 Z150 F8400\nM400\nT1\nG1 X190 Z150 F8400")
             self.dial_measure_left_movie.stop()
@@ -767,7 +776,8 @@ class UsePreparePage(QWidget):
                 "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
             if not self._parent.numberPad.isVisible():
                 self._parent.showShadowScreen()
-                self._parent.numberPad.start(f"Please enter the value from the dial indicator", "dial_indicator_right")
+                self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
+                                             "dial_indicator_right")
             self._printer.save_dial_indicator_value()
             self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28X")
             self.dial_clean_logo.show()
@@ -777,25 +787,25 @@ class UsePreparePage(QWidget):
         text = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
         offset = float(text[0])
         offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
-        self.verity_offset_x_label.setText(f"X: {offset}")
+        self.verity_offset_x_label.setText(f"X: {offset: .2f}")
 
     def on_verity_offset_x_add_button_clicked(self):
         text = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
         offset = float(text[0])
         offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
-        self.verity_offset_x_label.setText(f"X: {offset}")
+        self.verity_offset_x_label.setText(f"X: {offset: .2f}")
 
     def on_verity_offset_y_dec_button_clicked(self):
         text = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
         offset = float(text[0])
         offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
-        self.verity_offset_y_label.setText(f"Y: {offset}")
+        self.verity_offset_y_label.setText(f"Y: {offset: .2f}")
 
     def on_verity_offset_y_add_button_clicked(self):
         text = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
         offset = float(text[0])
         offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
-        self.verity_offset_y_label.setText(f"Y: {offset}")
+        self.verity_offset_y_label.setText(f"Y: {offset: .2f}")
 
     def on_verity_next_button_clicked(self):
         text = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
@@ -828,6 +838,7 @@ class WelcomeMainPage(BasePrintWidget):
     def __init__(self, printer, parent=None):
         super().__init__(printer, parent)
         self.current_index = 0
+        self._page_list = []
         self._printer = printer
 
         self.setObjectName("welcomeMainPage")
@@ -869,8 +880,12 @@ class WelcomeMainPage(BasePrintWidget):
 
         self.re_translate_ui()
 
+        self.goto_next_index(0, False)
+
+    def re_translate_ui(self):
+        self.next_button.setText(self.tr('Next'))
         self._page_list = [
-            # {"page": self.language_frame, "title": self.tr("Language")},
+            {"page": self.language_frame, "title": self.tr("Language")},
             # {"page": self.wlan_frame, "title": self.tr("WLAN")},
             # {"page": self.usePreparePage, "title": self.tr("Use Prepare")},
             {"page": self.usePreparePage, "title": self.tr("Use Prepare")},
@@ -879,10 +894,6 @@ class WelcomeMainPage(BasePrintWidget):
             # { "page": self.dial_frame, "title": self.tr("Dial Indicator")},
             # { "page": self.verify_frame, "title": self.tr("Print Verify")},
         ]
-        self.goto_next_index(0, False)
-
-    def re_translate_ui(self):
-        self.next_button.setText(self.tr('Next'))
 
     @pyqtSlot()
     def on_next_button_clicked(self):
@@ -904,6 +915,8 @@ class WelcomeMainPage(BasePrintWidget):
             self.updateTranslator.emit("English")
             update_style(self.language_e, "checked")
             update_style(self.language_c, "unchecked")
+            self.re_translate_ui()
+            self.header.title.setText(self.tr("Language"))
 
     @pyqtSlot()
     def on_language_c_clicked(self):
@@ -911,6 +924,8 @@ class WelcomeMainPage(BasePrintWidget):
             self.updateTranslator.emit("Chinese")
             update_style(self.language_e, "unchecked")
             update_style(self.language_c, "checked")
+            self.re_translate_ui()
+            self.header.title.setText(self.tr("Language"))
 
 
 class WelcomeStartPage(QWidget):

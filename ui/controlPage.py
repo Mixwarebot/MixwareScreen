@@ -80,7 +80,9 @@ class ControlPage(QWidget):
     def goto_filament_page(self):
         self.filament_page.backup_target()
         self._parent.showShadowScreen()
-        ret = self._parent.message.start(self.tr("Filament"), self.tr("Whether preheating is required？\nPreheat temperature: 170°C"), buttons=QMessageBox.Yes | QMessageBox.Cancel)
+        ret = self._parent.message.start(self.tr("Filament"),
+                                         self.tr("Whether preheating is required？\nPreheat temperature: 170°C"),
+                                         buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
             self.filament_page.need_preheat = True
             self._printer.write_gcode_command('M104 S170 T0\nM104 S170 T1')
@@ -89,7 +91,7 @@ class ControlPage(QWidget):
 
     @pyqtSlot()
     def goto_level_page(self):
-        self._parent.gotoPage(self.level_page, self.tr("Level Prepare"))
+        self._parent.gotoPage(self.level_page, self.tr("Leveling Prepare"))
 
     @pyqtSlot()
     def goto_move_page(self):
