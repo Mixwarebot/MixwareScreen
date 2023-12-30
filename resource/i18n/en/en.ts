@@ -1633,12 +1633,12 @@ Mixware Screen will restart.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="754"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="755"/>
         <source>Measure compensation value(Left).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="768"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="769"/>
         <source>Measure compensation value(Right).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1648,12 +1648,12 @@ Mixware Screen will restart.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="756"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="757"/>
         <source>Measure Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="770"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="771"/>
         <source>Measure Right</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1663,12 +1663,12 @@ Mixware Screen will restart.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="607"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="608"/>
         <source>Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="750"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="751"/>
         <source>Placed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1678,12 +1678,12 @@ Mixware Screen will restart.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="672"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="673"/>
         <source>Filament loading completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="772"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="773"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation type="unfinished"></translation>
@@ -1719,7 +1719,7 @@ Please remove the dial indicator on the hot bed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="779"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="780"/>
         <source>Please enter the value from the dial indicator.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1790,32 +1790,32 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeMainPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="862"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="864"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="867"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="869"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="886"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="888"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="891"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="893"/>
         <source>Use Prepare</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="908"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="910"/>
         <source>Skip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="928"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="930"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1823,12 +1823,12 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeStartPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="958"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="960"/>
         <source>Welcome</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="959"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="961"/>
         <source>Get started</source>
         <translation type="unfinished"></translation>
     </message>

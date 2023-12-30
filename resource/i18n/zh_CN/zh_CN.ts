@@ -1642,12 +1642,12 @@ Mixware Screen 将重新启动.</translation>
         <translation>放置耗材, 选择相应温度.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="754"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="755"/>
         <source>Measure compensation value(Left).</source>
         <translation>测量补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="768"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="769"/>
         <source>Measure compensation value(Right).</source>
         <translation>测量补偿值 (右侧).</translation>
     </message>
@@ -1657,12 +1657,12 @@ Mixware Screen 将重新启动.</translation>
         <translation>XY校验.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="756"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="757"/>
         <source>Measure Left</source>
         <translation>测量左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="770"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="771"/>
         <source>Measure Right</source>
         <translation>测量右侧</translation>
     </message>
@@ -1672,12 +1672,12 @@ Mixware Screen 将重新启动.</translation>
         <translation>请用金属毛刷清洁喷嘴残留物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="607"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="608"/>
         <source>Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete.</source>
         <translation>将耗材放入储物箱内，选择相应的温度，等待加热完成。</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="750"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="751"/>
         <source>Placed</source>
         <translation>已放置</translation>
     </message>
@@ -1687,12 +1687,12 @@ Mixware Screen 将重新启动.</translation>
         <translation>校验模型打印中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="672"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="673"/>
         <source>Filament loading completed.</source>
         <translation>耗材装载完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="772"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="773"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation>测量完成. 请移除热床上的百分表.</translation>
@@ -1728,7 +1728,7 @@ Please remove the dial indicator on the hot bed.</source>
         <translation>装载耗材 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="779"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="780"/>
         <source>Please enter the value from the dial indicator.</source>
         <translation>请输入百分表的值.</translation>
     </message>
@@ -1799,32 +1799,32 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeMainPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="862"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="864"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="867"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="869"/>
         <source>Chinese</source>
         <translation>简体中文</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="886"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="888"/>
         <source>Next</source>
         <translation>下一步</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="891"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="893"/>
         <source>Use Prepare</source>
         <translation>使用准备</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="908"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="910"/>
         <source>Skip</source>
         <translation>跳过</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="928"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="930"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
@@ -1832,12 +1832,12 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeStartPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="958"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="960"/>
         <source>Welcome</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="959"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="961"/>
         <source>Get started</source>
         <translation>开始使用</translation>
     </message>

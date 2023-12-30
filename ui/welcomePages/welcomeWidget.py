@@ -559,6 +559,7 @@ class UsePreparePage(QWidget):
     def on_start_button_clicked(self):
         self._parent.next_button.setText(self.tr("Next"))
         self._parent.next_button.setEnabled(False)
+        self._printer.set_led_light(1)
         self.start_frame.hide()
         self.message_frame.show()
         self.handle_frame.show()
@@ -842,6 +843,7 @@ class WelcomeMainPage(BasePrintWidget):
         self._printer = printer
 
         self.setObjectName("welcomeMainPage")
+        self.header.clicked.disconnect()
         self.footer.hide()
 
         self.next_button = QPushButton(self)
