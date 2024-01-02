@@ -26,18 +26,17 @@ class AboutPage(QWidget):
         self.frame_layout.setSpacing(0)
         self.frame_layout.setAlignment(Qt.AlignCenter)
         self.logo = QLabel()
-        self.logo.setFixedSize(320, 128)
-        self.logo.setAlignment(Qt.AlignCenter)
-        self.logo.setPixmap(QPixmap("resource/icon/Mixware.svg").scaledToHeight(188))
+        self.logo.setFixedSize(320, 198)
+        self.logo.setAlignment(Qt.AlignHCenter)
+        self.logo.setPixmap(QPixmap("resource/icon/Mixware.svg").scaledToHeight(238))
         self.frame_layout.addWidget(self.logo)
         self.name = QLabel()
-        self.name.setStyleSheet("font-size:32px; font-weight: bold;")
+        self.name.setStyleSheet("font-size:36px; font-weight: bold;")
         self.name.setFixedSize(320, 48)
         self.name.setAlignment(Qt.AlignCenter)
         self.frame_layout.addWidget(self.name)
         self.version_info = QLabel()
         self.version_info.setFixedSize(320, 138)
-        self.version_info.setAlignment(Qt.AlignHCenter)
         self.frame_layout.addWidget(self.version_info)
         self.update_button = BasePushButton()
         self.update_button.setStyleSheet("border: 1px solid #D4D4D4;")
@@ -67,14 +66,15 @@ class AboutPage(QWidget):
             info += self.tr("Printer Name: {}\n").format(self._printer.deviceName())
             info += self.tr("Printer Version: {}\n").format(self._printer.deviceVersion())
         else:
-            info += self.tr("Printer disconnected.\n")
+            info += self.tr("Printer not connected.\n")
 
         if self._printer.get_ip_addr("wlan0"):
             info += self.tr("IP Address: {}").format(self._printer.get_ip_addr("wlan0"))
         else:
-            info += self.tr("Network not connected.")
+            info += self.tr("No network connection.")
 
-        self.version_info.setText(info)
+        self.version_info.setText("<p style='line-height: 130%; width:100%; white-space: pre-wrap;'>" + info + "</p>")
+        self.version_info.adjustSize()
 
     def on_update_button_clicked(self):
         if self._printer.is_connected():
@@ -88,7 +88,8 @@ class AboutPage(QWidget):
         self._parent.showShadowScreen()
         if self.need_reboot_system:
             ret = self._parent.message.start("Mixware Screen",
-                                             self.tr("Mixware Screen update successful,\nrestart to take effect."),
+                                             self.tr(
+                                                 "Mixware Screen is updated successfully and will take effect after restarting."),
                                              buttons=QMessageBox.Yes | QMessageBox.Cancel)
             if ret == QMessageBox.Yes:
                 if self._printer.is_connected() and self.need_reboot_printer:
@@ -148,4 +149,3 @@ class AboutPage(QWidget):
             self.update_button.setEnabled(True)
 
         self.update_info.setText(state)
-

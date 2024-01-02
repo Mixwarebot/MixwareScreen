@@ -13,12 +13,12 @@ class MessageBar(QFrame):
         self.serial_number_label.setObjectName("serialNumber")
         self.serial_number_label.setFixedSize(40, 40)
         self.serial_number_label.setAlignment(Qt.AlignCenter)
+        self.text_label.setFixedWidth(255)
         self.text_label.setWordWrap(True)
-        self.text_label.setFixedWidth(320)
 
         self.layout = QHBoxLayout(self)
-        self.layout.setContentsMargins(20, 0, 20, 0)
-        self.layout.setSpacing(10)
+        self.layout.setContentsMargins(10, 0, 10, 0)
+        self.layout.setSpacing(5)
         self.layout.addWidget(self.serial_number_label)
         self.layout.addWidget(self.text_label)
 

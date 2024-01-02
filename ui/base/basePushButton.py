@@ -7,6 +7,7 @@ class BasePushButton(QPushButton):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         self.title = QLabel()
+        self.title.setObjectName("buttonTitle")
         self.title.setAlignment(Qt.AlignCenter)
         self.title.setFixedHeight(40)
         self.title.hide()
@@ -22,4 +23,3 @@ class BasePushButton(QPushButton):
             self.title.show()
         else:
             self.title.hide()
-
