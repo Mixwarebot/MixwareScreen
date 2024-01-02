@@ -7,9 +7,9 @@ class BasePushButton(QPushButton):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         self.title = QLabel()
-        self.title.setObjectName("buttonTitle")
         self.title.setAlignment(Qt.AlignCenter)
         self.title.setFixedHeight(40)
+        self.title.setStyleSheet("font-size: 21px;")
         self.title.hide()
 
         layout = QVBoxLayout(self)

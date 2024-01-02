@@ -147,10 +147,6 @@ QLabel#flowLogo {
   max-height: 36px;
 }
 
-Qlabel#buttonTitle {
-  font-size: 21px;
-}
-
 QPushButton {
   border: none;
   border-radius: 10px;
