@@ -14,6 +14,7 @@ from ui.base.messageBar import MessageBar
 class UsePreparePage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
+        self._message_title_list = None
         self._printer = printer
         self._parent = parent
 
@@ -24,16 +25,7 @@ class UsePreparePage(QWidget):
             'left': {'X': 0.0, 'Y': 0.0, 'Z': 0.0},
             'right': {'X': 0.0, 'Y': 0.0, 'Z': 0.0}
         }
-        self._message_title_list = [
-            self.tr("Clean platform debris."),
-            self.tr("Place filament, select temperature"),
-            self.tr("Load filament."),
-            self.tr("Clean the nozzle."),
-            self.tr("Auto-leveling."),
-            self.tr("Adjust probe offset."),
-            self.tr("Measure dial indicator."),
-            self.tr("Print Verify."),
-        ]
+        self.reset_message_title_list()
         self._message_list = []
         self._button_group = QButtonGroup()
         self._button_group.buttonClicked.connect(self.on_offset_distance_button_clicked)
@@ -461,17 +453,20 @@ class UsePreparePage(QWidget):
         self.dial_measure_left_movie.stop()
         self.dial_measure_right_movie.stop()
 
-    def reset_ui(self):
+    def reset_message_title_list(self):
         self._message_title_list = [
-            self.tr("Clean platform debris."),
-            self.tr("Place filament, select temperature"),
+            self.tr("Clear debris from the platform."),
+            self.tr("Filament preparation."),
             self.tr("Load filament."),
             self.tr("Clean the nozzle."),
             self.tr("Auto-leveling."),
-            self.tr("Adjust probe offset."),
-            self.tr("Measure dial indicator."),
-            self.tr("Print Verify."),
+            self.tr("Adjust offset."),
+            self.tr("Right extruder height calibration."),
+            self.tr("XY offset calibration."),
         ]
+
+    def reset_ui(self):
+        self.reset_message_title_list()
         for count in range(len(self._message_list)):
             self._message_list[count].setText(self._message_title_list[count])
             self._message_list[count].setEnabled(False)

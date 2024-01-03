@@ -67,10 +67,10 @@ class JerkPage(QWidget):
         self.reTranslateUi()
 
     def reTranslateUi(self):
-        self.jerk_x.setText(self.tr("X-Axis Jerk"))
-        self.jerk_y.setText(self.tr("Y-Axis Jerk"))
-        self.jerk_z.setText(self.tr("Z-Axis Jerk"))
-        self.jerk_e.setText(self.tr("E-Axis Jerk"))
+        self.jerk_x.setText(self.tr("X-Axis Jerk Limits"))
+        self.jerk_y.setText(self.tr("Y-Axis Jerk Limits"))
+        self.jerk_z.setText(self.tr("Z-Axis Jerk Limits"))
+        self.jerk_e.setText(self.tr("E-Axis Jerk Limits"))
 
         self.jerk_x.setTips(f"{self._printer.information['motor']['jerk']['X']}")
         self.jerk_y.setTips(f"{self._printer.information['motor']['jerk']['Y']}")

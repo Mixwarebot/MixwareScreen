@@ -51,10 +51,10 @@ class AccelerationPage(QWidget):
         self.re_translate_ui()
 
     def re_translate_ui(self):
-        self.acceleration_x.setText(self.tr("X-Axis Acceleration"))
-        self.acceleration_y.setText(self.tr("Y-Axis Acceleration"))
-        self.acceleration_z.setText(self.tr("Z-Axis Acceleration"))
-        self.acceleration_e.setText(self.tr("E-Axis Acceleration"))
+        self.acceleration_x.setText(self.tr("X-Axis Maximum Acceleration"))
+        self.acceleration_y.setText(self.tr("Y-Axis Maximum Acceleration"))
+        self.acceleration_z.setText(self.tr("Z-Axis Maximum Acceleration"))
+        self.acceleration_e.setText(self.tr("E-Axis Maximum Acceleration"))
         self.acceleration_print.setText(self.tr("Acceleration"))
         self.acceleration_retract.setText(self.tr("Retracts Acceleration"))
         self.acceleration_travel.setText(self.tr("Travel Acceleration"))
@@ -71,43 +71,50 @@ class AccelerationPage(QWidget):
     def on_acceleration_x_clicked(self):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"{self.acceleration_x.text()}: {self.acceleration_x.tips()}", "acceleration_x")
+            self._parent.numberPad.start(f"{self.acceleration_x.text()}: {self.acceleration_x.tips()}",
+                                         "acceleration_x")
 
     @pyqtSlot()
     def on_acceleration_y_clicked(self):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"{self.acceleration_y.text()}: {self.acceleration_y.tips()}", "acceleration_y")
+            self._parent.numberPad.start(f"{self.acceleration_y.text()}: {self.acceleration_y.tips()}",
+                                         "acceleration_y")
 
     @pyqtSlot()
     def on_acceleration_z_clicked(self):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"{self.acceleration_z.text()}: {self.acceleration_z.tips()}", "acceleration_z")
+            self._parent.numberPad.start(f"{self.acceleration_z.text()}: {self.acceleration_z.tips()}",
+                                         "acceleration_z")
 
     @pyqtSlot()
     def on_acceleration_e_clicked(self):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"{self.acceleration_e.text()}: {self.acceleration_e.tips()}", "acceleration_e")
+            self._parent.numberPad.start(f"{self.acceleration_e.text()}: {self.acceleration_e.tips()}",
+                                         "acceleration_e")
 
     @pyqtSlot()
     def on_acceleration_print_clicked(self):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"{self.acceleration_print.text()}: {self.acceleration_print.tips()}", "acceleration_print")
+            self._parent.numberPad.start(f"{self.acceleration_print.text()}: {self.acceleration_print.tips()}",
+                                         "acceleration_print")
 
     @pyqtSlot()
     def on_acceleration_retract_clicked(self):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"{self.acceleration_retract.text()}: {self.acceleration_retract.tips()}", "acceleration_retract")
+            self._parent.numberPad.start(f"{self.acceleration_retract.text()}: {self.acceleration_retract.tips()}",
+                                         "acceleration_retract")
 
     @pyqtSlot()
     def on_acceleration_travel_clicked(self):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"{self.acceleration_travel.text()}: {self.acceleration_travel.tips()}", "acceleration_travel")
+            self._parent.numberPad.start(f"{self.acceleration_travel.text()}: {self.acceleration_travel.tips()}",
+                                         "acceleration_travel")
 
     def onUpdatePrinterInformation(self):
         self.re_translate_ui()

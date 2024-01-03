@@ -15,6 +15,7 @@ class GitRepository(QObject):
     """
 
     state_changed = pyqtSignal(str)
+
     def __init__(self, local_path):
         super(GitRepository, self).__init__()
         self.local_path = local_path
@@ -49,7 +50,7 @@ class GitRepository(QObject):
         if is_git_dir(git_local_path):
             self.screen_repo = Repo(self.local_path)
             self.change_state(self.tr("Initialize git repository succeeded."))
-            
+
     def change_state(self, state: str):
         self._state = state
         logging.info(self._state)
@@ -80,7 +81,7 @@ class GitRepository(QObject):
                 logging.debug(f'local: {self.screen_local_commit}, remote: {self.screen_remote_commit}')
                 if self.tr("Updating Mixware Screen.") not in self._state:
                     self.change_state(self.tr("Mixware Screen check successful."))
-            except :
+            except:
                 self.screen_local_commit = None
                 self.screen_remote_commit = None
                 if self.tr("Updating Mixware Screen.") not in self._state:
@@ -114,13 +115,12 @@ class GitRepository(QObject):
             self.screen_local_commit = str(self.commits()[0]['commit'])
             logging.debug(f'local: {self.screen_local_commit}, remote: {self.screen_remote_commit}')
             if self.screen_remote_commit and self.screen_local_commit == self.screen_remote_commit:
-                self.change_state(self.tr("Mixware Screen update successful."))
+                self.change_state(self.tr("Mixware Screen updated successfully."))
                 # os.system('sudo systemctl restart MixwareScreen')
             else:
                 self.change_state(self.tr("Mixware Screen update failed."))
-        except :
+        except:
             self.change_state(self.tr("Mixware Screen update failed."))
-
 
     def start_screen_pull(self):
         self.screen_pull_thread = threading.Thread(target=self.screen_pull)
@@ -136,13 +136,13 @@ class GitRepository(QObject):
         return [eval(item) for item in log_list]
 
     def firmware_check(self):
-        self.change_state(self.tr("Checking firmware."))
+        self.change_state(self.tr("Checking for firmware updates."))
         try:
             firmware_latest_version_request = requests.get(self.latest_firmware_url)
             self.latest_firmware_version = firmware_latest_version_request.json()['tag_name']
             self.change_state(self.tr("Latest firmware version is Marlin {}.".format(self.latest_firmware_version)))
-        except :
-            self.change_state(self.tr("firmware check error."))
+        except:
+            self.change_state(self.tr("Check for firmware update failed."))
         self.firmware_check_thread = None
 
     def start_firmware_check(self):
@@ -156,7 +156,7 @@ class GitRepository(QObject):
         self.firmware_path = path + '/firmware.bin'
 
     def firmware_download(self):
-        self.change_state(self.tr("Start download firmware."))
+        self.change_state(self.tr("Downloading the latest firmware."))
         try:
             self.firmware_url = f'https://github.com/Mixwarebot/Mixware-Hyper-X-Firmware/releases/download/{self.latest_firmware_version}/firmware.bin'
             firmware_request = requests.get(self.firmware_url)
@@ -165,9 +165,9 @@ class GitRepository(QObject):
                     file.write(firmware_request.content)
                     self.change_state(self.tr("Firmware download successful."))
             else:
-                self.change_state(self.tr("Firmware download error."))
-        except :
-            self.change_state(self.tr("Firmware download error."))
+                self.change_state(self.tr("Firmware download failed."))
+        except:
+            self.change_state(self.tr("Firmware download failed."))
 
     def start_firmware_download(self):
         self.firmware_download_thread = threading.Thread(target=self.firmware_download)

@@ -36,12 +36,14 @@ class PrintPreparePage(QWidget):
     def re_translate_ui(self):
         self.local_button.setText(self.tr("Local Print"))
         self.usb_button.setText(self.tr("USB Print"))
-        self.xy_button.setText(self.tr("XY Verity"))
+        self.xy_button.setText(self.tr("XY Offset Calibration"))
 
     @pyqtSlot()
     def print_xy_verity(self):
         self._parent.showShadowScreen()
-        ret = self._parent.message.start("Mixware Screen", self.tr("Verity XY offset ?"), buttons=QMessageBox.Yes | QMessageBox.Cancel)
+        ret = self._parent.message.start("Mixware Screen",
+                                         self.tr("Whether to print the 'XY Offset Calibration' model?"),
+                                         buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
             self._printer.print_start('resource/gcode/print_verify.gcode')
         self._parent.closeShadowScreen()

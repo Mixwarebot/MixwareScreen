@@ -4,134 +4,113 @@
 <context>
     <name>AboutPage</name>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="64"/>
+        <location filename="../../../ui/aboutPage.py" line="63"/>
         <source>Version: {}
 </source>
         <translation>版本: {}
 </translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="67"/>
+        <location filename="../../../ui/aboutPage.py" line="66"/>
         <source>Printer Name: {}
 </source>
         <translation>打印机名称: {}
 </translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="68"/>
+        <location filename="../../../ui/aboutPage.py" line="67"/>
         <source>Printer Version: {}
 </source>
         <translation>打印机版本: {}
 </translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="70"/>
-        <source>Printer disconnected.
-</source>
-        <translation>未连接打印机.
-</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/aboutPage.py" line="61"/>
+        <location filename="../../../ui/aboutPage.py" line="60"/>
         <source>Check for updates</source>
         <translation>检测更新</translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="73"/>
+        <location filename="../../../ui/aboutPage.py" line="72"/>
         <source>IP Address: {}</source>
         <translation>IP地址: {}</translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="75"/>
-        <source>Network not connected.</source>
-        <translation>未连接网络.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/aboutPage.py" line="90"/>
-        <source>Mixware Screen update successful,
-restart to take effect.</source>
-        <translation>Mixware Screen 更新成功, 重启后生效.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/aboutPage.py" line="107"/>
+        <location filename="../../../ui/aboutPage.py" line="108"/>
         <source>Update failed.</source>
         <translation>更新失败.</translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="112"/>
+        <location filename="../../../ui/aboutPage.py" line="113"/>
         <source>Latest firmware version is Marlin {}.</source>
         <translation>打印机固件最新版本是 Marlin {}.</translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="127"/>
+        <location filename="../../../ui/aboutPage.py" line="128"/>
         <source>Firmware download successful.</source>
         <translation>固件下载成功.</translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="130"/>
-        <source>firmware check error.</source>
-        <translation>固件检测失败.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/aboutPage.py" line="130"/>
-        <source>Firmware download error.</source>
-        <translation>固件下载失败.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/aboutPage.py" line="133"/>
+        <location filename="../../../ui/aboutPage.py" line="134"/>
         <source>Mixware Screen check successful.</source>
         <translation>Mixware Screen 检测成功.</translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="137"/>
+        <location filename="../../../ui/aboutPage.py" line="138"/>
         <source>
 Mixware Screen is the latest version.</source>
         <translation>
 Mixware Screen 是最新版本.</translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="141"/>
-        <source>Mixware Screen update successful.</source>
-        <translation>Mixware Screen 更新成功.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/aboutPage.py" line="145"/>
+        <location filename="../../../ui/aboutPage.py" line="146"/>
         <source>Mixware Screen check failed.</source>
         <translation>Mixware Screen 检测失败.</translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="145"/>
+        <location filename="../../../ui/aboutPage.py" line="146"/>
         <source>Mixware Screen update failed.</source>
         <translation>Mixware Screen 更新失败.</translation>
     </message>
     <message>
-        <location filename="../../../ui/aboutPage.py" line="101"/>
+        <location filename="../../../ui/aboutPage.py" line="102"/>
         <source>Firmware download is successful, restart the printer to upgrade.</source>
         <translation>固件下载成功, 请重启打印机进行升级.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/aboutPage.py" line="69"/>
+        <source>Printer not connected.
+</source>
+        <translation>未连接打印机.
+</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/aboutPage.py" line="90"/>
+        <source>Mixware Screen is updated successfully and will take effect after restarting.</source>
+        <translation>Mixware Screen 更新成功, 重启后生效.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/aboutPage.py" line="131"/>
+        <source>Check for firmware update failed.</source>
+        <translation>固件检查更新失败.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/aboutPage.py" line="131"/>
+        <source>Firmware download failed.</source>
+        <translation>固件下载失败.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/aboutPage.py" line="142"/>
+        <source>Mixware Screen updated successfully.</source>
+        <translation>Mixware Screen 更新成功.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/aboutPage.py" line="74"/>
+        <source>Network not connected.</source>
+        <translation>未连接网络.</translation>
     </message>
 </context>
 <context>
     <name>AccelerationPage</name>
-    <message>
-        <location filename="../../../ui/machinePages/accelerationPage.py" line="54"/>
-        <source>X-Axis Acceleration</source>
-        <translation>X轴加速度</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/machinePages/accelerationPage.py" line="55"/>
-        <source>Y-Axis Acceleration</source>
-        <translation>Y轴加速度</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/machinePages/accelerationPage.py" line="56"/>
-        <source>Z-Axis Acceleration</source>
-        <translation>Z轴加速度</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/machinePages/accelerationPage.py" line="57"/>
-        <source>E-Axis Acceleration</source>
-        <translation>E轴加速度</translation>
-    </message>
     <message>
         <location filename="../../../ui/machinePages/accelerationPage.py" line="58"/>
         <source>Acceleration</source>
@@ -147,6 +126,26 @@ Mixware Screen 是最新版本.</translation>
         <source>Travel Acceleration</source>
         <translation>空驶加速度</translation>
     </message>
+    <message>
+        <location filename="../../../ui/machinePages/accelerationPage.py" line="54"/>
+        <source>X-Axis Maximum Acceleration</source>
+        <translation>X轴最大加速度</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/machinePages/accelerationPage.py" line="55"/>
+        <source>Y-Axis Maximum Acceleration</source>
+        <translation>Y轴最大加速度</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/machinePages/accelerationPage.py" line="56"/>
+        <source>Z-Axis Maximum Acceleration</source>
+        <translation>Z轴最大加速度</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/machinePages/accelerationPage.py" line="57"/>
+        <source>E-Axis Maximum Acceleration</source>
+        <translation>E轴最大加速度</translation>
+    </message>
 </context>
 <context>
     <name>AdvancedPage</name>
@@ -156,19 +155,9 @@ Mixware Screen 是最新版本.</translation>
         <translation>脉冲当量设置</translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="95"/>
-        <source>Feed Rate Settings</source>
-        <translation>速度设置</translation>
-    </message>
-    <message>
         <location filename="../../../ui/machinePages/advancedPage.py" line="99"/>
         <source>Acceleration Settings</source>
         <translation>加速度设置</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="103"/>
-        <source>Jerk Settings</source>
-        <translation>抖动速度设置</translation>
     </message>
     <message>
         <location filename="../../../ui/machinePages/advancedPage.py" line="107"/>
@@ -201,14 +190,24 @@ Mixware Screen 是最新版本.</translation>
         <translation>保存设置到打印机</translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="122"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="123"/>
         <source>Click &lt;Confirm&gt; to restore factory setting.</source>
         <translation>点击 &lt;确认&gt; 恢复出厂设置.</translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="131"/>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="133"/>
         <source>Click &lt;Confirm&gt; to save.</source>
         <translation>点击 &lt;确认&gt; 保存.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="103"/>
+        <source>Jerk Limits Settings</source>
+        <translation>抖动速度限制设置</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="95"/>
+        <source>Maximum Feed Rate Settings</source>
+        <translation>最大速度设置</translation>
     </message>
 </context>
 <context>
@@ -288,14 +287,14 @@ Mixware Screen 是最新版本.</translation>
         <translation>左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/bedLevelPage.py" line="104"/>
-        <source>right</source>
-        <translation>右侧</translation>
-    </message>
-    <message>
         <location filename="../../../ui/levelPages/bedLevelPage.py" line="105"/>
         <source>Disabled XY</source>
         <translation>解锁XY轴</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/bedLevelPage.py" line="104"/>
+        <source>Right</source>
+        <translation>右侧</translation>
     </message>
 </context>
 <context>
@@ -324,13 +323,6 @@ Mixware Screen 是最新版本.</translation>
         <translation>耗材</translation>
     </message>
     <message>
-        <location filename="../../../ui/controlPage.py" line="83"/>
-        <source>Whether preheating is required？
-Preheat temperature: 170°C</source>
-        <translation>是否进行预热?
-预热温度: 170°C</translation>
-    </message>
-    <message>
         <location filename="../../../ui/controlPage.py" line="99"/>
         <source>Move</source>
         <translation>移动</translation>
@@ -354,6 +346,13 @@ Preheat temperature: 170°C</source>
         <location filename="../../../ui/controlPage.py" line="94"/>
         <source>Leveling Prepare</source>
         <translation>调平准备</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/controlPage.py" line="83"/>
+        <source>Preheating or not?
+Preheating temperature 170°C</source>
+        <translation>是否进行预加热?
+预热温度170°C</translation>
     </message>
 </context>
 <context>
@@ -444,6 +443,11 @@ Preheat temperature: 170°C</source>
         <source>Please enter the value from the dial indicator.</source>
         <translation>请输入百分表的值.</translation>
     </message>
+    <message>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="36"/>
+        <source>Clear debris from the platform.</source>
+        <translation>清理平台上的杂物.</translation>
+    </message>
 </context>
 <context>
     <name>FanPage</name>
@@ -489,54 +493,54 @@ Preheat temperature: 170°C</source>
     <name>FeedRatePage</name>
     <message>
         <location filename="../../../ui/machinePages/feedRatePage.py" line="70"/>
-        <source>X-Axis Max Feed Rate</source>
+        <source>X-Axis Maximum Feed Rate</source>
         <translation>X轴最大速度</translation>
     </message>
     <message>
         <location filename="../../../ui/machinePages/feedRatePage.py" line="71"/>
-        <source>Y-Axis Max Feed Rate</source>
+        <source>Y-Axis Maximum Feed Rate</source>
         <translation>Y轴最大速度</translation>
     </message>
     <message>
         <location filename="../../../ui/machinePages/feedRatePage.py" line="72"/>
-        <source>Z-Axis Max Feed Rate</source>
+        <source>Z-Axis Maximum Feed Rate</source>
         <translation>Z轴最大速度</translation>
     </message>
     <message>
         <location filename="../../../ui/machinePages/feedRatePage.py" line="73"/>
-        <source>E-Axis Max Feed Rate</source>
+        <source>E-Axis Maximum Feed Rate</source>
         <translation>E轴最大速度</translation>
     </message>
 </context>
 <context>
     <name>FilamentPage</name>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="198"/>
+        <location filename="../../../ui/filamentPage.py" line="60"/>
         <source>Select the extruder.</source>
         <translation>选择挤出机.</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="199"/>
+        <location filename="../../../ui/filamentPage.py" line="61"/>
         <source>Select the work mode.</source>
         <translation>选择工作模式.</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="200"/>
+        <location filename="../../../ui/filamentPage.py" line="62"/>
         <source>Select the filament.</source>
         <translation>选择耗材.</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="201"/>
+        <location filename="../../../ui/filamentPage.py" line="63"/>
         <source>Wait to heat up.</source>
         <translation>等待加热.</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="202"/>
+        <location filename="../../../ui/filamentPage.py" line="64"/>
         <source>Wait for the job to finish.</source>
         <translation>等待工作完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="203"/>
+        <location filename="../../../ui/filamentPage.py" line="65"/>
         <source>Done.</source>
         <translation>完成.</translation>
     </message>
@@ -559,31 +563,6 @@ Preheat temperature: 170°C</source>
         <location filename="../../../ui/filamentPage.py" line="368"/>
         <source>Unload</source>
         <translation>卸载</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="216"/>
-        <source>PLA</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="217"/>
-        <source>ABS</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="218"/>
-        <source>PET</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="219"/>
-        <source>PA</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="220"/>
-        <source>Heating</source>
-        <translation>加热中</translation>
     </message>
     <message>
         <location filename="../../../ui/filamentPage.py" line="221"/>
@@ -626,6 +605,36 @@ click &lt;Next&gt; to start working.</source>
         <source>Current extruder: Right.</source>
         <translation>当前挤出机: 右侧.</translation>
     </message>
+    <message>
+        <location filename="../../../ui/filamentPage.py" line="198"/>
+        <source>Select Extruder</source>
+        <translation>选择挤出机</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/filamentPage.py" line="199"/>
+        <source>Select Working Mode</source>
+        <translation>选择工作模式</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/filamentPage.py" line="200"/>
+        <source>Select Filament</source>
+        <translation>选择耗材</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/filamentPage.py" line="201"/>
+        <source>Heated Extruder</source>
+        <translation>加热挤出机</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/filamentPage.py" line="203"/>
+        <source>Done</source>
+        <translation>完成</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/filamentPage.py" line="220"/>
+        <source>The extruder is heating, please wait.</source>
+        <translation>挤出机正在加热, 请稍等.</translation>
+    </message>
 </context>
 <context>
     <name>FooterBar</name>
@@ -638,39 +647,29 @@ click &lt;Next&gt; to start working.</source>
 <context>
     <name>GitRepository</name>
     <message>
-        <location filename="../../../gitRepository.py" line="66"/>
+        <location filename="../../../gitRepository.py" line="67"/>
         <source>Checking Mixware Screen.</source>
         <translation>Mixware Screen 检测中.</translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="82"/>
+        <location filename="../../../gitRepository.py" line="83"/>
         <source>Mixware Screen check successful.</source>
         <translation>Mixware Screen 检测成功.</translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="87"/>
+        <location filename="../../../gitRepository.py" line="88"/>
         <source>Mixware Screen check failed.</source>
         <translation>Mixware Screen 检测失败.</translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="111"/>
+        <location filename="../../../gitRepository.py" line="112"/>
         <source>Updating Mixware Screen.</source>
         <translation>Mixware Screen 更新中.</translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="117"/>
-        <source>Mixware Screen update successful.</source>
-        <translation>Mixware Screen 更新成功.</translation>
-    </message>
-    <message>
-        <location filename="../../../gitRepository.py" line="122"/>
+        <location filename="../../../gitRepository.py" line="123"/>
         <source>Mixware Screen update failed.</source>
         <translation>Mixware Screen 更新失败.</translation>
-    </message>
-    <message>
-        <location filename="../../../gitRepository.py" line="139"/>
-        <source>Checking firmware.</source>
-        <translation>打印机固件检测中.</translation>
     </message>
     <message>
         <location filename="../../../gitRepository.py" line="143"/>
@@ -678,29 +677,39 @@ click &lt;Next&gt; to start working.</source>
         <translation>打印机固件最新版本是 Marlin {}.</translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="145"/>
-        <source>firmware check error.</source>
-        <translation>固件检测失败.</translation>
-    </message>
-    <message>
-        <location filename="../../../gitRepository.py" line="159"/>
-        <source>Start download firmware.</source>
-        <translation>开始下载固件.</translation>
-    </message>
-    <message>
         <location filename="../../../gitRepository.py" line="166"/>
         <source>Firmware download successful.</source>
         <translation>固件下载成功.</translation>
     </message>
     <message>
-        <location filename="../../../gitRepository.py" line="170"/>
-        <source>Firmware download error.</source>
-        <translation>固件下载失败.</translation>
-    </message>
-    <message>
-        <location filename="../../../gitRepository.py" line="51"/>
+        <location filename="../../../gitRepository.py" line="52"/>
         <source>Initialize git repository succeeded.</source>
         <translation>初始化 Git 仓库成功.</translation>
+    </message>
+    <message>
+        <location filename="../../../gitRepository.py" line="118"/>
+        <source>Mixware Screen updated successfully.</source>
+        <translation>Mixware Screen 更新成功.</translation>
+    </message>
+    <message>
+        <location filename="../../../gitRepository.py" line="139"/>
+        <source>Checking for firmware updates.</source>
+        <translation>正在检查固件更新.</translation>
+    </message>
+    <message>
+        <location filename="../../../gitRepository.py" line="145"/>
+        <source>Check for firmware update failed.</source>
+        <translation>固件检查更新失败.</translation>
+    </message>
+    <message>
+        <location filename="../../../gitRepository.py" line="159"/>
+        <source>Downloading the latest firmware.</source>
+        <translation>正在下载固件最新版本.</translation>
+    </message>
+    <message>
+        <location filename="../../../gitRepository.py" line="170"/>
+        <source>Firmware download failed.</source>
+        <translation>固件下载失败.</translation>
     </message>
 </context>
 <context>
@@ -771,23 +780,23 @@ click &lt;Next&gt; to start working.</source>
     <name>JerkPage</name>
     <message>
         <location filename="../../../ui/machinePages/jerkPage.py" line="70"/>
-        <source>X-Axis Jerk</source>
-        <translation>X轴最大抖动速度</translation>
+        <source>X-Axis Jerk Limits</source>
+        <translation>X轴抖动速度限制</translation>
     </message>
     <message>
         <location filename="../../../ui/machinePages/jerkPage.py" line="71"/>
-        <source>Y-Axis Jerk</source>
-        <translation>Y轴最大抖动速度</translation>
+        <source>Y-Axis Jerk Limits</source>
+        <translation>Y轴抖动速度限制</translation>
     </message>
     <message>
         <location filename="../../../ui/machinePages/jerkPage.py" line="72"/>
-        <source>Z-Axis Jerk</source>
-        <translation>Z轴最大抖动速度</translation>
+        <source>Z-Axis Jerk Limits</source>
+        <translation>Z轴抖动速度限制</translation>
     </message>
     <message>
         <location filename="../../../ui/machinePages/jerkPage.py" line="73"/>
-        <source>E-Axis Jerk</source>
-        <translation>E轴最大抖动速度</translation>
+        <source>E-Axis Jerk Limits</source>
+        <translation>E轴抖动速度限制</translation>
     </message>
 </context>
 <context>
@@ -806,29 +815,41 @@ click &lt;Next&gt; to start working.</source>
 <context>
     <name>LevelPage</name>
     <message>
-        <location filename="../../../ui/levelPages/levelPage.py" line="66"/>
-        <source>Probe Offsets</source>
-        <translation>偏移量</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/levelPages/levelPage.py" line="70"/>
-        <source>Dial Indicator</source>
-        <translation>百分表</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/levelPages/levelPage.py" line="74"/>
-        <source>Print Verify</source>
-        <translation>XY校验</translation>
-    </message>
-    <message>
         <location filename="../../../ui/levelPages/levelPage.py" line="62"/>
         <source>Bed Leveling</source>
         <translation>热床调平</translation>
     </message>
     <message>
+        <location filename="../../../ui/levelPages/levelPage.py" line="53"/>
+        <source>Right Extruder
+Height Calibration</source>
+        <translation>右侧挤出机高度校准</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/levelPage.py" line="54"/>
+        <source>XY Offset
+Calibration</source>
+        <translation>XY偏移量校准</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/levelPage.py" line="66"/>
+        <source>Adjust Offset</source>
+        <translation>调整偏移量</translation>
+    </message>
+    <message>
         <location filename="../../../ui/levelPages/levelPage.py" line="58"/>
-        <source>Auto-Leveling</source>
+        <source>Auto-leveling</source>
         <translation>自动调平</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/levelPage.py" line="70"/>
+        <source>Right Extruder Height Calibration</source>
+        <translation>右侧挤出机高度校准</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/levelPage.py" line="74"/>
+        <source>XY Offset Calibration</source>
+        <translation>XY偏移量校准</translation>
     </message>
 </context>
 <context>
@@ -966,6 +987,11 @@ click &lt;Next&gt; to start working.</source>
         <location filename="../../../ui/levelPages/levelWizardPage.py" line="393"/>
         <source>Auto-leveling completed.</source>
         <translation>自动调平完成.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/levelWizardPage.py" line="42"/>
+        <source>Clear debris from the platform.</source>
+        <translation>清理平台上的杂物.</translation>
     </message>
 </context>
 <context>
@@ -1192,11 +1218,6 @@ Bed</source>
 <context>
     <name>PrintPreparePage</name>
     <message>
-        <location filename="../../../ui/printPreparePage.py" line="39"/>
-        <source>XY Verity</source>
-        <translation>XY 校验</translation>
-    </message>
-    <message>
         <location filename="../../../ui/printPreparePage.py" line="37"/>
         <source>Local Print</source>
         <translation>内置打印</translation>
@@ -1207,9 +1228,14 @@ Bed</source>
         <translation>U盘打印</translation>
     </message>
     <message>
+        <location filename="../../../ui/printPreparePage.py" line="39"/>
+        <source>XY Offset Calibration</source>
+        <translation>XY偏移量校准</translation>
+    </message>
+    <message>
         <location filename="../../../ui/printPreparePage.py" line="44"/>
-        <source>Verity XY offset ?</source>
-        <translation>校验XY偏移量？</translation>
+        <source>Whether to print the &apos;XY Offset Calibration&apos; model?</source>
+        <translation>是否打印‘XY偏移量校准’模型?</translation>
     </message>
 </context>
 <context>
@@ -1275,6 +1301,11 @@ Bed</source>
         <location filename="../../../ui/levelPages/printVerifyPage.py" line="419"/>
         <source>Done.</source>
         <translation>完成.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/printVerifyPage.py" line="37"/>
+        <source>Clear debris from the platform.</source>
+        <translation>清理平台上的杂物.</translation>
     </message>
 </context>
 <context>
@@ -1592,170 +1623,165 @@ Mixware Screen 将重新启动.</translation>
 <context>
     <name>UsePreparePage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="466"/>
-        <source>Clean platform debris.</source>
-        <translation>清理平台杂物.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="469"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="461"/>
         <source>Clean the nozzle.</source>
         <translation>清理喷嘴.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="490"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="485"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation>请规范放置PEI平台, 并且平台无杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="498"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="493"/>
         <source>Adjust offset.</source>
         <translation>调整偏移量.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="503"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="498"/>
         <source>Move Distance (mm)</source>
         <translation>移动距离 (毫米)</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="500"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="495"/>
         <source>Place the dial indicator at the specified location.</source>
         <translation>请放置百分表到指定位置.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="552"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="547"/>
         <source>Heat completed.</source>
         <translation>加热完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="489"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="484"/>
         <source>Start</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="560"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="555"/>
         <source>Next</source>
         <translation>下一步</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="467"/>
-        <source>Place filament, select temperature</source>
-        <translation>放置耗材, 选择相应温度.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="755"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="750"/>
         <source>Measure compensation value(Left).</source>
         <translation>测量补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="769"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="764"/>
         <source>Measure compensation value(Right).</source>
         <translation>测量补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="473"/>
-        <source>Print Verify.</source>
-        <translation>XY校验.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="757"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="752"/>
         <source>Measure Left</source>
         <translation>测量左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="771"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="766"/>
         <source>Measure Right</source>
         <translation>测量右侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="495"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="490"/>
         <source>Please use a metal brush to clean the nozzle residue.</source>
         <translation>请用金属毛刷清洁喷嘴残留物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="608"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="603"/>
         <source>Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete.</source>
         <translation>将耗材放入储物箱内，选择相应的温度，等待加热完成。</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="751"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="746"/>
         <source>Placed</source>
         <translation>已放置</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="502"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="497"/>
         <source>Verification model printing, please wait.</source>
         <translation>校验模型打印中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="673"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="668"/>
         <source>Filament loading completed.</source>
         <translation>耗材装载完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="773"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="768"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation>测量完成. 请移除热床上的百分表.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="468"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="460"/>
         <source>Load filament.</source>
         <translation>装载耗材.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="471"/>
-        <source>Adjust probe offset.</source>
-        <translation>调整偏移量.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="472"/>
-        <source>Measure dial indicator.</source>
-        <translation>百分表测量.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="494"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="489"/>
         <source>Loading filament(Left).</source>
         <translation>装载耗材 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="554"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="549"/>
         <source>Left</source>
         <translation>左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="555"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="550"/>
         <source>Loading filament(Right).</source>
         <translation>装载耗材 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="780"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="775"/>
         <source>Please enter the value from the dial indicator.</source>
         <translation>请输入百分表的值.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="470"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="462"/>
         <source>Auto-leveling.</source>
         <translation>自动调平中.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="496"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="491"/>
         <source>Start Auto-leveling</source>
         <translation>启动自动调平</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="497"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="492"/>
         <source>Auto-leveling, please wait.</source>
         <translation>自动调平中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="519"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="514"/>
         <source>Auto-leveling completed.</source>
         <translation>自动调平完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="532"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="527"/>
         <source>Printing is completed, please level the XY offset according to the printing situation.</source>
         <translation>打印完成, 请根据打印情况调平XY偏移.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="459"/>
+        <source>Filament preparation.</source>
+        <translation>耗材准备.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="464"/>
+        <source>Right extruder height calibration.</source>
+        <translation>右侧挤出机高度校准.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="465"/>
+        <source>XY offset calibration.</source>
+        <translation>XY偏移量校准.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="458"/>
+        <source>Clear debris from the platform.</source>
+        <translation>清理平台上的杂物.</translation>
     </message>
 </context>
 <context>
@@ -1799,32 +1825,32 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeMainPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="864"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="859"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="869"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="864"/>
         <source>Chinese</source>
         <translation>简体中文</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="888"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="883"/>
         <source>Next</source>
         <translation>下一步</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="893"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="888"/>
         <source>Use Prepare</source>
         <translation>使用准备</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="910"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="905"/>
         <source>Skip</source>
         <translation>跳过</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="930"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="925"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
@@ -1832,12 +1858,12 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeStartPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="960"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="955"/>
         <source>Welcome</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="961"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="956"/>
         <source>Get started</source>
         <translation>开始使用</translation>
     </message>

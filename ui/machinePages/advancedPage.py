@@ -74,9 +74,9 @@ class AdvancedPage(QWidget):
 
     def reTranslateUi(self):
         self.step_per_unit.setText(self.tr("Step Per Unit Settings"))
-        self.feed_rate.setText(self.tr("Feed Rate Settings"))
+        self.feed_rate.setText(self.tr("Maximum Feed Rate Settings"))
         self.acceleration.setText(self.tr("Acceleration Settings"))
-        self.jerk.setText(self.tr("Jerk Settings"))
+        self.jerk.setText(self.tr("Jerk Limits Settings"))
         self.tmc_current.setText(self.tr("TMC Current Settings"))
         self.input_shaping.setText(self.tr("Input Shaping Settings"))
         self.linear_advance.setText(self.tr("Linear Advance Settings"))
@@ -92,7 +92,7 @@ class AdvancedPage(QWidget):
 
     @pyqtSlot()
     def goto_feed_rate_page(self):
-        self._parent.gotoPage(self.feedRatePage, self.tr("Feed Rate Settings"))
+        self._parent.gotoPage(self.feedRatePage, self.tr("Maximum Feed Rate Settings"))
 
     @pyqtSlot()
     def goto_acceleration_page(self):
@@ -100,7 +100,7 @@ class AdvancedPage(QWidget):
 
     @pyqtSlot()
     def goto_jerk_page(self):
-        self._parent.gotoPage(self.jerkPage, self.tr("Jerk Settings"))
+        self._parent.gotoPage(self.jerkPage, self.tr("Jerk Limits Settings"))
 
     @pyqtSlot()
     def goto_tmc_current_page(self):
@@ -114,13 +114,15 @@ class AdvancedPage(QWidget):
     def on_linear_advance_clicked(self):
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(f"{self.linear_advance.text()}: {self.linear_advance.tips()}", "linear_advance")
+            self._parent.numberPad.start(f"{self.linear_advance.text()}: {self.linear_advance.tips()}",
+                                         "linear_advance")
 
     @pyqtSlot()
     def on_restore_factory_clicked(self):
         self._parent.showShadowScreen()
-        ret = self._parent.message.start(self.restore_factory.text(), self.tr("Click <Confirm> to restore factory setting."),
-                                 buttons=QMessageBox.Yes | QMessageBox.Cancel)
+        ret = self._parent.message.start(self.restore_factory.text(),
+                                         self.tr("Click <Confirm> to restore factory setting."),
+                                         buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
             self._printer.write_gcode_command('M502\nM500\nM503')
         self._parent.closeShadowScreen()

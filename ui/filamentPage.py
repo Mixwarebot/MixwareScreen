@@ -195,12 +195,12 @@ class FilamentPage(QWidget):
 
     def reset_ui(self):
         self.message_text_list = [
-            self.tr("Select the extruder."),
-            self.tr("Select the work mode."),
-            self.tr("Select the filament."),
-            self.tr("Wait to heat up."),
-            self.tr("Wait for the job to finish."),
-            self.tr("Done.")
+            self.tr("Select Extruder"),
+            self.tr("Select Working Mode"),
+            self.tr("Select Filament"),
+            self.tr("Heated Extruder"),
+            self.tr("Working"),
+            self.tr("Done")
         ]
         for count in range(len(self.message_list)):
             self.message_list[count].setText(self.message_text_list[count])
@@ -213,11 +213,11 @@ class FilamentPage(QWidget):
         self.extruder_right_button.setText(self.tr("Right"))
         self.work_mode_load_button.setText(self.tr("Load"))
         self.work_mode_unload_button.setText(self.tr("Unload"))
-        self.filament_pla_button.setText(self.tr("PLA"))
-        self.filament_abs_button.setText(self.tr("ABS"))
-        self.filament_pet_button.setText(self.tr("PET"))
-        self.filament_pa_button.setText(self.tr("PA"))
-        self.heating_text.setText(self.tr("Heating"))
+        self.filament_pla_button.setText("PLA")
+        self.filament_abs_button.setText("ABS")
+        self.filament_pet_button.setText("PET")
+        self.filament_pa_button.setText("PA")
+        self.heating_text.setText(self.tr("The extruder is heating, please wait."))
         self.working_text.setText(self.tr("Working"))
         self.finished_text.setText(self.tr("Finished"))
 

@@ -67,10 +67,10 @@ class FeedRatePage(QWidget):
         self.reTranslateUi()
 
     def reTranslateUi(self):
-        self.feed_rate_x.setText(self.tr("X-Axis Max Feed Rate"))
-        self.feed_rate_y.setText(self.tr("Y-Axis Max Feed Rate"))
-        self.feed_rate_z.setText(self.tr("Z-Axis Max Feed Rate"))
-        self.feed_rate_e.setText(self.tr("E-Axis Max Feed Rate"))
+        self.feed_rate_x.setText(self.tr("X-Axis Maximum Feed Rate"))
+        self.feed_rate_y.setText(self.tr("Y-Axis Maximum Feed Rate"))
+        self.feed_rate_z.setText(self.tr("Z-Axis Maximum Feed Rate"))
+        self.feed_rate_e.setText(self.tr("E-Axis Maximum Feed Rate"))
 
         self.feed_rate_x.setTips(f"{self._printer.information['motor']['maxFeedRate']['X']}")
         self.feed_rate_y.setTips(f"{self._printer.information['motor']['maxFeedRate']['Y']}")

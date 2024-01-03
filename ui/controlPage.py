@@ -81,7 +81,7 @@ class ControlPage(QWidget):
         self.filament_page.backup_target()
         self._parent.showShadowScreen()
         ret = self._parent.message.start(self.tr("Filament"),
-                                         self.tr("Whether preheating is required？\nPreheat temperature: 170°C"),
+                                         self.tr("Preheating or not?\nPreheating temperature 170°C"),
                                          buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
             self.filament_page.need_preheat = True

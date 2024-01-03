@@ -48,14 +48,14 @@ class LevelPage(QWidget):
 
     def re_translate_ui(self):
         self.bed_level.setText(self.tr("Bed Leveling"))
-        self.bed_mesh.setText(self.tr("Auto-Leveling"))
-        self.offset.setText(self.tr("Probe Offsets"))
-        self.offset_z.setText(self.tr("Dial Indicator"))
-        self.offset_xy.setText(self.tr("Print Verify"))
+        self.bed_mesh.setText(self.tr("Auto-leveling"))
+        self.offset.setText(self.tr("Adjust Offset"))
+        self.offset_z.setText(self.tr("Right Extruder\nHeight Calibration"))
+        self.offset_xy.setText(self.tr("XY Offset\nCalibration"))
 
     @pyqtSlot()
     def goto_auto_level_page(self):
-        self._parent.gotoPage(self.autoLevelPage, self.tr("Auto-Leveling"))
+        self._parent.gotoPage(self.autoLevelPage, self.tr("Auto-leveling"))
 
     @pyqtSlot()
     def goto_bed_level_page(self):
@@ -63,12 +63,12 @@ class LevelPage(QWidget):
 
     @pyqtSlot()
     def goto_offset_page(self):
-        self._parent.gotoPage(self.offsetPage, self.tr("Probe Offsets"))
+        self._parent.gotoPage(self.offsetPage, self.tr("Adjust Offset"))
 
     @pyqtSlot()
     def goto_offset_z_page(self):
-        self._parent.gotoPage(self.dialIndicatorPage, self.tr("Dial Indicator"))
+        self._parent.gotoPage(self.dialIndicatorPage, self.tr("Right Extruder Height Calibration"))
 
     @pyqtSlot()
     def goto_offset_xy_page(self):
-        self._parent.gotoPage(self.printVerifyPage, self.tr("Print Verify"))
+        self._parent.gotoPage(self.printVerifyPage, self.tr("XY Offset Calibration"))

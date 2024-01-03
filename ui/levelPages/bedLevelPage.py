@@ -101,7 +101,7 @@ class BedLevelPage(QWidget):
     def re_translate_ui(self):
         self.top_frame_title.setText(self.tr("Current Extruder"))
         self.left_extruder_button.setText(self.tr("Left"))
-        self.right_extruder_button.setText(self.tr("right"))
+        self.right_extruder_button.setText(self.tr("Right"))
         self.disable_button.setText(self.tr("Disabled XY"))
 
     @pyqtSlot()

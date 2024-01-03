@@ -89,7 +89,7 @@ class MixwareScreen(QWidget):
 
         # test
         if platform.system().lower() == 'windows':
-            self.stackedLayout.setCurrentIndex(2)
+            self.stackedLayout.setCurrentIndex(0)
         else:
             if self._printer.config.should_show_welcome:
                 self.stackedLayout.setCurrentIndex(0)

@@ -34,7 +34,7 @@ class PrintVerifyPage(QWidget):
         self.message_layout.setSpacing(10)
         self.message_list = []
         self.message_text_list = [
-            self.tr("Clean platform debris."),
+            self.tr("Clear debris from the platform."),
             self.tr("Preheat extruder."),
             self.tr("Working."),
             self.tr("Finish.")

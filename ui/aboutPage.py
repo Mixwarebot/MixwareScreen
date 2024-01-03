@@ -71,7 +71,7 @@ class AboutPage(QWidget):
         if self._printer.get_ip_addr("wlan0"):
             info += self.tr("IP Address: {}").format(self._printer.get_ip_addr("wlan0"))
         else:
-            info += self.tr("No network connection.")
+            info += self.tr("Network not connected.")
 
         self.version_info.setText("<p style='line-height: 130%; width:100%; white-space: pre-wrap;'>" + info + "</p>")
         self.version_info.adjustSize()
@@ -128,7 +128,7 @@ class AboutPage(QWidget):
             elif state == self.tr("Firmware download successful."):
                 self.need_reboot_printer = True
                 self._printer.repository.start_screen_check()
-            elif state == self.tr("firmware check error.") or state == self.tr("Firmware download error."):
+            elif state == self.tr("Check for firmware update failed.") or state == self.tr("Firmware download failed."):
                 self._printer.repository.start_screen_check()
 
         if state == self.tr("Mixware Screen check successful."):
@@ -139,7 +139,7 @@ class AboutPage(QWidget):
                 if self.need_reboot_printer:
                     self.on_update_finished()
                 self.update_button.setEnabled(True)
-        elif state == self.tr("Mixware Screen update successful."):
+        elif state == self.tr("Mixware Screen updated successfully."):
             self.need_reboot_system = True
             self.on_update_finished()
             self.update_button.setEnabled(True)
