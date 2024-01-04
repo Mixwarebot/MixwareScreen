@@ -254,6 +254,7 @@ class MovePage(QWidget):
 
         cmd = "G0" + axis + str(pos) + "F" + str(int(speed))
         self._printer.write_gcode_command(cmd)
+        self._printer.write_gcode_command("M114")
 
     @pyqtSlot()
     def on_x_dec_button_clicked(self):
