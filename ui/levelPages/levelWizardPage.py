@@ -159,9 +159,10 @@ class LevelWizardPage(QWidget):
         self.clean_body_layout.setSpacing(0)
         self.clean_body_layout.setAlignment(Qt.AlignCenter)
         self.clean_logo = QLabel()
-        self.clean_logo.setFixedSize(320, 320)
-        self.clean_logo.setScaledContents(True)
-        self.clean_logo.setPixmap(QPixmap("resource/image/level_clean_nozzle.jpg"))
+        self.clean_logo.setFixedSize(320, 220)
+        self.clean_logo_movie = QMovie("resource/image/clean_nozzle.gif")
+        self.clean_logo_movie.setScaledSize(self.clean_logo.size())
+        self.clean_logo.setMovie(self.clean_logo_movie)
         self.clean_body_layout.addWidget(self.clean_logo)
         self.clean_text = QLabel()
         self.clean_text.setWordWrap(True)
@@ -196,6 +197,12 @@ class LevelWizardPage(QWidget):
         self.offset_body_layout = QVBoxLayout(self.offset_handle.body)
         self.offset_body_layout.setContentsMargins(20, 0, 20, 0)
         self.offset_body_layout.setSpacing(0)
+        self.offset_logo = QLabel()
+        self.offset_logo.setFixedSize(320, 320)
+        self.offset_logo_movie = QMovie("resource/image/adjust_offset.gif")
+        self.offset_logo_movie.setScaledSize(self.offset_logo.size())
+        self.offset_logo.setMovie(self.offset_logo_movie)
+        self.offset_body_layout.addWidget(self.offset_logo)
         self.offset_text = QLabel()
         self.offset_text.setWordWrap(True)
         self.offset_text.setAlignment(Qt.AlignCenter)
@@ -436,6 +443,10 @@ class LevelWizardPage(QWidget):
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
         # preheat -> 170
         self._printer.set_thermal('left', 170)
         self._printer.set_thermal('right', 170)
@@ -461,25 +472,43 @@ class LevelWizardPage(QWidget):
         self.reset_preheat_handle_ui()
 
     def on_preheat_pla_clicked(self):
+        update_style(self.preheat_pla, "checked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
         self.preheat_filament(210)
 
     def on_preheat_abs_clicked(self):
         self.preheat_filament(240)
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "checked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_pet_clicked(self):
         self.preheat_filament(270)
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "checked")
 
     def on_preheat_pa_clicked(self):
         self.preheat_filament(300)
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "checked")
+        update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_next_button_clicked(self):
         self.goto_next_step_stacked_widget()
+        self.clean_logo_movie.start()
 
     def on_clean_next_button_clicked(self):
         if platform.system().lower() == 'linux':
             self._printer.write_gcode_command('M104 S0 T0\nM104 S0 T1\nG28\nD28\nG29\nM500\nM503')
             self.level_handle.next_button.setEnabled(False)
         self._parent.footer.setEnabled(False)
+        self.clean_logo_movie.stop()
         self.goto_next_step_stacked_widget()
         self.level_load.show()
         self.level_load_timer.start(250)
@@ -491,6 +520,7 @@ class LevelWizardPage(QWidget):
             f"Z: {self.offset['left']['Z']}({self._printer.information['probe']['offset']['left']['Z']})")
         self._printer.write_gcode_commands("G28\nT0\nG1 Y160 F8400\nG1 X190 F8400\nG1 Z0 F600")
         self.goto_next_step_stacked_widget()
+        self.offset_logo_movie.start()
 
     @pyqtSlot(QAbstractButton)
     def on_offset_distance_button_clicked(self, button):
@@ -519,6 +549,7 @@ class LevelWizardPage(QWidget):
         self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']}\nM500\nM851")
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
+        self.offset_logo_movie.stop()
         self.place_logo_movie.start()
 
     def on_place_next_button_clicked(self):

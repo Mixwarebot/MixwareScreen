@@ -138,9 +138,10 @@ class DialIndicatorPage(QWidget):
         self.clean_body_layout.setSpacing(0)
         self.clean_body_layout.setAlignment(Qt.AlignCenter)
         self.clean_logo = QLabel()
-        self.clean_logo.setFixedSize(320, 320)
-        self.clean_logo.setScaledContents(True)
-        self.clean_logo.setPixmap(QPixmap("resource/image/level_clean_nozzle.jpg"))
+        self.clean_logo.setFixedSize(320, 220)
+        self.clean_logo_movie = QMovie("resource/image/clean_nozzle.gif")
+        self.clean_logo_movie.setScaledSize(self.clean_logo.size())
+        self.clean_logo.setMovie(self.clean_logo_movie)
         self.clean_body_layout.addWidget(self.clean_logo)
         self.clean_text = QLabel()
         self.clean_text.setWordWrap(True)
@@ -305,6 +306,10 @@ class DialIndicatorPage(QWidget):
         # preheat -> 170
         self._printer.set_thermal('left', 170)
         self._printer.set_thermal('right', 170)
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
         self._printer.write_gcode_commands("M155 S1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
@@ -328,25 +333,42 @@ class DialIndicatorPage(QWidget):
 
     def on_preheat_pla_clicked(self):
         self.preheat_filament(210)
+        update_style(self.preheat_pla, "checked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_abs_clicked(self):
         self.preheat_filament(240)
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "checked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_pet_clicked(self):
         self.preheat_filament(270)
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "checked")
 
     def on_preheat_pa_clicked(self):
         self.preheat_filament(300)
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "checked")
+        update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_next_button_clicked(self):
         self.goto_next_step_stacked_widget()
+        self.clean_logo_movie.start()
 
     def on_clean_next_button_clicked(self):
         # if platform.system().lower() == 'linux':
         self._printer.set_thermal('left', 0)
         self._printer.set_thermal('right', 0)
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
-
+        self.clean_logo_movie.stop()
         self.goto_next_step_stacked_widget()
         self.place_logo_movie.start()
 

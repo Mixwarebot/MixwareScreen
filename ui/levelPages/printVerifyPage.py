@@ -173,6 +173,11 @@ class PrintVerifyPage(QWidget):
         self.work_thermal_frame_layout.addWidget(self.work_thermal_bed_button, 4, 1, 1, 1)
         self.work_body_layout.addWidget(self.work_thermal_frame)
         self.work_body_layout.addWidget(BaseHLine())
+        self.verity_model_logo = QLabel()
+        self.verity_model_logo.setFixedSize(360, 540)
+        self.verity_model_logo.setAlignment(Qt.AlignCenter)
+        self.verity_model_logo.setPixmap(QPixmap("resource/image/xy_verity").scaledToWidth(320))
+        self.work_body_layout.addWidget(self.verity_model_logo)
         self.work_text = QLabel()
         self.work_text.setWordWrap(True)
         self.work_text.setAlignment(Qt.AlignCenter)
@@ -189,6 +194,17 @@ class PrintVerifyPage(QWidget):
         self.finished_body_layout = QVBoxLayout(self.finished_handle.body)
         self.finished_body_layout.setContentsMargins(0, 20, 0, 0)
         self.finished_body_layout.setSpacing(0)
+        self.verity_logo = QLabel()
+        self.verity_logo.setFixedSize(320, 320)
+        self.verity_logo.setStyleSheet("padding-left: 20px; padding-top: 20px;")
+        self.verity_movie = QMovie("resource/image/verity.gif")
+        self.verity_movie.setScaledSize(self.verity_logo.size())
+        self.verity_logo.setMovie(self.verity_movie)
+        self.finished_body_layout.addWidget(self.verity_logo)
+        self.finished_text = QLabel()
+        self.finished_text.setWordWrap(True)
+        self.finished_text.setAlignment(Qt.AlignCenter)
+        self.finished_body_layout.addWidget(self.finished_text)
 
         self.finished_offset_frame = QFrame()
         self.finished_offset_frame.setFixedSize(360, 148)
@@ -261,10 +277,6 @@ class PrintVerifyPage(QWidget):
         self.finished_body_layout.addWidget(self.finished_offset_frame)
         self.finished_body_layout.addWidget(BaseHLine())
 
-        self.finished_text = QLabel()
-        self.finished_text.setWordWrap(True)
-        self.finished_text.setAlignment(Qt.AlignCenter)
-        self.finished_body_layout.addWidget(self.finished_text)
         self.handle_stacked_widget.addWidget(self.finished_handle)
         self.handle_frame_layout.addWidget(self.handle_stacked_widget)
         self.layout.addWidget(self.handle_frame)
@@ -336,6 +348,7 @@ class PrintVerifyPage(QWidget):
         elif self.handle_stacked_widget.currentWidget() == self.work_handle:
             if not self._printer.is_print_verify():
                 self.goto_next_step_stacked_widget()
+                self.verity_movie.start()
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
@@ -368,6 +381,10 @@ class PrintVerifyPage(QWidget):
         self._printer.set_thermal('left', 210)
         self._printer.set_thermal('right', 210)
         self._printer.set_thermal('bed', 60)
+        update_style(self.preheat_pla, "checked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
         self._printer.write_gcode_commands("M155 S2\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
@@ -395,15 +412,31 @@ class PrintVerifyPage(QWidget):
 
     def on_preheat_pla_clicked(self):
         self.preheat_filament(210)
+        update_style(self.preheat_pla, "checked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_abs_clicked(self):
         self.preheat_filament(240)
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "checked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_pet_clicked(self):
         self.preheat_filament(270)
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+        update_style(self.preheat_pet, "checked")
 
     def on_preheat_pa_clicked(self):
         self.preheat_filament(300)
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pa, "checked")
+        update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_next_button_clicked(self):
         if platform.system().lower() == 'linux':
@@ -452,4 +485,5 @@ class PrintVerifyPage(QWidget):
         self._printer.set_hotend_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
             hotend_offset_y))
         self.reset_ui()
+        self.verity_movie.stop()
         self._parent.gotoPreviousPage()
