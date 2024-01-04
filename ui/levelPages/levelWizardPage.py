@@ -505,14 +505,14 @@ class LevelWizardPage(QWidget):
         self._printer.write_gcode_command(
             'G91\nG0 F600 Z-' + self.offset_distance_list[self.offset_distance_current_id] + '\nG90')
         self.offset_button_title.setText(
-            f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
+            f"Z: {self.offset['left']['Z']:.2f}({self._printer.information['probe']['offset']['left']['Z']:.2f})")
 
     def on_offset_button_down_clicked(self):
         self.offset['left']['Z'] += float(self.offset_distance_list[self.offset_distance_current_id])
         self._printer.write_gcode_command(
             'G91\nG0 F600 Z' + self.offset_distance_list[self.offset_distance_current_id] + '\nG90')
         self.offset_button_title.setText(
-            f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
+            f"Z: {self.offset['left']['Z']:.2f}({self._printer.information['probe']['offset']['left']['Z']:.2f})")
 
     def on_offset_next_button_clicked(self):
         self.offset_distance_frame.hide()

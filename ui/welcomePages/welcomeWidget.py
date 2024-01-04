@@ -196,9 +196,10 @@ class UsePreparePage(QWidget):
         self.clean_body_layout.setSpacing(0)
         self.clean_body_layout.setAlignment(Qt.AlignCenter)
         self.clean_logo = QLabel()
-        self.clean_logo.setFixedSize(320, 320)
-        self.clean_logo.setScaledContents(True)
-        self.clean_logo.setPixmap(QPixmap("resource/image/level_clean_nozzle.jpg"))
+        self.clean_logo.setFixedSize(320, 220)
+        self.clean_logo_movie = QMovie("resource/image/clean_nozzle.gif")
+        self.clean_logo_movie.setScaledSize(self.clean_logo.size())
+        self.clean_logo.setMovie(self.clean_logo_movie)
         self.clean_body_layout.addWidget(self.clean_logo)
         self.clean_text = QLabel()
         self.clean_text.setWordWrap(True)
@@ -238,6 +239,12 @@ class UsePreparePage(QWidget):
         self.offset_body_layout = QVBoxLayout(self.offset_handle.body)
         self.offset_body_layout.setContentsMargins(20, 0, 20, 0)
         self.offset_body_layout.setSpacing(0)
+        self.offset_logo = QLabel()
+        self.offset_logo.setFixedSize(320, 320)
+        self.offset_logo_movie = QMovie("resource/image/adjust_offset.gif")
+        self.offset_logo_movie.setScaledSize(self.offset_logo.size())
+        self.offset_logo.setMovie(self.offset_logo_movie)
+        self.offset_body_layout.addWidget(self.offset_logo)
         self.offset_text = QLabel()
         self.offset_text.setWordWrap(True)
         self.offset_text.setAlignment(Qt.AlignCenter)
@@ -300,10 +307,6 @@ class UsePreparePage(QWidget):
         self.dial_body_layout.setAlignment(Qt.AlignCenter)
         self.dial_placeholder = QLabel()
         self.dial_body_layout.addWidget(self.dial_placeholder)
-        self.dial_clean_logo = QLabel()
-        self.dial_clean_logo.setFixedSize(320, 320)
-        self.dial_clean_logo.setPixmap(QPixmap("resource/image/level_clean_bed.png").scaledToWidth(320))
-        self.dial_body_layout.addWidget(self.dial_clean_logo)
         self.dial_logo = QLabel()
         self.dial_logo.setFixedSize(320, 320)
         self.dial_place_movie = QMovie("resource/image/level_measure.gif")
@@ -312,6 +315,8 @@ class UsePreparePage(QWidget):
         self.dial_measure_left_movie.setScaledSize(self.remind_logo.size())
         self.dial_measure_right_movie = QMovie("resource/image/level_measure_right.gif")
         self.dial_measure_right_movie.setScaledSize(self.remind_logo.size())
+        self.remove_dial_movie = QMovie("resource/image/remove_dial.gif")
+        self.remove_dial_movie.setScaledSize(self.remind_logo.size())
         self.dial_logo.setMovie(self.dial_place_movie)
         self.dial_body_layout.addWidget(self.dial_logo)
         self.dial_text = QLabel()
@@ -362,7 +367,7 @@ class UsePreparePage(QWidget):
         self.verity_body_layout.addWidget(self.verity_thermal_frame)
         self.verity_body_layout.addWidget(BaseHLine())
         self.verity_model_logo = QLabel()
-        self.verity_model_logo.setFixedSize(360, 360)
+        self.verity_model_logo.setFixedSize(360, 540)
         self.verity_model_logo.setAlignment(Qt.AlignCenter)
         self.verity_model_logo.setPixmap(QPixmap("resource/image/xy_verity").scaledToWidth(320))
         self.verity_body_layout.addWidget(self.verity_model_logo)
@@ -675,6 +680,7 @@ class UsePreparePage(QWidget):
 
     def on_load_next_button_clicked(self):
         self.goto_next_step_stacked_widget()
+        self.clean_logo_movie.start()
         self.load_progress_bar.setValue(0)
 
     def on_clean_next_button_clicked(self):
@@ -682,6 +688,7 @@ class UsePreparePage(QWidget):
             self.level_handle.next_button.setEnabled(False)
         self.level_load.hide()
         self.level_text.hide()
+        self.clean_logo_movie.stop()
         self.goto_next_step_stacked_widget()
 
     def on_level_button_clicked(self):
@@ -699,6 +706,7 @@ class UsePreparePage(QWidget):
         self._printer.write_gcode_commands("G28\nT0\nG1 Y160 F8400\nG1 X190 F8400\nG1 Z0 F600")
         self.on_offset_distance_button_clicked(self._button_group.button(2))
         self.goto_next_step_stacked_widget()
+        self.offset_logo_movie.start()
 
     @pyqtSlot(QAbstractButton)
     def on_offset_distance_button_clicked(self, button):
@@ -713,21 +721,21 @@ class UsePreparePage(QWidget):
         self._printer.write_gcode_commands(
             'G91\nG0 F600 Z-' + self._distance_list[self._distance_current_id] + '\nG90')
         self.offset_button_title.setText(
-            f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
+            f"Z: {self.offset['left']['Z']:.2f}({self._printer.information['probe']['offset']['left']['Z']:.2f})")
 
     def on_offset_button_down_clicked(self):
         self.offset['left']['Z'] += float(self._distance_list[self._distance_current_id])
         self._printer.write_gcode_commands(
             'G91\nG0 F600 Z' + self._distance_list[self._distance_current_id] + '\nG90')
         self.offset_button_title.setText(
-            f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
+            f"Z: {self.offset['left']['Z']:.2f}({self._printer.information['probe']['offset']['left']['Z']:.2f})")
 
     def on_offset_next_button_clicked(self):
         self.offset_distance_frame.hide()
-        self.dial_clean_logo.hide()
         self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']}\nM500\nM851")
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
+        self.offset_logo_movie.stop()
         self.dial_place_movie.start()
         if platform.system().lower() == 'linux':  # test
             self.dial_handle.next_button.setEnabled(False)
@@ -736,6 +744,7 @@ class UsePreparePage(QWidget):
         self.verity_distance_frame.hide()
         self.verity_offset_frame.hide()
         self.verity_logo.hide()
+        self.remove_dial_movie.stop()
         if platform.system().lower() == 'linux':  # test
             self.verity_handle.next_button.setEnabled(False)
         self._printer.print_verify()
@@ -766,7 +775,8 @@ class UsePreparePage(QWidget):
         elif self.dial_button.text() == self.tr("Measure Right"):
             self.dial_measure_right_movie.stop()
             self.dial_text.setText(self.tr("Measurement completed.\nPlease remove the dial indicator on the hot bed."))
-            self.dial_logo.hide()
+            self.dial_logo.setMovie(self.remove_dial_movie)
+            self.remove_dial_movie.start()
             self.dial_button.hide()
             self._printer.write_gcode_commands(
                 "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
@@ -776,38 +786,37 @@ class UsePreparePage(QWidget):
                                              "dial_indicator_right")
             self._printer.save_dial_indicator_value()
             self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28X")
-            self.dial_clean_logo.show()
             self.dial_handle.next_button.setEnabled(True)
 
     def on_verity_offset_x_dec_button_clicked(self):
-        text = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
-        offset = float(text[0])
+        data_x = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
+        offset = float(data_x[0])
         offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
-        self.verity_offset_x_label.setText(f"X: {offset: .2f}")
+        self.verity_offset_x_label.setText(f"X: {offset:.2f}")
 
     def on_verity_offset_x_add_button_clicked(self):
-        text = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
-        offset = float(text[0])
+        data_x = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
+        offset = float(data_x[0])
         offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
-        self.verity_offset_x_label.setText(f"X: {offset: .2f}")
+        self.verity_offset_x_label.setText(f"X: {offset:.2f}")
 
     def on_verity_offset_y_dec_button_clicked(self):
-        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
-        offset = float(text[0])
+        data_y = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
+        offset = float(data_y[0])
         offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
-        self.verity_offset_y_label.setText(f"Y: {offset: .2f}")
+        self.verity_offset_y_label.setText(f"Y: {offset:.2f}")
 
     def on_verity_offset_y_add_button_clicked(self):
-        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
-        offset = float(text[0])
+        data_y = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
+        offset = float(data_y[0])
         offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
-        self.verity_offset_y_label.setText(f"Y: {offset: .2f}")
+        self.verity_offset_y_label.setText(f"Y: {offset:.2f}")
 
     def on_verity_next_button_clicked(self):
-        text = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
-        hotend_offset_x = float(text[0])
-        text = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
-        hotend_offset_y = float(text[0])
+        data_x = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
+        hotend_offset_x = float(data_x[0])
+        data_y = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
+        hotend_offset_y = float(data_y[0])
         self._printer.set_hotend_offset('X', self._printer.information['probe']['offset']['right']['X'] + float(
             hotend_offset_x))
         self._printer.set_hotend_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(

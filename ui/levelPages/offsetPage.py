@@ -182,11 +182,11 @@ class OffsetPage(QWidget):
         if self._printer.get_extruder() == "left":
             self.offset['left']['X'] -= float(self.offset_distance_list[self.offset_distance_current_id])
             self.x_frame_title.setText(
-                f"X: {self.offset['left']['X']: .2f}({self._printer.information['probe']['offset']['left']['X']: .2f})")
+                f"X: {self.offset['left']['X']:.2f}({self._printer.information['probe']['offset']['left']['X']:.2f})")
         elif self._printer.get_extruder() == "right":
             self.offset['right']['X'] += float(self.offset_distance_list[self.offset_distance_current_id])
             self.x_frame_title.setText(
-                f"X: {self.offset['right']['X']: .2f}({self._printer.information['probe']['offset']['right']['X']: .2f})")
+                f"X: {self.offset['right']['X']:.2f}({self._printer.information['probe']['offset']['right']['X']:.2f})")
         self._printer.write_gcode_command(
             f"G91\nG0 F600 X-{self.offset_distance_list[self.offset_distance_current_id]}\nG90")
 
@@ -195,11 +195,11 @@ class OffsetPage(QWidget):
         if self._printer.get_extruder() == "left":
             self.offset['left']['X'] += float(self.offset_distance_list[self.offset_distance_current_id])
             self.x_frame_title.setText(
-                f"X: {self.offset['left']['X']: .2f}({self._printer.information['probe']['offset']['left']['X']: .2f})")
+                f"X: {self.offset['left']['X']:.2f}({self._printer.information['probe']['offset']['left']['X']:.2f})")
         elif self._printer.get_extruder() == "right":
             self.offset['right']['X'] -= float(self.offset_distance_list[self.offset_distance_current_id])
             self.x_frame_title.setText(
-                f"X: {self.offset['right']['X']: .2f}({self._printer.information['probe']['offset']['right']['X']: .2f})")
+                f"X: {self.offset['right']['X']:.2f}({self._printer.information['probe']['offset']['right']['X']:.2f})")
         self._printer.write_gcode_command(
             f"G91\nG0 F600 X{self.offset_distance_list[self.offset_distance_current_id]}\nG90")
 
@@ -208,11 +208,11 @@ class OffsetPage(QWidget):
         if self._printer.get_extruder() == "left":
             self.offset['left']['Y'] -= float(self.offset_distance_list[self.offset_distance_current_id])
             self.y_frame_title.setText(
-                f"Y: {self.offset['left']['Y']: .2f}({self._printer.information['probe']['offset']['left']['Y']: .2f})")
+                f"Y: {self.offset['left']['Y']:.2f}({self._printer.information['probe']['offset']['left']['Y']:.2f})")
         elif self._printer.get_extruder() == "right":
             self.offset['right']['Y'] -= float(self.offset_distance_list[self.offset_distance_current_id])
             self.y_frame_title.setText(
-                f"Y: {self.offset['right']['Y']: .2f}({self._printer.information['probe']['offset']['right']['Y']: .2f})")
+                f"Y: {self.offset['right']['Y']:.2f}({self._printer.information['probe']['offset']['right']['Y']:.2f})")
         self._printer.write_gcode_command(
             f"G91\nG0 F600 Y-{self.offset_distance_list[self.offset_distance_current_id]}\nG90")
 
@@ -221,11 +221,11 @@ class OffsetPage(QWidget):
         if self._printer.get_extruder() == "left":
             self.offset['left']['Y'] += float(self.offset_distance_list[self.offset_distance_current_id])
             self.y_frame_title.setText(
-                f"Y: {self.offset['left']['Y']: .2f}({self._printer.information['probe']['offset']['left']['Y']: .2f})")
+                f"Y: {self.offset['left']['Y']:.2f}({self._printer.information['probe']['offset']['left']['Y']:.2f})")
         elif self._printer.get_extruder() == "right":
             self.offset['right']['Y'] += float(self.offset_distance_list[self.offset_distance_current_id])
             self.y_frame_title.setText(
-                f"Y: {self.offset['right']['Y']: .2f}({self._printer.information['probe']['offset']['right']['Y']: .2f})")
+                f"Y: {self.offset['right']['Y']:.2f}({self._printer.information['probe']['offset']['right']['Y']:.2f})")
         self._printer.write_gcode_command(
             f"G91\nG0 F600 Y{self.offset_distance_list[self.offset_distance_current_id]}\nG90")
 
@@ -234,11 +234,11 @@ class OffsetPage(QWidget):
         if self._printer.get_extruder() == "left":
             self.offset['left']['Z'] -= float(self.offset_distance_list[self.offset_distance_current_id])
             self.z_frame_title.setText(
-                f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
+                f"Z: {self.offset['left']['Z']:.2f}({self._printer.information['probe']['offset']['left']['Z']:.2f})")
         elif self._printer.get_extruder() == "right":
             self.offset['right']['Z'] += float(self.offset_distance_list[self.offset_distance_current_id])
             self.z_frame_title.setText(
-                f"Z: {self.offset['right']['Z']: .2f}({self._printer.information['probe']['offset']['right']['Z']: .2f})")
+                f"Z: {self.offset['right']['Z']:.2f}({self._printer.information['probe']['offset']['right']['Z']:.2f})")
         self._printer.write_gcode_command(
             f"G91\nG0 F600 Z-{self.offset_distance_list[self.offset_distance_current_id]}\nG90")
 
@@ -247,11 +247,11 @@ class OffsetPage(QWidget):
         if self._printer.get_extruder() == "left":
             self.offset['left']['Z'] += float(self.offset_distance_list[self.offset_distance_current_id])
             self.z_frame_title.setText(
-                f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
+                f"Z: {self.offset['left']['Z']:.2f}({self._printer.information['probe']['offset']['left']['Z']:.2f})")
         elif self._printer.get_extruder() == "right":
             self.offset['right']['Z'] -= float(self.offset_distance_list[self.offset_distance_current_id])
             self.z_frame_title.setText(
-                f"Z: {self.offset['right']['Z']: .2f}({self._printer.information['probe']['offset']['right']['Z']: .2f})")
+                f"Z: {self.offset['right']['Z']:.2f}({self._printer.information['probe']['offset']['right']['Z']:.2f})")
         self._printer.write_gcode_command(
             f"G91\nG0 F600 Z{self.offset_distance_list[self.offset_distance_current_id]}\nG90")
 
@@ -282,17 +282,17 @@ class OffsetPage(QWidget):
             self.x_left_button.setStyleSheet(checkedStyleSheet)
             self.x_right_button.setStyleSheet(uncheckedStyleSheet)
             self.x_frame_title.setText(
-                f"X: {self.offset['left']['X']: .2f}({self._printer.information['probe']['offset']['left']['X']: .2f})")
+                f"X: {self.offset['left']['X']:.2f}({self._printer.information['probe']['offset']['left']['X']:.2f})")
             self.y_frame_title.setText(
-                f"Y: {self.offset['left']['Y']: .2f}({self._printer.information['probe']['offset']['left']['Y']: .2f})")
+                f"Y: {self.offset['left']['Y']:.2f}({self._printer.information['probe']['offset']['left']['Y']:.2f})")
             self.z_frame_title.setText(
-                f"Z: {self.offset['left']['Z']: .2f}({self._printer.information['probe']['offset']['left']['Z']: .2f})")
+                f"Z: {self.offset['left']['Z']:.2f}({self._printer.information['probe']['offset']['left']['Z']:.2f})")
         elif self._printer.get_extruder() == "right":
             self.x_left_button.setStyleSheet(uncheckedStyleSheet)
             self.x_right_button.setStyleSheet(checkedStyleSheet)
             self.x_frame_title.setText(
-                f"X: {self.offset['right']['X']: .2f}({self._printer.information['probe']['offset']['right']['X']: .2f})")
+                f"X: {self.offset['right']['X']:.2f}({self._printer.information['probe']['offset']['right']['X']:.2f})")
             self.y_frame_title.setText(
-                f"Y: {self.offset['right']['Y']: .2f}({self._printer.information['probe']['offset']['right']['Y']: .2f})")
+                f"Y: {self.offset['right']['Y']:.2f}({self._printer.information['probe']['offset']['right']['Y']:.2f})")
             self.z_frame_title.setText(
-                f"Z: {self.offset['right']['Z']: .2f}({self._printer.information['probe']['offset']['right']['Z']: .2f})")
+                f"Z: {self.offset['right']['Z']:.2f}({self._printer.information['probe']['offset']['right']['Z']:.2f})")
