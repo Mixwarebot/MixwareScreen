@@ -243,7 +243,7 @@ class PrintVerifyPage(QWidget):
         self.finished_distance_frame_layout.addWidget(self.finished_distance_button_frame)
         self.finished_body_layout.addWidget(self.finished_distance_frame)
         self.finished_offset_frame = QFrame()
-        self.finished_offset_frame.setFixedSize(360, 210)
+        self.finished_offset_frame.setFixedSize(360, 110)
         self.finished_offset_frame_layout = QGridLayout(self.finished_offset_frame)
         self.finished_offset_frame_layout.setContentsMargins(10, 0, 10, 0)
         self.finished_offset_frame_layout.setSpacing(0)
