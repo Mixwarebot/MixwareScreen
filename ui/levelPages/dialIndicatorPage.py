@@ -12,6 +12,7 @@ from ui.levelPages.bedMeshGraph import BedMeshGraph
 class DialIndicatorPage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
+        self.message_text_list = None
         self._printer = printer
         self._parent = parent
 
@@ -32,15 +33,7 @@ class DialIndicatorPage(QWidget):
         self.message_layout.setContentsMargins(20, 20, 20, 20)
         self.message_layout.setSpacing(10)
         self.message_list = []
-        self.message_text_list = [
-            self.tr("Clear debris from the platform."),
-            self.tr("Preheat extruder."),
-            self.tr("Clean the nozzle."),
-            self.tr("Place dial indicator."),
-            self.tr("Measure compensation value(Left)."),
-            self.tr("Measure compensation value(Right)."),
-            self.tr("Finish.")
-        ]
+        self.reset_message_title()
         for i in range(len(self.message_text_list)):
             self.message_list.append(MessageBar(i + 1, self.message_text_list[i]))
             self.message_layout.addWidget(self.message_list[i])
@@ -233,15 +226,7 @@ class DialIndicatorPage(QWidget):
         self.measure_right_logo_movie.stop()
 
     def reset_ui(self):
-        self.message_text_list = [
-            self.tr("Clean platform debris."),
-            self.tr("Preheat extruder."),
-            self.tr("Clean the nozzle."),
-            self.tr("Place dial indicator."),
-            self.tr("Measure compensation value(Left)."),
-            self.tr("Measure compensation value(Right)."),
-            self.tr("Finish.")
-        ]
+        self.reset_message_title()
         for count in range(len(self.message_list)):
             self.message_list[count].setText(self.message_text_list[count])
             self.message_list[count].setEnabled(False)
@@ -407,3 +392,14 @@ class DialIndicatorPage(QWidget):
         self.reset_ui()
         self._parent.gotoPreviousPage()
         self.finished_handle.next_button.setText(self.tr("Done."))
+
+    def reset_message_title(self):
+        self.message_text_list = [
+            self.tr("Clean platform debris."),
+            self.tr("Preheat extruder."),
+            self.tr("Clean the nozzle."),
+            self.tr("Place dial indicator."),
+            self.tr("Measure compensation value(Left)."),
+            self.tr("Measure compensation value(Right)."),
+            self.tr("Finish.")
+        ]

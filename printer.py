@@ -967,6 +967,9 @@ class MixwareScreenPrinter(QObject):
             self._gcode.insert(0, "M110")
             self._gcode_position = 0
 
+            if self.get_extruder() == 'right':
+                self._sendCommand('M84\nG28\nT0')
+
             if self.information['runOut']['enabled']:
                 self._sendCommand('M412R')  # Reset run out status
 

@@ -25,7 +25,7 @@ class UsePreparePage(QWidget):
             'left': {'X': 0.0, 'Y': 0.0, 'Z': 0.0},
             'right': {'X': 0.0, 'Y': 0.0, 'Z': 0.0}
         }
-        self.reset_message_title_list()
+        self.reset_message_title()
         self._message_list = []
         self._button_group = QButtonGroup()
         self._button_group.buttonClicked.connect(self.on_offset_distance_button_clicked)
@@ -458,7 +458,7 @@ class UsePreparePage(QWidget):
         self.dial_measure_left_movie.stop()
         self.dial_measure_right_movie.stop()
 
-    def reset_message_title_list(self):
+    def reset_message_title(self):
         self._message_title_list = [
             self.tr("Clear debris from the platform."),
             self.tr("Filament preparation."),
@@ -471,7 +471,7 @@ class UsePreparePage(QWidget):
         ]
 
     def reset_ui(self):
-        self.reset_message_title_list()
+        self.reset_message_title()
         for count in range(len(self._message_list)):
             self._message_list[count].setText(self._message_title_list[count])
             self._message_list[count].setEnabled(False)

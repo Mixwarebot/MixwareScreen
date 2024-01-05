@@ -13,6 +13,7 @@ from ui.base.messageBar import MessageBar
 class PrintVerifyPage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
+        self.message_text_list = None
         self._printer = printer
         self._parent = parent
 
@@ -33,12 +34,7 @@ class PrintVerifyPage(QWidget):
         self.message_layout.setContentsMargins(20, 20, 20, 20)
         self.message_layout.setSpacing(10)
         self.message_list = []
-        self.message_text_list = [
-            self.tr("Clear debris from the platform."),
-            self.tr("Preheat extruder."),
-            self.tr("Working."),
-            self.tr("Finish.")
-        ]
+        self.reset_message_text()
         for i in range(len(self.message_text_list)):
             self.message_list.append(MessageBar(i + 1, self.message_text_list[i]))
             self.message_layout.addWidget(self.message_list[i])
@@ -288,16 +284,16 @@ class PrintVerifyPage(QWidget):
         self.reset_ui()
         self.re_translate_ui()
 
-    def hideEvent(self, a0: QHideEvent) -> None:
-        pass
-
-    def reset_ui(self):
+    def reset_message_text(self):
         self.message_text_list = [
             self.tr("Clean platform debris."),
             self.tr("Preheat extruder."),
             self.tr("Working."),
             self.tr("Finish.")
         ]
+
+    def reset_ui(self):
+        self.reset_message_text()
         for count in range(len(self.message_list)):
             self.message_list[count].setText(self.message_text_list[count])
             self.message_list[count].setEnabled(False)
