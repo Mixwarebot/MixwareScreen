@@ -36,7 +36,7 @@ class PrintPreparePage(QWidget):
     def re_translate_ui(self):
         self.local_button.setText(self.tr("Local Print"))
         self.usb_button.setText(self.tr("USB Print"))
-        self.xy_button.setText(self.tr("XY Offset Calibration"))
+        self.xy_button.setText(self.tr("XY Offset\nCalibration"))
 
     @pyqtSlot()
     def print_xy_verity(self):
