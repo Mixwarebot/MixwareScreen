@@ -9,6 +9,7 @@ work_position = {'X': 190, 'Y': 20, 'Z': 50}
 class FilamentPage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
+        self.message_text_list = None
         self._printer = printer
         self._parent = parent
 
@@ -56,14 +57,7 @@ class FilamentPage(QWidget):
         message_layout.setContentsMargins(20, 20, 20, 20)
         message_layout.setSpacing(10)
 
-        self.message_text_list = [
-            self.tr("Select the extruder."),
-            self.tr("Select the work mode."),
-            self.tr("Select the filament."),
-            self.tr("Wait to heat up."),
-            self.tr("Wait for the job to finish."),
-            self.tr("Done.")
-        ]
+        self.reset_message_text()
         self.message_list = []
         for count in range(len(self.message_text_list)):
             self.message_list.append(MessageBar(count + 1, self.message_text_list[count]))
@@ -193,7 +187,7 @@ class FilamentPage(QWidget):
         self.need_preheat = False
         self.recovery_target()
 
-    def reset_ui(self):
+    def reset_message_text(self):
         self.message_text_list = [
             self.tr("Select Extruder"),
             self.tr("Select Working Mode"),
@@ -202,6 +196,9 @@ class FilamentPage(QWidget):
             self.tr("Working"),
             self.tr("Done")
         ]
+
+    def reset_ui(self):
+        self.reset_message_text()
         for count in range(len(self.message_list)):
             self.message_list[count].setText(self.message_text_list[count])
             self.message_list[count].setEnabled(False)

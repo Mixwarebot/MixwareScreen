@@ -16,7 +16,7 @@ class LevelPage(QWidget):
         self.setObjectName("levelPage")
 
         self.layout = QGridLayout(self)
-        self.layout.setContentsMargins(20, 0, 20, 10)
+        self.layout.setContentsMargins(20, 0, 20, 0)
         self.layout.setSpacing(10)
 
         self.bed_level = BasePushButton()

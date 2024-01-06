@@ -24,7 +24,7 @@ class PrintVerifyPage(QWidget):
         self.setMaximumSize(self._printer.config.get_window_size())
 
         self.layout = QVBoxLayout(self)
-        self.layout.setContentsMargins(20, 20, 20, 20)
+        self.layout.setContentsMargins(20, 0, 20, 0)
         self.layout.setSpacing(10)
 
         self.message_frame = QFrame()

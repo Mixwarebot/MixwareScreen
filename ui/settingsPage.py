@@ -5,6 +5,7 @@ from qtCore import *
 from ui.aboutPage import AboutPage
 from ui.languagePage import LanguagePage
 from ui.machinePages.machinePage import MachinePage
+from ui.nozzlePage import NozzlePage
 from ui.settingsButton import SettingsButton
 from ui.wlanPage import WlanPage
 
@@ -30,6 +31,11 @@ class SettingsPage(QWidget):
         self.machine = SettingsButton()
         self.machine.clicked.connect(self.gotoMachinePage)
         self.layout.addWidget(self.machine)
+
+        self.nozzlePage = NozzlePage(self._printer, self._parent)
+        self.nozzle = SettingsButton()
+        self.nozzle.clicked.connect(self.gotoNozzlePage)
+        self.layout.addWidget(self.nozzle)
 
         self.wlanPage = WlanPage(self._printer, self._parent)
         QScroller.grabGesture(self.wlanPage, QScroller.TouchGesture)
@@ -72,6 +78,8 @@ class SettingsPage(QWidget):
         self.user_manual.setText(self.tr("User manual"))
         self.about.setText(self.tr("About"))
         self.restore_factory.setText(self.tr("Reset Configuration"))
+        self.nozzle.setText(self.tr("Replace Nozzle Assembly"))
+
         if self._printer.config.get_language() == 'Chinese':
             self.language.setTips(self.tr("Chinese"))
         elif self._printer.config.get_language() == 'English':
@@ -92,6 +100,10 @@ class SettingsPage(QWidget):
     @pyqtSlot()
     def gotoMachinePage(self):
         self._parent.gotoPage(self.machinePage, self.tr("Machine Configuration"))
+
+    @pyqtSlot()
+    def gotoNozzlePage(self):
+        self._parent.gotoPage(self.nozzlePage, self.tr("Replace Nozzle Assembly"))
 
     @pyqtSlot()
     def on_restore_factory_clicked(self):

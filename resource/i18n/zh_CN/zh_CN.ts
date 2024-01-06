@@ -358,37 +358,37 @@ Preheating temperature 170°C</source>
 <context>
     <name>DialIndicatorPage</name>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="398"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="397"/>
         <source>Clean platform debris.</source>
         <translation>清理平台杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="399"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="398"/>
         <source>Preheat extruder.</source>
         <translation>预热挤出机.</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="400"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="399"/>
         <source>Clean the nozzle.</source>
         <translation>清理喷嘴.</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="401"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="400"/>
         <source>Place dial indicator.</source>
         <translation>放置百分表.</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="402"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="401"/>
         <source>Measure compensation value(Left).</source>
         <translation>测量补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="403"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="402"/>
         <source>Measure compensation value(Right).</source>
         <translation>测量补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="404"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="403"/>
         <source>Finish.</source>
         <translation>完成.</translation>
     </message>
@@ -434,7 +434,7 @@ Preheating temperature 170°C</source>
         <translation>请用金属毛刷清洁喷嘴残留物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="394"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="388"/>
         <source>Done.</source>
         <translation>完成.</translation>
     </message>
@@ -510,123 +510,93 @@ Preheating temperature 170°C</source>
 <context>
     <name>FilamentPage</name>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="60"/>
-        <source>Select the extruder.</source>
-        <translation>选择挤出机.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="61"/>
-        <source>Select the work mode.</source>
-        <translation>选择工作模式.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="62"/>
-        <source>Select the filament.</source>
-        <translation>选择耗材.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="63"/>
-        <source>Wait to heat up.</source>
-        <translation>等待加热.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="64"/>
-        <source>Wait for the job to finish.</source>
-        <translation>等待工作完成.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="65"/>
-        <source>Done.</source>
-        <translation>完成.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="212"/>
+        <location filename="../../../ui/filamentPage.py" line="209"/>
         <source>Left</source>
         <translation>左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="213"/>
+        <location filename="../../../ui/filamentPage.py" line="210"/>
         <source>Right</source>
         <translation>右侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="371"/>
+        <location filename="../../../ui/filamentPage.py" line="368"/>
         <source>Load</source>
         <translation>装载</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="368"/>
+        <location filename="../../../ui/filamentPage.py" line="365"/>
         <source>Unload</source>
         <translation>卸载</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="221"/>
+        <location filename="../../../ui/filamentPage.py" line="218"/>
         <source>Working</source>
         <translation>工作中</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="222"/>
+        <location filename="../../../ui/filamentPage.py" line="219"/>
         <source>Finished</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="330"/>
+        <location filename="../../../ui/filamentPage.py" line="327"/>
         <source>Current filament: {}</source>
         <translation>当前耗材: {}</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="352"/>
+        <location filename="../../../ui/filamentPage.py" line="349"/>
         <source>Current work mode: {}</source>
         <translation>当前工作模式: {}</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="256"/>
+        <location filename="../../../ui/filamentPage.py" line="253"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="404"/>
+        <location filename="../../../ui/filamentPage.py" line="401"/>
         <source>Heat completed,
 click &lt;Next&gt; to start working.</source>
         <translation>加热完成, 点击 &lt;下一步&gt; 开始工作.</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="375"/>
+        <location filename="../../../ui/filamentPage.py" line="372"/>
         <source>Current extruder: Left.</source>
         <translation>当前挤出机: 左侧.</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="377"/>
+        <location filename="../../../ui/filamentPage.py" line="374"/>
         <source>Current extruder: Right.</source>
         <translation>当前挤出机: 右侧.</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="198"/>
+        <location filename="../../../ui/filamentPage.py" line="192"/>
         <source>Select Extruder</source>
         <translation>选择挤出机</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="199"/>
+        <location filename="../../../ui/filamentPage.py" line="193"/>
         <source>Select Working Mode</source>
         <translation>选择工作模式</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="200"/>
+        <location filename="../../../ui/filamentPage.py" line="194"/>
         <source>Select Filament</source>
         <translation>选择耗材</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="201"/>
+        <location filename="../../../ui/filamentPage.py" line="195"/>
         <source>Heated Extruder</source>
         <translation>加热挤出机</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="203"/>
+        <location filename="../../../ui/filamentPage.py" line="197"/>
         <source>Done</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="220"/>
+        <location filename="../../../ui/filamentPage.py" line="217"/>
         <source>The extruder is heating, please wait.</source>
         <translation>挤出机正在加热, 请稍等.</translation>
     </message>
@@ -818,7 +788,8 @@ click &lt;Next&gt; to start working.</source>
         <location filename="../../../ui/levelPages/levelPage.py" line="53"/>
         <source>Right Extruder
 Height Calibration</source>
-        <translation>右侧挤出机高度校准</translation>
+        <translation>右侧挤出机
+高度校准</translation>
     </message>
     <message>
         <location filename="../../../ui/levelPages/levelPage.py" line="54"/>
@@ -959,7 +930,7 @@ Calibration</source>
         <translation>请用金属毛刷清洁喷嘴残留物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/levelWizardPage.py" line="582"/>
+        <location filename="../../../ui/levelPages/levelWizardPage.py" line="576"/>
         <source>Done.</source>
         <translation>完成.</translation>
     </message>
@@ -1116,6 +1087,97 @@ Bed</source>
         <location filename="../../../ui/mixwareScreen.py" line="24"/>
         <source>This is a Mixware Screen message. Click anywhere to close it.</source>
         <translation>这是一条 Mixware Screen 消息. 点击空白处关闭.</translation>
+    </message>
+</context>
+<context>
+    <name>NozzlePage</name>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="245"/>
+        <source>Done.</source>
+        <translation>完成.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="166"/>
+        <source>I&apos;m ready.</source>
+        <translation>我准备好了.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="171"/>
+        <source>Use a hex wrench to loosen the two jack screws on the radiator without removing them.</source>
+        <translation>使用六角扳手将散热器上的两颗顶丝拧松，可不取下.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="179"/>
+        <source>Use a hex wrench to tighten the two jack screws on the radiator.</source>
+        <translation>使用六角扳手将散热器上的两颗顶丝拧紧.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="209"/>
+        <source>Replacement preparation..</source>
+        <translation>准备更换.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="210"/>
+        <source>Loosen the screw.</source>
+        <translation>拧松螺丝.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="211"/>
+        <source>Pull the plug out of the socket.</source>
+        <translation>将插头拔出插座.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="212"/>
+        <source>Remove the nozzle assembly.</source>
+        <translation>卸载喷嘴组件.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="213"/>
+        <source>Load the nozzle assembly.</source>
+        <translation>装载喷嘴组件.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="214"/>
+        <source>Insert the plug into the socket.</source>
+        <translation>将插头插入插座.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="215"/>
+        <source>Tighten the screws.</source>
+        <translation>拧紧螺丝.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="167"/>
+        <source>- If the nozzle assembly does not work properly, please cut the printing wire above the extruder to facilitate the removal of the nozzle assembly.
+
+- If the nozzle assembly is working properly, please unload the printing filament through the return process first.
+
+
+Note: Please ensure that the nozzle temperature is ≤50°C before operation to avoid burns.</source>
+        <translation>- 如果喷嘴组件无法正常工作, 请在挤出机上方剪断打印线材, 便于卸载喷嘴组件.
+- 如果喷嘴组件正常工作, 请先通过退料流程卸载打印线材.
+
+注意：请确保喷嘴温度≤50°C时进行操作，避免发生烫伤.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="173"/>
+        <source>Unplug the &lt;Heating Tube&gt; and &lt;Thermometer&gt; on the extruder.</source>
+        <translation>拔掉挤出机上 &lt;加热管&gt; 和 &lt;测温器&gt; 的插头.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="174"/>
+        <source>Move the &lt;Pressure Lever&gt; to one side and remove the &lt;Nozzle Assembly&gt; downwards from the radiator.</source>
+        <translation>将 &lt;压杆&gt; 拨向一侧，将 &lt;喷嘴组件&gt; 从散热器向下取出.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="176"/>
+        <source>Push the new &lt;Nozzle Assembly&gt; into the radiator from below until it stops.</source>
+        <translation>将新的 &lt;喷嘴组件&gt; 从下方推入散热器，直至不能推入.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="177"/>
+        <source>Insert the plugs of the &lt;Heating Tube&gt; and &lt;Thermometer&gt; into the corresponding sockets.</source>
+        <translation>将 &lt;加热管&gt; 和 &lt;测温器&gt; 的插头，插入对应插座.</translation>
     </message>
 </context>
 <context>
@@ -1438,62 +1500,67 @@ Print time: {}</source>
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="94"/>
+        <location filename="../../../ui/settingsPage.py" line="102"/>
         <source>Machine Configuration</source>
         <translation>打印机配置</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="90"/>
+        <location filename="../../../ui/settingsPage.py" line="98"/>
         <source>WLAN</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="69"/>
+        <location filename="../../../ui/settingsPage.py" line="75"/>
         <source>Theme</source>
         <translation>皮肤</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="70"/>
+        <location filename="../../../ui/settingsPage.py" line="76"/>
         <source>Light</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="82"/>
+        <location filename="../../../ui/settingsPage.py" line="90"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="86"/>
+        <location filename="../../../ui/settingsPage.py" line="94"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="76"/>
+        <location filename="../../../ui/settingsPage.py" line="84"/>
         <source>Chinese</source>
         <translation>简体中文</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="78"/>
+        <location filename="../../../ui/settingsPage.py" line="86"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="72"/>
+        <location filename="../../../ui/settingsPage.py" line="78"/>
         <source>User manual</source>
         <translation>使用手册</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="74"/>
+        <location filename="../../../ui/settingsPage.py" line="80"/>
         <source>Reset Configuration</source>
         <translation>重置配置</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="99"/>
+        <location filename="../../../ui/settingsPage.py" line="111"/>
         <source>Click &lt;Confirm&gt; to
 reset the configuration and
 Mixware Screen will restart.</source>
         <translation>点击 &lt;确认&gt; 重置配置, 
 Mixware Screen 将重新启动.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/settingsPage.py" line="106"/>
+        <source>Replace Nozzle Assembly</source>
+        <translation>更换喷嘴组件</translation>
     </message>
 </context>
 <context>

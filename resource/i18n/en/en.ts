@@ -352,37 +352,37 @@ Preheating temperature 170°C</source>
 <context>
     <name>DialIndicatorPage</name>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="398"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="397"/>
         <source>Clean platform debris.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="399"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="398"/>
         <source>Preheat extruder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="400"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="399"/>
         <source>Clean the nozzle.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="401"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="400"/>
         <source>Place dial indicator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="402"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="401"/>
         <source>Measure compensation value(Left).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="403"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="402"/>
         <source>Measure compensation value(Right).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="404"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="403"/>
         <source>Finish.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -428,7 +428,7 @@ Preheating temperature 170°C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="394"/>
+        <location filename="../../../ui/levelPages/dialIndicatorPage.py" line="388"/>
         <source>Done.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -504,123 +504,93 @@ Preheating temperature 170°C</source>
 <context>
     <name>FilamentPage</name>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="60"/>
-        <source>Select the extruder.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="61"/>
-        <source>Select the work mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="62"/>
-        <source>Select the filament.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="63"/>
-        <source>Wait to heat up.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="64"/>
-        <source>Wait for the job to finish.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="65"/>
-        <source>Done.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/filamentPage.py" line="212"/>
+        <location filename="../../../ui/filamentPage.py" line="209"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="213"/>
+        <location filename="../../../ui/filamentPage.py" line="210"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="371"/>
+        <location filename="../../../ui/filamentPage.py" line="368"/>
         <source>Load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="368"/>
+        <location filename="../../../ui/filamentPage.py" line="365"/>
         <source>Unload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="221"/>
+        <location filename="../../../ui/filamentPage.py" line="218"/>
         <source>Working</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="222"/>
+        <location filename="../../../ui/filamentPage.py" line="219"/>
         <source>Finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="330"/>
+        <location filename="../../../ui/filamentPage.py" line="327"/>
         <source>Current filament: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="352"/>
+        <location filename="../../../ui/filamentPage.py" line="349"/>
         <source>Current work mode: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="256"/>
+        <location filename="../../../ui/filamentPage.py" line="253"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="404"/>
+        <location filename="../../../ui/filamentPage.py" line="401"/>
         <source>Heat completed,
 click &lt;Next&gt; to start working.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="375"/>
+        <location filename="../../../ui/filamentPage.py" line="372"/>
         <source>Current extruder: Left.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="377"/>
+        <location filename="../../../ui/filamentPage.py" line="374"/>
         <source>Current extruder: Right.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="198"/>
+        <location filename="../../../ui/filamentPage.py" line="192"/>
         <source>Select Extruder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="199"/>
+        <location filename="../../../ui/filamentPage.py" line="193"/>
         <source>Select Working Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="200"/>
+        <location filename="../../../ui/filamentPage.py" line="194"/>
         <source>Select Filament</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="201"/>
+        <location filename="../../../ui/filamentPage.py" line="195"/>
         <source>Heated Extruder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="203"/>
+        <location filename="../../../ui/filamentPage.py" line="197"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/filamentPage.py" line="220"/>
+        <location filename="../../../ui/filamentPage.py" line="217"/>
         <source>The extruder is heating, please wait.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -953,7 +923,7 @@ Calibration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/levelWizardPage.py" line="582"/>
+        <location filename="../../../ui/levelPages/levelWizardPage.py" line="576"/>
         <source>Done.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1109,6 +1079,94 @@ Bed</source>
     <message>
         <location filename="../../../ui/mixwareScreen.py" line="24"/>
         <source>This is a Mixware Screen message. Click anywhere to close it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NozzlePage</name>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="245"/>
+        <source>Done.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="166"/>
+        <source>I&apos;m ready.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="171"/>
+        <source>Use a hex wrench to loosen the two jack screws on the radiator without removing them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="179"/>
+        <source>Use a hex wrench to tighten the two jack screws on the radiator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="209"/>
+        <source>Replacement preparation..</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="210"/>
+        <source>Loosen the screw.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="211"/>
+        <source>Pull the plug out of the socket.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="212"/>
+        <source>Remove the nozzle assembly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="213"/>
+        <source>Load the nozzle assembly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="214"/>
+        <source>Insert the plug into the socket.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="215"/>
+        <source>Tighten the screws.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="167"/>
+        <source>- If the nozzle assembly does not work properly, please cut the printing wire above the extruder to facilitate the removal of the nozzle assembly.
+
+- If the nozzle assembly is working properly, please unload the printing filament through the return process first.
+
+
+Note: Please ensure that the nozzle temperature is ≤50°C before operation to avoid burns.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="173"/>
+        <source>Unplug the &lt;Heating Tube&gt; and &lt;Thermometer&gt; on the extruder.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="174"/>
+        <source>Move the &lt;Pressure Lever&gt; to one side and remove the &lt;Nozzle Assembly&gt; downwards from the radiator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="176"/>
+        <source>Push the new &lt;Nozzle Assembly&gt; into the radiator from below until it stops.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/nozzlePage.py" line="177"/>
+        <source>Insert the plugs of the &lt;Heating Tube&gt; and &lt;Thermometer&gt; into the corresponding sockets.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1430,60 +1488,65 @@ Print time: {}</source>
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="94"/>
+        <location filename="../../../ui/settingsPage.py" line="102"/>
         <source>Machine Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="90"/>
+        <location filename="../../../ui/settingsPage.py" line="98"/>
         <source>WLAN</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="69"/>
+        <location filename="../../../ui/settingsPage.py" line="75"/>
         <source>Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="70"/>
+        <location filename="../../../ui/settingsPage.py" line="76"/>
         <source>Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="82"/>
+        <location filename="../../../ui/settingsPage.py" line="90"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="86"/>
+        <location filename="../../../ui/settingsPage.py" line="94"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="76"/>
+        <location filename="../../../ui/settingsPage.py" line="84"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="78"/>
+        <location filename="../../../ui/settingsPage.py" line="86"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="72"/>
+        <location filename="../../../ui/settingsPage.py" line="78"/>
         <source>User manual</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="74"/>
+        <location filename="../../../ui/settingsPage.py" line="80"/>
         <source>Reset Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="99"/>
+        <location filename="../../../ui/settingsPage.py" line="111"/>
         <source>Click &lt;Confirm&gt; to
 reset the configuration and
 Mixware Screen will restart.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/settingsPage.py" line="106"/>
+        <source>Replace Nozzle Assembly</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -23,7 +23,7 @@ class DialIndicatorPage(QWidget):
         self.setMaximumSize(self._printer.config.get_window_size())
 
         self.layout = QVBoxLayout(self)
-        self.layout.setContentsMargins(20, 20, 20, 20)
+        self.layout.setContentsMargins(20, 0, 20, 0)
         self.layout.setSpacing(10)
 
         self.message_frame = QFrame()
@@ -385,13 +385,12 @@ class DialIndicatorPage(QWidget):
         self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28X")
         self.goto_next_step_stacked_widget()
         self.measure_right_logo_movie.stop()
+        self.finished_handle.next_button.setText(self.tr("Done."))
 
     def on_finished_next_button_clicked(self):
         self._printer.save_dial_indicator_value()
         self._parent.footer.setEnabled(True)
-        self.reset_ui()
         self._parent.gotoPreviousPage()
-        self.finished_handle.next_button.setText(self.tr("Done."))
 
     def reset_message_title(self):
         self.message_text_list = [
