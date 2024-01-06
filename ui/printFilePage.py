@@ -20,6 +20,7 @@ def regex_find_ints(pattern: str, data: str) -> List[int]:
             pass
     return []
 
+
 def parse_thumbnails(path: str) -> Optional[List[Dict[str, Any]]]:
     with open(path, 'r') as file:
         header_data = file.read()
@@ -64,8 +65,10 @@ def parse_thumbnails(path: str) -> Optional[List[Dict[str, Any]]]:
             'absolute_path': abs_thumb_path})
     return parsed_matches
 
+
 class PrintFileBar(QFrame):
     clicked = pyqtSignal(str)
+
     def __init__(self, file: QFileInfo):
         super().__init__()
         self.is_move = None
@@ -77,12 +80,15 @@ class PrintFileBar(QFrame):
             file_icon = QPixmap("resource/icon/dir.svg")
             file_size = 0
         else:
-            thumbnails = parse_thumbnails(file.absoluteFilePath())
-
-            if thumbnails:
-                file_icon = QPixmap(thumbnails[0]['absolute_path'])
+            thumbnails_path = file.absolutePath() + '/.thumbs/' + file.completeBaseName() + '.png'
+            if file.exists(thumbnails_path):
+                file_icon = QPixmap(thumbnails_path)
             else:
-                file_icon = QPixmap("resource/icon/file.svg")
+                thumbnails = parse_thumbnails(file.absoluteFilePath())
+                if thumbnails:
+                    file_icon = QPixmap(thumbnails[0]['absolute_path'])
+                else:
+                    file_icon = QPixmap("resource/icon/file.svg")
             file_size = self._file.size()
         file_time = file.fileTime(QFileDevice.FileModificationTime).toString("yyyy/MM/dd  hh:mm:ss")
 
@@ -142,6 +148,7 @@ class PrintFileBar(QFrame):
     def mouseMoveEvent(self, a0: QMouseEvent) -> None:
         self.is_move = True
 
+
 class PrintFilePage(QScrollArea):
     def __init__(self, printer, parent):
         super().__init__()
@@ -167,6 +174,7 @@ class PrintFilePage(QScrollArea):
         self.files = {}
 
         self.set_usb_path()
+
     def showEvent(self, a0: QShowEvent) -> None:
         self.update_file(self.root_path)
 
@@ -218,7 +226,8 @@ class PrintFilePage(QScrollArea):
             if not os.path.isfile(image):
                 image = ''
 
-            ret = self._parent.message.start("Mixware Screen", self.tr("Print {} ?").format(file_name), image, buttons=QMessageBox.Yes | QMessageBox.Cancel)
+            ret = self._parent.message.start("Mixware Screen", self.tr("Print {} ?").format(file_name), image,
+                                             buttons=QMessageBox.Yes | QMessageBox.Cancel)
             if ret == QMessageBox.Yes:
                 self._printer.print_start(path)
             self._parent.closeShadowScreen()

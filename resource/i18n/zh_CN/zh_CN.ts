@@ -1092,7 +1092,7 @@ Bed</source>
 <context>
     <name>NozzlePage</name>
     <message>
-        <location filename="../../../ui/nozzlePage.py" line="245"/>
+        <location filename="../../../ui/nozzlePage.py" line="236"/>
         <source>Done.</source>
         <translation>完成.</translation>
     </message>
@@ -1112,37 +1112,37 @@ Bed</source>
         <translation>使用六角扳手将散热器上的两颗顶丝拧紧.</translation>
     </message>
     <message>
-        <location filename="../../../ui/nozzlePage.py" line="209"/>
+        <location filename="../../../ui/nozzlePage.py" line="199"/>
         <source>Replacement preparation..</source>
         <translation>准备更换.</translation>
     </message>
     <message>
-        <location filename="../../../ui/nozzlePage.py" line="210"/>
+        <location filename="../../../ui/nozzlePage.py" line="200"/>
         <source>Loosen the screw.</source>
         <translation>拧松螺丝.</translation>
     </message>
     <message>
-        <location filename="../../../ui/nozzlePage.py" line="211"/>
+        <location filename="../../../ui/nozzlePage.py" line="201"/>
         <source>Pull the plug out of the socket.</source>
         <translation>将插头拔出插座.</translation>
     </message>
     <message>
-        <location filename="../../../ui/nozzlePage.py" line="212"/>
+        <location filename="../../../ui/nozzlePage.py" line="202"/>
         <source>Remove the nozzle assembly.</source>
         <translation>卸载喷嘴组件.</translation>
     </message>
     <message>
-        <location filename="../../../ui/nozzlePage.py" line="213"/>
+        <location filename="../../../ui/nozzlePage.py" line="203"/>
         <source>Load the nozzle assembly.</source>
         <translation>装载喷嘴组件.</translation>
     </message>
     <message>
-        <location filename="../../../ui/nozzlePage.py" line="214"/>
+        <location filename="../../../ui/nozzlePage.py" line="204"/>
         <source>Insert the plug into the socket.</source>
         <translation>将插头插入插座.</translation>
     </message>
     <message>
-        <location filename="../../../ui/nozzlePage.py" line="215"/>
+        <location filename="../../../ui/nozzlePage.py" line="205"/>
         <source>Tighten the screws.</source>
         <translation>拧紧螺丝.</translation>
     </message>
@@ -1262,7 +1262,7 @@ Note: Please ensure that the nozzle temperature is ≤50°C before operation to 
 <context>
     <name>PrintFilePage</name>
     <message>
-        <location filename="../../../ui/printFilePage.py" line="221"/>
+        <location filename="../../../ui/printFilePage.py" line="229"/>
         <source>Print {} ?</source>
         <translation>打印 {} ?</translation>
     </message>

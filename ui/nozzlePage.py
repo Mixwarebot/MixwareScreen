@@ -216,6 +216,7 @@ class NozzlePage(QWidget):
                 self.message_list[index + 2].show()
 
     def on_start_next_button_clicked(self):
+        self._printer.write_gcode_commands("G28\nG1 F8400 Y20\nM84")
         self.goto_next_step_stacked_widget()
 
     def on_step_1_next_button_clicked(self):
