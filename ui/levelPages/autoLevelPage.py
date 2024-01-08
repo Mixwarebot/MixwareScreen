@@ -53,6 +53,8 @@ class AutoLevelPage(QWidget):
             self._printer.write_gcode_command('M503')
             self.reset_bed_mesh_graph()
             self.tips.setText(self.tr("Auto-leveling completed."))
+            self.bed_mesh_graph.show()
+            self.start_button.show()
             self.tips.show()
 
     @pyqtSlot()
