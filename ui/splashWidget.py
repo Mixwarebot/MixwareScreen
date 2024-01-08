@@ -40,8 +40,6 @@ class SplashWidget(QWidget):
         self.tips.setAlignment(Qt.AlignCenter)
         self.layout.addWidget(self.tips)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 

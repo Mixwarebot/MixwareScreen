@@ -22,8 +22,6 @@ class BedMeshGraph(QFrame):
         self.body_frame_layout = QGridLayout(self.body_frame)
         self.layout.addWidget(self.body_frame)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 

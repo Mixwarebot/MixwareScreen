@@ -151,6 +151,7 @@ class MixwareScreen(QWidget):
 
     @pyqtSlot(str)
     def on_update_translator(self, language: str):
+        logging.info(f"Change the language to {language}.")
         self.updateTranslator.emit(language)
         self._printer.config.set_language(language)
 

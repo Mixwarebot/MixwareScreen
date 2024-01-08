@@ -107,11 +107,6 @@ class NumberPad(BaseRoundDialog):
         self.layout.setSpacing(0)
         self.layout.addWidget(self.frame)
 
-        self.re_translate_ui()
-
-    # def showEvent(self, a0: QShowEvent) -> None:
-    #     self.re_translate_ui()
-
     def re_translate_ui(self):
         self.title_label.setText(self.tr("Parameter Setting"))
         self.informationLabel.setText(self.tr("Parameter Information."))

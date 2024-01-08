@@ -19,33 +19,33 @@ class WLANConnectBox(BaseRoundDialog):
         self.resize(self._width - 40, self._height / 2)
         self.move((self._width - self.width()) / 2, (self._height - self.height()) / 2)
 
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)
+        self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setSpacing(0)
         self.frame = QFrame()
         self.frame.setObjectName("frameBox")
         self.frame.setStyleSheet("QFrame#frameBox { border: none; }")
 
-        frame_layout = QVBoxLayout(self.frame)
-        frame_layout.setContentsMargins(0, 0, 0, 0)
-        frame_layout.setSpacing(0)
+        self.frame_layout = QVBoxLayout(self.frame)
+        self.frame_layout.setContentsMargins(0, 0, 0, 0)
+        self.frame_layout.setSpacing(0)
 
         self.title_frame = QFrame()
         self.title_frame.setFixedHeight(40)
         self.title_frame.setObjectName("title")
-        title_frame_layout = QHBoxLayout(self.title_frame)
-        title_frame_layout.setContentsMargins(0, 0, 0, 0)
-        title_frame_layout.setSpacing(0)
+        self.title_frame_layout = QHBoxLayout(self.title_frame)
+        self.title_frame_layout.setContentsMargins(0, 0, 0, 0)
+        self.title_frame_layout.setSpacing(0)
         self.title_label = QLabel()
-        title_frame_layout.addWidget(self.title_label)
+        self.title_frame_layout.addWidget(self.title_label)
         self.title_close_button = BasePushButton()
         self.title_close_button.setText("x")
         self.title_close_button.setObjectName("closeButton")
         self.title_close_button.setFlat(True)
         self.title_close_button.setFixedSize(40, 40)
         self.title_close_button.clicked.connect(self.on_cancel)
-        title_frame_layout.addWidget(self.title_close_button)
-        frame_layout.addWidget(self.title_frame)
+        self.title_frame_layout.addWidget(self.title_close_button)
+        self.frame_layout.addWidget(self.title_frame)
 
         self.body_frame = QFrame()
         self.body_frame_layout = QVBoxLayout(self.body_frame)
@@ -78,20 +78,20 @@ class WLANConnectBox(BaseRoundDialog):
         self.passwd_line_edit_button.clicked.connect(self.on_passwd_line_edit_button_clicked)
         self.passwd_line_edit_layout.addWidget(self.passwd_line_edit_button)
         self.body_frame_layout.addWidget(self.passwd_line_edit)
-        frame_layout.addWidget(self.body_frame)
+        self.frame_layout.addWidget(self.body_frame)
 
         self.footer_frame = QFrame()
         self.footer_frame.setFixedHeight(64)
-        button_frame_layout = QHBoxLayout(self.footer_frame)
-        button_frame_layout.setContentsMargins(0, 0, 0, 0)
-        button_frame_layout.setSpacing(0)
+        self.button_frame_layout = QHBoxLayout(self.footer_frame)
+        self.button_frame_layout.setContentsMargins(0, 0, 0, 0)
+        self.button_frame_layout.setSpacing(0)
         self.cancel_button = BasePushButton()
         self.cancel_button.clicked.connect(self.on_cancel)
-        button_frame_layout.addWidget(self.cancel_button, 1)
-        button_frame_layout.addWidget(BaseVLine())
+        self.button_frame_layout.addWidget(self.cancel_button, 1)
+        self.button_frame_layout.addWidget(BaseVLine())
         self.confirm_button = BasePushButton()
         self.confirm_button.clicked.connect(self.on_confirm)
-        button_frame_layout.addWidget(self.confirm_button, 1)
+        self.button_frame_layout.addWidget(self.confirm_button, 1)
 
         self.keyboard_frame = QFrame()
         self.keyboard_frame.setFixedSize(360, 180)
@@ -172,15 +172,18 @@ class WLANConnectBox(BaseRoundDialog):
                     keyboard_button.setText(key[0])
                     keyboard_button.setFixedSize(32, 36)
                 keyboard_button.setStyleSheet("border: 1px solid #5A5A5A; border-radius: 0;")
-                self.keyboard_button_group.addButton(keyboard_button)
+                if key == 'space':
+                    self.keyboard_button_group.addButton(keyboard_button, 1)
+                else:
+                    self.keyboard_button_group.addButton(keyboard_button)
                 keyboard_layout.addWidget(keyboard_button)
             self.keyboard_frame_layout.addLayout(keyboard_layout)
 
-        frame_layout.addWidget(self.keyboard_frame)
-        frame_layout.addWidget(BaseHLine())
-        frame_layout.addWidget(self.footer_frame)
+        self.frame_layout.addWidget(self.keyboard_frame)
+        self.frame_layout.addWidget(BaseHLine())
+        self.frame_layout.addWidget(self.footer_frame)
         self.keyboard_frame.setFocusPolicy(Qt.NoFocus)
-        layout.addWidget(self.frame)
+        self.layout.addWidget(self.frame)
 
         self.re_translate_ui()
 
@@ -195,6 +198,7 @@ class WLANConnectBox(BaseRoundDialog):
         self.title_label.setText(self.tr("Connect"))
         self.confirm_button.setText(self.tr("Connect"))
         self.cancel_button.setText(self.tr("Cancel"))
+        self.keyboard_button_group.button(1).setText(self.tr('Space'))
 
     def show_keyborad(self):
         self.keyboard_frame.show()
@@ -208,10 +212,10 @@ class WLANConnectBox(BaseRoundDialog):
                     for key in row_keys:
                         if button.text() in key[a0]:
                             button.setText(key[a1])
-                            had_break = True;
+                            had_break = True
                             break
-                        if had_break: break;
-                    if had_break: break;
+                        if had_break: break
+                    if had_break: break
         self.keyboard_map = a1
 
     def on_keyboard_button_clicked(self, button: QAbstractButton):
@@ -391,8 +395,6 @@ class WlanPage(QScrollArea):
         self.update_timer = QTimer()
         self.update_timer.timeout.connect(wlan.update)
         self.add_button.clicked.connect(self.on_add_button_clicked)
-
-        self.re_translate_ui()
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()

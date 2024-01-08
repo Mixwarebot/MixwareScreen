@@ -1,4 +1,5 @@
 from qtCore import *
+from ui.base.basePushButton import BasePushButton
 from ui.base.handleBar import HandleBar
 from ui.base.messageBar import MessageBar
 
@@ -53,6 +54,28 @@ class NozzlePage(QWidget):
         self.start_body_layout.addWidget(self.start_text)
         self.handle_stacked_widget.addWidget(self.start_handle)
 
+        self.extruder_handle = HandleBar()
+        self.extruder_handle.previous_button.hide()
+        self.extruder_handle.next_button.clicked.connect(self.on_extruder_next_button_clicked)
+        self.extruder_body_layout = QHBoxLayout(self.extruder_handle.body)
+        self.extruder_body_layout.setContentsMargins(20, 0, 20, 0)
+        self.extruder_body_layout.setSpacing(0)
+        self.extruder_button_frame = QFrame()
+        self.extruder_button_frame.setObjectName("frameBox")
+        self.extruder_button_frame.setFixedHeight(160)
+        self.extruder_button_frame_layout = QHBoxLayout(self.extruder_button_frame)
+        self.extruder_button_frame_layout.setContentsMargins(0, 0, 0, 0)
+        self.extruder_button_frame_layout.setSpacing(10)
+        self.extruder_left_button = BasePushButton()
+        self.extruder_left_button.clicked.connect(self.on_extruder_left_button_clicked)
+        self.extruder_button_frame_layout.addWidget(self.extruder_left_button)
+        self.extruder_right_button = BasePushButton()
+        self.extruder_right_button.clicked.connect(self.on_extruder_right_button_clicked)
+        self.extruder_button_frame_layout.addWidget(self.extruder_right_button)
+        self.extruder_body_layout.addWidget(self.extruder_button_frame)
+        self.extruder_handle.previous_button.hide()
+        self.handle_stacked_widget.addWidget(self.extruder_handle)
+
         self.step_1_handle = HandleBar()
         self.step_1_handle.previous_button.hide()
         self.step_1_handle.next_button.clicked.connect(self.on_step_1_next_button_clicked)
@@ -62,7 +85,6 @@ class NozzlePage(QWidget):
         self.step_1_body_layout.setAlignment(Qt.AlignCenter)
         self.step_1_logo = QLabel()
         self.step_1_logo.setFixedSize(320, 360)
-        self.step_1_logo.setPixmap(QPixmap("resource/image/replace_nozzle_1.png").scaledToWidth(320))
         self.step_1_body_layout.addWidget(self.step_1_logo)
         self.step_1_text = QLabel()
         self.step_1_text.setWordWrap(True)
@@ -71,7 +93,7 @@ class NozzlePage(QWidget):
         self.handle_stacked_widget.addWidget(self.step_1_handle)
 
         self.step_2_handle = HandleBar()
-        self.step_2_handle.previous_button.hide()
+        self.step_2_handle.previous_button.clicked.connect(self.on_step_2_previous_button_clicked)
         self.step_2_handle.next_button.clicked.connect(self.on_step_2_next_button_clicked)
         self.step_2_body_layout = QVBoxLayout(self.step_2_handle.body)
         self.step_2_body_layout.setContentsMargins(20, 0, 20, 0)
@@ -79,7 +101,6 @@ class NozzlePage(QWidget):
         self.step_2_body_layout.setAlignment(Qt.AlignCenter)
         self.step_2_logo = QLabel()
         self.step_2_logo.setFixedSize(320, 320)
-        self.step_2_logo.setPixmap(QPixmap("resource/image/replace_nozzle_2.png").scaledToWidth(320))
         self.step_2_body_layout.addWidget(self.step_2_logo)
         self.step_2_text = QLabel()
         self.step_2_text.setWordWrap(True)
@@ -88,7 +109,7 @@ class NozzlePage(QWidget):
         self.handle_stacked_widget.addWidget(self.step_2_handle)
 
         self.step_3_handle = HandleBar()
-        self.step_3_handle.previous_button.hide()
+        self.step_3_handle.previous_button.clicked.connect(self.on_step_3_previous_button_clicked)
         self.step_3_handle.next_button.clicked.connect(self.on_step_3_next_button_clicked)
         self.step_3_body_layout = QVBoxLayout(self.step_3_handle.body)
         self.step_3_body_layout.setContentsMargins(20, 0, 20, 0)
@@ -96,7 +117,6 @@ class NozzlePage(QWidget):
         self.step_3_body_layout.setAlignment(Qt.AlignCenter)
         self.step_3_logo = QLabel()
         self.step_3_logo.setFixedSize(320, 360)
-        self.step_3_logo.setPixmap(QPixmap("resource/image/replace_nozzle_3.png").scaledToWidth(320))
         self.step_3_body_layout.addWidget(self.step_3_logo)
         self.step_3_text = QLabel()
         self.step_3_text.setWordWrap(True)
@@ -105,7 +125,7 @@ class NozzlePage(QWidget):
         self.handle_stacked_widget.addWidget(self.step_3_handle)
 
         self.step_4_handle = HandleBar()
-        self.step_4_handle.previous_button.hide()
+        self.step_4_handle.previous_button.clicked.connect(self.on_step_4_previous_button_clicked)
         self.step_4_handle.next_button.clicked.connect(self.on_step_4_next_button_clicked)
         self.step_4_body_layout = QVBoxLayout(self.step_4_handle.body)
         self.step_4_body_layout.setContentsMargins(20, 0, 20, 0)
@@ -113,7 +133,6 @@ class NozzlePage(QWidget):
         self.step_4_body_layout.setAlignment(Qt.AlignCenter)
         self.step_4_logo = QLabel()
         self.step_4_logo.setFixedSize(320, 360)
-        self.step_4_logo.setPixmap(QPixmap("resource/image/replace_nozzle_4.png").scaledToWidth(320))
         self.step_4_body_layout.addWidget(self.step_4_logo)
         self.step_4_text = QLabel()
         self.step_4_text.setWordWrap(True)
@@ -122,7 +141,7 @@ class NozzlePage(QWidget):
         self.handle_stacked_widget.addWidget(self.step_4_handle)
 
         self.step_5_handle = HandleBar()
-        self.step_5_handle.previous_button.hide()
+        self.step_5_handle.previous_button.clicked.connect(self.on_step_5_previous_button_clicked)
         self.step_5_handle.next_button.clicked.connect(self.on_step_5_next_button_clicked)
         self.step_5_body_layout = QVBoxLayout(self.step_5_handle.body)
         self.step_5_body_layout.setContentsMargins(20, 0, 20, 0)
@@ -130,7 +149,6 @@ class NozzlePage(QWidget):
         self.step_5_body_layout.setAlignment(Qt.AlignCenter)
         self.step_5_logo = QLabel()
         self.step_5_logo.setFixedSize(320, 360)
-        self.step_5_logo.setPixmap(QPixmap("resource/image/replace_nozzle_5.png").scaledToWidth(320))
         self.step_5_body_layout.addWidget(self.step_5_logo)
         self.step_5_text = QLabel()
         self.step_5_text.setWordWrap(True)
@@ -139,7 +157,7 @@ class NozzlePage(QWidget):
         self.handle_stacked_widget.addWidget(self.step_5_handle)
 
         self.step_6_handle = HandleBar()
-        self.step_6_handle.previous_button.hide()
+        self.step_6_handle.previous_button.clicked.connect(self.on_step_6_previous_button_clicked)
         self.step_6_handle.next_button.clicked.connect(self.on_step_6_next_button_clicked)
         self.step_6_body_layout = QVBoxLayout(self.step_6_handle.body)
         self.step_6_body_layout.setContentsMargins(20, 0, 20, 0)
@@ -147,16 +165,16 @@ class NozzlePage(QWidget):
         self.step_6_body_layout.setAlignment(Qt.AlignCenter)
         self.step_6_logo = QLabel()
         self.step_6_logo.setFixedSize(320, 360)
-        self.step_6_logo.setPixmap(QPixmap("resource/image/replace_nozzle_6.png").scaledToWidth(320))
         self.step_6_body_layout.addWidget(self.step_6_logo)
         self.step_6_text = QLabel()
         self.step_6_text.setWordWrap(True)
         self.step_6_text.setAlignment(Qt.AlignCenter)
         self.step_6_body_layout.addWidget(self.step_6_text)
         self.handle_stacked_widget.addWidget(self.step_6_handle)
-
         self.handle_frame_layout.addWidget(self.handle_stacked_widget)
         self.layout.addWidget(self.handle_frame)
+
+        self.delay_timer = QTimer()
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.reset_ui()
@@ -164,6 +182,8 @@ class NozzlePage(QWidget):
 
     def re_translate_ui(self):
         self.start_handle.next_button.setText(self.tr("I'm ready."))
+        self.extruder_left_button.setText(self.tr("Left"))
+        self.extruder_right_button.setText(self.tr("Right"))
         self.start_text.setText(self.tr(
             "- If the nozzle assembly does not work properly, please cut the printing wire above the extruder to facilitate the removal of the nozzle assembly.\n\n"
             "- If the nozzle assembly is working properly, please unload the printing filament through the return process first.\n\n\n"
@@ -193,10 +213,13 @@ class NozzlePage(QWidget):
                 self.message_list[count].hide()
         self.message_list[0].setEnabled(True)
         self.handle_stacked_widget.setCurrentIndex(0)
+        update_style(self.extruder_left_button, "checked")
+        update_style(self.extruder_right_button, "unchecked")
 
     def reset_message_text(self):
         self.message_text_list = [
             self.tr("Replacement preparation.."),
+            self.tr("Select Extruder."),
             self.tr("Loosen the screw."),
             self.tr("Pull the plug out of the socket."),
             self.tr("Remove the nozzle assembly."),
@@ -204,6 +227,16 @@ class NozzlePage(QWidget):
             self.tr("Insert the plug into the socket."),
             self.tr("Tighten the screws.")
         ]
+
+    def goto_previous_step_stacked_widget(self):
+        index = self.handle_stacked_widget.currentIndex()
+        if index > 0:
+            self.message_list[index].setEnabled(False)
+            self.message_list[index - 1].setEnabled(True)
+            self.handle_stacked_widget.setCurrentIndex(index - 1)
+            if 1 < index < self.handle_stacked_widget.count():
+                self.message_list[index + 1].hide()
+                self.message_list[index - 2].show()
 
     def goto_next_step_stacked_widget(self):
         index = self.handle_stacked_widget.currentIndex()
@@ -215,25 +248,109 @@ class NozzlePage(QWidget):
                 self.message_list[index - 1].hide()
                 self.message_list[index + 2].show()
 
+    @pyqtSlot()
     def on_start_next_button_clicked(self):
-        self._printer.write_gcode_commands("G28\nG1 F8400 Y20\nM84")
+        if self._printer.get_position('Y') != filament_position['Y'] and self._printer.get_position('Z') != \
+                filament_position['Z']:
+            self._printer.write_gcode_commands("G28")
+            self._printer.write_gcode_command(f"G1 Y{filament_position['Y']} F8400")
+            self._printer.write_gcode_command(f"G1 Z{filament_position['Z']} F800")
+            self._printer.write_gcode_commands("M84")
         self.goto_next_step_stacked_widget()
 
+    @pyqtSlot()
+    def on_extruder_next_button_clicked(self):
+        if self.extruder_right_button.objectName() == "checked":
+            self._printer.write_gcode_commands("T1")
+            self.step_1_logo.setPixmap(QPixmap("resource/image/replace_nozzle_right_1.png").scaledToWidth(320))
+            self.message_list[self.handle_stacked_widget.currentIndex()].setText(self.tr("Current extruder: Right."))
+        else:
+            self._printer.write_gcode_commands("T0")
+            self.step_1_logo.setPixmap(QPixmap("resource/image/replace_nozzle_left_1.png").scaledToWidth(320))
+            self.message_list[self.handle_stacked_widget.currentIndex()].setText(self.tr("Current extruder: Left."))
+        self._printer.write_gcode_command(f"G1 X{filament_position['X']} F8400")
+        self.goto_next_step_stacked_widget()
+
+    @pyqtSlot()
+    def on_extruder_left_button_clicked(self):
+        update_style(self.extruder_left_button, "checked")
+        update_style(self.extruder_right_button, "unchecked")
+
+    @pyqtSlot()
+    def on_extruder_right_button_clicked(self):
+        update_style(self.extruder_left_button, "unchecked")
+        update_style(self.extruder_right_button, "checked")
+
+    @pyqtSlot()
     def on_step_1_next_button_clicked(self):
+        self.step_2_logo.setPixmap(
+            QPixmap(f"resource/image/replace_nozzle_{self._printer.get_extruder()}_2.png").scaledToWidth(320))
         self.goto_next_step_stacked_widget()
 
+    @pyqtSlot()
+    def on_step_2_previous_button_clicked(self):
+        self.goto_previous_step_stacked_widget()
+
+    @pyqtSlot()
     def on_step_2_next_button_clicked(self):
+        self.step_3_logo.setPixmap(
+            QPixmap(f"resource/image/replace_nozzle_{self._printer.get_extruder()}_3.png").scaledToWidth(320))
         self.goto_next_step_stacked_widget()
 
+    @pyqtSlot()
+    def on_step_3_previous_button_clicked(self):
+        self.goto_previous_step_stacked_widget()
+
+    @pyqtSlot()
     def on_step_3_next_button_clicked(self):
+        self.step_4_logo.setPixmap(
+            QPixmap(f"resource/image/replace_nozzle_{self._printer.get_extruder()}_4.png").scaledToWidth(320))
         self.goto_next_step_stacked_widget()
 
+    @pyqtSlot()
+    def on_step_4_previous_button_clicked(self):
+        self.goto_previous_step_stacked_widget()
+
+    @pyqtSlot()
     def on_step_4_next_button_clicked(self):
+        self.step_5_logo.setPixmap(
+            QPixmap(f"resource/image/replace_nozzle_{self._printer.get_extruder()}_5.png").scaledToWidth(320))
         self.goto_next_step_stacked_widget()
 
+    @pyqtSlot()
+    def on_step_5_previous_button_clicked(self):
+        self.goto_previous_step_stacked_widget()
+
+    @pyqtSlot()
     def on_step_5_next_button_clicked(self):
         self.goto_next_step_stacked_widget()
+        self.step_6_logo.setPixmap(
+            QPixmap(f"resource/image/replace_nozzle_{self._printer.get_extruder()}_6.png").scaledToWidth(320))
+        if self._printer.get_extruder() == 'left':
+            self.step_6_handle.previous_button.setText(self.tr("Change Right."))
+        elif self._printer.get_extruder() == 'right':
+            self.step_6_handle.previous_button.setText(self.tr("Change Left."))
         self.step_6_handle.next_button.setText(self.tr("Done."))
 
+    @pyqtSlot()
+    def on_step_6_previous_button_clicked(self):
+        if self._printer.get_extruder() == 'left':
+            self._printer.write_gcode_commands("T1")
+            self.step_1_logo.setPixmap(QPixmap("resource/image/replace_nozzle_right_1.png").scaledToWidth(320))
+        else:
+            self._printer.write_gcode_commands("T0")
+            self.step_1_logo.setPixmap(QPixmap("resource/image/replace_nozzle_left_1.png").scaledToWidth(320))
+        self._printer.write_gcode_commands("G0 X190 F8400")
+        self.message_list[5].hide()
+        self.message_list[1].show()
+        self.message_list[6].hide()
+        self.message_list[2].show()
+        self.message_list[2].setEnabled(True)
+        self.message_list[7].setEnabled(False)
+        self.message_list[7].hide()
+        self.message_list[3].show()
+        self.handle_stacked_widget.setCurrentIndex(2)
+
+    @pyqtSlot()
     def on_step_6_next_button_clicked(self):
         self._parent.gotoPreviousPage()

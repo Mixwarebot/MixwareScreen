@@ -53,8 +53,6 @@ class TemperatureBox(BaseRoundWidget):
         self.chamber.setFixedHeight(72)
         self.layout.addWidget(self.chamber, 8, 1, 2, 1)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 

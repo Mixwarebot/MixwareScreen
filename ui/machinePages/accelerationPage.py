@@ -6,9 +6,8 @@ class AccelerationPage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
         self._printer = printer
+        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
         self._parent = parent
-
-        self._printer.updatePrinterInformation.connect(self.onUpdatePrinterInformation)
 
         self.setObjectName("accelerationPage")
 
@@ -45,8 +44,6 @@ class AccelerationPage(QWidget):
         self.acceleration_travel.clicked.connect(self.on_acceleration_travel_clicked)
         self.layout.addWidget(self.acceleration_travel)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 
@@ -59,6 +56,9 @@ class AccelerationPage(QWidget):
         self.acceleration_retract.setText(self.tr("Retracts Acceleration"))
         self.acceleration_travel.setText(self.tr("Travel Acceleration"))
 
+    def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         self.acceleration_x.setTips(f"{self._printer.information['motor']['maxAcceleration']['X']}")
         self.acceleration_y.setTips(f"{self._printer.information['motor']['maxAcceleration']['Y']}")
         self.acceleration_z.setTips(f"{self._printer.information['motor']['maxAcceleration']['Z']}")
@@ -115,6 +115,3 @@ class AccelerationPage(QWidget):
             self._parent.showShadowScreen()
             self._parent.numberPad.start(f"{self.acceleration_travel.text()}: {self.acceleration_travel.tips()}",
                                          "acceleration_travel")
-
-    def onUpdatePrinterInformation(self):
-        self.re_translate_ui()

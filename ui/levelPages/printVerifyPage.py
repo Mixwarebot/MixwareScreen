@@ -15,9 +15,8 @@ class PrintVerifyPage(QWidget):
         super().__init__()
         self.message_text_list = None
         self._printer = printer
-        self._parent = parent
-
         self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
+        self._parent = parent
 
         self.setObjectName("printVerifyPage")
         self.setMinimumSize(self._printer.config.get_width(), self._printer.config.get_height() / 2)
@@ -277,9 +276,6 @@ class PrintVerifyPage(QWidget):
         self.handle_frame_layout.addWidget(self.handle_stacked_widget)
         self.layout.addWidget(self.handle_frame)
 
-        self.reset_ui()
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.reset_ui()
         self.re_translate_ui()
@@ -325,16 +321,16 @@ class PrintVerifyPage(QWidget):
 
     @pyqtSlot()
     def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         self.preheat_thermal_left_button.setText(self._printer.get_thermal('left'))
         self.preheat_thermal_right_button.setText(self._printer.get_thermal('right'))
         self.preheat_thermal_bed_button.setText(self._printer.get_thermal('bed'))
         self.work_thermal_left_button.setText(self._printer.get_thermal('left'))
         self.work_thermal_right_button.setText(self._printer.get_thermal('right'))
         self.work_thermal_bed_button.setText(self._printer.get_thermal('bed'))
-
         if self._printer.is_print_verify():
             self.work_progress_bar.setValue(int(self._printer.print_progress() * 100))
-
         if self.handle_stacked_widget.currentWidget() == self.preheat_handle and not self.preheat_handle.next_button.isEnabled():
             if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 170 \
                     and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 170 \
@@ -348,6 +344,8 @@ class PrintVerifyPage(QWidget):
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
+        if not self.isVisible():
+            return
         if state == MixwareScreenPrinterStatus.PRINTER_VERITY:
             self.work_thermal_frame.hide()
             self.work_text.setText(
@@ -365,8 +363,8 @@ class PrintVerifyPage(QWidget):
     def on_offset_distance_button_clicked(self, button):
         if button.text() in self._distance_list:
             if self._button_group.id(button) != self._distance_current_id:
-                self._button_group.button(self._distance_current_id).setStyleSheet(uncheckedStyleSheet)
-                self._button_group.button(self._button_group.id(button)).setStyleSheet(checkedStyleSheet)
+                update_style(self._button_group.button(self._distance_current_id), "unchecked")
+                update_style(self._button_group.button(self._button_group.id(button)), "checked")
                 self._distance_current_id = self._button_group.id(button)
 
     def on_remind_next_button_clicked(self):

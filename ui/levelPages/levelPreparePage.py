@@ -12,30 +12,26 @@ class LevelPreParePage(QWidget):
 
         self.setObjectName("levelPreParePage")
 
+        self.button_layout = QVBoxLayout(self)
+        self.button_layout.setContentsMargins(20, 0, 20, 0)
+        self.button_layout.setSpacing(10)
+
         self.wizard_button = BasePushButton()
+        self.wizard_button.clicked.connect(self.goto_level_wizard_page)
+        self.button_layout.addWidget(self.wizard_button)
         self.custom_button = BasePushButton()
+        self.custom_button.clicked.connect(self.goto_level_page)
+        self.button_layout.addWidget(self.custom_button)
 
         self.wizardPage = LevelWizardPage(self._printer, self._parent)
         self.levelPage = LevelPage(self._printer, self._parent)
 
-        self.initForm()
-        self.initLayout()
-        self.initConnect()
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.re_translate_ui()
 
-    def initForm(self):
+    def re_translate_ui(self):
         self.wizard_button.setText(self.tr("Leveling Wizard"))
         self.custom_button.setText(self.tr("Customize Leveling"))
-
-    def initLayout(self):
-        button_layout = QVBoxLayout(self)
-        button_layout.setContentsMargins(20, 0, 20, 0)
-        button_layout.setSpacing(10)
-        button_layout.addWidget(self.wizard_button)
-        button_layout.addWidget(self.custom_button)
-
-    def initConnect(self):
-        self.wizard_button.clicked.connect(self.goto_level_wizard_page)
-        self.custom_button.clicked.connect(self.goto_level_page)
 
     @pyqtSlot()
     def goto_level_wizard_page(self):

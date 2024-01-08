@@ -70,8 +70,6 @@ class PrintDoneDialog(BaseRoundDialog):
 
         layout.addWidget(self.frame)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 
@@ -89,5 +87,4 @@ class PrintDoneDialog(BaseRoundDialog):
         self.title_label.setText(title)
         self.message_label.setText(text)
         self.message_label.setAlignment(Qt.AlignCenter)
-
         return self.exec()

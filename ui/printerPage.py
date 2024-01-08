@@ -49,8 +49,6 @@ class PrinterPage(QWidget):
         self.button_layout.addWidget(self.setButton, 1, 1, 1, 1)
         self.layout.addLayout(self.button_layout, 5)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 

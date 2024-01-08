@@ -58,8 +58,6 @@ class ControlPage(QWidget):
         self.level_page = LevelPreParePage(self._printer, self._parent)
         self.move_page = MovePage(self._printer, self._parent)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 

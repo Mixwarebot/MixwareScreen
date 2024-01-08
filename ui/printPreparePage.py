@@ -28,8 +28,6 @@ class PrintPreparePage(QWidget):
         self.printFilePage = PrintFilePage(self._printer, self._parent)
         QScroller.grabGesture(self.printFilePage, QScroller.TouchGesture)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 

@@ -99,9 +99,6 @@ class RunOutPad(BaseRoundDialog):
         self.working_timer = QTimer()
         self.working_timer.timeout.connect(self.on_working_timer_timeout)
         self.working_progress = 0
-        # self.working_timer.start(int(1000 / timer_frame))
-
-        self.re_translate_ui()
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
@@ -205,6 +202,8 @@ class RunOutPad(BaseRoundDialog):
 
     @pyqtSlot()
     def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         if self.status == RunOutStatus.RUNOUT_HEAT:
             if self._printer.get_temperature(self._printer.get_extruder()) + 3 >= self._printer.get_target(
                     self._printer.get_extruder()) > 170:

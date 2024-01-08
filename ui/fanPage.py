@@ -43,6 +43,7 @@ class FanProgressBar(QWidget):
     def set_fan_speed(self, speed: int):
         self.set_tips(str(int(speed * 100)) + "%")
 
+
 class FanSliderBar(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -90,8 +91,9 @@ class FanSliderBar(QWidget):
         self.tips.setText(text)
 
     def set_fan_speed(self, speed: int):
-        self.slider.setValue(int(speed*100))
+        self.slider.setValue(int(speed * 100))
         self.set_tips(str(int(speed * 100)) + "%")
+
 
 class FanPage(QWidget):
     def __init__(self, printer, parent):
@@ -164,9 +166,6 @@ class FanPage(QWidget):
         self.frame_layout.addWidget(self.exhaustFan)
         self.layout.addWidget(self.frame)
 
-        self.re_translate_ui()
-        self.update_fan_speed()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 
@@ -220,6 +219,8 @@ class FanPage(QWidget):
 
     @pyqtSlot()
     def update_fan_speed(self):
+        if not self.isVisible():
+            return
         self.extruderFanLeft.set_fan_speed(self._printer.get_fan_speed("leftCool"))
         self.extruderFanRight.set_fan_speed(self._printer.get_fan_speed("rightCool"))
         self.chamberFan.set_fan_speed(self._printer.get_fan_speed("chamber"))

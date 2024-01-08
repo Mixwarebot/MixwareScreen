@@ -228,7 +228,6 @@ class PrintingPage(QWidget):
         self.layout.addWidget(self.frame)
 
         self.file_name.setText("print.gcode")
-        self.re_translate_ui()
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()

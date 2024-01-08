@@ -18,8 +18,6 @@ class ExampleWidget(QWidget):
         self.frame.setObjectName("frameBox")
         self.layout.addWidget(self.frame)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 
@@ -28,4 +26,5 @@ class ExampleWidget(QWidget):
 
     @pyqtSlot()
     def on_update_printer_information(self):
-        pass
+        if not self.isVisible():
+            return

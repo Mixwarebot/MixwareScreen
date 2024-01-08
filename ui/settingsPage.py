@@ -20,7 +20,7 @@ class SettingsPage(QWidget):
 
         self.setObjectName("settingsPage")
 
-        self.lang = 0
+        self._language = 0
 
         self.layout = QVBoxLayout(self)
         self.layout.setAlignment(Qt.AlignTop)
@@ -63,8 +63,6 @@ class SettingsPage(QWidget):
         self.restore_factory = SettingsButton()
         self.restore_factory.clicked.connect(self.on_restore_factory_clicked)
         self.layout.addWidget(self.restore_factory)
-
-        self.re_translate_ui()
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()

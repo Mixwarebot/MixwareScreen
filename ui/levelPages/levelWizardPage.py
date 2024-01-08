@@ -325,9 +325,6 @@ class LevelWizardPage(QWidget):
         self.handle_frame_layout.addWidget(self.handle_stacked_widget)
         self.layout.addWidget(self.handle_frame)
 
-        self.reset_ui()
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.reset_ui()
         self.re_translate_ui()
@@ -389,6 +386,8 @@ class LevelWizardPage(QWidget):
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
+        if not self.isVisible():
+            return
         if state == MixwareScreenPrinterStatus.PRINTER_G29:
             self.level_handle.next_button.setEnabled(True)
             self.level_text.setText(self.tr("Auto-leveling completed."))
@@ -397,6 +396,8 @@ class LevelWizardPage(QWidget):
 
     @pyqtSlot()
     def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         self.preheat_thermal_left_button.setText(self._printer.get_thermal('left'))
         self.preheat_thermal_right_button.setText(self._printer.get_thermal('right'))
 
@@ -512,7 +513,7 @@ class LevelWizardPage(QWidget):
         self.offset = self._printer.information['probe']['offset']
         self.offset_button_title.setText(
             f"Z: {self.offset['left']['Z']}({self._printer.information['probe']['offset']['left']['Z']})")
-        self._printer.write_gcode_commands("G28\nT0\nG1 Y160 F8400\nG1 X190 F8400\nG1 Z0 F600")
+        self._printer.write_gcode_commands("G28\nT0\nG1 Y160 F8400\nG1 X190 F8400\nG1 Z0 F800")
         self.goto_next_step_stacked_widget()
         self.offset_logo_movie.start()
 
@@ -520,8 +521,8 @@ class LevelWizardPage(QWidget):
     def on_offset_distance_button_clicked(self, button):
         if button.text() in self.offset_distance_list:
             if self.offset_button_group.id(button) != self.offset_distance_current_id:
-                self.offset_button_group.button(self.offset_distance_current_id).setStyleSheet(uncheckedStyleSheet)
-                self.offset_button_group.button(self.offset_button_group.id(button)).setStyleSheet(checkedStyleSheet)
+                update_style(self.offset_button_group.button(self.offset_distance_current_id), "unchecked")
+                update_style(self.offset_button_group.button(self.offset_button_group.id(button)), "checked")
                 self.offset_distance_current_id = self.offset_button_group.id(button)
 
     def on_offset_button_up_clicked(self):
@@ -553,24 +554,24 @@ class LevelWizardPage(QWidget):
 
     def on_measure_left_next_button_clicked(self):
         self._printer.write_gcode_commands(
-            "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
+            "G1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F320\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
                                          "dial_indicator_left")
-        self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28\nG1 Y160 Z150 F8400\nM400\nT1\nG1 X190 Z150 F8400")
+        self._printer.write_gcode_commands("G1 Z150 F800\nM400\nG28\nG1 Y160 Z150 F800\nM400\nT1\nG1 X190 Z150 F800")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
         self.measure_right_logo_movie.start()
 
     def on_measure_right_next_button_clicked(self):
         self._printer.write_gcode_commands(
-            "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
+            "G1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F320\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
                                          "dial_indicator_right")
-        self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28X")
+        self._printer.write_gcode_commands("G1 Z150 F800\nM400\nG28X")
         self.goto_next_step_stacked_widget()
         self.measure_right_logo_movie.stop()
         self.finished_handle.next_button.setText(self.tr("Done."))

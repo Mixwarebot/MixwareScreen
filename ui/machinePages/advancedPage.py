@@ -12,20 +12,54 @@ class AdvancedPage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
         self._printer = printer
+        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
         self._parent = parent
 
         self.setObjectName("advancedPage")
 
+        self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(20, 0, 20, 0)
+        self.layout.setSpacing(0)
+        self.layout.setAlignment(Qt.AlignTop)
+
         self.step_per_unit = SettingsButton()
+        self.step_per_unit.clicked.connect(self.goto_step_per_unit_page)
+        self.layout.addWidget(self.step_per_unit)
+
         self.feed_rate = SettingsButton()
+        self.feed_rate.clicked.connect(self.goto_feed_rate_page)
+        self.layout.addWidget(self.feed_rate)
+
         self.acceleration = SettingsButton()
+        self.acceleration.clicked.connect(self.goto_acceleration_page)
+        self.layout.addWidget(self.acceleration)
+
         self.jerk = SettingsButton()
+        self.jerk.clicked.connect(self.goto_jerk_page)
+        self.layout.addWidget(self.jerk)
+
         self.tmc_current = SettingsButton()
+        self.tmc_current.clicked.connect(self.goto_tmc_current_page)
+        self.layout.addWidget(self.tmc_current)
+
+        # self.pid = SettingsButton()
+        # self.layout.addWidget(self.pid)
+
         self.input_shaping = SettingsButton()
+        self.input_shaping.clicked.connect(self.goto_input_shaping_page)
+        self.layout.addWidget(self.input_shaping)
+
         self.linear_advance = SettingsButton()
-        self.pid = SettingsButton()
-        self.restore_factory = SettingsButton()
+        self.linear_advance.clicked.connect(self.on_linear_advance_clicked)
+        self.layout.addWidget(self.linear_advance)
+
         self.save = SettingsButton()
+        self.save.clicked.connect(self.on_save_clicked)
+        self.layout.addWidget(self.save)
+
+        self.restore_factory = SettingsButton()
+        self.restore_factory.clicked.connect(self.on_restore_factory_clicked)
+        self.layout.addWidget(self.restore_factory)
 
         self.stepPerUnitPage = StepPerUnitPage(self._printer, self._parent)
         self.feedRatePage = FeedRatePage(self._printer, self._parent)
@@ -34,45 +68,10 @@ class AdvancedPage(QWidget):
         self.tmcCurrentPage = TMCCurrentPage(self._printer, self._parent)
         self.inputShapingPage = InputShapingPage(self._printer, self._parent)
 
-        self.initForm()
-        self.initLayout()
-        self.initConnect()
-
-    def initForm(self):
-        self.reTranslateUi()
-
-    def initLayout(self):
-        self.layout = QVBoxLayout(self)
-        self.layout.setContentsMargins(20, 0, 20, 0)
-        self.layout.setSpacing(0)
-        self.layout.setAlignment(Qt.AlignTop)
-        self.layout.addWidget(self.step_per_unit)
-        self.layout.addWidget(self.feed_rate)
-        self.layout.addWidget(self.acceleration)
-        self.layout.addWidget(self.jerk)
-        self.layout.addWidget(self.tmc_current)
-        # self.layout.addWidget(self.pid)
-        self.layout.addWidget(self.input_shaping)
-        self.layout.addWidget(self.linear_advance)
-        self.layout.addWidget(self.save)
-        self.layout.addWidget(self.restore_factory)
-
-    def initConnect(self):
-        self._printer.updatePrinterInformation.connect(self.onUpdatePrinterInformation)
-        self.step_per_unit.clicked.connect(self.goto_step_per_unit_page)
-        self.feed_rate.clicked.connect(self.goto_feed_rate_page)
-        self.acceleration.clicked.connect(self.goto_acceleration_page)
-        self.jerk.clicked.connect(self.goto_jerk_page)
-        self.tmc_current.clicked.connect(self.goto_tmc_current_page)
-        self.input_shaping.clicked.connect(self.goto_input_shaping_page)
-        self.linear_advance.clicked.connect(self.on_linear_advance_clicked)
-        self.restore_factory.clicked.connect(self.on_restore_factory_clicked)
-        self.save.clicked.connect(self.on_save_clicked)
-
     def showEvent(self, a0: QShowEvent) -> None:
-        self.reTranslateUi()
+        self.re_translate_ui()
 
-    def reTranslateUi(self):
+    def re_translate_ui(self):
         self.step_per_unit.setText(self.tr("Step Per Unit Settings"))
         self.feed_rate.setText(self.tr("Maximum Feed Rate Settings"))
         self.acceleration.setText(self.tr("Acceleration Settings"))
@@ -80,10 +79,13 @@ class AdvancedPage(QWidget):
         self.tmc_current.setText(self.tr("TMC Current Settings"))
         self.input_shaping.setText(self.tr("Input Shaping Settings"))
         self.linear_advance.setText(self.tr("Linear Advance Settings"))
-        self.pid.setText(self.tr("P.I.D.  Settings"))
+        # self.pid.setText(self.tr("P.I.D.  Settings"))
         self.restore_factory.setText(self.tr("Restore Factory Settings"))
         self.save.setText(self.tr("Save Settings to Printer"))
 
+    def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         self.linear_advance.setTips(f"{self._printer.information['linearAdvance']}")
 
     @pyqtSlot()
@@ -135,6 +137,3 @@ class AdvancedPage(QWidget):
         if ret == QMessageBox.Yes:
             self._printer.write_gcode_command('M500')
         self._parent.closeShadowScreen()
-
-    def onUpdatePrinterInformation(self):
-        self.reTranslateUi()

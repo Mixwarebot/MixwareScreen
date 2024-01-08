@@ -6,9 +6,8 @@ class BedLevelPage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
         self._printer = printer
-        self._parent = parent
-
         self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
+        self._parent = parent
 
         self.setObjectName("bedLevelPage")
 
@@ -32,14 +31,14 @@ class BedLevelPage(QWidget):
         self.top_frame_layout.setContentsMargins(0, 0, 0, 0)
         self.top_frame_layout.setSpacing(0)
         self.top_frame_layout.setAlignment(Qt.AlignVCenter)
-        self.left_extruder_button = QPushButton()
-        self.left_extruder_button.setFixedHeight(64)
-        self.left_extruder_button.clicked.connect(self.on_left_extruder_button_clicked)
-        self.top_frame_layout.addWidget(self.left_extruder_button)
-        self.right_extruder_button = QPushButton()
-        self.right_extruder_button.setFixedHeight(64)
-        self.right_extruder_button.clicked.connect(self.on_right_extruder_button_clicked)
-        self.top_frame_layout.addWidget(self.right_extruder_button)
+        self.extruder_left_button = QPushButton()
+        self.extruder_left_button.setFixedHeight(64)
+        self.extruder_left_button.clicked.connect(self.on_left_extruder_button_clicked)
+        self.top_frame_layout.addWidget(self.extruder_left_button)
+        self.extruder_right_button = QPushButton()
+        self.extruder_right_button.setFixedHeight(64)
+        self.extruder_right_button.clicked.connect(self.on_right_extruder_button_clicked)
+        self.top_frame_layout.addWidget(self.extruder_right_button)
         self.top_layout.addWidget(self.top_frame)
         self.layout.addLayout(self.top_layout)
 
@@ -93,15 +92,13 @@ class BedLevelPage(QWidget):
         self.disable_button.clicked.connect(self.on_disable_button_clicked)
         self.layout.addWidget(self.disable_button)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 
     def re_translate_ui(self):
         self.top_frame_title.setText(self.tr("Current Extruder"))
-        self.left_extruder_button.setText(self.tr("Left"))
-        self.right_extruder_button.setText(self.tr("Right"))
+        self.extruder_left_button.setText(self.tr("Left"))
+        self.extruder_right_button.setText(self.tr("Right"))
         self.disable_button.setText(self.tr("Disabled XY"))
 
     @pyqtSlot()
@@ -150,9 +147,11 @@ class BedLevelPage(QWidget):
 
     @pyqtSlot()
     def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         if self._printer.get_extruder() == "left":
-            self.left_extruder_button.setStyleSheet(checkedStyleSheet)
-            self.right_extruder_button.setStyleSheet(uncheckedStyleSheet)
+            update_style(self.extruder_left_button, "checked")
+            update_style(self.extruder_right_button, "unchecked")
         elif self._printer.get_extruder() == "right":
-            self.left_extruder_button.setStyleSheet(uncheckedStyleSheet)
-            self.right_extruder_button.setStyleSheet(checkedStyleSheet)
+            update_style(self.extruder_left_button, "unchecked")
+            update_style(self.extruder_right_button, "checked")

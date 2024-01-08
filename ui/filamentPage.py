@@ -3,8 +3,6 @@ from ui.base.basePushButton import BasePushButton
 from ui.base.handleBar import HandleBar
 from ui.base.messageBar import MessageBar
 
-work_position = {'X': 190, 'Y': 20, 'Z': 50}
-
 
 class FilamentPage(QWidget):
     def __init__(self, printer, parent):
@@ -177,10 +175,8 @@ class FilamentPage(QWidget):
         self.current_filament = None
         self.current_work_mode = None
 
-        self.reset_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
-        self._printer.write_gcode_command(f"G28\nG1 Y{work_position['Y']} Z{work_position['Z']} F6000")
+        self._printer.write_gcode_command(f"G28\nG1 Y{filament_position['Y']} Z{filament_position['Z']} F6000")
         self.reset_ui()
 
     def hideEvent(self, a0: QHideEvent) -> None:
@@ -285,25 +281,25 @@ class FilamentPage(QWidget):
     def set_filament(self, filament: str):
         self.current_filament = filament
         if self.current_filament == "PLA":
-            self.filament_pla_button.setStyleSheet(checkedStyleSheet)
-            self.filament_abs_button.setStyleSheet(uncheckedStyleSheet)
-            self.filament_pet_button.setStyleSheet(uncheckedStyleSheet)
-            self.filament_pa_button.setStyleSheet(uncheckedStyleSheet)
+            update_style(self.filament_pla_button, "checked")
+            update_style(self.filament_abs_button, "unchecked")
+            update_style(self.filament_pet_button, "unchecked")
+            update_style(self.filament_pa_button, "unchecked")
         elif self.current_filament == "ABS":
-            self.filament_pla_button.setStyleSheet(uncheckedStyleSheet)
-            self.filament_abs_button.setStyleSheet(checkedStyleSheet)
-            self.filament_pet_button.setStyleSheet(uncheckedStyleSheet)
-            self.filament_pa_button.setStyleSheet(uncheckedStyleSheet)
+            update_style(self.filament_pla_button, "unchecked")
+            update_style(self.filament_abs_button, "checked")
+            update_style(self.filament_pet_button, "unchecked")
+            update_style(self.filament_pa_button, "unchecked")
         elif self.current_filament == "PET":
-            self.filament_pla_button.setStyleSheet(uncheckedStyleSheet)
-            self.filament_abs_button.setStyleSheet(uncheckedStyleSheet)
-            self.filament_pet_button.setStyleSheet(checkedStyleSheet)
-            self.filament_pa_button.setStyleSheet(uncheckedStyleSheet)
+            update_style(self.filament_pla_button, "unchecked")
+            update_style(self.filament_abs_button, "unchecked")
+            update_style(self.filament_pet_button, "checked")
+            update_style(self.filament_pa_button, "unchecked")
         elif self.current_filament == "PA":
-            self.filament_pla_button.setStyleSheet(uncheckedStyleSheet)
-            self.filament_abs_button.setStyleSheet(uncheckedStyleSheet)
-            self.filament_pet_button.setStyleSheet(uncheckedStyleSheet)
-            self.filament_pa_button.setStyleSheet(checkedStyleSheet)
+            update_style(self.filament_pla_button, "unchecked")
+            update_style(self.filament_abs_button, "unchecked")
+            update_style(self.filament_pet_button, "unchecked")
+            update_style(self.filament_pa_button, "checked")
 
     def reset_filament(self):
         self.set_filament("PLA")
@@ -340,23 +336,23 @@ class FilamentPage(QWidget):
         self.goto_previous_step_stacked_widget()
 
     def on_work_mode_next_button_clicked(self):
-        if self._printer.get_position('X') != work_position['X']:
-            self._printer.write_gcode_command(f"G1 X{work_position['X']} F6000")
-        if self._printer.get_position('Y') != work_position['Y']:
-            self._printer.write_gcode_command(f"G1 Y{work_position['Y']} F6000")
-        if self._printer.get_position('Z') != work_position['Z']:
-            self._printer.write_gcode_command(f"G1 Z{work_position['Z']} F2400")
+        if self._printer.get_position('X') != filament_position['X']:
+            self._printer.write_gcode_command(f"G1 X{filament_position['X']} F6000")
+        if self._printer.get_position('Y') != filament_position['Y']:
+            self._printer.write_gcode_command(f"G1 Y{filament_position['Y']} F6000")
+        if self._printer.get_position('Z') != filament_position['Z']:
+            self._printer.write_gcode_command(f"G1 Z{filament_position['Z']} F800")
         self.message_list[1].setText(self.tr("Current work mode: {}").format(self.current_work_mode))
         self.goto_next_step_stacked_widget()
 
     def set_work_mode(self, mode):
         self.current_work_mode = mode
         if mode == self.tr("Load"):
-            self.work_mode_load_button.setStyleSheet(checkedStyleSheet)
-            self.work_mode_unload_button.setStyleSheet(uncheckedStyleSheet)
+            update_style(self.work_mode_load_button, "checked")
+            update_style(self.work_mode_unload_button, "unchecked")
         else:
-            self.work_mode_load_button.setStyleSheet(uncheckedStyleSheet)
-            self.work_mode_unload_button.setStyleSheet(checkedStyleSheet)
+            update_style(self.work_mode_load_button, "unchecked")
+            update_style(self.work_mode_unload_button, "checked")
 
     def reset_work_mode(self):
         self.set_work_mode(self.tr("Load"))
@@ -384,12 +380,14 @@ class FilamentPage(QWidget):
 
     @pyqtSlot()
     def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         if self._printer.get_extruder() == "left":
-            self.extruder_left_button.setStyleSheet(checkedStyleSheet)
-            self.extruder_right_button.setStyleSheet(uncheckedStyleSheet)
+            update_style(self.extruder_left_button, "checked")
+            update_style(self.extruder_right_button, "unchecked")
         elif self._printer.get_extruder() == "right":
-            self.extruder_left_button.setStyleSheet(uncheckedStyleSheet)
-            self.extruder_right_button.setStyleSheet(checkedStyleSheet)
+            update_style(self.extruder_left_button, "unchecked")
+            update_style(self.extruder_right_button, "checked")
 
         self.thermal_left_button.setText(self._printer.get_thermal('left'))
         self.thermal_right_button.setText(self._printer.get_thermal('right'))

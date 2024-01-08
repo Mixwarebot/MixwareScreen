@@ -31,15 +31,14 @@ class TemperaturePage(QWidget):
         self.temperature_group.addButton(self.temperature_box.chamber, 3)
         self.layout.addWidget(self.temperature_box, 5)
 
-        degree_layout = QVBoxLayout()
-        degree_layout.setContentsMargins(0, 0, 0, 0)
-        degree_layout.setSpacing(0)
+        self.degree_layout = QVBoxLayout()
+        self.degree_layout.setContentsMargins(0, 0, 0, 0)
+        self.degree_layout.setSpacing(0)
 
         self.degree_title = QLabel()
-        self.degree_title.setText(self.tr("Heating Degree"))
         self.degree_title.setFixedHeight(40)
         self.degree_title.setStyleSheet("padding-left: 10px;")
-        degree_layout.addWidget(self.degree_title)
+        self.degree_layout.addWidget(self.degree_title)
 
         self.degree_frame = QFrame()
         self.degree_frame.setObjectName("frameBox")
@@ -48,9 +47,9 @@ class TemperaturePage(QWidget):
         self.degree_default = "10"
         self.degree_current_id = 0
 
-        degree_frame_layout = QHBoxLayout(self.degree_frame)
-        degree_frame_layout.setContentsMargins(5, 1, 5, 1)
-        degree_frame_layout.setSpacing(0)
+        self.degree_frame_layout = QHBoxLayout(self.degree_frame)
+        self.degree_frame_layout.setContentsMargins(5, 1, 5, 1)
+        self.degree_frame_layout.setSpacing(0)
 
         self.degree_group = QButtonGroup()
         self.degree_group.buttonClicked.connect(self.on_degree_button_group_clicked)
@@ -61,45 +60,44 @@ class TemperaturePage(QWidget):
             self.degree_group.addButton(button, d)
             if self.degree_list[d] == self.degree_default:
                 self.on_degree_button_group_clicked(self.degree_group.button(d))
-            degree_frame_layout.addWidget(button)
-        degree_layout.addWidget(self.degree_frame)
-        self.layout.addLayout(degree_layout)
+            self.degree_frame_layout.addWidget(button)
+        self.degree_layout.addWidget(self.degree_frame)
+        self.layout.addLayout(self.degree_layout)
 
         self.frame = QFrame()
         self.frame.setObjectName("frameBox")
         self.frame.setStyleSheet("BasePushButton {border: 1px solid #D4D4D4;}")
-        button_layout = QHBoxLayout(self.frame)
-        button_layout.setContentsMargins(20, 20, 20, 20)
-        button_layout.setSpacing(20)
+        self.button_layout = QHBoxLayout(self.frame)
+        self.button_layout.setContentsMargins(20, 20, 20, 20)
+        self.button_layout.setSpacing(20)
 
-        button_left_layout = QVBoxLayout()
-        button_left_layout.setContentsMargins(0, 0, 0, 0)
-        button_left_layout.setSpacing(20)
+        self.button_left_layout = QVBoxLayout()
+        self.button_left_layout.setContentsMargins(0, 0, 0, 0)
+        self.button_left_layout.setSpacing(20)
         self.pla_button = BasePushButton()
         self.pla_button.clicked.connect(self.on_pla_button_clicked)
-        button_left_layout.addWidget(self.pla_button)
+        self.button_left_layout.addWidget(self.pla_button)
         self.pa_cf_button = BasePushButton()
         self.pa_cf_button.clicked.connect(self.on_pa_cf_button_clicked)
-        button_left_layout.addWidget(self.pa_cf_button)
+        self.button_left_layout.addWidget(self.pa_cf_button)
         self.cool_button = BasePushButton()
         self.cool_button.clicked.connect(self.on_cool_button_clicked)
-        button_left_layout.addWidget(self.cool_button)
-        button_layout.addLayout(button_left_layout, 1)
-        button_right_layout = QVBoxLayout()
-        button_right_layout.setContentsMargins(0, 0, 0, 0)
-        button_right_layout.setSpacing(20)
+        self.button_left_layout.addWidget(self.cool_button)
+        self.button_layout.addLayout(self.button_left_layout, 1)
+        self.button_right_layout = QVBoxLayout()
+        self.button_right_layout.setContentsMargins(0, 0, 0, 0)
+        self.button_right_layout.setSpacing(20)
         self.add_button = BasePushButton()
         self.add_button.setText("+")
         self.add_button.clicked.connect(self.on_add_button_clicked)
-        button_right_layout.addWidget(self.add_button)
+        self.button_right_layout.addWidget(self.add_button)
         self.dec_button = BasePushButton()
         self.dec_button.setText("-")
         self.dec_button.clicked.connect(self.on_dec_button_clicked)
-        button_right_layout.addWidget(self.dec_button)
-        button_layout.addLayout(button_right_layout, 1)
+        self.button_right_layout.addWidget(self.dec_button)
+        self.button_layout.addLayout(self.button_right_layout, 1)
         self.layout.addWidget(self.frame, 4)
 
-        self.re_translate_ui()
         self.on_temperature_button_group_clicked(0)
 
     def showEvent(self, a0: QShowEvent) -> None:
@@ -109,6 +107,7 @@ class TemperaturePage(QWidget):
         self.pla_button.setText(self.tr("PLA"))
         self.pa_cf_button.setText(self.tr("PA-CF"))
         self.cool_button.setText(self.tr("Cool"))
+        self.degree_title.setText(self.tr("Heating Degree"))
 
     def change_target_temperature(self, heater: str, degree: int):
         if heater in ['left', 'right', 'bed', 'chamber']:
@@ -123,15 +122,14 @@ class TemperaturePage(QWidget):
     def on_degree_button_group_clicked(self, button):
         if button.text() in self.degree_list:
             if self.degree_group.id(button) != self.degree_current_id:
-                self.degree_group.button(self.degree_current_id).setStyleSheet(uncheckedStyleSheet)
-                self.degree_group.button(self.degree_group.id(button)).setStyleSheet(checkedStyleSheet)
+                update_style(self.degree_group.button(self.degree_current_id), "unchecked")
+                update_style(self.degree_group.button(self.degree_group.id(button)), "checked")
                 self.degree_current_id = self.degree_group.id(button)
 
     @pyqtSlot(int)
     def on_temperature_button_group_clicked(self, _id):
         self.heater[self.thermal[_id]] = not self.heater[self.thermal[_id]]
-        self.temperature_group.button(_id).setStyleSheet(
-            checkedStyleSheet if self.heater[self.thermal[_id]] else uncheckedStyleSheet)
+        update_style(self.temperature_group.button(_id), "checked" if self.heater[self.thermal[_id]] else "unchecked")
 
     def show_tips(self):
         have_heater = False

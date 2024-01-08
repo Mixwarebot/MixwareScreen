@@ -11,51 +11,45 @@ class MachinePage(QWidget):
 
         self.setObjectName("machinePage")
 
-        self.printMode = SettingsButton()
-        self.heatingMode = SettingsButton()
-        self.movementMode = SettingsButton()
-        self.filamentDetector = SettingsButton()
-        self.powerLossRecovery = SettingsButton()
-        self.thermalProtection = SettingsButton()
+        self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(20, 0, 20, 0)
+        self.layout.setSpacing(0)
+        self.layout.setAlignment(Qt.AlignTop)
+
+        # self.printMode = SettingsButton()
+        # self.layout.addWidget(self.printMode)
+        # self.heatingMode = SettingsButton()
+        # self.layout.addWidget(self.heatingMode)
+        # self.movementMode = SettingsButton()
+        # self.layout.addWidget(self.movementMode)
+        # self.filamentDetector = SettingsButton()
+        # self.layout.addWidget(self.filamentDetector)
+        # self.powerLossRecovery = SettingsButton()
+        # self.layout.addWidget(self.powerLossRecovery)
+        # self.thermalProtection = SettingsButton()
+        # self.layout.addWidget(self.thermalProtection)
         self.advanced = SettingsButton()
+        self.advanced.clicked.connect(self.goto_advanced_page)
+        self.layout.addWidget(self.advanced)
 
         self.advancedPage = AdvancedPage(self._printer, self._parent)
 
-        self.initForm()
-        self.initLayout()
-        self.initConnect()
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.re_translate_ui()
 
-    def initForm(self):
-
-        self.printMode.setText(self.tr("Print Mode"))
-        self.heatingMode.setText(self.tr("Heating Mode"))
-        self.movementMode.setText(self.tr("Movement Mode"))
-        self.filamentDetector.setText(self.tr("Filament Detector"))
-        self.powerLossRecovery.setText(self.tr("Power Loss Recovery"))
-        self.thermalProtection.setText(self.tr("Thermal Protection"))
+    def re_translate_ui(self):
+        # self.printMode.setText(self.tr("Print Mode"))
+        # self.heatingMode.setText(self.tr("Heating Mode"))
+        # self.movementMode.setText(self.tr("Movement Mode"))
+        # self.filamentDetector.setText(self.tr("Filament Detector"))
+        # self.powerLossRecovery.setText(self.tr("Power Loss Recovery"))
+        # self.thermalProtection.setText(self.tr("Thermal Protection"))
         self.advanced.setText(self.tr("Advanced Configuration"))
 
-        self.printMode._tips.setText("Normal")
-        self.heatingMode._tips.setText("Normal")
-        self.movementMode._tips.setText("Normal")
-
-    def initLayout(self):
-        layout = QVBoxLayout(self)
-        # layout.addWidget(self.printMode)
-        # layout.addWidget(self.heatingMode)
-        # layout.addWidget(self.movementMode)
-        # layout.addWidget(self.filamentDetector)
-        # layout.addWidget(self.powerLossRecovery)
-        # layout.addWidget(self.thermalProtection)
-        layout.addWidget(self.advanced)
-        layout.setAlignment(Qt.AlignTop)
-        layout.setContentsMargins(20, 0, 20, 0)
-        layout.setSpacing(0)
-
-    def initConnect(self):
-        self.advanced.clicked.connect(self.gotoAdvancedPage)
+        # self.printMode._tips.setText("Normal")
+        # self.heatingMode._tips.setText("Normal")
+        # self.movementMode._tips.setText("Normal")
 
     @pyqtSlot()
-    def gotoAdvancedPage(self):
-        # self._printer.write_gcode_command("D105")
+    def goto_advanced_page(self):
         self._parent.gotoPage(self.advancedPage, self.tr("Advanced Configuration"))

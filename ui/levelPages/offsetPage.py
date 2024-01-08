@@ -7,13 +7,12 @@ class OffsetPage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
         self._printer = printer
+        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
         self._parent = parent
         self.offset = {
             'left': {'X': 0.0, 'Y': 0.0, 'Z': 0.0},
             'right': {'X': 0.0, 'Y': 0.0, 'Z': 0.0}
         }
-
-        self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
 
         self.setObjectName("offsetPage")
 
@@ -43,15 +42,15 @@ class OffsetPage(QWidget):
         self.offset_distance_list = ["0.01", "0.05", "0.1", "0.5", "1"]
         self.offset_distance_default = "0.1"
         self.offset_distance_current_id = 0
-        self.buttonGroup = QButtonGroup()
-        self.buttonGroup.buttonClicked.connect(self.on_button_clicked)
+        self.button_group = QButtonGroup()
+        self.button_group.buttonClicked.connect(self.on_button_clicked)
         for d in range(len(self.offset_distance_list)):
             button = BasePushButton()
             button.setText(self.offset_distance_list[d])
             button.setObjectName("dataButton")
-            self.buttonGroup.addButton(button, d)
+            self.button_group.addButton(button, d)
             if self.offset_distance_list[d] == self.offset_distance_default:
-                self.on_button_clicked(self.buttonGroup.button(d))
+                self.on_button_clicked(self.button_group.button(d))
             self.distance_frame_layout.addWidget(button)
         self.distance_layout.addWidget(self.distance_frame)
         self.frame_layout.addLayout(self.distance_layout, 1)
@@ -74,12 +73,12 @@ class OffsetPage(QWidget):
         self.x_left_button = BasePushButton()
         self.x_left_button.setObjectName("extruderButton")
         self.x_left_button.setFixedHeight(64)
-        self.buttonGroup.addButton(self.x_left_button)
+        self.button_group.addButton(self.x_left_button)
         self.x_button_frame_top_layout.addWidget(self.x_left_button)
         self.x_right_button = BasePushButton()
         self.x_right_button.setObjectName("extruderButton")
         self.x_right_button.setFixedHeight(64)
-        self.buttonGroup.addButton(self.x_right_button)
+        self.button_group.addButton(self.x_right_button)
         self.x_button_frame_top_layout.addWidget(self.x_right_button)
         self.x_button_frame_layout.addLayout(self.x_button_frame_top_layout)
         self.x_button_frame_layout.addWidget(BaseHLine())
@@ -152,8 +151,6 @@ class OffsetPage(QWidget):
         self.frame_layout.addWidget(self.save_button, 1)
         self.layout.addWidget(self.frame)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self._printer.write_gcode_command("M851\nM218")
         self.re_translate_ui()
@@ -163,7 +160,7 @@ class OffsetPage(QWidget):
         self.offset['right']['X'] = self._printer.information['probe']['offset']['right']['X']
         self.offset['right']['Y'] = self._printer.information['probe']['offset']['right']['Y']
         self.offset['right']['Z'] = self._printer.information['probe']['offset']['right']['Z']
-        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 F2400\nG1 Z0 F600")
+        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 F8400\nG1 Z0 F320")
 
     def hideEvent(self, a0: QHideEvent) -> None:
         self._printer.write_gcode_commands("G28\nT0\nM84")
@@ -259,15 +256,21 @@ class OffsetPage(QWidget):
     def on_button_clicked(self, button):
         if button.text() == self.tr("Left"):
             if self._printer.get_extruder() == "right":
-                self._printer.write_gcode_commands("G28\nT0\nG1 Y160 Z15 F8400\nG1 X190 F8400\nG1 Z0 F300")
+                self._printer.write_gcode_commands("G28\nT0\nG1 Y160 Z15 F8400\nG1 X190 F8400\nG1 Z0 F320")
+                self.offset['right']['X'] = self._printer.information['probe']['offset']['right']['X']
+                self.offset['right']['Y'] = self._printer.information['probe']['offset']['right']['Y']
+                self.offset['right']['Z'] = self._printer.information['probe']['offset']['right']['Z']
         elif button.text() == self.tr("Right"):
             if self._printer.get_extruder() == "left":
-                self._printer.write_gcode_commands("G28\nG1 Y160 Z15 F8400\nT1\nG1 X190 F8400\nG1 Z0 F300")
+                self._printer.write_gcode_commands("G28\nG1 Y160 Z15 F8400\nT1\nG1 X190 F8400\nG1 Z0 F320")
+                self.offset['left']['X'] = self._printer.information['probe']['offset']['left']['X']
+                self.offset['left']['Y'] = self._printer.information['probe']['offset']['left']['Y']
+                self.offset['left']['Z'] = self._printer.information['probe']['offset']['left']['Z']
         elif button.text() in self.offset_distance_list:
-            if self.buttonGroup.id(button) != self.offset_distance_current_id:
-                self.buttonGroup.button(self.offset_distance_current_id).setStyleSheet(uncheckedStyleSheet)
-                self.buttonGroup.button(self.buttonGroup.id(button)).setStyleSheet(checkedStyleSheet)
-                self.offset_distance_current_id = self.buttonGroup.id(button)
+            if self.button_group.id(button) != self.offset_distance_current_id:
+                update_style(self.button_group.button(self.offset_distance_current_id), "unchecked")
+                update_style(self.button_group.button(self.button_group.id(button)), "checked")
+                self.offset_distance_current_id = self.button_group.id(button)
 
     def on_save_button_clicked(self):
         if self._printer.get_extruder() == "left":
@@ -278,9 +281,11 @@ class OffsetPage(QWidget):
                 f"M218 T1 X{self.offset['right']['X']} Y{self.offset['right']['Y']} Z{self.offset['right']['Z']}\nM500\nM218")
 
     def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         if self._printer.get_extruder() == "left":
-            self.x_left_button.setStyleSheet(checkedStyleSheet)
-            self.x_right_button.setStyleSheet(uncheckedStyleSheet)
+            update_style(self.x_left_button, "checked")
+            update_style(self.x_right_button, "unchecked")
             self.x_frame_title.setText(
                 f"X: {self.offset['left']['X']:.2f}({self._printer.information['probe']['offset']['left']['X']:.2f})")
             self.y_frame_title.setText(
@@ -288,8 +293,8 @@ class OffsetPage(QWidget):
             self.z_frame_title.setText(
                 f"Z: {self.offset['left']['Z']:.2f}({self._printer.information['probe']['offset']['left']['Z']:.2f})")
         elif self._printer.get_extruder() == "right":
-            self.x_left_button.setStyleSheet(uncheckedStyleSheet)
-            self.x_right_button.setStyleSheet(checkedStyleSheet)
+            update_style(self.x_left_button, "unchecked")
+            update_style(self.x_right_button, "checked")
             self.x_frame_title.setText(
                 f"X: {self.offset['right']['X']:.2f}({self._printer.information['probe']['offset']['right']['X']:.2f})")
             self.y_frame_title.setText(

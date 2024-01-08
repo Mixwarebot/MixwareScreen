@@ -6,6 +6,7 @@ from ui.printerPage import PrinterPage
 class PrinterWidget(BasePrintWidget):
     updateTranslator = pyqtSignal(str)
     updateTheme = pyqtSignal(str)
+
     def __init__(self, printer, parent=None):
         super().__init__(printer, parent)
         self._printer = printer
@@ -30,6 +31,8 @@ class PrinterWidget(BasePrintWidget):
 
     @pyqtSlot()
     def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         self.printerPage.temperatureWidget.left.setText(self._printer.get_thermal('left'))
         self.printerPage.temperatureWidget.right.setText(self._printer.get_thermal('right'))
         self.printerPage.temperatureWidget.bed.setText(self._printer.get_thermal('bed'))

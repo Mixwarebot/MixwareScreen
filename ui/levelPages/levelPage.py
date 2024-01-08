@@ -41,8 +41,6 @@ class LevelPage(QWidget):
         self.dialIndicatorPage = DialIndicatorPage(self._printer, self._parent)
         self.printVerifyPage = PrintVerifyPage(self._printer, self._parent)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 

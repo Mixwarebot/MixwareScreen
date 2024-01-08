@@ -40,8 +40,6 @@ class HomePage(QWidget):
         self.disableButton.clicked.connect(self.disable_steppers)
         self.layout.addWidget(self.disableButton, 2, 0)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 

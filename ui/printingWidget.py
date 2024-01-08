@@ -135,6 +135,8 @@ class PrintingWidget(BasePrintWidget):
 
     @pyqtSlot()
     def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         self.printingPage.thermal_left_button.setText(self._printer.get_thermal('left'))
         self.printingPage.thermal_right_button.setText(self._printer.get_thermal('right'))
         self.printingPage.thermal_bed_button.setText(self._printer.get_thermal('bed'))
@@ -157,6 +159,8 @@ class PrintingWidget(BasePrintWidget):
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, status):
+        if not self.isVisible():
+            return
         if status == MixwareScreenPrinterStatus.PRINTER_PRINT_FINISHED:
             self.on_print_finished()
         elif status == MixwareScreenPrinterStatus.PRINTER_RUN_OUT:

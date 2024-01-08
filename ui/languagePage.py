@@ -22,8 +22,6 @@ class LanguagePage(QWidget):
         self.language_c.clicked.connect(self.on_language_c_clicked)
         self.layout.addWidget(self.language_c)
 
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 

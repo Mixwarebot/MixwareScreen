@@ -21,9 +21,11 @@ class SettingsButton(QPushButton):
 
     def tips(self):
         return self._tips.text()
+
     def setTips(self, text: str):
         self._tips.setText(text)
 
     def resizeEvent(self, event) -> None:
-        self._tips.move(self.width() - self._tips.width() - self.arrow.width() - 2, (self.height() - self._tips.height()) / 2)
+        self._tips.move(self.width() - self._tips.width() - self.arrow.width() - 2,
+                        (self.height() - self._tips.height()) / 2)
         self.arrow.move(self.width() - self.arrow.width(), (self.height() - self.arrow.height()) / 2)

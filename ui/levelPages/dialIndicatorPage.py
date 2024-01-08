@@ -213,9 +213,6 @@ class DialIndicatorPage(QWidget):
         self.handle_frame_layout.addWidget(self.handle_stacked_widget)
         self.layout.addWidget(self.handle_frame)
 
-        self.reset_ui()
-        self.re_translate_ui()
-
     def showEvent(self, a0: QShowEvent) -> None:
         self.reset_ui()
         self.re_translate_ui()
@@ -255,6 +252,8 @@ class DialIndicatorPage(QWidget):
 
     @pyqtSlot()
     def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         self.preheat_thermal_left_button.setText(self._printer.get_thermal('left'))
         self.preheat_thermal_right_button.setText(self._printer.get_thermal('right'))
 
@@ -364,25 +363,25 @@ class DialIndicatorPage(QWidget):
 
     def on_measure_left_next_button_clicked(self):
         self._printer.write_gcode_commands(
-            "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
+            "G1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F320\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
                                          "dial_indicator_left")
         self._printer.write_gcode_commands(
-            "G1 Z150 F960\nM400\nG28\nG1 Y160 Z150 F8400\nM400\nT1\nG1 X190 Z150 F8400\nM400")
+            "G1 Z150 F800\nM400\nG28\nG1 Y160 Z150 F800\nM400\nT1\nG1 X190 Z150 F800\nM400")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
         self.measure_right_logo_movie.start()
 
     def on_measure_right_next_button_clicked(self):
         self._printer.write_gcode_commands(
-            "G1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F600\nM400\nG1 Z135 F840\nM400\nG1 Z120 F360\nM400")
+            "G1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F320\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
             self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
                                          "dial_indicator_right")
-        self._printer.write_gcode_commands("G1 Z150 F960\nM400\nG28X")
+        self._printer.write_gcode_commands("G1 Z150 F800\nM400\nG28X")
         self.goto_next_step_stacked_widget()
         self.measure_right_logo_movie.stop()
         self.finished_handle.next_button.setText(self.tr("Done."))

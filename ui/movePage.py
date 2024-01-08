@@ -196,9 +196,7 @@ class MovePage(QWidget):
 
         self.button_group.addButton(self.x_left_button)
         self.button_group.addButton(self.x_right_button)
-
         self.on_button_group_clicked(self.x_left_button)
-        self.re_translate_ui()
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
@@ -243,7 +241,7 @@ class MovePage(QWidget):
         speed *= self.speed_slider.value() / 100
 
         if axis == 'Z':
-            speed = 720
+            speed = 800
             pos += self._printer.get_position('Z')
             if pos < 0:
                 pos = 0
@@ -252,7 +250,7 @@ class MovePage(QWidget):
             speed *= self.speed_slider.value() / 100
             if speed > 1000: speed = 1000
 
-        cmd = "G0" + axis + str(pos) + "F" + str(int(speed))
+        cmd = "G1" + axis + str(pos) + "F" + str(int(speed))
         self._printer.write_gcode_command(cmd)
         self._printer.write_gcode_command("M114")
 
@@ -288,21 +286,23 @@ class MovePage(QWidget):
             self._printer.write_gcode_command('T1')
         elif button.text() in self.distance_list:
             if self.button_group.id(button) != self.distance_current_id:
-                self.button_group.button(self.distance_current_id).setStyleSheet(uncheckedStyleSheet)
-                self.button_group.button(self.button_group.id(button)).setStyleSheet(checkedStyleSheet)
+                update_style(self.button_group.button(self.distance_current_id), "unchecked")
+                update_style(self.button_group.button(self.button_group.id(button)), "checked")
                 self.distance_current_id = self.button_group.id(button)
 
     def on_disabled_button_clicked(self):
         self._printer.write_gcode_command('M84')
 
     def on_update_printer_information(self):
+        if not self.isVisible():
+            return
         # switch button
         if self._printer.get_extruder() == "left":
-            self.x_left_button.setStyleSheet(checkedStyleSheet)
-            self.x_right_button.setStyleSheet(uncheckedStyleSheet)
+            update_style(self.x_left_button, "checked")
+            update_style(self.x_right_button, "unchecked")
         elif self._printer.get_extruder() == "right":
-            self.x_left_button.setStyleSheet(uncheckedStyleSheet)
-            self.x_right_button.setStyleSheet(checkedStyleSheet)
+            update_style(self.x_left_button, "unchecked")
+            update_style(self.x_right_button, "checked")
 
         self.x_frame_title.setText('X: {}'.format(self._printer.get_position('X')))
         self.y_frame_title.setText('Y: {}'.format(self._printer.get_position('Y')))

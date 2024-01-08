@@ -31,13 +31,14 @@ class AutoLevelPage(QWidget):
         self.start_button.clicked.connect(self.on_start_button_clicked)
         self.layout.addWidget(self.start_button)
 
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.reset_bed_mesh_graph()
         self.re_translate_ui()
 
-    def showEvent(self, a0: QShowEvent) -> None:
-        self.re_translate_ui()
+    def reset_bed_mesh_graph(self):
+        self.bed_mesh_graph.show_bed_mesh(self._printer.information['bedMesh'])
 
     def re_translate_ui(self):
-        self.bed_mesh_graph.show_bed_mesh(self._printer.information['bedMesh'])
         self.tips.setText(self.tr("Auto-leveling, please wait."))
         self.start_button.setText(self.tr("Start Auto-leveling"))
         self.bed_mesh_graph.show()
@@ -46,8 +47,11 @@ class AutoLevelPage(QWidget):
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
+        if not self.isVisible():
+            return
         if state == MixwareScreenPrinterStatus.PRINTER_G29:
-            self.re_translate_ui()
+            self._printer.write_gcode_command('M503')
+            self.reset_bed_mesh_graph()
             self.tips.setText(self.tr("Auto-leveling completed."))
             self.tips.show()
 
@@ -57,7 +61,8 @@ class AutoLevelPage(QWidget):
         ret = self._parent.message.start("Mixware Screen", self.tr("Start Auto-leveling?"),
                                          buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
-            self._printer.write_gcode_command('G28\nD28\nG29\nM500\nM503')
+            self._printer.write_gcode_command('G28\nD28\nG29\nM500')
+            self.tips.setText(self.tr("Auto-leveling, please wait."))
             self.tips.show()
             self.bed_mesh_graph.hide()
             self.start_button.hide()
