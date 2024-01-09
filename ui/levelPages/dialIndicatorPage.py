@@ -369,7 +369,7 @@ class DialIndicatorPage(QWidget):
             self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
                                          "dial_indicator_left")
         self._printer.write_gcode_commands(
-            "G1 Z150 F800\nM400\nG28\nG1 Y160 Z150 F800\nM400\nT1\nG1 X190 Z150 F800\nM400")
+            "G1 Z150 F800\nM400\nG28\nG1 Y160 Z150 F8400\nM400\nT1\nG1 X190 Z150 F8400\nM400")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
         self.measure_right_logo_movie.start()

@@ -119,6 +119,9 @@ class BabyStepPad(BaseRoundDialog):
         self.frame_layout.addLayout(self.z_frame_layout)
         self.layout.addWidget(self.frame)
 
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.re_translate_ui()
+
     def re_translate_ui(self):
         if self._printer.get_extruder() == "right":
             self.title_label.setText(self.tr("Baby Step (Right)"))

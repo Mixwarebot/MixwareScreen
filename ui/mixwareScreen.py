@@ -158,6 +158,8 @@ class MixwareScreen(QWidget):
     def on_welcome_complete(self):
         if self._printer.config.should_show_welcome:
             self._printer.config.set_value('window/welcome', 0)
+        if self._printer.information['led']['light'] == 1:
+            self._printer.set_led_light(0)
         if self._printer.is_connected():
             self.set_stacked_index(self.printerWidget)
         else:
