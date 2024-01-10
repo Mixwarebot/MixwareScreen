@@ -209,7 +209,7 @@ the printer to factory settings.</source>
 <context>
     <name>AutoLevelPage</name>
     <message>
-        <location filename="../../../ui/levelPages/autoLevelPage.py" line="67"/>
+        <location filename="../../../ui/levelPages/autoLevelPage.py" line="74"/>
         <source>Auto-leveling, please wait.</source>
         <translation>自动调平中, 请稍等.</translation>
     </message>
@@ -219,12 +219,12 @@ the printer to factory settings.</source>
         <translation>启动自动调平</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/autoLevelPage.py" line="55"/>
+        <location filename="../../../ui/levelPages/autoLevelPage.py" line="54"/>
         <source>Auto-leveling completed.</source>
         <translation>自动调平完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/autoLevelPage.py" line="63"/>
+        <location filename="../../../ui/levelPages/autoLevelPage.py" line="70"/>
         <source>Start Auto-leveling?</source>
         <translation>启动自动调平？</translation>
     </message>
@@ -936,12 +936,12 @@ Calibration</source>
         <translation>请用金属毛刷清洁喷嘴残留物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/levelWizardPage.py" line="577"/>
+        <location filename="../../../ui/levelPages/levelWizardPage.py" line="579"/>
         <source>Done.</source>
         <translation>完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/levelWizardPage.py" line="572"/>
+        <location filename="../../../ui/levelPages/levelWizardPage.py" line="574"/>
         <source>Please enter the value from the dial indicator.</source>
         <translation>请输入百分表的值.</translation>
     </message>
@@ -1242,12 +1242,12 @@ Note: Please ensure that the nozzle temperature is ≤50°C before operation to 
 <context>
     <name>OffsetPage</name>
     <message>
-        <location filename="../../../ui/levelPages/offsetPage.py" line="257"/>
+        <location filename="../../../ui/levelPages/offsetPage.py" line="262"/>
         <source>Left</source>
         <translation>左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/offsetPage.py" line="263"/>
+        <location filename="../../../ui/levelPages/offsetPage.py" line="268"/>
         <source>Right</source>
         <translation>右侧</translation>
     </message>
@@ -1764,22 +1764,22 @@ the printer to factory settings.</source>
         <translation>下一步</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="778"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="780"/>
         <source>Measure compensation value(Left).</source>
         <translation>测量补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="792"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="794"/>
         <source>Measure compensation value(Right).</source>
         <translation>测量补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="780"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="782"/>
         <source>Measure Left</source>
         <translation>测量左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="794"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="796"/>
         <source>Measure Right</source>
         <translation>测量右侧</translation>
     </message>
@@ -1794,7 +1794,7 @@ the printer to factory settings.</source>
         <translation>将耗材放入储物箱内，选择相应的温度，等待加热完成。</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="774"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="776"/>
         <source>Placed</source>
         <translation>已放置</translation>
     </message>
@@ -1809,7 +1809,7 @@ the printer to factory settings.</source>
         <translation>耗材装载完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="796"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="798"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation>测量完成. 请移除热床上的百分表.</translation>
@@ -1835,7 +1835,7 @@ Please remove the dial indicator on the hot bed.</source>
         <translation>装载耗材 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="804"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="806"/>
         <source>Please enter the value from the dial indicator.</source>
         <translation>请输入百分表的值.</translation>
     </message>
@@ -1936,32 +1936,32 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeMainPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="893"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="899"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="898"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="904"/>
         <source>Chinese</source>
         <translation>简体中文</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="917"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="923"/>
         <source>Next</source>
         <translation>下一步</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="922"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="928"/>
         <source>Use Prepare</source>
         <translation>使用准备</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="939"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="945"/>
         <source>Skip</source>
         <translation>跳过</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="959"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="965"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
@@ -1969,12 +1969,12 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeStartPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="989"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="995"/>
         <source>Welcome</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="990"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="996"/>
         <source>Get started</source>
         <translation>开始使用</translation>
     </message>

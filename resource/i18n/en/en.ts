@@ -204,7 +204,7 @@ the printer to factory settings.</source>
 <context>
     <name>AutoLevelPage</name>
     <message>
-        <location filename="../../../ui/levelPages/autoLevelPage.py" line="67"/>
+        <location filename="../../../ui/levelPages/autoLevelPage.py" line="74"/>
         <source>Auto-leveling, please wait.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -214,12 +214,12 @@ the printer to factory settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/autoLevelPage.py" line="55"/>
+        <location filename="../../../ui/levelPages/autoLevelPage.py" line="54"/>
         <source>Auto-leveling completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/autoLevelPage.py" line="63"/>
+        <location filename="../../../ui/levelPages/autoLevelPage.py" line="70"/>
         <source>Start Auto-leveling?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -929,12 +929,12 @@ Calibration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/levelWizardPage.py" line="577"/>
+        <location filename="../../../ui/levelPages/levelWizardPage.py" line="579"/>
         <source>Done.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/levelWizardPage.py" line="572"/>
+        <location filename="../../../ui/levelPages/levelWizardPage.py" line="574"/>
         <source>Please enter the value from the dial indicator.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1232,12 +1232,12 @@ Note: Please ensure that the nozzle temperature is ≤50°C before operation to 
 <context>
     <name>OffsetPage</name>
     <message>
-        <location filename="../../../ui/levelPages/offsetPage.py" line="257"/>
+        <location filename="../../../ui/levelPages/offsetPage.py" line="262"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/offsetPage.py" line="263"/>
+        <location filename="../../../ui/levelPages/offsetPage.py" line="268"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1750,22 +1750,22 @@ the printer to factory settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="778"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="780"/>
         <source>Measure compensation value(Left).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="792"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="794"/>
         <source>Measure compensation value(Right).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="780"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="782"/>
         <source>Measure Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="794"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="796"/>
         <source>Measure Right</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1780,7 +1780,7 @@ the printer to factory settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="774"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="776"/>
         <source>Placed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1795,7 +1795,7 @@ the printer to factory settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="796"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="798"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation type="unfinished"></translation>
@@ -1821,7 +1821,7 @@ Please remove the dial indicator on the hot bed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="804"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="806"/>
         <source>Please enter the value from the dial indicator.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1922,32 +1922,32 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeMainPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="893"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="899"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="898"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="904"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="917"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="923"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="922"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="928"/>
         <source>Use Prepare</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="939"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="945"/>
         <source>Skip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="959"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="965"/>
         <source>Language</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1955,12 +1955,12 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeStartPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="989"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="995"/>
         <source>Welcome</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="990"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="996"/>
         <source>Get started</source>
         <translation type="unfinished"></translation>
     </message>

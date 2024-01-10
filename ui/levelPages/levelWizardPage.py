@@ -527,6 +527,7 @@ class LevelWizardPage(QWidget):
 
     def on_offset_button_up_clicked(self):
         self.offset['left']['Z'] -= float(self.offset_distance_list[self.offset_distance_current_id])
+        self.offset['left']['Z'] = float('%.2f' % self.offset['left']['Z'])
         self._printer.write_gcode_command(
             'G91\nG0 F600 Z-' + self.offset_distance_list[self.offset_distance_current_id] + '\nG90')
         self.offset_button_title.setText(
@@ -534,6 +535,7 @@ class LevelWizardPage(QWidget):
 
     def on_offset_button_down_clicked(self):
         self.offset['left']['Z'] += float(self.offset_distance_list[self.offset_distance_current_id])
+        self.offset['left']['Z'] = float('%.2f' % self.offset['left']['Z'])
         self._printer.write_gcode_command(
             'G91\nG0 F600 Z' + self.offset_distance_list[self.offset_distance_current_id] + '\nG90')
         self.offset_button_title.setText(
@@ -541,7 +543,7 @@ class LevelWizardPage(QWidget):
 
     def on_offset_next_button_clicked(self):
         self.offset_distance_frame.hide()
-        self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']}\nM500\nM851")
+        self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']:.2f}\nM500\nM851")
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.offset_logo_movie.stop()

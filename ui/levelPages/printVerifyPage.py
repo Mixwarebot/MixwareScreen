@@ -449,24 +449,28 @@ class PrintVerifyPage(QWidget):
         text = re.findall("X: (-?\\d+\\.?\\d*)", self.finished_offset_x_label.text())
         offset = float(text[0])
         offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        offset = float('%.2f' % offset)
         self.finished_offset_x_label.setText(f"X: {offset}")
 
     def on_finished_offset_x_add_button_clicked(self):
         text = re.findall("X: (-?\\d+\\.?\\d*)", self.finished_offset_x_label.text())
         offset = float(text[0])
         offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        offset = float('%.2f' % offset)
         self.finished_offset_x_label.setText(f"X: {offset}")
 
     def on_finished_offset_y_dec_button_clicked(self):
         text = re.findall("Y: (-?\\d+\\.?\\d*)", self.finished_offset_y_label.text())
         offset = float(text[0])
         offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        offset = float('%.2f' % offset)
         self.finished_offset_y_label.setText(f"Y: {offset}")
 
     def on_finished_offset_y_add_button_clicked(self):
         text = re.findall("Y: (-?\\d+\\.?\\d*)", self.finished_offset_y_label.text())
         offset = float(text[0])
         offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        offset = float('%.2f' % offset)
         self.finished_offset_y_label.setText(f"Y: {offset}")
 
     def on_finished_next_button_clicked(self):

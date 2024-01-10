@@ -737,6 +737,7 @@ class UsePreparePage(QWidget):
 
     def on_offset_button_up_clicked(self):
         self.offset['left']['Z'] -= float(self._distance_list[self._distance_current_id])
+        self.offset['left']['Z'] = float('%.2f' % self.offset['left']['Z'])
         self._printer.write_gcode_commands(
             'G91\nG0 F600 Z-' + self._distance_list[self._distance_current_id] + '\nG90')
         self.offset_button_title.setText(
@@ -744,6 +745,7 @@ class UsePreparePage(QWidget):
 
     def on_offset_button_down_clicked(self):
         self.offset['left']['Z'] += float(self._distance_list[self._distance_current_id])
+        self.offset['left']['Z'] = float('%.2f' % self.offset['left']['Z'])
         self._printer.write_gcode_commands(
             'G91\nG0 F600 Z' + self._distance_list[self._distance_current_id] + '\nG90')
         self.offset_button_title.setText(
@@ -751,7 +753,7 @@ class UsePreparePage(QWidget):
 
     def on_offset_next_button_clicked(self):
         self.offset_distance_frame.hide()
-        self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']}\nM500\nM851")
+        self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']:.2f}\nM500\nM851")
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.offset_logo_movie.stop()
@@ -817,24 +819,28 @@ class UsePreparePage(QWidget):
         data_x = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
         offset = float(data_x[0])
         offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        offset = float('%.2f' % offset)
         self.verity_offset_x_label.setText(f"X: {offset:.2f}")
 
     def on_verity_offset_x_add_button_clicked(self):
         data_x = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())
         offset = float(data_x[0])
         offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        offset = float('%.2f' % offset)
         self.verity_offset_x_label.setText(f"X: {offset:.2f}")
 
     def on_verity_offset_y_dec_button_clicked(self):
         data_y = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
         offset = float(data_y[0])
         offset -= float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        offset = float('%.2f' % offset)
         self.verity_offset_y_label.setText(f"Y: {offset:.2f}")
 
     def on_verity_offset_y_add_button_clicked(self):
         data_y = re.findall("Y: (-?\\d+\\.?\\d*)", self.verity_offset_y_label.text())
         offset = float(data_y[0])
         offset += float(self._distance_list[self._distance_current_id - len(self._distance_list)])
+        offset = float('%.2f' % offset)
         self.verity_offset_y_label.setText(f"Y: {offset:.2f}")
 
     def on_verity_next_button_clicked(self):

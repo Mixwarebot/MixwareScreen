@@ -230,10 +230,12 @@ class OffsetPage(QWidget):
     def on_z_dec_button_clicked(self):
         if self._printer.get_extruder() == "left":
             self.offset['left']['Z'] -= float(self.offset_distance_list[self.offset_distance_current_id])
+            self.offset['left']['Z'] = float('%.2f' % self.offset['left']['Z'])
             self.z_frame_title.setText(
                 f"Z: {self.offset['left']['Z']:.2f}({self._printer.information['probe']['offset']['left']['Z']:.2f})")
         elif self._printer.get_extruder() == "right":
             self.offset['right']['Z'] += float(self.offset_distance_list[self.offset_distance_current_id])
+            self.offset['right']['Z'] = float('%.2f' % self.offset['right']['Z'])
             self.z_frame_title.setText(
                 f"Z: {self.offset['right']['Z']:.2f}({self._printer.information['probe']['offset']['right']['Z']:.2f})")
         self._printer.write_gcode_command(
@@ -243,10 +245,13 @@ class OffsetPage(QWidget):
     def on_z_add_button_clicked(self):
         if self._printer.get_extruder() == "left":
             self.offset['left']['Z'] += float(self.offset_distance_list[self.offset_distance_current_id])
+            self.offset['left']['Z'] = float('%.2f' % self.offset['left']['Z'])
             self.z_frame_title.setText(
                 f"Z: {self.offset['left']['Z']:.2f}({self._printer.information['probe']['offset']['left']['Z']:.2f})")
         elif self._printer.get_extruder() == "right":
-            self.offset['right']['Z'] -= float(self.offset_distance_list[self.offset_distance_current_id])
+            self.offset['right']['Z'] -= float(
+                '%.2f' % float(self.offset_distance_list[self.offset_distance_current_id]))
+            self.offset['right']['Z'] = float('%.2f' % self.offset['right']['Z'])
             self.z_frame_title.setText(
                 f"Z: {self.offset['right']['Z']:.2f}({self._printer.information['probe']['offset']['right']['Z']:.2f})")
         self._printer.write_gcode_command(
@@ -275,10 +280,10 @@ class OffsetPage(QWidget):
     def on_save_button_clicked(self):
         if self._printer.get_extruder() == "left":
             self._printer.write_gcode_commands(
-                f"M851 X{self.offset['left']['X']} Y{self.offset['left']['Y']} Z{self.offset['left']['Z']}\nM500\nM851")
+                f"M851 X{self.offset['left']['X']:.2f} Y{self.offset['left']['Y']:.2f} Z{self.offset['left']['Z']:.2f}\nM500\nM851")
         elif self._printer.get_extruder() == "right":
             self._printer.write_gcode_commands(
-                f"M218 T1 X{self.offset['right']['X']} Y{self.offset['right']['Y']} Z{self.offset['right']['Z']}\nM500\nM218")
+                f"M218 T1 X{self.offset['right']['X']:.2f} Y{self.offset['right']['Y']:.2f} Z{self.offset['right']['Z']:.2f}\nM500\nM218")
 
     def on_update_printer_information(self):
         if not self.isVisible():
