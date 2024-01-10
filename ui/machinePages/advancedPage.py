@@ -80,7 +80,7 @@ class AdvancedPage(QWidget):
         self.input_shaping.setText(self.tr("Input Shaping Settings"))
         self.linear_advance.setText(self.tr("Linear Advance Settings"))
         # self.pid.setText(self.tr("P.I.D.  Settings"))
-        self.restore_factory.setText(self.tr("Restore Factory Settings"))
+        self.restore_factory.setText(self.tr("Restore Printer Factory Settings"))
         self.save.setText(self.tr("Save Settings to Printer"))
 
     def on_update_printer_information(self):
@@ -123,7 +123,7 @@ class AdvancedPage(QWidget):
     def on_restore_factory_clicked(self):
         self._parent.showShadowScreen()
         ret = self._parent.message.start(self.restore_factory.text(),
-                                         self.tr("Click <Confirm> to restore factory setting."),
+                                         self.tr("Click <Confirm> to restore\nthe printer to factory settings."),
                                          buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
             self._printer.write_gcode_command('M502\nM500\nM503')

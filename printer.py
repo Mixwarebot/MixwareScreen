@@ -1081,3 +1081,26 @@ class MixwareScreenPrinter(QObject):
     @pyqtSlot()
     def is_print_verify(self):
         return self._is_print_verify
+
+    def get_run_out_enabled(self):
+        return self.information['runOut']['enabled']
+
+    def set_run_out_enabled(self, enabled: bool):
+        self.write_gcode_command(f"M412 S{1 if enabled else 0}\nM500\nM412")
+
+    def baby_step_lift(self, offset):
+        self.write_gcode_commands(f'M290 Z-{offset}')
+        if self.get_extruder() == 'left':
+            offset = self.information['probe']['offset']['right']['Z'] - offset
+            self.write_gcode_commands("M851")
+            self.write_gcode_commands(f"M218 T1 Z{offset}")
+        self.write_gcode_commands("M218")
+
+    @pyqtSlot()
+    def baby_step_drop(self, offset):
+        self.write_gcode_commands(f'M290 Z{offset}')
+        if self.get_extruder() == 'left':
+            offset = self.information['probe']['offset']['right']['Z'] + offset
+            self.write_gcode_commands("M851")
+            self.write_gcode_commands(f"M218 T1 Z{offset}")
+        self.write_gcode_commands("M218")

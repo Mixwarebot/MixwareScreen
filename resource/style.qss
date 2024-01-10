@@ -32,6 +32,10 @@ QLabel#titleLabel {
   border: none;
 }
 
+QLabel#switchLabel {
+  font-size: 21px;
+}
+
 QLabel#tips {
   font-size: 16px;
   color: #969696;
@@ -452,4 +456,10 @@ QLabel#serialNumber {
 
 QFrame#frameBox:disabled {
   background-color: rgba(40, 40, 40, 0.1);
+}
+
+QFrame#settingsSwitch {
+  background-color: transparent;
+  border-radius: 0;
+  border-bottom: 1px solid #D4D4D4;
 }

@@ -372,12 +372,28 @@ class UsePreparePage(QWidget):
         self.verity_model_logo.setPixmap(QPixmap("resource/image/xy_verity").scaledToWidth(320))
         self.verity_body_layout.addWidget(self.verity_model_logo)
         self.verity_logo = QLabel()
-        self.verity_logo.setFixedSize(320, 320)
+        self.verity_logo.setFixedSize(340, 340)
         self.verity_logo.setStyleSheet("padding-left: 20px; padding-top: 20px;")
         self.verity_movie = QMovie("resource/image/verity.gif")
         self.verity_movie.setScaledSize(self.verity_logo.size())
         self.verity_logo.setMovie(self.verity_movie)
         self.verity_body_layout.addWidget(self.verity_logo)
+
+        self.verity_baby_step_frame = QFrame()
+        self.verity_baby_step_frame.setObjectName("frameBox")
+        self.verity_baby_step_frame.setFixedHeight(64)
+        self.verity_baby_step_frame_layout = QHBoxLayout(self.verity_baby_step_frame)
+        self.verity_baby_step_frame_layout.setContentsMargins(0, 0, 0, 0)
+        self.verity_baby_step_frame_layout.setSpacing(0)
+        self.verity_baby_step_drop_button = BasePushButton()
+        self.verity_baby_step_drop_button.clicked.connect(self.on_verity_baby_step_drop_button_clicked)
+        self.verity_baby_step_frame_layout.addWidget(self.verity_baby_step_drop_button)
+        self.verity_baby_step_frame_layout.addWidget(BaseVLine())
+        self.verity_baby_step_lift_button = BasePushButton()
+        self.verity_baby_step_lift_button.clicked.connect(self.on_verity_baby_step_lift_button_clicked)
+        self.verity_baby_step_frame_layout.addWidget(self.verity_baby_step_lift_button)
+        self.verity_body_layout.addWidget(self.verity_baby_step_frame)
+
         self.verity_text = QLabel()
         self.verity_text.setWordWrap(True)
         self.verity_text.setAlignment(Qt.AlignCenter)
@@ -498,6 +514,8 @@ class UsePreparePage(QWidget):
         self.dial_button.setText(self.tr("Placed"))
         self.verity_text.setText(self.tr("Verification model printing, please wait."))
         self.verity_distance_title.setText(self.tr("Move Distance (mm)"))
+        self.verity_baby_step_lift_button.setText(self.tr("Lift Bed"))
+        self.verity_baby_step_drop_button.setText(self.tr("Drop Bed"))
         self.preheat_thermal_left_button.setText("-")
         self.preheat_thermal_right_button.setText("-")
         self.preheat_thermal_bed_button.setText("-")
@@ -523,6 +541,7 @@ class UsePreparePage(QWidget):
                 self.verity_thermal_frame.hide()
                 self.verity_progress_bar.hide()
                 self.verity_model_logo.hide()
+                self.verity_baby_step_frame.hide()
                 self.verity_distance_frame.show()
                 self.verity_offset_frame.show()
                 self.verity_logo.show()
@@ -655,9 +674,9 @@ class UsePreparePage(QWidget):
 
     def on_preheat_next_button_clicked(self):
         timer_frame = 2
-        self._printer.write_gcode_commands(f"G91\nG0\nG1 E{load_length} F{load_speed}\nG90\nM400")
-        self._printer.write_gcode_commands(f"T1\nG91\nG0\nG1 E{load_length} F{load_speed}\nG90\nM400\nT0")
-        self.load_progress_bar.setMaximum(int((load_time * 2 + 1) * timer_frame))
+        self._printer.write_gcode_commands(f"G1 X190 F8400\nG91\nG1 E{load_length} F{load_speed}\nG90\nM400")
+        self._printer.write_gcode_commands(f"T1\nG1 X190 F8400\nG91\nG1 E{load_length} F{load_speed}\nG90\nM400")
+        self.load_progress_bar.setMaximum(int((load_time * 2 + 1 + 1) * timer_frame))
         self.working_progress = 0
         self.load_timer.start(int(1000 / timer_frame))
         self.load_handle.previous_button.hide()
@@ -787,6 +806,12 @@ class UsePreparePage(QWidget):
             self._printer.save_dial_indicator_value()
             self._printer.write_gcode_commands("G1 Z150 F800\nM400\nG28X")
             self.dial_handle.next_button.setEnabled(True)
+
+    def on_verity_baby_step_lift_button_clicked(self):
+        self._printer.baby_step_lift(0.1)
+
+    def on_verity_baby_step_drop_button_clicked(self):
+        self._printer.baby_step_drop(0.1)
 
     def on_verity_offset_x_dec_button_clicked(self):
         data_x = re.findall("X: (-?\\d+\\.?\\d*)", self.verity_offset_x_label.text())

@@ -1,6 +1,7 @@
 from qtCore import *
 from ui.machinePages.advancedPage import AdvancedPage
 from ui.settingsButton import SettingsButton
+from ui.settingsSwitch import SettingsSwitch
 
 
 class MachinePage(QWidget):
@@ -28,6 +29,11 @@ class MachinePage(QWidget):
         # self.layout.addWidget(self.powerLossRecovery)
         # self.thermalProtection = SettingsButton()
         # self.layout.addWidget(self.thermalProtection)
+
+        self.run_out_switch = SettingsSwitch()
+        self.run_out_switch.checkedChanged.connect(self.on_run_out_switch_value_changed)
+        self.layout.addWidget(self.run_out_switch)
+
         self.advanced = SettingsButton()
         self.advanced.clicked.connect(self.goto_advanced_page)
         self.layout.addWidget(self.advanced)
@@ -37,6 +43,9 @@ class MachinePage(QWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
 
+        if self._printer.get_run_out_enabled():
+            self.run_out_switch.setChecked(True)
+
     def re_translate_ui(self):
         # self.printMode.setText(self.tr("Print Mode"))
         # self.heatingMode.setText(self.tr("Heating Mode"))
@@ -44,11 +53,15 @@ class MachinePage(QWidget):
         # self.filamentDetector.setText(self.tr("Filament Detector"))
         # self.powerLossRecovery.setText(self.tr("Power Loss Recovery"))
         # self.thermalProtection.setText(self.tr("Thermal Protection"))
+        self.run_out_switch.setText(self.tr("Filament Detection"))
         self.advanced.setText(self.tr("Advanced Configuration"))
 
         # self.printMode._tips.setText("Normal")
         # self.heatingMode._tips.setText("Normal")
         # self.movementMode._tips.setText("Normal")
+
+    def on_run_out_switch_value_changed(self, value):
+        self._printer.set_run_out_enabled(value)
 
     @pyqtSlot()
     def goto_advanced_page(self):

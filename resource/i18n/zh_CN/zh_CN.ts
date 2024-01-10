@@ -175,19 +175,9 @@ Mixware Screen 是最新版本.</translation>
         <translation>线性提前设置</translation>
     </message>
     <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="83"/>
-        <source>Restore Factory Settings</source>
-        <translation>恢复出厂设置</translation>
-    </message>
-    <message>
         <location filename="../../../ui/machinePages/advancedPage.py" line="84"/>
         <source>Save Settings to Printer</source>
         <translation>保存设置到打印机</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/machinePages/advancedPage.py" line="125"/>
-        <source>Click &lt;Confirm&gt; to restore factory setting.</source>
-        <translation>点击 &lt;确认&gt; 恢复出厂设置.</translation>
     </message>
     <message>
         <location filename="../../../ui/machinePages/advancedPage.py" line="135"/>
@@ -204,11 +194,22 @@ Mixware Screen 是最新版本.</translation>
         <source>Maximum Feed Rate Settings</source>
         <translation>最大速度设置</translation>
     </message>
+    <message>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="83"/>
+        <source>Restore Printer Factory Settings</source>
+        <translation>恢复打印机出厂设置</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/machinePages/advancedPage.py" line="125"/>
+        <source>Click &lt;Confirm&gt; to restore
+the printer to factory settings.</source>
+        <translation>点击 &lt;确认&gt; 恢复打印机出厂设置.</translation>
+    </message>
 </context>
 <context>
     <name>AutoLevelPage</name>
     <message>
-        <location filename="../../../ui/levelPages/autoLevelPage.py" line="65"/>
+        <location filename="../../../ui/levelPages/autoLevelPage.py" line="67"/>
         <source>Auto-leveling, please wait.</source>
         <translation>自动调平中, 请稍等.</translation>
     </message>
@@ -223,7 +224,7 @@ Mixware Screen 是最新版本.</translation>
         <translation>自动调平完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/autoLevelPage.py" line="61"/>
+        <location filename="../../../ui/levelPages/autoLevelPage.py" line="63"/>
         <source>Start Auto-leveling?</source>
         <translation>启动自动调平？</translation>
     </message>
@@ -231,24 +232,34 @@ Mixware Screen 是最新版本.</translation>
 <context>
     <name>BabyStepPad</name>
     <message>
-        <location filename="../../../ui/levelPages/babyStepPad.py" line="128"/>
+        <location filename="../../../ui/levelPages/babyStepPad.py" line="131"/>
         <source>(Tips: Baby Step will be delayed.)</source>
         <translation>(提示: 微移动存在延迟.)</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/babyStepPad.py" line="129"/>
+        <location filename="../../../ui/levelPages/babyStepPad.py" line="132"/>
         <source>Move Distance (mm)</source>
         <translation>移动距离 (毫米)</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/babyStepPad.py" line="124"/>
+        <location filename="../../../ui/levelPages/babyStepPad.py" line="127"/>
         <source>Baby Step (Right)</source>
         <translation>微移动 (右侧)</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/babyStepPad.py" line="126"/>
+        <location filename="../../../ui/levelPages/babyStepPad.py" line="129"/>
         <source>Baby Step (Left)</source>
         <translation>微移动 (左侧)</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/babyStepPad.py" line="134"/>
+        <source>Lift Bed</source>
+        <translation>抬升平台</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/levelPages/babyStepPad.py" line="135"/>
+        <source>Drop Bed</source>
+        <translation>下降平台</translation>
     </message>
 </context>
 <context>
@@ -953,9 +964,14 @@ Calibration</source>
 <context>
     <name>MachinePage</name>
     <message>
-        <location filename="../../../ui/machinePages/machinePage.py" line="55"/>
+        <location filename="../../../ui/machinePages/machinePage.py" line="68"/>
         <source>Advanced Configuration</source>
         <translation>高级配置</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/machinePages/machinePage.py" line="56"/>
+        <source>Filament Detection</source>
+        <translation>材料检测</translation>
     </message>
 </context>
 <context>
@@ -1262,7 +1278,7 @@ Note: Please ensure that the nozzle temperature is ≤50°C before operation to 
 <context>
     <name>PrintFilePage</name>
     <message>
-        <location filename="../../../ui/printFilePage.py" line="229"/>
+        <location filename="../../../ui/printFilePage.py" line="263"/>
         <source>Print {} ?</source>
         <translation>打印 {} ?</translation>
     </message>
@@ -1440,6 +1456,46 @@ Print time: {}</source>
     </message>
 </context>
 <context>
+    <name>ResetPage</name>
+    <message>
+        <location filename="../../../ui/resetPage.py" line="35"/>
+        <source>Restore Printer Factory Settings</source>
+        <translation>恢复打印机出厂设置</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/resetPage.py" line="36"/>
+        <source>Reset Mixware Screen Settings</source>
+        <translation>重置 Mixware Screen 设置</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/resetPage.py" line="37"/>
+        <source>Reset All Settings</source>
+        <translation>重置所有设置</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/resetPage.py" line="51"/>
+        <source>Click &lt;Confirm&gt; to
+reset Mixware Screen settings
+and Mixware Screen will restart.</source>
+        <translation>点击 &lt;确认&gt; 重置 Mixware Screen 设置,
+Mixware Screen 将重启.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/resetPage.py" line="64"/>
+        <source>Click &lt;Confirm&gt; to
+reset all settings and
+Mixware Screen will restart.</source>
+        <translation>点击 &lt;确认&gt; 重置所有设置,
+Mixware Screen 将重启.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/resetPage.py" line="41"/>
+        <source>Click &lt;Confirm&gt; to restore
+the printer to factory settings.</source>
+        <translation>点击 &lt;确认&gt; 恢复打印机出厂设置.</translation>
+    </message>
+</context>
+<context>
     <name>RunOutPad</name>
     <message>
         <location filename="../../../ui/runoutPad.py" line="110"/>
@@ -1500,67 +1556,59 @@ Print time: {}</source>
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="100"/>
+        <location filename="../../../ui/settingsPage.py" line="101"/>
         <source>Machine Configuration</source>
         <translation>打印机配置</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="96"/>
+        <location filename="../../../ui/settingsPage.py" line="97"/>
         <source>WLAN</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="73"/>
+        <location filename="../../../ui/settingsPage.py" line="74"/>
         <source>Theme</source>
         <translation>皮肤</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="74"/>
+        <location filename="../../../ui/settingsPage.py" line="75"/>
         <source>Light</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="88"/>
+        <location filename="../../../ui/settingsPage.py" line="89"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="92"/>
+        <location filename="../../../ui/settingsPage.py" line="93"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="82"/>
+        <location filename="../../../ui/settingsPage.py" line="83"/>
         <source>Chinese</source>
         <translation>简体中文</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="84"/>
+        <location filename="../../../ui/settingsPage.py" line="85"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="76"/>
+        <location filename="../../../ui/settingsPage.py" line="77"/>
         <source>User manual</source>
         <translation>使用手册</translation>
     </message>
     <message>
-        <location filename="../../../ui/settingsPage.py" line="78"/>
-        <source>Reset Configuration</source>
-        <translation>重置配置</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/settingsPage.py" line="109"/>
-        <source>Click &lt;Confirm&gt; to
-reset the configuration and
-Mixware Screen will restart.</source>
-        <translation>点击 &lt;确认&gt; 重置配置, 
-Mixware Screen 将重新启动.</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/settingsPage.py" line="104"/>
+        <location filename="../../../ui/settingsPage.py" line="105"/>
         <source>Replace Nozzle Assembly</source>
         <translation>更换喷嘴组件</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/settingsPage.py" line="79"/>
+        <source>Reset</source>
+        <translation>重置</translation>
     </message>
 </context>
 <context>
@@ -1676,165 +1724,175 @@ Mixware Screen 将重新启动.</translation>
 <context>
     <name>UsePreparePage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="463"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="479"/>
         <source>Clean the nozzle.</source>
         <translation>清理喷嘴.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="487"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="503"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation>请规范放置PEI平台, 并且平台无杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="495"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="511"/>
         <source>Adjust offset.</source>
         <translation>调整偏移量.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="500"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="516"/>
         <source>Move Distance (mm)</source>
         <translation>移动距离 (毫米)</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="497"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="513"/>
         <source>Place the dial indicator at the specified location.</source>
         <translation>请放置百分表到指定位置.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="552"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="571"/>
         <source>Heat completed.</source>
         <translation>加热完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="486"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="502"/>
         <source>Start</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="560"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="579"/>
         <source>Next</source>
         <translation>下一步</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="759"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="778"/>
         <source>Measure compensation value(Left).</source>
         <translation>测量补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="773"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="792"/>
         <source>Measure compensation value(Right).</source>
         <translation>测量补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="761"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="780"/>
         <source>Measure Left</source>
         <translation>测量左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="775"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="794"/>
         <source>Measure Right</source>
         <translation>测量右侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="492"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="508"/>
         <source>Please use a metal brush to clean the nozzle residue.</source>
         <translation>请用金属毛刷清洁喷嘴残留物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="608"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="627"/>
         <source>Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete.</source>
         <translation>将耗材放入储物箱内，选择相应的温度，等待加热完成。</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="755"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="774"/>
         <source>Placed</source>
         <translation>已放置</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="499"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="515"/>
         <source>Verification model printing, please wait.</source>
         <translation>校验模型打印中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="673"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="692"/>
         <source>Filament loading completed.</source>
         <translation>耗材装载完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="777"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="796"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation>测量完成. 请移除热床上的百分表.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="462"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="478"/>
         <source>Load filament.</source>
         <translation>装载耗材.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="491"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="507"/>
         <source>Loading filament(Left).</source>
         <translation>装载耗材 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="554"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="573"/>
         <source>Left</source>
         <translation>左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="555"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="574"/>
         <source>Loading filament(Right).</source>
         <translation>装载耗材 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="785"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="804"/>
         <source>Please enter the value from the dial indicator.</source>
         <translation>请输入百分表的值.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="464"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="480"/>
         <source>Auto-leveling.</source>
         <translation>自动调平中.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="493"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="509"/>
         <source>Start Auto-leveling</source>
         <translation>启动自动调平</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="494"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="510"/>
         <source>Auto-leveling, please wait.</source>
         <translation>自动调平中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="517"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="535"/>
         <source>Auto-leveling completed.</source>
         <translation>自动调平完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="530"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="549"/>
         <source>Printing is completed, please level the XY offset according to the printing situation.</source>
         <translation>打印完成, 请根据打印情况调平XY偏移.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="461"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="477"/>
         <source>Filament preparation.</source>
         <translation>耗材准备.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="466"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="482"/>
         <source>Right extruder height calibration.</source>
         <translation>右侧挤出机高度校准.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="467"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="483"/>
         <source>XY offset calibration.</source>
         <translation>XY偏移量校准.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="460"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="476"/>
         <source>Clear debris from the platform.</source>
         <translation>清理平台上的杂物.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="517"/>
+        <source>Lift Bed</source>
+        <translation>抬升平台</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="518"/>
+        <source>Drop Bed</source>
+        <translation>下降平台</translation>
     </message>
 </context>
 <context>
@@ -1878,32 +1936,32 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeMainPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="868"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="893"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="873"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="898"/>
         <source>Chinese</source>
         <translation>简体中文</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="892"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="917"/>
         <source>Next</source>
         <translation>下一步</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="897"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="922"/>
         <source>Use Prepare</source>
         <translation>使用准备</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="914"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="939"/>
         <source>Skip</source>
         <translation>跳过</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="934"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="959"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
@@ -1911,12 +1969,12 @@ Please remove the dial indicator on the hot bed.</source>
 <context>
     <name>WelcomeStartPage</name>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="964"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="989"/>
         <source>Welcome</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="965"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="990"/>
         <source>Get started</source>
         <translation>开始使用</translation>
     </message>

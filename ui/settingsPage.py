@@ -6,7 +6,9 @@ from ui.aboutPage import AboutPage
 from ui.languagePage import LanguagePage
 from ui.machinePages.machinePage import MachinePage
 from ui.nozzlePage import NozzlePage
+from ui.resetPage import ResetPage
 from ui.settingsButton import SettingsButton
+from ui.settingsSwitch import SettingsSwitch
 from ui.wlanPage import WlanPage
 
 
@@ -19,8 +21,6 @@ class SettingsPage(QWidget):
         self._parent = parent
 
         self.setObjectName("settingsPage")
-
-        self._language = 0
 
         self.layout = QVBoxLayout(self)
         self.layout.setAlignment(Qt.AlignTop)
@@ -55,14 +55,15 @@ class SettingsPage(QWidget):
         # self.user_manual.clicked.connect(self.gotoWLANPage)
         # self.layout.addWidget(self.user_manual)
 
+        self.resetPage = ResetPage(self._printer, self._parent)
+        self.restore_factory = SettingsButton()
+        self.restore_factory.clicked.connect(self.on_restore_factory_clicked)
+        self.layout.addWidget(self.restore_factory)
+
         self.aboutPage = AboutPage(self._printer, self._parent)
         self.about = SettingsButton()
         self.about.clicked.connect(self.gotoAboutPage)
         self.layout.addWidget(self.about)
-
-        self.restore_factory = SettingsButton()
-        self.restore_factory.clicked.connect(self.on_restore_factory_clicked)
-        self.layout.addWidget(self.restore_factory)
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
@@ -75,7 +76,7 @@ class SettingsPage(QWidget):
         self.language.setText(self.tr("Language"))
         self.user_manual.setText(self.tr("User manual"))
         self.about.setText(self.tr("About"))
-        self.restore_factory.setText(self.tr("Reset Configuration"))
+        self.restore_factory.setText(self.tr("Reset"))
         self.nozzle.setText(self.tr("Replace Nozzle Assembly"))
 
         if self._printer.config.get_language() == 'Chinese':
@@ -105,13 +106,4 @@ class SettingsPage(QWidget):
 
     @pyqtSlot()
     def on_restore_factory_clicked(self):
-        self._parent.showShadowScreen()
-        ret = self._parent.message.start(self.restore_factory.text(),
-                                         self.tr(
-                                             "Click <Confirm> to\nreset the configuration and\nMixware Screen will restart."),
-                                         buttons=QMessageBox.Yes | QMessageBox.Cancel)
-        if ret == QMessageBox.Yes:
-            self._printer.config.reset_local_config()
-            os.system('sudo clear')
-            os.system('sudo systemctl restart MixwareScreen')
-        self._parent.closeShadowScreen()
+        self._parent.gotoPage(self.resetPage, self.restore_factory.text())

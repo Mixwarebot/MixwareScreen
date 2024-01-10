@@ -66,6 +66,30 @@ def parse_thumbnails(path: str) -> Optional[List[Dict[str, Any]]]:
     return parsed_matches
 
 
+def AutoMultipleLabelFontSize(label):
+    # 创建一个QFont对象
+    font = label.font()
+    # 计算字体大小的范围
+    fm = QFontMetrics(font)
+    min_size = 1
+    max_size = 20
+    # 二分查找适应的字体大小
+    low, high = min_size, max_size
+    while low <= high:
+        mid = (low + high) // 2
+        font.setPointSize(mid)
+        fm = QFontMetrics(font)
+        rect = fm.boundingRect(label.rect(), Qt.TextWordWrap, label.text())
+        if rect.width() <= label.width() and rect.height() <= label.height():
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    # 设置QLabel的字体
+    font.setPointSize(high)
+    label.setFont(font)
+
+
 class PrintFileBar(QFrame):
     clicked = pyqtSignal(str)
 
@@ -92,26 +116,47 @@ class PrintFileBar(QFrame):
             file_size = self._file.size()
         file_time = file.fileTime(QFileDevice.FileModificationTime).toString("yyyy/MM/dd  hh:mm:ss")
 
+        if len(self._file.fileName()) > 20:
+            file_name = list(self._file.fileName())
+            file_name.insert(19, '\n')
+            file_name = ''.join(file_name)
+        else:
+            file_name = self._file.fileName()
+
+        self.layout = QHBoxLayout(self)
+        self.layout.setContentsMargins(10, 0, 10, 0)
+        self.layout.setSpacing(0)
+
         self.logo_label = QLabel()
-        self.logo_label.setPixmap(file_icon.scaledToWidth(108))
         self.logo_label.setFixedSize(108, 108)
+        self.logo_label.setPixmap(file_icon.scaledToWidth(108))
+        self.layout.addWidget(self.logo_label)
+
+        self.label_layout = QVBoxLayout()
+        self.label_layout.setContentsMargins(5, 5, 0, 5)
+        self.label_layout.setSpacing(0)
+        self.label_layout.setAlignment(Qt.AlignTop)
 
         self.name_label = QLabel()
-        self.name_label.setText(self._file.fileName())
-        self.name_label.setMaximumWidth(222)
+        self.name_label.setFixedSize(227, 64)
         self.name_label.setWordWrap(True)
+        self.name_label.setText("<p style='line-height: 80%; width:100%; white-space: pre-wrap;'>" + file_name + "</p>")
+        self.name_label.adjustSize()
+        self.label_layout.addWidget(self.name_label)
 
         self.time_label = QLabel()
         self.time_label.setText(file_time)
         self.time_label.setFixedHeight(22)
-        self.time_label.setStyleSheet("font-size: 15px")
+        self.time_label.setObjectName("tips")
+        # self.time_label.setStyleSheet("font-size: 15px")
         if self._file.isDir():
             self.time_label.hide()
+        self.label_layout.addWidget(self.time_label)
 
         self.size_label = QLabel()
         self.size_label.setFixedHeight(22)
-        self.size_label.setStyleSheet("font-size: 15px")
-
+        self.size_label.setObjectName("tips")
+        # self.size_label.setStyleSheet("font-size: 15px")
         if not file_size:
             self.size_label.hide()
         else:
@@ -124,19 +169,8 @@ class PrintFileBar(QFrame):
                 self.size_label.setText(f"{file_size:.2f}{size_h[level]}")
             else:
                 self.size_label.setText(f"{file_size}{size_h[level]}")
-
-        label_layout = QVBoxLayout()
-        label_layout.setContentsMargins(5, 10, 15, 10)
-        label_layout.setSpacing(0)
-        label_layout.addWidget(self.name_label)
-        label_layout.addWidget(self.time_label)
-        label_layout.addWidget(self.size_label)
-
-        layout = QHBoxLayout(self)
-        layout.setContentsMargins(10, 0, 0, 0)
-        layout.setSpacing(0)
-        layout.addWidget(self.logo_label)
-        layout.addLayout(label_layout)
+        self.label_layout.addWidget(self.size_label)
+        self.layout.addLayout(self.label_layout)
 
     def mousePressEvent(self, a0: QMouseEvent) -> None:
         self.is_move = False
