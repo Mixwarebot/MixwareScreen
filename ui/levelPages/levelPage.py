@@ -65,7 +65,7 @@ class LevelPage(QWidget):
 
     @pyqtSlot()
     def goto_offset_z_page(self):
-        self._parent.gotoPage(self.dialIndicatorPage, self.tr("Right Extruder Height Calibration"))
+        self._parent.gotoPage(self.dialIndicatorPage, self.tr("Right Extruder\nHeight Calibration"))
 
     @pyqtSlot()
     def goto_offset_xy_page(self):
