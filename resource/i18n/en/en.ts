@@ -806,11 +806,6 @@ Calibration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/levelPage.py" line="51"/>
-        <source>Right Extruder Height Calibration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../ui/levelPages/levelPage.py" line="68"/>
         <source>Right Extruder
 Height Calibration</source>

@@ -48,7 +48,7 @@ class LevelPage(QWidget):
         self.bed_level.setText(self.tr("Bed Leveling"))
         self.bed_mesh.setText(self.tr("Auto-leveling"))
         self.offset.setText(self.tr("Adjust Offset"))
-        self.offset_z.setText(self.tr("Right Extruder Height Calibration"))
+        self.offset_z.setText(self.tr("Right Extruder\nHeight Calibration"))
         self.offset_xy.setText(self.tr("XY Offset\nCalibration"))
 
     @pyqtSlot()

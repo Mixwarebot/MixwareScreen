@@ -812,11 +812,6 @@ Calibration</source>
         <translation>XY偏移量校准</translation>
     </message>
     <message>
-        <location filename="../../../ui/levelPages/levelPage.py" line="51"/>
-        <source>Right Extruder Height Calibration</source>
-        <translation>右侧挤出机高度校准</translation>
-    </message>
-    <message>
         <location filename="../../../ui/levelPages/levelPage.py" line="68"/>
         <source>Right Extruder
 Height Calibration</source>
