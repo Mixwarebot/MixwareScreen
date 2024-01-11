@@ -1278,7 +1278,7 @@ Note: Please ensure that the nozzle temperature is ≤50°C before operation to 
 <context>
     <name>PrintFilePage</name>
     <message>
-        <location filename="../../../ui/printFilePage.py" line="263"/>
+        <location filename="../../../ui/printFilePage.py" line="236"/>
         <source>Print {} ?</source>
         <translation>打印 {} ?</translation>
     </message>
