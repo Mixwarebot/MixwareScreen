@@ -367,13 +367,13 @@ class UsePreparePage(QWidget):
         self.verity_body_layout.addWidget(self.verity_thermal_frame)
         self.verity_body_layout.addWidget(BaseHLine())
         self.verity_model_logo = QLabel()
-        self.verity_model_logo.setFixedSize(360, 540)
+        self.verity_model_logo.setFixedSize(360, 400)
         self.verity_model_logo.setAlignment(Qt.AlignCenter)
         self.verity_model_logo.setPixmap(QPixmap("resource/image/xy_verity").scaledToWidth(320))
         self.verity_body_layout.addWidget(self.verity_model_logo)
         self.verity_logo = QLabel()
-        self.verity_logo.setFixedSize(340, 340)
-        self.verity_logo.setStyleSheet("padding-left: 20px; padding-top: 20px;")
+        self.verity_logo.setFixedSize(340, 400)
+        self.verity_logo.setStyleSheet("padding: 50px 20px 50px 20px;")
         self.verity_movie = QMovie("resource/image/verity.gif")
         self.verity_movie.setScaledSize(self.verity_logo.size())
         self.verity_logo.setMovie(self.verity_movie)
@@ -383,7 +383,7 @@ class UsePreparePage(QWidget):
         self.verity_baby_step_frame.setObjectName("frameBox")
         self.verity_baby_step_frame.setFixedHeight(64)
         self.verity_baby_step_frame_layout = QHBoxLayout(self.verity_baby_step_frame)
-        self.verity_baby_step_frame_layout.setContentsMargins(0, 0, 0, 0)
+        self.verity_baby_step_frame_layout.setContentsMargins(20, 0, 20, 0)
         self.verity_baby_step_frame_layout.setSpacing(0)
         self.verity_baby_step_drop_button = BasePushButton()
         self.verity_baby_step_drop_button.clicked.connect(self.on_verity_baby_step_drop_button_clicked)
@@ -672,8 +672,9 @@ class UsePreparePage(QWidget):
     def on_preheat_next_button_clicked(self):
         timer_frame = 2
         self._printer.write_gcode_commands(f"G1 X190 F8400\nG91\nG1 E{load_length} F{load_speed}\nG90\nM400")
-        self._printer.write_gcode_commands(f"T1\nG1 X190 F8400\nG91\nG1 E{load_length} F{load_speed}\nG90\nM400")
-        self.load_progress_bar.setMaximum(int((load_time * 2 + 1 + 1) * timer_frame))
+        self._printer.write_gcode_commands(
+            f"T1\nG1 X190 F8400\nG91\nG1 E{load_length} F{load_speed}\nG90\nM400\nT0\nM84")
+        self.load_progress_bar.setMaximum(int((load_time * 2 + 5) * timer_frame))
         self.working_progress = 0
         self.load_timer.start(int(1000 / timer_frame))
         self.load_handle.previous_button.hide()
@@ -700,8 +701,7 @@ class UsePreparePage(QWidget):
         self.load_progress_bar.setValue(0)
 
     def on_clean_next_button_clicked(self):
-        if platform.system().lower() == 'linux':  # test
-            self.level_handle.next_button.setEnabled(False)
+        self.level_handle.next_button.setEnabled(False)
         self.level_load.hide()
         self.level_text.hide()
         self.clean_logo_movie.stop()
@@ -878,8 +878,8 @@ class WelcomeMainPage(BasePrintWidget):
         self.footer.hide()
 
         self.next_button = QPushButton(self)
-        self.next_button.setFixedSize(64, 42)
-        self.next_button.move(self.width() - 64 - 20, 31)
+        self.next_button.setFixedSize(72, 48)
+        self.next_button.move(self.width() - 72 - 20, 22)
         self.next_button.clicked.connect(self.on_next_button_clicked)
 
         self.body_frame = QFrame()
