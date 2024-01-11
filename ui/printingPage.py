@@ -2,6 +2,7 @@ import platform
 
 from qtCore import *
 from ui.base.baseLine import BaseVLine, BaseHLine
+from ui.settingsSwitch import SwitchButton
 
 
 class PrintingPage(QWidget):
@@ -225,6 +226,18 @@ class PrintingPage(QWidget):
         self.speed_flow_button.setFixedHeight(40)
         self.speed_frame_layout.addWidget(self.speed_flow_button, 3)
         self.frame_layout.addWidget(self.speed_frame)
+
+        self.filament_detector_frame = QFrame()
+        self.filament_detector_frame.setObjectName("frameBox")
+        self.filament_detector_frame.setFixedHeight(80)
+        self.filament_detector_frame_layout = QHBoxLayout(self.filament_detector_frame)
+        self.filament_detector_frame_layout.setContentsMargins(20, 10, 30, 10)
+        self.filament_detector_frame_layout.setSpacing(0)
+        self.filament_detector_text = QLabel()
+        self.filament_detector_frame_layout.addWidget(self.filament_detector_text)
+        self.filament_detector_enabled = SwitchButton()
+        self.filament_detector_frame_layout.addWidget(self.filament_detector_enabled)
+        self.frame_layout.addWidget(self.filament_detector_frame)
         self.layout.addWidget(self.frame)
 
         self.file_name.setText("print.gcode")
@@ -249,6 +262,7 @@ class PrintingPage(QWidget):
         self.fan_exhaust_button.setText("-")
         self.speed_print_button.setText("-")
         self.speed_flow_button.setText("-")
+        self.filament_detector_text.setText(self.tr("Filament Detection"))
 
     def set_file_name(self, file):
         self.file_name.setText(file)

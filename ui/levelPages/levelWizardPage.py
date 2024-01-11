@@ -434,24 +434,19 @@ class LevelWizardPage(QWidget):
                 self.message_list[index + 2].show()
 
     def on_remind_next_button_clicked(self):
-        logging.debug(f"Start preheat")
-        if platform.system().lower() == 'linux':
-            self.preheat_handle.next_button.setEnabled(False)
+        self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
         update_style(self.preheat_pla, "unchecked")
         update_style(self.preheat_abs, "unchecked")
         update_style(self.preheat_pa, "unchecked")
         update_style(self.preheat_pet, "unchecked")
-        # preheat -> 170
-        self._printer.set_thermal('left', 170)
-        self._printer.set_thermal('right', 170)
-        self._printer.write_gcode_commands("M155 S1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        # preheat -> 170, 170
+        self._printer.write_gcode_command("M155 S1\nM104 S170 T0\nM104 S170 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
-        if platform.system().lower() == 'linux':
-            if self.preheat_handle.next_button.isEnabled():
-                self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 170°C)"))
-                self.preheat_handle.next_button.setEnabled(False)
+        if self.preheat_handle.next_button.isEnabled():
+            self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 170°C)"))
+            self.preheat_handle.next_button.setEnabled(False)
 
     def preheat_filament(self, temperature):
         self._printer.set_thermal('left', temperature)
@@ -499,9 +494,8 @@ class LevelWizardPage(QWidget):
         self.clean_logo_movie.start()
 
     def on_clean_next_button_clicked(self):
-        if platform.system().lower() == 'linux':
-            self._printer.write_gcode_command('M104 S0 T0\nM104 S0 T1\nG28\nD28\nG29\nM500\nM503')
-            self.level_handle.next_button.setEnabled(False)
+        self._printer.write_gcode_command('M104 S0 T0\nM104 S0 T1\nM420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
+        self.level_handle.next_button.setEnabled(False)
         self._parent.footer.setEnabled(False)
         self.clean_logo_movie.stop()
         self.goto_next_step_stacked_widget()

@@ -12,11 +12,12 @@ class HeaderBar(QFrame):
 
         self.title = QLabel()
         self.title.setText("Mixware Screen")
+        self.title.setFixedHeight(64)
         self.title.setObjectName("titleLabel")
         self.title.setAlignment(Qt.AlignCenter)
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(0, 20, 0, 0)
+        layout.setContentsMargins(0, 16, 0, 4)
         layout.addWidget(self.title)
         layout.addWidget(BaseHLine())
 

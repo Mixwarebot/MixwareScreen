@@ -152,25 +152,10 @@ class BabyStepPad(BaseRoundDialog):
     @pyqtSlot()
     def on_baby_step_button_lift_clicked(self):
         self._printer.baby_step_lift(float(self.baby_step_distance_list[self.baby_step_distance_current_id]))
-        # self._printer.write_gcode_commands(f'M290 Z-{self.baby_step_distance_list[self.baby_step_distance_current_id]}')
-        # if self._printer.get_extruder() == 'left':
-        #     offset = self._printer.information['probe']['offset']['right']['Z'] - float(self.baby_step_distance_list[
-        #                                                                                     self.baby_step_distance_current_id])
-        #     self._printer.write_gcode_commands("M851")
-        #     self._printer.write_gcode_commands(f"M218 T1 Z{offset}")
-        # self._printer.write_gcode_commands("M218")
 
     @pyqtSlot()
     def on_baby_step_button_drop_clicked(self):
         self._printer.baby_step_drop(float(self.baby_step_distance_list[self.baby_step_distance_current_id]))
-        # self._printer.write_gcode_commands(
-        #     f'M290 Z{self.baby_step_distance_list[self.baby_step_distance_current_id]}')
-        # if self._printer.get_extruder() == 'left':
-        #     offset = self._printer.information['probe']['offset']['right']['Z'] + float(self.baby_step_distance_list[
-        #                                                                                     self.baby_step_distance_current_id])
-        #     self._printer.write_gcode_commands("M851")
-        #     self._printer.write_gcode_commands(f"M218 T1 Z{offset}")
-        # self._printer.write_gcode_commands("M218")
 
     def close_button_on_clicked(self):
         self.reject()

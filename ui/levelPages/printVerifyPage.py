@@ -371,21 +371,18 @@ class PrintVerifyPage(QWidget):
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
-        # preheat -> 210
-        self._printer.set_thermal('left', 210)
-        self._printer.set_thermal('right', 210)
-        self._printer.set_thermal('bed', 60)
         update_style(self.preheat_pla, "checked")
         update_style(self.preheat_abs, "unchecked")
         update_style(self.preheat_pa, "unchecked")
         update_style(self.preheat_pet, "unchecked")
-        self._printer.write_gcode_commands("M155 S2\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        # preheat -> 210, 210, 60
+        self._printer.write_gcode_command(
+            "M155 S1\nM140 S60\nM104 S210 T0\nM104 S210 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
-        if platform.system().lower() == 'linux':
-            if self.preheat_handle.next_button.isEnabled():
-                self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 210°C)"))
-                self.preheat_handle.next_button.setEnabled(False)
+        if self.preheat_handle.next_button.isEnabled():
+            self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 210°C)"))
+            self.preheat_handle.next_button.setEnabled(False)
 
     def preheat_filament(self, temperature):
         self._printer.set_thermal('left', temperature)
@@ -433,15 +430,12 @@ class PrintVerifyPage(QWidget):
         update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_next_button_clicked(self):
-        if platform.system().lower() == 'linux':
-            self.work_handle.next_button.setEnabled(False)
+        self.work_handle.next_button.setEnabled(False)
         self._printer.print_verify()
         self.goto_next_step_stacked_widget()
 
     def on_clean_next_button_clicked(self):
-        if platform.system().lower() == 'linux':
-            self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y20 Z150 F8400")
-
+        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y20 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.finished_handle.next_button.setText(self.tr("Done."))
 

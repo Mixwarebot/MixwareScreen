@@ -42,9 +42,7 @@ class MachinePage(QWidget):
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
-
-        if self._printer.get_run_out_enabled():
-            self.run_out_switch.setChecked(True)
+        self.run_out_switch.setChecked(self._printer.get_run_out_enabled())
 
     def re_translate_ui(self):
         # self.printMode.setText(self.tr("Print Mode"))

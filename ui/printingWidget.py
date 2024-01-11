@@ -35,13 +35,13 @@ class PrintingWidget(BasePrintWidget):
         self.printingPage.fan_exhaust_button.clicked.connect(self.on_fan_exhaust_button_clicked)
         self.printingPage.speed_print_button.clicked.connect(self.on_speed_print_button_clicked)
         self.printingPage.speed_flow_button.clicked.connect(self.on_speed_flow_button_clicked)
+        self.printingPage.filament_detector_enabled.checkedChanged.connect(self.on_run_out_switch_value_changed)
         self.stackedLayout.addWidget(self.printingPage)
 
         self.babyStepPad = BabyStepPad(self._printer)
         self.babyStepPad.rejected.connect(self.closeShadowScreen)
 
         self.runOutPad = RunOutPad(self._printer)
-        self.printingPage.motor_y_button.clicked.connect(self.on_motor_y_button_clicked)
 
         self.printDoneDialog = PrintDoneDialog(self._printer)
 
@@ -53,6 +53,9 @@ class PrintingWidget(BasePrintWidget):
         self.timerSeconds = 0
         self.reset_time()
         self.timer.start(1000)
+
+    def showEvent(self, a0: QShowEvent) -> None:
+        self.printingPage.filament_detector_enabled.set_checked(self._printer.get_run_out_enabled())
 
     def onButtonClicked(self):  # test
         filepath, _ = QFileDialog.getOpenFileName(None, "pic", ".", "*.png")
@@ -216,3 +219,6 @@ class PrintingWidget(BasePrintWidget):
         elif ret == QMessageBox.Cancel:
             self.print_done.emit()
         self.closeShadowScreen()
+
+    def on_run_out_switch_value_changed(self, value):
+        self._printer.set_run_out_enabled(value)

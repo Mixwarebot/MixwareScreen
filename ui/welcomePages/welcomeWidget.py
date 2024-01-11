@@ -612,16 +612,13 @@ class UsePreparePage(QWidget):
         update_style(self.preheat_abs, "unchecked")
         update_style(self.preheat_pa, "unchecked")
         update_style(self.preheat_pet, "unchecked")
-        # preheat -> 170
-        self._printer.set_thermal('left', 210)
-        self._printer.set_thermal('right', 210)
-        self._printer.set_thermal('bed', 60)
-        self._printer.write_gcode_command("M155 S1\nG28\nT0\nG1 Y20 Z50 F8400\nM155 S0")
+        # preheat -> 210, 210, 60
+        self._printer.write_gcode_command(
+            "M155 S1\nM140 S60\nM104 S210 T0\nM104 S210 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
         if self.preheat_handle.next_button.isEnabled():
-            if platform.system().lower() == 'linux':  # test
-                self.preheat_handle.next_button.setEnabled(False)
+            self.preheat_handle.next_button.setEnabled(False)
             self.preheat_place_movie.start()
             self.preheat_logo.show()
             self.preheat_text.setText(self.tr(
@@ -711,7 +708,7 @@ class UsePreparePage(QWidget):
         self.goto_next_step_stacked_widget()
 
     def on_level_button_clicked(self):
-        self._printer.write_gcode_commands('G28\nD28\nG29\nM500\nM503')
+        self._printer.write_gcode_commands('M420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
         self.level_button.hide()
         self.level_load.show()
         self.level_text.show()
@@ -758,8 +755,7 @@ class UsePreparePage(QWidget):
         self.goto_next_step_stacked_widget()
         self.offset_logo_movie.stop()
         self.dial_place_movie.start()
-        if platform.system().lower() == 'linux':  # test
-            self.dial_handle.next_button.setEnabled(False)
+        self.dial_handle.next_button.setEnabled(False)
 
     def on_place_next_button_clicked(self):
         self.verity_distance_frame.hide()

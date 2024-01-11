@@ -12,11 +12,10 @@ from ui.levelPages.bedMeshGraph import BedMeshGraph
 class DialIndicatorPage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
-        self.message_text_list = None
         self._printer = printer
-        self._parent = parent
-
         self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
+        self._parent = parent
+        self.message_text_list = None
 
         self.setObjectName("dialIndicatorPage")
         self.setMinimumSize(self._printer.config.get_width(), self._printer.config.get_height() / 2)
@@ -29,9 +28,11 @@ class DialIndicatorPage(QWidget):
         self.message_frame = QFrame()
         self.message_frame.setObjectName("frameBox")
         self.message_frame.setFixedSize(360, 240)
+
         self.message_layout = QVBoxLayout(self.message_frame)
         self.message_layout.setContentsMargins(20, 20, 20, 20)
         self.message_layout.setSpacing(10)
+
         self.message_list = []
         self.reset_message_title()
         for i in range(len(self.message_text_list)):
@@ -42,24 +43,29 @@ class DialIndicatorPage(QWidget):
         self.handle_frame = QFrame()
         self.handle_frame.setFixedWidth(360)
         self.handle_frame.setObjectName("frameBox")
+
         self.handle_frame_layout = QVBoxLayout(self.handle_frame)
         self.handle_frame_layout.setContentsMargins(0, 0, 0, 0)
         self.handle_frame_layout.setSpacing(10)
+
         self.handle_stacked_widget = QStackedWidget()
         self.handle_stacked_widget.setContentsMargins(0, 0, 0, 0)
 
         self.remind_handle = HandleBar()
         self.remind_handle.previous_button.hide()
         self.remind_handle.next_button.clicked.connect(self.on_remind_next_button_clicked)
+
         self.remind_body_layout = QVBoxLayout(self.remind_handle.body)
         self.remind_body_layout.setContentsMargins(20, 0, 20, 0)
         self.remind_body_layout.setSpacing(0)
         self.remind_body_layout.setAlignment(Qt.AlignCenter)
+
         self.remind_logo = QLabel()
         self.remind_logo.setFixedSize(320, 320)
         self.remind_logo.setScaledContents(True)
         self.remind_logo.setPixmap(QPixmap("resource/image/level_clean_bed.png"))
         self.remind_body_layout.addWidget(self.remind_logo)
+
         self.remind_text = QLabel()
         self.remind_text.setWordWrap(True)
         self.remind_text.setAlignment(Qt.AlignCenter)
@@ -69,54 +75,65 @@ class DialIndicatorPage(QWidget):
         self.preheat_handle = HandleBar()
         self.preheat_handle.previous_button.hide()
         self.preheat_handle.next_button.clicked.connect(self.on_preheat_next_button_clicked)
+
         self.preheat_body_layout = QVBoxLayout(self.preheat_handle.body)
         self.preheat_body_layout.setContentsMargins(0, 0, 0, 0)
         self.preheat_body_layout.setSpacing(0)
 
         self.preheat_thermal_frame = QFrame()
         self.preheat_thermal_frame.setFixedSize(360, 140)
+
         self.preheat_thermal_frame_layout = QGridLayout(self.preheat_thermal_frame)
         self.preheat_thermal_frame_layout.setContentsMargins(10, 10, 10, 0)
         self.preheat_thermal_frame_layout.setSpacing(0)
+
         self.preheat_thermal_left = QLabel()
         self.preheat_thermal_left.setObjectName("leftLogo")
         self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_left, 0, 0, 1, 1)
+
         self.preheat_thermal_left_button = QPushButton()
         self.preheat_thermal_left_button.setFixedHeight(64)
         self.preheat_thermal_left_button.clicked.connect(self.on_preheat_thermal_left_button_clicked)
         self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_left_button, 0, 1, 1, 1)
         self.preheat_thermal_frame_layout.addWidget(BaseHLine(), 1, 0, 1, 2)
+
         self.preheat_thermal_right = QLabel()
         self.preheat_thermal_right.setObjectName("rightLogo")
         self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_right, 2, 0, 1, 1)
+
         self.preheat_thermal_right_button = QPushButton()
         self.preheat_thermal_right_button.setFixedHeight(64)
         self.preheat_thermal_right_button.clicked.connect(self.on_preheat_thermal_right_button_clicked)
         self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_right_button, 2, 1, 1, 1)
         self.preheat_body_layout.addWidget(self.preheat_thermal_frame)
         self.preheat_body_layout.addWidget(BaseHLine())
+
         self.preheat_filament_layout = QHBoxLayout()
         self.preheat_pla = BasePushButton()
         self.preheat_pla.setFixedHeight(64)
         self.preheat_pla.clicked.connect(self.on_preheat_pla_clicked)
         self.preheat_filament_layout.addWidget(self.preheat_pla)
         self.preheat_filament_layout.addWidget(BaseVLine())
+
         self.preheat_abs = BasePushButton()
         self.preheat_abs.setFixedHeight(64)
         self.preheat_abs.clicked.connect(self.on_preheat_abs_clicked)
         self.preheat_filament_layout.addWidget(self.preheat_abs)
         self.preheat_filament_layout.addWidget(BaseVLine())
+
         self.preheat_pet = BasePushButton()
         self.preheat_pet.setFixedHeight(64)
         self.preheat_pet.clicked.connect(self.on_preheat_pet_clicked)
         self.preheat_filament_layout.addWidget(self.preheat_pet)
         self.preheat_filament_layout.addWidget(BaseVLine())
+
         self.preheat_pa = BasePushButton()
         self.preheat_pa.setFixedHeight(64)
         self.preheat_pa.clicked.connect(self.on_preheat_pa_clicked)
         self.preheat_filament_layout.addWidget(self.preheat_pa)
         self.preheat_body_layout.addLayout(self.preheat_filament_layout)
         self.preheat_body_layout.addWidget(BaseHLine())
+
         self.preheat_text = QLabel()
         self.preheat_text.setWordWrap(True)
         self.preheat_text.setAlignment(Qt.AlignCenter)
@@ -126,16 +143,19 @@ class DialIndicatorPage(QWidget):
         self.clean_handle = HandleBar()
         self.clean_handle.previous_button.hide()
         self.clean_handle.next_button.clicked.connect(self.on_clean_next_button_clicked)
+
         self.clean_body_layout = QVBoxLayout(self.clean_handle.body)
         self.clean_body_layout.setContentsMargins(20, 0, 20, 0)
         self.clean_body_layout.setSpacing(0)
         self.clean_body_layout.setAlignment(Qt.AlignCenter)
+
         self.clean_logo = QLabel()
         self.clean_logo.setFixedSize(320, 220)
         self.clean_logo_movie = QMovie("resource/image/clean_nozzle.gif")
         self.clean_logo_movie.setScaledSize(self.clean_logo.size())
         self.clean_logo.setMovie(self.clean_logo_movie)
         self.clean_body_layout.addWidget(self.clean_logo)
+
         self.clean_text = QLabel()
         self.clean_text.setWordWrap(True)
         self.clean_text.setAlignment(Qt.AlignCenter)
@@ -145,16 +165,19 @@ class DialIndicatorPage(QWidget):
         self.place_handle = HandleBar()
         self.place_handle.previous_button.hide()
         self.place_handle.next_button.clicked.connect(self.on_place_next_button_clicked)
+
         self.place_body_layout = QVBoxLayout(self.place_handle.body)
         self.place_body_layout.setContentsMargins(20, 0, 20, 0)
         self.place_body_layout.setSpacing(0)
         self.place_body_layout.setAlignment(Qt.AlignCenter)
+
         self.place_logo = QLabel()
         self.place_logo.setFixedSize(320, 320)
         self.place_logo_movie = QMovie("resource/image/level_measure.gif")
         self.place_logo_movie.setScaledSize(self.remind_logo.size())
         self.place_logo.setMovie(self.place_logo_movie)
         self.place_body_layout.addWidget(self.place_logo)
+
         self.place_text = QLabel()
         self.place_text.setWordWrap(True)
         self.place_text.setAlignment(Qt.AlignCenter)
@@ -164,16 +187,19 @@ class DialIndicatorPage(QWidget):
         self.measure_left_handle = HandleBar()
         self.measure_left_handle.previous_button.hide()
         self.measure_left_handle.next_button.clicked.connect(self.on_measure_left_next_button_clicked)
+
         self.measure_left_body_layout = QVBoxLayout(self.measure_left_handle.body)
         self.measure_left_body_layout.setContentsMargins(20, 0, 20, 0)
         self.measure_left_body_layout.setSpacing(0)
         self.measure_left_body_layout.setAlignment(Qt.AlignCenter)
+
         self.measure_left_logo = QLabel()
         self.measure_left_logo.setFixedSize(320, 320)
         self.measure_left_logo_movie = QMovie("resource/image/level_measure_left.gif")
         self.measure_left_logo_movie.setScaledSize(self.remind_logo.size())
         self.measure_left_logo.setMovie(self.measure_left_logo_movie)
         self.measure_left_body_layout.addWidget(self.measure_left_logo)
+
         self.measure_left_text = QLabel()
         self.measure_left_text.setWordWrap(True)
         self.measure_left_text.setAlignment(Qt.AlignCenter)
@@ -183,16 +209,19 @@ class DialIndicatorPage(QWidget):
         self.measure_right_handle = HandleBar()
         self.measure_right_handle.previous_button.hide()
         self.measure_right_handle.next_button.clicked.connect(self.on_measure_right_next_button_clicked)
+
         self.measure_right_body_layout = QVBoxLayout(self.measure_right_handle.body)
         self.measure_right_body_layout.setContentsMargins(20, 0, 20, 0)
         self.measure_right_body_layout.setSpacing(0)
         self.measure_right_body_layout.setAlignment(Qt.AlignCenter)
+
         self.measure_right_logo = QLabel()
         self.measure_right_logo.setFixedSize(320, 320)
         self.measure_right_logo_movie = QMovie("resource/image/level_measure_right.gif")
         self.measure_right_logo_movie.setScaledSize(self.remind_logo.size())
         self.measure_right_logo.setMovie(self.measure_right_logo_movie)
         self.measure_right_body_layout.addWidget(self.measure_right_logo)
+
         self.measure_right_text = QLabel()
         self.measure_right_text.setWordWrap(True)
         self.measure_right_text.setAlignment(Qt.AlignCenter)
@@ -202,9 +231,11 @@ class DialIndicatorPage(QWidget):
         self.finished_handle = HandleBar()
         self.finished_handle.previous_button.hide()
         self.finished_handle.next_button.clicked.connect(self.on_finished_next_button_clicked)
+
         self.finished_body_layout = QVBoxLayout(self.finished_handle.body)
         self.finished_body_layout.setContentsMargins(20, 0, 20, 0)
         self.finished_body_layout.setSpacing(0)
+
         self.finished_text = QLabel()
         self.finished_text.setWordWrap(True)
         self.finished_text.setAlignment(Qt.AlignCenter)
@@ -287,20 +318,17 @@ class DialIndicatorPage(QWidget):
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
-        # preheat -> 170
-        self._printer.set_thermal('left', 170)
-        self._printer.set_thermal('right', 170)
         update_style(self.preheat_pla, "unchecked")
         update_style(self.preheat_abs, "unchecked")
         update_style(self.preheat_pa, "unchecked")
         update_style(self.preheat_pet, "unchecked")
-        self._printer.write_gcode_commands("M155 S1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        # preheat -> 170, 170
+        self._printer.write_gcode_command("M155 S1\nM104 S170 T0\nM104 S170 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
-        if platform.system().lower() == 'linux':
-            if self.preheat_handle.next_button.isEnabled():
-                self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 170°C)"))
-                self.preheat_handle.next_button.setEnabled(False)
+        if self.preheat_handle.next_button.isEnabled():
+            self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 170°C)"))
+            self.preheat_handle.next_button.setEnabled(False)
 
     def preheat_filament(self, temperature):
         self._printer.set_thermal('left', temperature)
@@ -348,10 +376,7 @@ class DialIndicatorPage(QWidget):
         self.clean_logo_movie.start()
 
     def on_clean_next_button_clicked(self):
-        # if platform.system().lower() == 'linux':
-        self._printer.set_thermal('left', 0)
-        self._printer.set_thermal('right', 0)
-        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
+        self._printer.write_gcode_commands("M104 S0 T0\nM104 S0 T1\nG28\nT0\nG1 X190 Y160 Z150 F8400")
         self.clean_logo_movie.stop()
         self.goto_next_step_stacked_widget()
         self.place_logo_movie.start()

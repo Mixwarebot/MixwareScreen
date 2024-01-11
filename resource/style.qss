@@ -28,7 +28,7 @@ QLabel#line {
 QLabel#titleLabel {
   color: #FF5A00;
   font-weight: bold;
-  font-size: 26px;
+  font-size: 24px;
   border: none;
 }
 
