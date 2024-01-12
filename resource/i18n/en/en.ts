@@ -1512,32 +1512,32 @@ the printer to factory settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="143"/>
+        <location filename="../../../ui/runoutPad.py" line="145"/>
         <source>- A filament abnormality is detected and printing is paused.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="152"/>
+        <location filename="../../../ui/runoutPad.py" line="154"/>
         <source>- Please clean the nozzle or load the new filament.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="159"/>
+        <location filename="../../../ui/runoutPad.py" line="161"/>
         <source>- Heating...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="186"/>
+        <location filename="../../../ui/runoutPad.py" line="188"/>
         <source>- Filament loading is completed, please choose to load again or resume printing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="210"/>
+        <location filename="../../../ui/runoutPad.py" line="212"/>
         <source>- Heating is complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="145"/>
+        <location filename="../../../ui/runoutPad.py" line="147"/>
         <source>- Unload the abnormal filament.</source>
         <translation type="unfinished"></translation>
     </message>

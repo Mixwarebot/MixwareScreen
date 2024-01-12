@@ -1525,32 +1525,32 @@ the printer to factory settings.</source>
         <translation>再次装载.</translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="143"/>
+        <location filename="../../../ui/runoutPad.py" line="145"/>
         <source>- A filament abnormality is detected and printing is paused.</source>
         <translation>- 检测到材料异常, 暂停打印.</translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="152"/>
+        <location filename="../../../ui/runoutPad.py" line="154"/>
         <source>- Please clean the nozzle or load the new filament.</source>
         <translation>- 请清理喷嘴或装载新的材料.</translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="159"/>
+        <location filename="../../../ui/runoutPad.py" line="161"/>
         <source>- Heating...</source>
         <translation>- 加热中...</translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="186"/>
+        <location filename="../../../ui/runoutPad.py" line="188"/>
         <source>- Filament loading is completed, please choose to load again or resume printing.</source>
         <translation>- 材料装载完成, 请选择再次装载或恢复打印.</translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="210"/>
+        <location filename="../../../ui/runoutPad.py" line="212"/>
         <source>- Heating is complete.</source>
         <translation>- 加热完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/runoutPad.py" line="145"/>
+        <location filename="../../../ui/runoutPad.py" line="147"/>
         <source>- Unload the abnormal filament.</source>
         <translation>- 卸载异常材料.</translation>
     </message>

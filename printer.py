@@ -892,15 +892,15 @@ class MixwareScreenPrinter(QObject):
         self._printing_information["temperature"]["right"] = self.information['thermal']['right']['target']
         self._printing_information["temperature"]["bed"] = self.information['thermal']['bed']['target']
         self._printing_information["temperature"]["chamber"] = self.information['thermal']['chamber']['target']
-        self._printing_information["position"] = self.information['motor']['position']
+        self._printing_information["position"]["X"] = self.information['motor']['position']["X"]
+        self._printing_information["position"]["Y"] = self.information['motor']['position']["Y"]
+        self._printing_information["position"]["Z"] = self.information['motor']['position']["Z"]
         self._printing_information["fan"]['left'] = self.information['fan']['left']['speed']
         self._printing_information["fan"]['right'] = self.information['fan']['right']['speed']
         self._printing_information["fan"]['exhaust'] = self.information['fan']['exhaust']['speed']
         self._printing_information["feedRate"] = self.information['feedRate']
         self._printing_information["flow"] = self.information['flow']
 
-        # test
-        print(self._printing_information)
         with open('.PLR.json', 'w') as file:
             file.write(json.dumps(self._printing_information))
 
@@ -908,13 +908,13 @@ class MixwareScreenPrinter(QObject):
     def print_pause(self):
         if self._is_printing:
             logging.debug(F"Pause printing.")
+            self.print_backup()
+            print("Y:   ", self._printing_information["position"]["Y"])
             self.write_gcode_commands('M76')
             self.write_gcode_commands('G91')
             self.write_gcode_commands('G1 F300 Z10')
             self.write_gcode_commands('G90')
             self._is_paused = True
-
-            self.print_backup()
 
     @pyqtSlot()
     def print_resume(self):
@@ -923,6 +923,7 @@ class MixwareScreenPrinter(QObject):
             # self._sendCommand('G28R0XY')
             if self.information['runOut']['enabled']:
                 self._sendCommand('M412R')  # Reset run out status
+            print("Y:   ", self._printing_information["position"]["Y"])
             self._sendCommand(
                 f'G1 F8400 X{self._printing_information["position"]["X"]} Y{self._printing_information["position"]["Y"]}')
             self._sendCommand(f'G92 E{self._printing_information["position"]["E"]}')
