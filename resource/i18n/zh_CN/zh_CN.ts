@@ -1806,7 +1806,7 @@ the printer to factory settings.</source>
         <translation>校验模型打印中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="689"/>
+        <location filename="../../../ui/welcomePages/welcomeWidget.py" line="690"/>
         <source>Filament loading completed.</source>
         <translation>耗材装载完成.</translation>
     </message>

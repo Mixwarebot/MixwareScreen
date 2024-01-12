@@ -58,7 +58,7 @@ class PrintingPage(QWidget):
 
         self.progress_frame = QFrame()
         self.progress_frame.setObjectName("frameBox")
-        self.progress_frame.setFixedHeight(120)
+        self.progress_frame.setFixedHeight(100)
         self.progress_frame_layout = QVBoxLayout(self.progress_frame)
         self.progress_frame_layout.setContentsMargins(20, 10, 20, 10)
         self.progress_frame_layout.setSpacing(10)
