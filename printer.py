@@ -920,15 +920,15 @@ class MixwareScreenPrinter(QObject):
     def print_resume(self):
         if self._is_printing:
             logging.debug(F"Resume printing.")
-            self._sendCommand('G91')
-            self._sendCommand('G1 F300 Z-10')
-            self._sendCommand('G90')
             # self._sendCommand('G28R0XY')
+            if self.information['runOut']['enabled']:
+                self._sendCommand('M412R')  # Reset run out status
             self._sendCommand(
                 f'G1 F8400 X{self._printing_information["position"]["X"]} Y{self._printing_information["position"]["Y"]}')
             self._sendCommand(f'G92 E{self._printing_information["position"]["E"]}')
-            if self.information['runOut']['enabled']:
-                self._sendCommand('M412R')  # Reset run out status
+            self._sendCommand('G91')
+            self._sendCommand('G1 F300 Z-10')
+            self._sendCommand('G90')
             self._sendCommand('M75')  # Start print timer
             self._is_paused = False
             self._sendNextGcodeLine()
