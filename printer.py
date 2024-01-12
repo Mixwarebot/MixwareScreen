@@ -538,22 +538,22 @@ class MixwareScreenPrinter(QObject):
                     self.re_data = re.findall("D28 X(\\d*) Y(\\d*) Z(\\d*)", self.serial_data)
                     if self.re_data:
                         logging.debug(F"Update home status(D28): {self.re_data}")
-                        self.information['home']['X'] = bool(self.re_data[0][0])
-                        self.information['home']['Y'] = bool(self.re_data[0][1])
-                        self.information['home']['Z'] = bool(self.re_data[0][2])
+                        self.information['home']['X'] = bool(self.re_data[0][0] == '1')
+                        self.information['home']['Y'] = bool(self.re_data[0][1] == '1')
+                        self.information['home']['Z'] = bool(self.re_data[0][2] == '1')
                         self.re_data.clear()
                 elif re.search("M412", self.serial_data):  # Run out status.
                     self.re_data = re.findall("M412 S(\\d*) D(\\d+\\.?\\d*)", self.serial_data)
                     if self.re_data:
                         logging.debug(F"Update run out status(M412): {self.re_data}")
-                        self.information['runOut']['enabled'] = bool(self.re_data[0][0])
+                        self.information['runOut']['enabled'] = bool(self.re_data[0][0] == '1')
                         self.information['runOut']['distance'] = float(self.re_data[0][1])
                 elif re.search("D412", self.serial_data):  # Run out status.
                     logging.debug(F"D412: {self.serial_data}")
                     self.re_data = re.findall("D412 B(\\d*) S(\\d*) T(\\d*)", self.serial_data)
                     logging.debug(F"D412: {self.re_data}")
                     if self.re_data:
-                        if bool(self.re_data[0][0]) and self._is_printing and not self._is_paused:
+                        if bool(self.re_data[0][0] == '1') and self._is_printing and not self._is_paused:
                             logging.debug(F"The material detection device is triggered.")
                             self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_RUN_OUT)
                         else:

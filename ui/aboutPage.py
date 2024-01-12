@@ -90,12 +90,12 @@ class AboutPage(QWidget):
                                                  "Mixware Screen is updated successfully and will take effect after restarting."),
                                              buttons=QMessageBox.Yes | QMessageBox.Cancel)
             if ret == QMessageBox.Yes:
+                os.system('sudo clear')
                 if self._printer.is_connected() and self.need_reboot_printer:
                     self._printer.printer_reboot()
-                os.system('sudo clear')
                 os.system('sudo systemctl restart MixwareScreen')
 
-        if self._printer.is_connected():
+        elif self._printer.is_connected():
             if self.need_reboot_printer:
                 ret = self._parent.message.start("Mixware Screen", self.tr(
                     "Firmware download is successful, restart the printer to upgrade."),
