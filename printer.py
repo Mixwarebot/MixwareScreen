@@ -1087,7 +1087,7 @@ class MixwareScreenPrinter(QObject):
 
     def set_run_out_enabled(self, enabled: bool):
         self.write_gcode_command(f"M412 S{1 if enabled else 0}")
-        if not self.is_printing:
+        if not self.is_printing():
             self.write_gcode_command(f"M500")
         else:
             self.write_gcode_command('M412R')
