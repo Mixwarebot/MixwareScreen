@@ -1086,7 +1086,12 @@ class MixwareScreenPrinter(QObject):
         return self.information['runOut']['enabled']
 
     def set_run_out_enabled(self, enabled: bool):
-        self.write_gcode_command(f"M412 S{1 if enabled else 0}\nM500\nM412")
+        self.write_gcode_command(f"M412 S{1 if enabled else 0}")
+        if not self.is_printing:
+            self.write_gcode_command(f"M500")
+        else:
+            self.write_gcode_command('M412R')
+        self.write_gcode_command(f"M412")
 
     def baby_step_lift(self, offset):
         self.write_gcode_commands(f'M290 Z-{offset}')
