@@ -172,7 +172,7 @@ class PrintingWidget(BasePrintWidget):
                     if not self.runOutPad.isVisible():
                         self.showShadowScreen()
                         self.print_pause()
-                        self._printer.write_gcode_command("G1 Y20 F8400")
+                        self._printer.write_gcode_commands("G1 Y20 F8400")
                         self.runOutPad.start()
                         self.closeShadowScreen()
 

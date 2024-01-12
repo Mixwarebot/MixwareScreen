@@ -908,10 +908,10 @@ class MixwareScreenPrinter(QObject):
     def print_pause(self):
         if self._is_printing:
             logging.debug(F"Pause printing.")
-            self._sendCommand('M76')
-            self._sendCommand('G91')
-            self._sendCommand('G1 F300 Z10')
-            self._sendCommand('G90')
+            self.write_gcode_commands('M76')
+            self.write_gcode_commands('G91')
+            self.write_gcode_commands('G1 F300 Z10')
+            self.write_gcode_commands('G90')
             self._is_paused = True
 
             self.print_backup()

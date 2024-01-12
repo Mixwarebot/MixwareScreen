@@ -122,7 +122,7 @@ class RunOutPad(BaseRoundDialog):
         self.load_again_button.setEnabled(False)
         self.next_button.setEnabled(False)
         timer_frame = 2
-        self._printer.write_gcode_command(f"G91\nG0\nG1 E{load_length} F{load_speed}\nG90\nM400")
+        self._printer.write_gcode_commands(f"G91\nG0\nG1 E{load_length} F{load_speed}\nG90\nM400")
         self.progress_bar.setMaximum(int(load_time * timer_frame))
         self.working_progress = 0
         self.progress_bar.show()
@@ -130,8 +130,8 @@ class RunOutPad(BaseRoundDialog):
 
     def start_unload(self):
         timer_frame = 2
-        self._printer.write_gcode_command(f"G91\nG1 E{unload_purge_length} F{unload_purge_speed}\n"
-                                          f"G1 E-{unload_length} F{unload_speed}\nG90\nM400")
+        self._printer.write_gcode_commands(f"G91\nG1 E{unload_purge_length} F{unload_purge_speed}\n"
+                                           f"G1 E-{unload_length} F{unload_speed}\nG90\nM400")
         self.progress_bar.setMaximum(int(unload_time * timer_frame))
         self.working_progress = 0
         self.progress_bar.show()
