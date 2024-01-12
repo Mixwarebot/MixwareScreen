@@ -144,7 +144,7 @@ class OffsetPage(QWidget):
         self.axis_frame_layout.addLayout(self.yz_frame_layout, 1)
         self.frame_layout.addLayout(self.axis_frame_layout, 5)
         self.save_button = BasePushButton()
-        self.save_button.setMaximumHeight(128)
+        self.save_button.setMaximumHeight(88)
         self.save_button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.save_button.setStyleSheet("border: 1px solid #D4D4D4; border-radius: 10px")
         self.save_button.clicked.connect(self.on_save_button_clicked)
@@ -173,6 +173,12 @@ class OffsetPage(QWidget):
         self.z_frame_title.setText("Z: -")
         self.distance_title.setText(self.tr("Move Distance (mm)"))
         self.save_button.setText(self.tr("Save"))
+        self.x_dec_button.setTitle(self.tr("Move\nLeft"))
+        self.x_add_button.setTitle(self.tr("Move\nRight"))
+        self.y_dec_button.setTitle(self.tr("Move\nBack"))
+        self.y_add_button.setTitle(self.tr("Move\nForward"))
+        self.z_dec_button.setTitle(self.tr("Lift\nBed"))
+        self.z_add_button.setTitle(self.tr("Drop\nBed"))
 
     @pyqtSlot()
     def on_x_dec_button_clicked(self):

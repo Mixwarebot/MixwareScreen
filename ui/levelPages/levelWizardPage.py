@@ -236,7 +236,7 @@ class LevelWizardPage(QWidget):
         self.offset_button_title.setObjectName("frame_title")
         self.offset_frame_layout.addWidget(self.offset_button_title)
         self.offset_button_frame = QFrame()
-        self.offset_button_frame.setFixedHeight(168)
+        self.offset_button_frame.setFixedHeight(216)
         self.offset_button_frame.setObjectName("frameBox")
         self.offset_button_frame_layout = QVBoxLayout(self.offset_button_frame)
         self.offset_button_frame_layout.setContentsMargins(0, 0, 0, 0)
@@ -383,6 +383,8 @@ class LevelWizardPage(QWidget):
         self.measure_left_text.setText(self.tr("Click <Next> to start measure compensation value(Left)."))
         self.measure_right_text.setText(self.tr("Click <Next> to start measure compensation value(Right)."))
         self.finished_text.setText(self.tr("Leveling wizard completed."))
+        self.offset_button_up.setTitle(self.tr("Lift Bed"))
+        self.offset_button_down.setTitle(self.tr("Drop Bed"))
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
