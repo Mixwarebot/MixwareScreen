@@ -1326,22 +1326,17 @@ Bed</source>
 <context>
     <name>PrintPreparePage</name>
     <message>
-        <location filename="../../../ui/printPreparePage.py" line="35"/>
+        <location filename="../../../ui/printPreparePage.py" line="193"/>
         <source>Local Print</source>
         <translation>内置打印</translation>
     </message>
     <message>
-        <location filename="../../../ui/printPreparePage.py" line="36"/>
+        <location filename="../../../ui/printPreparePage.py" line="194"/>
         <source>USB Print</source>
         <translation>U盘打印</translation>
     </message>
     <message>
-        <location filename="../../../ui/printPreparePage.py" line="42"/>
-        <source>Whether to print the &apos;XY Offset Calibration&apos; model?</source>
-        <translation>是否打印‘XY偏移量校准’模型?</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/printPreparePage.py" line="37"/>
+        <location filename="../../../ui/printPreparePage.py" line="195"/>
         <source>XY Offset
 Calibration</source>
         <translation>XY偏移量校准</translation>
@@ -1941,6 +1936,29 @@ Please remove the dial indicator on the hot bed.</source>
         <location filename="../../../ui/welcomePages/welcomeWidget.py" line="536"/>
         <source>Drop Bed</source>
         <translation>下降平台</translation>
+    </message>
+</context>
+<context>
+    <name>VerityMessageBox</name>
+    <message>
+        <location filename="../../../ui/printPreparePage.py" line="150"/>
+        <source>Whether to print the &apos;XY Offset Calibration&apos; model?</source>
+        <translation>是否打印‘XY偏移量校准’模型?</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/printPreparePage.py" line="152"/>
+        <source>Confirm</source>
+        <translation>确认</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/printPreparePage.py" line="153"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/printPreparePage.py" line="151"/>
+        <source>Select the filament heating temperature</source>
+        <translation>选择耗材加热温度</translation>
     </message>
 </context>
 <context>

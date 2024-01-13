@@ -212,7 +212,7 @@ class UsePreparePage(QWidget):
         self.level_handle.previous_button.hide()
         self.level_handle.next_button.clicked.connect(self.on_level_next_button_clicked)
         self.level_body_layout = QVBoxLayout(self.level_handle.body)
-        self.level_body_layout.setContentsMargins(20, 0, 20, 0)
+        self.level_body_layout.setContentsMargins(19, 0, 20, 0)
         self.level_body_layout.setSpacing(0)
         self.level_body_layout.setAlignment(Qt.AlignCenter)
         self.level_button = BasePushButton()
