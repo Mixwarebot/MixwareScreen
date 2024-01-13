@@ -224,8 +224,9 @@ class UsePreparePage(QWidget):
         self.level_load.setFixedSize(320, 120)
         self.level_load.setAlignment(Qt.AlignCenter)
         self.level_body_layout.addWidget(self.level_load)
-        self.bed_mesh_graph = BedMeshGraph()
-        self.level_body_layout.addWidget(self.bed_mesh_graph)
+        self.level_mesh_graph = BedMeshGraph()
+        self.level_mesh_graph.body_frame.setFixedSize(320, 320)
+        self.level_body_layout.addWidget(self.level_mesh_graph)
         self.level_text = QLabel()
         self.level_text.setWordWrap(True)
         self.level_text.setAlignment(Qt.AlignCenter)
@@ -550,8 +551,8 @@ class UsePreparePage(QWidget):
         if self.isVisible():
             if state == MixwareScreenPrinterStatus.PRINTER_G29:
                 self.level_handle.next_button.setEnabled(True)
-                self.bed_mesh_graph.show_bed_mesh(self._printer.information['bedMesh'])
-                self.bed_mesh_graph.show()
+                self.level_mesh_graph.show_bed_mesh(self._printer.information['bedMesh'])
+                self.level_mesh_graph.show()
                 self.level_text.setText(self.tr("Auto-leveling completed."))
                 self.level_load_timer.stop()
                 self.level_load.hide()
@@ -723,7 +724,7 @@ class UsePreparePage(QWidget):
     def on_clean_next_button_clicked(self):
         self.level_handle.next_button.setEnabled(False)
         self.level_load.hide()
-        self.bed_mesh_graph.hide()
+        self.level_mesh_graph.hide()
         self.level_text.hide()
         self.clean_logo_movie.stop()
         self.goto_next_step_stacked_widget()

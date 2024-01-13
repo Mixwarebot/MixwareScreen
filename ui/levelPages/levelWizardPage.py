@@ -173,6 +173,7 @@ class LevelWizardPage(QWidget):
         self.level_load.setAlignment(Qt.AlignCenter)
         self.level_body_layout.addWidget(self.level_load)
         self.level_mesh_graph = BedMeshGraph()
+        self.level_mesh_graph.body_frame.setFixedSize(320, 320)
         self.level_body_layout.addWidget(self.level_mesh_graph)
         self.level_text = QLabel()
         self.level_text.setWordWrap(True)
