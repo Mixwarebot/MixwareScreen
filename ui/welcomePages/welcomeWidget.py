@@ -730,7 +730,7 @@ class UsePreparePage(QWidget):
         self.goto_next_step_stacked_widget()
 
     def on_level_button_clicked(self):
-        self._printer.write_gcode_commands('M420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
+        self._printer.write_gcode_command('M420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
         self.level_button.hide()
         self.level_load.show()
         self.level_text.show()
