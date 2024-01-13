@@ -61,7 +61,6 @@ class AutoLevelPage(QWidget):
         if not self.isVisible():
             return
         if self.bed_mesh_graph.isVisible() and self.bed_mesh_graph.body_frame_layout.count() < 3:
-            self._printer.write_gcode_command('M503')
             self.reset_bed_mesh_graph()
 
     @pyqtSlot()

@@ -172,6 +172,8 @@ class LevelWizardPage(QWidget):
         self.level_load.setFixedSize(320, 120)
         self.level_load.setAlignment(Qt.AlignCenter)
         self.level_body_layout.addWidget(self.level_load)
+        self.level_mesh_graph = BedMeshGraph()
+        self.level_body_layout.addWidget(self.level_mesh_graph)
         self.level_text = QLabel()
         self.level_text.setWordWrap(True)
         self.level_text.setAlignment(Qt.AlignCenter)
@@ -246,7 +248,7 @@ class LevelWizardPage(QWidget):
         self.offset_button_up.clicked.connect(self.on_offset_button_up_clicked)
         self.offset_button_frame_layout.addWidget(self.offset_button_up)
         self.offset_button_up_label = QLabel()
-        self.offset_button_up_label.setFixedHeight(24)
+        self.offset_button_up_label.setFixedHeight(44)
         self.offset_button_up_label.setAlignment(Qt.AlignCenter)
         self.offset_button_frame_layout.addWidget(self.offset_button_up_label)
         self.offset_button_frame_layout.addWidget(BaseHLine())
@@ -255,7 +257,7 @@ class LevelWizardPage(QWidget):
         self.offset_button_down.clicked.connect(self.on_offset_button_down_clicked)
         self.offset_button_frame_layout.addWidget(self.offset_button_down)
         self.offset_button_down_label = QLabel()
-        self.offset_button_down_label.setFixedHeight(24)
+        self.offset_button_down_label.setFixedHeight(44)
         self.offset_button_down_label.setAlignment(Qt.AlignCenter)
         self.offset_button_frame_layout.addWidget(self.offset_button_down_label)
         self.offset_frame_layout.addWidget(self.offset_button_frame)
@@ -403,6 +405,8 @@ class LevelWizardPage(QWidget):
             self.level_text.setText(self.tr("Auto-leveling completed."))
             self.level_load_timer.stop()
             self.level_load.hide()
+            self.level_mesh_graph.show_bed_mesh(self._printer.information['bedMesh'])
+            self.level_mesh_graph.show()
 
     @pyqtSlot()
     def on_update_printer_information(self):
@@ -509,6 +513,7 @@ class LevelWizardPage(QWidget):
         self._parent.footer.setEnabled(False)
         self.clean_logo_movie.stop()
         self.goto_next_step_stacked_widget()
+        self.level_mesh_graph.hide()
         self.level_load.show()
         self.level_load_timer.start(250)
 
