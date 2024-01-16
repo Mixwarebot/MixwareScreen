@@ -65,6 +65,7 @@ class MixwareScreenPrinter(QObject):
 
     def __init__(self):
         super(MixwareScreenPrinter, self).__init__()
+        self.wait_for_thermal = ""
         self.dial_indicator = {'left': 0.0, 'right': 0.0}
         self.print_file = ""
         self.serial = None
@@ -85,6 +86,7 @@ class MixwareScreenPrinter(QObject):
         self._is_printing = False
         self._is_print_verify = False
         self._is_paused = False
+        self.wait_for_heat_up = False
         self.leveling_working = 0
         self.filament_working = 0
         self.connect_timer = QTimer()
@@ -260,8 +262,7 @@ class MixwareScreenPrinter(QObject):
 
             if self._last_temperature_request is None or time() > self._last_temperature_request + self._timeout:
                 # Timeout, or no request has been sent at all.
-                if not self._printer_busy:  # Don't flood the printer with temperature requests while it is busy
-                    # self.sendCommand("M105")
+                if not self._printer_busy and not self.wait_for_heat_up:  # Don't flood the printer with temperature requests while it is busy
                     if pull_thermal:
                         self.sendCommand("M105")
                     else:
@@ -348,6 +349,14 @@ class MixwareScreenPrinter(QObject):
                 # if chamber_power:
                 #     self.information['thermal']['chamber']['power'] = float(chamber_power[0])
                 self.updatePrinterInformation.emit()
+                if self.wait_for_heat_up and not self.serial_data.startswith("ok") \
+                        and self.wait_for_thermal in ['left', 'right', 'bed', 'chamber']:
+                    if self.information['thermal'][self.wait_for_thermal]['temperature'] >= \
+                            self.information['thermal'][self.wait_for_thermal][
+                                'target'] > 0.0:
+                        self.wait_for_thermal = None
+                        self.wait_for_heat_up = False
+                        self._sendCommand("M155 S0")
             elif re.search("[X|Y|Z|E]:-?\\d+\\.?\\d*", self.serial_data) and 'Count' in self.serial_data:
                 self.re_data = re.findall("[X|Y|Z|E]:(-?\\d+\\.?\\d*)", self.serial_data)
                 if self.re_data:
@@ -645,6 +654,21 @@ class MixwareScreenPrinter(QObject):
             if b'G29' in new_command:
                 logging.info("Start Auto-leveling(G29).")
                 self.set_level_state(new_command.count(b"\n"))
+            elif b'M109' in new_command:
+                if b'T1' in new_command:
+                    self.wait_for_thermal = "right"
+                else:
+                    self.wait_for_thermal = "left"
+                self.wait_for_heat_up = True
+                self.serial.write(b'M155 S1\n')
+            elif b'M190' in new_command:
+                self.wait_for_thermal = "bed"
+                self.wait_for_heat_up = True
+                self.serial.write(b'M155 S1\n')
+            elif b'M191' in new_command:
+                self.wait_for_thermal = "chamber"
+                self.wait_for_heat_up = True
+                self.serial.write(b'M155 S1\n')
             elif b'M502' in new_command:
                 self.information['bedMesh'] = []
             elif b'M605' in new_command:
@@ -672,6 +696,9 @@ class MixwareScreenPrinter(QObject):
         serial port to the printer.
         If the print is done, this sets `_is_printing` to `False` as well.
         """
+        if self.wait_for_heat_up:
+            logging.debug(F"wait_for_heat_up.")
+            return
         try:
             self._gcode_line = self._gcode[self._gcode_position]
         except IndexError:  # End of print, or print got cancelled.
@@ -793,8 +820,15 @@ class MixwareScreenPrinter(QObject):
         elif 'chamber' in heater:
             command = "M141"
         if command:
-            command += " S" + str(target) + "\nM105"
-            self.write_gcode_commands(command)
+            command += " S" + str(target)
+            self._sendCommand(command)
+            if not self.wait_for_heat_up:
+                self._sendCommand("M105")
+            else:
+                if self.wait_for_thermal in ['left', 'right', 'bed', 'chamber'] and self.wait_for_thermal == heater and \
+                        self.information['thermal'][self.wait_for_thermal]['temperature'] >= target:
+                    self.wait_for_thermal = None
+                    self.wait_for_heat_up = False
 
     @pyqtSlot(result=str)
     def get_extruder(self):
@@ -823,7 +857,7 @@ class MixwareScreenPrinter(QObject):
         elif 'exhaust' in fan:
             command += " P2"
         command += " S" + str(int(speed * 255))
-        self.write_gcode_command(command)
+        self._sendCommand(command)
 
     def get_print_feed_rate(self):
         return self.information['feedRate']
@@ -835,7 +869,7 @@ class MixwareScreenPrinter(QObject):
         """
         if percent > 0:
             command = f"M220 S{percent}"
-            self.write_gcode_command(command)
+            self._sendCommand(command)
 
     def get_print_flow(self):
         return self.information['flow'][self.get_extruder()]
@@ -847,7 +881,7 @@ class MixwareScreenPrinter(QObject):
         """
         if percent > 0:
             command = f" T{0 if self.get_extruder() == 'left' else 1} S{percent}"
-            self.write_gcode_command(command)
+            self._sendCommand(command)
 
     @pyqtSlot(result=float)
     def set_led_light(self):
@@ -860,7 +894,7 @@ class MixwareScreenPrinter(QObject):
         """
         command = "M355"
         command += " S" + str(int(light * 255))
-        self.write_gcode_command(command)
+        self._sendCommand(command)
 
     @pyqtSlot(result=float)
     def get_position(self, axis: str):
@@ -941,10 +975,10 @@ class MixwareScreenPrinter(QObject):
         self._gcode.clear()
         self._is_printing = False
         self._is_paused = False
-        while not self._command_queue.empty():
-            self._command_queue.get()
 
-        self._sendCommand('M108\nM140 S0\nM141 S0\nM104 T0 S0\nM104 T1 S0\nM107 P0\nM107 P1\nG28XY\nM400\nM77\nM84')
+        # self._sendCommand('M108\nM140 S0\nM141 S0\nM104 T0 S0\nM104 T1 S0\nM107 P0\nM107 P1\nG28XY\nM400\nM77\nM84')
+        self._sendCommand('D108\nG28XY\nM400\nM77\nM84')
+        self.wait_for_heat_up = False
         self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_CONNECTED)
 
     @pyqtSlot(str)

@@ -7,6 +7,7 @@ from ui.base.messageBar import MessageBar
 class FilamentPage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
+        self.need_move_to_start = None
         self.message_text_list = None
         self._printer = printer
         self._parent = parent
@@ -176,7 +177,7 @@ class FilamentPage(QWidget):
         self.current_work_mode = None
 
     def showEvent(self, a0: QShowEvent) -> None:
-        self._printer.write_gcode_command(f"G28\nG1 Y{filament_position['Y']} Z{filament_position['Z']} F6000")
+        self.need_move_to_start = True
         self.reset_ui()
 
     def hideEvent(self, a0: QHideEvent) -> None:
@@ -363,7 +364,16 @@ class FilamentPage(QWidget):
     def on_work_mode_load_button_clicked(self):
         self.set_work_mode(self.tr("Load"))
 
+    def move_to_start_position(self):
+        if self.need_move_to_start:
+            if self._printer.get_position('Y') != filament_position['Y'] or self._printer.get_position('Z') != \
+                    filament_position['Z']:
+                self._printer.write_gcode_command(
+                    f"G28\nG1 Z{filament_position['Z']} F960\nG1 Y{filament_position['Y']} F8400")
+            self.need_move_to_start = False
+
     def on_extruder_next_button_clicked(self):
+        self.move_to_start_position()
         if self._printer.get_extruder() == "left":
             self.message_list[0].setText(self.tr("Current extruder: Left."))
         elif self._printer.get_extruder() == "right":
@@ -371,10 +381,12 @@ class FilamentPage(QWidget):
         self.goto_next_step_stacked_widget()
 
     def on_extruder_right_button_clicked(self):
+        self.move_to_start_position()
         if self._printer.get_extruder() != "right":
             self._printer.write_gcode_command('T1')
 
     def on_extruder_left_button_clicked(self):
+        self.move_to_start_position()
         if self._printer.get_extruder() != "left":
             self._printer.write_gcode_command('T0')
 
