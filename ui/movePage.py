@@ -199,7 +199,11 @@ class MovePage(QWidget):
         self.on_button_group_clicked(self.x_left_button)
 
     def showEvent(self, a0: QShowEvent) -> None:
+        self._printer.pull_position = True
         self.re_translate_ui()
+
+    def hideEvent(self, a0: QShowEvent) -> None:
+        self._printer.pull_position = False
 
     def re_translate_ui(self):
         self.x_button_1.setTitle(self.tr("Move\nLeft"))
@@ -225,19 +229,19 @@ class MovePage(QWidget):
             if self._printer.get_extruder() == 'left':
                 if pos < 0:
                     pos = 0
-                elif pos > 320:
-                    pos = 320
+                elif pos > 318:
+                    pos = 318
             elif self._printer.get_extruder() == 'right':
-                if pos < 60:
-                    pos = 60
+                if pos < 70:
+                    pos = 70
                 elif pos > 385:
                     pos = 385
         elif axis == 'Y':
             pos += self._printer.get_position('Y')
             if pos < 0:
                 pos = 0
-            elif pos > 320:
-                pos = 320
+            elif pos > 330:
+                pos = 330
         speed *= self.speed_slider.value() / 100
 
         if axis == 'Z':

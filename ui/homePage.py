@@ -41,6 +41,7 @@ class HomePage(QWidget):
         self.layout.addWidget(self.disableButton, 2, 0)
 
     def showEvent(self, a0: QShowEvent) -> None:
+        self._printer.write_gcode_command("D28")
         self.re_translate_ui()
 
     def re_translate_ui(self):

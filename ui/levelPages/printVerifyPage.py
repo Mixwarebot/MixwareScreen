@@ -348,6 +348,7 @@ class PrintVerifyPage(QWidget):
             return
         if state == MixwareScreenPrinterStatus.PRINTER_VERITY:
             self.work_thermal_frame.hide()
+            self._parent.footer.setEnabled(True)
             self.work_text.setText(
                 "Printing is completed.")
             self.work_handle.next_button.setEnabled(True)
@@ -376,8 +377,13 @@ class PrintVerifyPage(QWidget):
         update_style(self.preheat_pa, "unchecked")
         update_style(self.preheat_pet, "unchecked")
         # preheat -> 210, 210, 60
-        self._printer.write_gcode_command(
-            "M155 S1\nM140 S60\nM104 S210 T0\nM104 S210 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        # self._printer.write_gcode_command(
+        #     "M155 S1\nM140 S60\nM104 S210 T0\nM104 S210 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        self._printer.write_gcode_command("T0\nM155 S1\nM140 S60\nM104 S210 T0\nM104 S210 T1")
+        self._printer.auto_home()
+        self._printer.move_to_xy(0, 20, True)
+        self._printer.move_to_z(50, True)
+        self._printer.write_gcode_command("M155 S0")
 
     def reset_preheat_handle_ui(self):
         if self.preheat_handle.next_button.isEnabled():
@@ -431,11 +437,15 @@ class PrintVerifyPage(QWidget):
 
     def on_preheat_next_button_clicked(self):
         self.work_handle.next_button.setEnabled(False)
+        self._parent.footer.setEnabled(False)
         self._printer.print_verify()
         self.goto_next_step_stacked_widget()
 
     def on_clean_next_button_clicked(self):
-        self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y20 Z150 F8400")
+        # self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y20 Z150 F8400")
+        self._printer.auto_home()
+        self._printer.move_to_xy(190, 20, True)
+        self._printer.move_to_z(150, True)
         self.goto_next_step_stacked_widget()
         self.finished_handle.next_button.setText(self.tr("Done."))
 

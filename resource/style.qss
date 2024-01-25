@@ -159,6 +159,10 @@ QPushButton {
   font-size: 21px;
 }
 
+QPushButton#smallButton {
+  font-size: 18px;
+}
+
 QPushButton:disabled {
   color: #E4E4E4;
 }

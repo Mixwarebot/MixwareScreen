@@ -252,9 +252,10 @@ class NozzlePage(QWidget):
     def on_start_next_button_clicked(self):
         if self._printer.get_position('Y') != filament_position['Y'] and self._printer.get_position('Z') != \
                 filament_position['Z']:
-            self._printer.write_gcode_commands("G28")
-            self._printer.write_gcode_command(f"G1 Y{filament_position['Y']} F8400")
-            self._printer.write_gcode_command(f"G1 Z{filament_position['Z']} F800")
+            # self._printer.write_gcode_commands("G28")
+            self._printer.auto_home()
+            self._printer.move_to_y(filament_position['Y'], True)
+            self._printer.move_to_z(filament_position['Z'], True)
             self._printer.write_gcode_commands("M84")
         self.goto_next_step_stacked_widget()
 
@@ -268,7 +269,7 @@ class NozzlePage(QWidget):
             self._printer.write_gcode_commands("T0")
             self.step_1_logo.setPixmap(QPixmap("resource/image/replace_nozzle_left_1.png").scaledToWidth(320))
             self.message_list[self.handle_stacked_widget.currentIndex()].setText(self.tr("Current extruder: Left."))
-        self._printer.write_gcode_command(f"G1 X{filament_position['X']} F8400")
+        self._printer.move_to_x(filament_position['X'], True)
         self.goto_next_step_stacked_widget()
 
     @pyqtSlot()

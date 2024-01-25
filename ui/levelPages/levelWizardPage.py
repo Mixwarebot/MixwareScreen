@@ -456,7 +456,12 @@ class LevelWizardPage(QWidget):
         update_style(self.preheat_pa, "unchecked")
         update_style(self.preheat_pet, "unchecked")
         # preheat -> 170, 170
-        self._printer.write_gcode_command("M155 S1\nM104 S170 T0\nM104 S170 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        # self._printer.write_gcode_commands("M155 S1\nM104 S170 T0\nM104 S170 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        self._printer.write_gcode_command("T0\nM155 S1\nM104 S170 T0\nM104 S170 T1")
+        self._printer.auto_home()
+        self._printer.move_to_xy(0, 20, True)
+        self._printer.move_to_z(50, True)
+        self._printer.write_gcode_command("M155 S0")
 
     def reset_preheat_handle_ui(self):
         if self.preheat_handle.next_button.isEnabled():
@@ -509,7 +514,7 @@ class LevelWizardPage(QWidget):
         self.clean_logo_movie.start()
 
     def on_clean_next_button_clicked(self):
-        self._printer.write_gcode_command('M104 S0 T0\nM104 S0 T1\nM420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
+        self._printer.write_gcode_command('M400\nM104 S0 T0\nM104 S0 T1\nM420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
         self.level_handle.next_button.setEnabled(False)
         self._parent.footer.setEnabled(False)
         self.clean_logo_movie.stop()
@@ -571,7 +576,7 @@ class LevelWizardPage(QWidget):
             self._parent.showShadowScreen()
             self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
                                          "dial_indicator_left")
-        self._printer.write_gcode_commands("G1 Z150 F800\nM400\nG28\nG1 Y160 Z150 F8400\nM400\nT1\nG1 X190 Z150 F8400")
+        self._printer.write_gcode_commands("G1 Z150 F800\nM400\nT1\nG1 X190 Z150 F8400")
         self.goto_next_step_stacked_widget()
         self.measure_left_logo_movie.stop()
         self.measure_right_logo_movie.start()

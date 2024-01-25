@@ -65,6 +65,7 @@ class MixwareScreenPrinter(QObject):
 
     def __init__(self):
         super(MixwareScreenPrinter, self).__init__()
+        self._wait_for_home = False
         self.wait_for_thermal = ""
         self.dial_indicator = {'left': 0.0, 'right': 0.0}
         self.print_file = ""
@@ -86,6 +87,7 @@ class MixwareScreenPrinter(QObject):
         self._is_printing = False
         self._is_print_verify = False
         self._is_paused = False
+        self.pull_position = False
         self.wait_for_heat_up = False
         self.leveling_working = 0
         self.filament_working = 0
@@ -267,7 +269,11 @@ class MixwareScreenPrinter(QObject):
                         self.sendCommand("M105")
                     else:
                         self.sendCommand("M114")
-                    pull_thermal ^= True
+                    if self.pull_position:
+                        pull_thermal ^= True
+                    else:
+                        if not pull_thermal:
+                            pull_thermal = True
                     self._last_temperature_request = time()
 
             if "FIRMWARE_NAME:" in self.serial_data:
@@ -551,6 +557,8 @@ class MixwareScreenPrinter(QObject):
                         self.information['home']['Y'] = bool(self.re_data[0][1] == '1')
                         self.information['home']['Z'] = bool(self.re_data[0][2] == '1')
                         self.re_data.clear()
+                    if self.printer_all_homed():
+                        self._wait_for_home = False
                 elif re.search("M412", self.serial_data):  # Run out status.
                     self.re_data = re.findall("M412 S(\\d*) D(\\d+\\.?\\d*)", self.serial_data)
                     if self.re_data:
@@ -577,7 +585,12 @@ class MixwareScreenPrinter(QObject):
             else:
                 self._firmware_idle_count = 0
 
-            if self.serial_data.startswith("ok") or self._firmware_idle_count > 1:
+            # if self._firmware_idle_count > 15:
+            #     self._firmware_idle_count = 0
+            #     self.updatePrinterMessage.emit("The printer disconnected abnormally.", 2)
+            #     self.serial_error()
+
+            if self.serial_data.startswith("ok") or self._firmware_idle_count > 2:
                 self._printer_busy = False
 
                 if self.leveling_working:
@@ -631,8 +644,6 @@ class MixwareScreenPrinter(QObject):
 
     @pyqtSlot(str)
     def write_gcode_command(self, command):
-        if '\n' not in command[-1]:
-            command += '\n'
         self._sendCommand(command)
 
     def sendCommand(self, command: Union[str, bytes]):
@@ -922,6 +933,7 @@ class MixwareScreenPrinter(QObject):
     def print_backup(self):
         self._printing_information["file"]["path"] = self.print_file
         self._printing_information["file"]["gcode_position"] = self._gcode_position
+        self._printing_information["extruder"] = self.information['thermal']['extruder']
         self._printing_information["temperature"]["left"] = self.information['thermal']['left']['target']
         self._printing_information["temperature"]["right"] = self.information['thermal']['right']['target']
         self._printing_information["temperature"]["bed"] = self.information['thermal']['bed']['target']
@@ -929,6 +941,7 @@ class MixwareScreenPrinter(QObject):
         self._printing_information["position"]["X"] = self.information['motor']['position']["X"]
         self._printing_information["position"]["Y"] = self.information['motor']['position']["Y"]
         self._printing_information["position"]["Z"] = self.information['motor']['position']["Z"]
+        self._printing_information["position"]["E"] = self.information['motor']['position']["E"]
         self._printing_information["fan"]['left'] = self.information['fan']['left']['speed']
         self._printing_information["fan"]['right'] = self.information['fan']['right']['speed']
         self._printing_information["fan"]['exhaust'] = self.information['fan']['exhaust']['speed']
@@ -940,30 +953,47 @@ class MixwareScreenPrinter(QObject):
 
     @pyqtSlot()
     def print_pause(self):
-        if self._is_printing:
+        if self._is_printing and not self._is_paused:
             logging.debug(F"Pause printing.")
             self.print_backup()
-            print("Y:   ", self._printing_information["position"]["Y"])
-            self.write_gcode_commands('M76')
-            self.write_gcode_commands('G91')
-            self.write_gcode_commands('G1 F300 Z10')
-            self.write_gcode_commands('G90')
+            self.sendCommand('M76')
+            self.sendCommand('G91')
+            self.sendCommand('G1 F300 Z10')
+            self.sendCommand('G90')
             self._is_paused = True
 
     @pyqtSlot()
     def print_resume(self):
-        if self._is_printing:
+        if self._is_printing and self._is_paused:
             logging.debug(F"Resume printing.")
             # self._sendCommand('G28R0XY')
+            if self._printing_information["extruder"] == "left":
+                self._sendCommand('T0')
+            elif self._printing_information["extruder"] == "right":
+                self._sendCommand('T1')
             if self.information['runOut']['enabled']:
                 self._sendCommand('M412R')  # Reset run out status
-            print("Y:   ", self._printing_information["position"]["Y"])
+            self._sendCommand(f'G92 E{self._printing_information["position"]["E"]}')
+
+            if self._printing_information["temperature"]["left"] > 0:
+                self._sendCommand(f'M104 T0 S{self._printing_information["temperature"]["left"]}')
+            if self._printing_information["temperature"]["right"] > 0:
+                self._sendCommand(f'M104 T1 S{self._printing_information["temperature"]["right"]}')
+            if self._printing_information["temperature"]["chamber"] > 0:
+                self._sendCommand(f'M141 S{self._printing_information["temperature"]["chamber"]}')
+            if self._printing_information["temperature"]["bed"] > 0:
+                self._sendCommand(f'M190 S{self._printing_information["temperature"]["bed"]}')
+            if self._printing_information["extruder"] == "left" and self._printing_information["temperature"][
+                "left"] > 0:
+                self._sendCommand(f'M109 T0 S{self._printing_information["temperature"]["left"]}')
+            elif self._printing_information["extruder"] == "right" and self._printing_information["temperature"][
+                "right"] > 0:
+                self._sendCommand(f'M109 T1 S{self._printing_information["temperature"]["right"]}')
+
             self._sendCommand(
                 f'G1 F8400 X{self._printing_information["position"]["X"]} Y{self._printing_information["position"]["Y"]}')
-            self._sendCommand(f'G92 E{self._printing_information["position"]["E"]}')
-            self._sendCommand('G91')
-            self._sendCommand('G1 F300 Z-10')
-            self._sendCommand('G90')
+            self._sendCommand(
+                f'G1 F800 Z{self._printing_information["position"]["Z"]}')
             self._sendCommand('M75')  # Start print timer
             self._is_paused = False
             self._sendNextGcodeLine()
@@ -994,9 +1024,13 @@ class MixwareScreenPrinter(QObject):
         try:
             with open(path, 'rt') as f:
                 self._gcode.clear()
+                # data = f.read().split("\n")
+                # for dat in reversed(data):
+                #     if dat.startswith(";"):
+                #         data.remove(dat)
                 self._gcode.extend(f.read().split("\n"))
         except OSError as error:
-            print('出错啦!%s' % str(error))
+            logging.error(F'Open file error!%s' % str(error))
         else:
             # Reset line number. If this is not done, first line is sometimes ignored
             self._gcode.insert(0, "M110")
@@ -1144,3 +1178,35 @@ class MixwareScreenPrinter(QObject):
             self.write_gcode_commands("M851")
             self.write_gcode_commands(f"M218 T1 Z{offset}")
         self.write_gcode_commands("M218")
+
+    def move_to_x(self, x, wait=False):
+        self.write_gcode_command(F"G1F8400X{x}")
+        if wait: self.finish_all_moves()
+
+    def move_to_y(self, y, wait=False):
+        self.write_gcode_command(F"G1F8400Y{y}")
+        if wait: self.finish_all_moves()
+
+    def move_to_xy(self, x, y, wait=False):
+        self.write_gcode_command(F"G1F8400X{x}Y{y}")
+        if wait: self.finish_all_moves()
+
+    def move_to_z(self, z, wait=False):
+        self.write_gcode_command(F"G1F1200Z{z}")
+        if wait: self.finish_all_moves()
+
+    def auto_home(self):
+        if not self._wait_for_home:
+            if not self.information['home']['X'] or not self.information['home']['Y'] or not self.information['home'][
+                'Z']:
+                self.home_all_axis()
+
+    def home_all_axis(self):
+        self.write_gcode_command(F"G28")
+        self._wait_for_home = True
+
+    def is_wait_for_home(self):
+        return self._wait_for_home
+
+    def finish_all_moves(self):
+        self.write_gcode_command("M400")

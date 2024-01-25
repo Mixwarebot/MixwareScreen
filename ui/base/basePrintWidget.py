@@ -13,6 +13,7 @@ class BasePrintWidget(QWidget):
     def __init__(self, printer, parent=None):
         super().__init__(parent)
         self._printer = printer
+        self.setMaximumHeight(self._printer.config.get_height())
         self.resize(self._printer.config.get_window_size())
 
         self.header = HeaderBar()

@@ -16,7 +16,7 @@ class FilamentPage(QWidget):
 
         self.setObjectName("filamentPage")
         self.setMinimumSize(self._printer.config.get_width(), self._printer.config.get_height() / 2)
-        self.setMaximumSize(self._printer.config.get_window_size())
+        self.setMaximumSize(self._printer.config.get_width(), self._printer.config.get_height() - 84 - 128)
 
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(20, 0, 20, 0)
@@ -148,7 +148,7 @@ class FilamentPage(QWidget):
         self.working_text.setAlignment(Qt.AlignCenter)
         working_body_layout.addWidget(self.working_text)
         self.working_progress_bar = QProgressBar()
-        self.working_progress_bar.setFixedHeight(20)
+        self.working_progress_bar.setFixedHeight(18)
         working_body_layout.addWidget(self.working_progress_bar)
         self.working_timer = QTimer()
         self.working_timer.timeout.connect(self.on_working_timer_timeout)
@@ -246,6 +246,7 @@ class FilamentPage(QWidget):
         if self.handle_stacked_widget.currentWidget() == self.working_handle:
             if self.working_progress_bar.value() >= self.working_progress_bar.maximum():
                 self.working_timer.stop()
+                self._parent.footer.setEnabled(True)
                 self.goto_next_step_stacked_widget()
                 self.finished_handle.next_button.setText(self.tr("Confirm"))
                 self.working_progress_bar.setValue(0)
@@ -269,13 +270,14 @@ class FilamentPage(QWidget):
     def on_heating_next_button_clicked(self):
         timer_frame = 2
         if self.current_work_mode == self.tr("Load"):
-            self._printer.write_gcode_command(f"G91\nG0\nG1 E{load_length} F{load_speed}\nG90\nM400")
+            self._printer.write_gcode_command(f"G91\nG0\nG1 E{load_length} F{load_speed}\nG90")
             self.working_progress_bar.setMaximum(int(load_time * timer_frame))
         else:
             self._printer.write_gcode_command(f"G91\nG1 E{unload_purge_length} F{unload_purge_speed}\n"
-                                              f"G1 E-{unload_length} F{unload_speed}\nG90\nM400")
+                                              f"G1 E-{unload_length} F{unload_speed}\nG90")
             self.working_progress_bar.setMaximum(int(unload_time * timer_frame))
         self.goto_next_step_stacked_widget()
+        self._parent.footer.setEnabled(False)
         self.working_progress = 0
         self.working_timer.start(int(1000 / timer_frame))
 
@@ -322,6 +324,7 @@ class FilamentPage(QWidget):
 
     def on_filament_next_button_clicked(self):
         self.message_list[2].setText(self.tr("Current filament: {}").format(self.current_filament))
+        self.heating_text.setText(self.tr("The extruder is heating, please wait."))
         self.heating_handle.next_button.setEnabled(False)
         if self.current_filament == "PLA":
             self._printer.set_thermal(self._printer.get_extruder(), 210)
@@ -337,12 +340,6 @@ class FilamentPage(QWidget):
         self.goto_previous_step_stacked_widget()
 
     def on_work_mode_next_button_clicked(self):
-        if self._printer.get_position('X') != filament_position['X']:
-            self._printer.write_gcode_command(f"G1 X{filament_position['X']} F6000")
-        if self._printer.get_position('Y') != filament_position['Y']:
-            self._printer.write_gcode_command(f"G1 Y{filament_position['Y']} F6000")
-        if self._printer.get_position('Z') != filament_position['Z']:
-            self._printer.write_gcode_command(f"G1 Z{filament_position['Z']} F800")
         self.message_list[1].setText(self.tr("Current work mode: {}").format(self.current_work_mode))
         self.goto_next_step_stacked_widget()
 
@@ -366,10 +363,12 @@ class FilamentPage(QWidget):
 
     def move_to_start_position(self):
         if self.need_move_to_start:
-            if self._printer.get_position('Y') != filament_position['Y'] or self._printer.get_position('Z') != \
-                    filament_position['Z']:
-                self._printer.write_gcode_command(
-                    f"G28\nG1 Z{filament_position['Z']} F960\nG1 Y{filament_position['Y']} F8400")
+            self._printer.write_gcode_command("M155 S1")
+            self._printer.auto_home()
+            if not self._printer.is_printing():
+                self._printer.move_to_z(filament_position['Z'])
+            self._printer.move_to_xy(filament_position['X'], filament_position['Y'], True)
+            self._printer.write_gcode_command("M155 S0")
             self.need_move_to_start = False
 
     def on_extruder_next_button_clicked(self):

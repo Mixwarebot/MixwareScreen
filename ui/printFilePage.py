@@ -229,7 +229,7 @@ class PrintFilePage(QScrollArea):
             else:
                 file_name = file_info.fileName()
 
-            image = f'{file_info.absolutePath()}/.thumbs/{file_info.baseName()}.png'
+            image = f'{file_info.absolutePath()}/.thumbs/{file_info.completeBaseName()}.png'
             if not os.path.isfile(image):
                 image = ''
 

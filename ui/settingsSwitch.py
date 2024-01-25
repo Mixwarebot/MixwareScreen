@@ -7,12 +7,12 @@ class SwitchButton(QAbstractButton):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("switchButton")
-        self.setFixedSize(64, 64)
+        self.setFixedSize(56, 64)
 
         self._layout = QHBoxLayout(self)
         self._layout.setContentsMargins(0, 0, 0, 0)
         self._slider = QSlider()
-        self._slider.setFixedWidth(64)
+        self._slider.setFixedWidth(56)
         self._slider.setOrientation(Qt.Horizontal)
         self._slider.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self._slider.setMinimum(0)

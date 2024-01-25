@@ -50,6 +50,7 @@ class AutoLevelPage(QWidget):
         if not self.isVisible():
             return
         if state == MixwareScreenPrinterStatus.PRINTER_G29:
+            self._parent.footer.setEnabled(True)
             self.reset_bed_mesh_graph()
             self.tips.setText(self.tr("Auto-leveling completed."))
             self.bed_mesh_graph.show()
@@ -70,6 +71,7 @@ class AutoLevelPage(QWidget):
                                          buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
             self._printer.write_gcode_command('M420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
+            self._parent.footer.setEnabled(False)
             self.tips.setText(self.tr("Auto-leveling, please wait."))
             self.tips.show()
             self.bed_mesh_graph.hide()
