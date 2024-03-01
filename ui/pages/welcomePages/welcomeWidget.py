@@ -804,7 +804,7 @@ class UsePreparePage(QWidget):
                 self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
                                              "dial_indicator_left")
             self._printer.write_gcode_commands(
-                "G1 Z150 F800\nM400\nG1 X190 Z150 F8400")
+                "G1 Z150 F800\nM400\nT1\nG1 X190 Z150 F8400")
             self.dial_measure_left_movie.stop()
             self.dial_logo.setMovie(self.dial_measure_right_movie)
             self.dial_measure_right_movie.start()
