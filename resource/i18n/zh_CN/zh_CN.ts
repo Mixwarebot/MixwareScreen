@@ -1687,11 +1687,6 @@ the printer to factory settings.</source>
         <source>Reset</source>
         <translation>重置</translation>
     </message>
-    <message>
-        <location filename="../../../ui/pages/settingsPage.py" line="83"/>
-        <source>Help</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SplashWidget</name>

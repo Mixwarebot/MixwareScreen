@@ -105,7 +105,7 @@ class MixwareScreen(QWidget):
         elif status == MixwareScreenPrinterStatus.PRINTER_PRINTING:
             if self.stackedLayout.currentWidget() == self.printerWidget:
                 self.printingWidget.reset_time()
-                self.printingWidget.set_file_name(self._printer.printing_information['path'])
+                self.printingWidget.set_file_name(self._printer.print_file)
                 self.set_stacked_index(self.printingWidget)
 
     @pyqtSlot(str, int)
