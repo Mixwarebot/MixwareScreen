@@ -80,7 +80,7 @@ class SettingsPage(QWidget):
         self.language.setText(self.tr("Language"))
         self.user_manual.setText(self.tr("User manual"))
         self.about.setText(self.tr("About"))
-        self.help.setText(self.tr("Help"))
+        # self.help.setText(self.tr("Help"))
         self.restore_factory.setText(self.tr("Reset"))
         self.nozzle.setText(self.tr("Replace Nozzle Assembly"))
 
