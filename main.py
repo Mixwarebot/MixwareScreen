@@ -44,9 +44,9 @@ if __name__ == "__main__":
 
     config = MixwareScreenConfig(str(root_path))
 
-    # 只用于开发阶段
+    # Only used during development phase
     if platform.system().lower() == 'windows':
-        # 输出翻译文件
+        # Output translation file
         trans()
 
     ms_logger = MixLogger()

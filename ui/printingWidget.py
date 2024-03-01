@@ -1,14 +1,13 @@
-import logging
 import os
 
 from printer import MixwareScreenPrinterStatus
 from qtCore import *
-from ui.base.basePrintWidget import BasePrintWidget
-from ui.filamentPage import FilamentPage
-from ui.levelPages.babyStepPad import BabyStepPad
-from ui.printDoneDialog import PrintDoneDialog
-from ui.printingPage import PrintingPage
-from ui.runoutPad import RunOutPad
+from ui.pages.base.basePrintWidget import BasePrintWidget
+from ui.pages.filamentPage import FilamentPage
+from ui.pages.levelPages.babyStepPad import BabyStepPad
+from ui.components.printDoneDialog import PrintDoneDialog
+from ui.pages.printingPage import PrintingPage
+from ui.components.runoutPad import RunOutPad
 
 
 class PrintingWidget(BasePrintWidget):
@@ -142,6 +141,8 @@ class PrintingWidget(BasePrintWidget):
                 self.update_time()
                 self.printingPage.print_time.setText(f"{self.timerHours}:{self.timerMinutes:02}:{self.timerSeconds:02}")
                 self.printingPage.print_progress_bar.setValue(int(self._printer.print_progress() * 100))
+                if self._printer.config.enable_power_loss_recovery():
+                    self._printer.print_backup()
 
     @pyqtSlot()
     def on_update_printer_information(self):
@@ -152,10 +153,7 @@ class PrintingWidget(BasePrintWidget):
         self.printingPage.thermal_bed_button.setText(self._printer.get_thermal('bed'))
         self.printingPage.thermal_chamber_button.setText(self._printer.get_thermal('chamber'))
 
-        # self.printingPage.motor_x_button.setText(str(self._printer.get_position('X')))
-        # self.printingPage.motor_y_button.setText(str(self._printer.get_position('Y')))
         self.printingPage.motor_z.setText(str(self._printer.get_position('Z')))
-        # self.printingPage.baby_step_button.setText(str(self._printer.get_position('E')))
 
         self.printingPage.fan_cool_left.setText(str(int(self._printer.get_fan_speed('leftCool') * 100)) + "%")
         self.printingPage.fan_cool_right.setText(str(int(self._printer.get_fan_speed('rightCool') * 100)) + "%")

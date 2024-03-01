@@ -1,6 +1,8 @@
+import os
+
 from qtCore import *
-from ui.base.basePrintWidget import BasePrintWidget
-from ui.printerPage import PrinterPage
+from ui.pages.base.basePrintWidget import BasePrintWidget
+from ui.pages.printerPage import PrinterPage
 
 
 class PrinterWidget(BasePrintWidget):
@@ -19,7 +21,17 @@ class PrinterWidget(BasePrintWidget):
         self.footer.hide()
 
     def showEvent(self, a0: QShowEvent) -> None:
-        self._printer.write_gcode_command("D105\nD106")
+        if self._printer.is_connected():
+            self._printer.write_gcode_command("D105\nD106")
+            if self._printer.exists_power_loss() and self._printer.config.enable_power_loss_recovery():
+                self.showShadowScreen()
+                ret = self.message.start("Mixware Screen", self.tr("Stop Printing?"),
+                                         buttons=QMessageBox.Yes | QMessageBox.Cancel)
+                if ret == QMessageBox.Yes:
+                    self._printer.print_resume()
+                else:
+                    os.remove(self._printer.power_loss_file)
+                self.closeShadowScreen()
 
     @pyqtSlot()
     def goto_previous_page(self):

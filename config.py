@@ -46,12 +46,22 @@ class MixwareScreenConfig:
         self.theme = self.config.value('window/theme')
         self.language = self.config.value('window/language')
         self.folder_rootPath = self.config.value('folder/root')
+
         self._should_show_welcome = False
         try:
             self._should_show_welcome = int(self.config.value('window/welcome')) == 1
         except:
-            self.reset_local_config()
-            logging.error("Related configuration not found")
+            self.set_value('window/welcome', 1)
+            self._should_show_welcome = True
+            logging.error("Related configuration not found, restart")
+            os.system("sudo systemctl restart MixwareScreen.service")
+
+        self._enable_power_loss_recovery = False
+        try:
+            self._enable_power_loss_recovery = int(self.config.value('window/power_loss_recovery')) == 1
+        except:
+            self.set_enable_power_loss_recovery(1)
+            logging.error("Related configuration not found, restart")
             os.system("sudo systemctl restart MixwareScreen.service")
 
     def set_value(self, key: str, value):
@@ -102,3 +112,10 @@ class MixwareScreenConfig:
         with open(self.path + self.default_file, 'r') as src:
             with open(self.path + self.file, 'w') as dest:
                 dest.write(src.read())
+
+    def enable_power_loss_recovery(self):
+        return self._enable_power_loss_recovery
+
+    def set_enable_power_loss_recovery(self, value: [0, 1]):
+        self.set_value('window/power_loss_recovery', value)
+        self._enable_power_loss_recovery = value == 1

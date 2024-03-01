@@ -1,6 +1,6 @@
 from qtCore import *
-from ui.base.baseLine import BaseHLine
-from ui.base.basePushButton import BasePushButton
+from ui.components.base.baseLine import BaseHLine
+from ui.components.base.basePushButton import BasePushButton
 
 
 class SplashWidget(QWidget):
