@@ -78,3 +78,4 @@ class PrinterPage(QWidget):
     @pyqtSlot()
     def goto_settings_page(self):
         self._parent.gotoPage(self.settingsPage, self.tr("Settings"))
+        self._printer.write_gcode_command("M503")

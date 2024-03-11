@@ -440,7 +440,7 @@ Preheating temperature 170°C</source>
     </message>
     <message>
         <location filename="../../../ui/pages/levelPages/dialIndicatorPage.py" line="412"/>
-        <source>Please enter the value from the dial indicator.</source>
+        <source>Please enter the absolute value from the dial indicator.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -510,47 +510,47 @@ Preheating temperature 170°C</source>
 <context>
     <name>FilamentPage</name>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="206"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="207"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="207"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="208"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="362"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="363"/>
         <source>Load</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="359"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="360"/>
         <source>Unload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="215"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="216"/>
         <source>Working</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="216"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="217"/>
         <source>Finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="326"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="327"/>
         <source>Current filament: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="343"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="344"/>
         <source>Current work mode: {}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="251"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="252"/>
         <source>Confirm</source>
         <translation type="unfinished"></translation>
     </message>
@@ -561,42 +561,42 @@ click &lt;Next&gt; to start working.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="377"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="378"/>
         <source>Current extruder: Left.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="379"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="380"/>
         <source>Current extruder: Right.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="189"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="190"/>
         <source>Select Extruder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="190"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="191"/>
         <source>Select Working Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="191"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="192"/>
         <source>Select Filament</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="192"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="193"/>
         <source>Heated Extruder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="194"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="195"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="327"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="328"/>
         <source>The extruder is heating, please wait.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -929,11 +929,6 @@ Height Calibration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/levelPages/levelWizardPage.py" line="586"/>
-        <source>Please enter the value from the dial indicator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../ui/pages/levelPages/levelWizardPage.py" line="375"/>
         <source>Start Auto-leveling</source>
         <translation type="unfinished"></translation>
@@ -956,6 +951,11 @@ Height Calibration</source>
     <message>
         <location filename="../../../ui/pages/levelPages/levelWizardPage.py" line="395"/>
         <source>Drop Bed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/pages/levelPages/levelWizardPage.py" line="586"/>
+        <source>Please enter the absolute value from the dial indicator.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1314,7 +1314,7 @@ Bed</source>
 <context>
     <name>PrintFilePage</name>
     <message>
-        <location filename="../../../ui/pages/printFilePage.py" line="236"/>
+        <location filename="../../../ui/pages/printFilePage.py" line="240"/>
         <source>Print {} ?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1438,8 +1438,8 @@ Calibration</source>
 <context>
     <name>PrinterWidget</name>
     <message>
-        <location filename="../../../ui/printerWidget.py" line="28"/>
-        <source>Stop Printing?</source>
+        <location filename="../../../ui/printerWidget.py" line="53"/>
+        <source>Power outage detected. Need to resume printing?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1899,11 +1899,6 @@ Please remove the dial indicator on the hot bed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/welcomeWidget.py" line="823"/>
-        <source>Please enter the value from the dial indicator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../../ui/pages/welcomePages/welcomeWidget.py" line="495"/>
         <source>Auto-leveling.</source>
         <translation type="unfinished"></translation>
@@ -1956,6 +1951,11 @@ Please remove the dial indicator on the hot bed.</source>
     <message>
         <location filename="../../../ui/pages/welcomePages/welcomeWidget.py" line="535"/>
         <source>Drop Bed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../ui/pages/welcomePages/welcomeWidget.py" line="823"/>
+        <source>Please enter the absolute value from the dial indicator.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2022,16 +2022,6 @@ Please remove the dial indicator on the hot bed.</source>
 </context>
 <context>
     <name>WelcomeMainPage</name>
-    <message>
-        <location filename="../../../ui/pages/welcomePages/welcomeWidget.py" line="916"/>
-        <source>English</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../../ui/pages/welcomePages/welcomeWidget.py" line="921"/>
-        <source>Chinese</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="../../../ui/pages/welcomePages/welcomeWidget.py" line="940"/>
         <source>Next</source>

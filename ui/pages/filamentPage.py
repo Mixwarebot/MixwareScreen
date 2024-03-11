@@ -177,6 +177,7 @@ class FilamentPage(QWidget):
         self.current_work_mode = None
 
     def showEvent(self, a0: QShowEvent) -> None:
+        self._printer.write_gcode_command('D28')
         self.need_move_to_start = True
         self.reset_ui()
 
@@ -367,7 +368,7 @@ class FilamentPage(QWidget):
             self._printer.auto_home()
             if not self._printer.is_printing():
                 self._printer.move_to_z(filament_position['Z'])
-            self._printer.move_to_xy(filament_position['X'], filament_position['Y'], True)
+            self._printer.move_to_y(filament_position['Y'], True)
             self._printer.write_gcode_command("M155 S0")
             self.need_move_to_start = False
 
@@ -378,16 +379,15 @@ class FilamentPage(QWidget):
         elif self._printer.get_extruder() == "right":
             self.message_list[0].setText(self.tr("Current extruder: Right."))
         self.goto_next_step_stacked_widget()
+        self._printer.move_to_x(filament_position['X'], True)
 
     def on_extruder_right_button_clicked(self):
+        self._printer.write_gcode_command('T1')
         self.move_to_start_position()
-        if self._printer.get_extruder() != "right":
-            self._printer.write_gcode_command('T1')
 
     def on_extruder_left_button_clicked(self):
+        self._printer.write_gcode_command('T0')
         self.move_to_start_position()
-        if self._printer.get_extruder() != "left":
-            self._printer.write_gcode_command('T0')
 
     @pyqtSlot()
     def on_update_printer_information(self):

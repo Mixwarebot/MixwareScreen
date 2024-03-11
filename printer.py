@@ -977,47 +977,55 @@ class MixwareScreenPrinter(QObject):
 
             # read gcode file
             try:
+                logging.debug(f"read gcode file")
                 with open(self._printing_information["file"]["path"], 'rt') as f:
                     self._gcode.clear()
                     self._gcode.extend(f.read().split("\n"))
             except Exception as e:
+                logging.debug(F"Error while reading gcode file: {e}")
                 return F"Error while reading gcode file: {e}"
             # start printing
             else:
+                logging.debug(f"start printing")
+                self.print_file = self._printing_information["file"]["path"]
                 self._gcode_position = self._printing_information["file"]["gcode_position"]
-                self._sendCommand('M420S0')
-                self._sendCommand(f'G92.9Z{self._printing_information["position"]["Z"]}')
+                self.sendCommand('M420S0')
+                self.sendCommand(f'G92.9Z{self._printing_information["position"]["Z"]}')
                 self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_PRINTING)
 
+        logging.debug(f"temperature")
         if self._printing_information["extruder"] == "left":
-            self._sendCommand('T0')
+            self.sendCommand('T0')
         elif self._printing_information["extruder"] == "right":
-            self._sendCommand('T1')
+            self.sendCommand('T1')
         if self._printing_information["temperature"]["left"] > 0:
-            self._sendCommand(f'M104 T0 S{self._printing_information["temperature"]["left"]}')
+            self.sendCommand(f'M104 T0 S{self._printing_information["temperature"]["left"]}')
         if self._printing_information["temperature"]["right"] > 0:
-            self._sendCommand(f'M104 T1 S{self._printing_information["temperature"]["right"]}')
+            self.sendCommand(f'M104 T1 S{self._printing_information["temperature"]["right"]}')
         if self._printing_information["temperature"]["bed"] > 0:
-            self._sendCommand(f'M140 S{self._printing_information["temperature"]["bed"]}')
+            self.sendCommand(f'M140 S{self._printing_information["temperature"]["bed"]}')
         if self._printing_information["temperature"]["chamber"] > 0:
-            self._sendCommand(f'M141 S{self._printing_information["temperature"]["chamber"]}')
+            self.sendCommand(f'M141 S{self._printing_information["temperature"]["chamber"]}')
 
+        # if not self._is_printing:
+        logging.debug(f"position")
+        self.sendCommand('G28R0XY')
+        self.sendCommand('M420S1')
+        self.sendCommand(f'G92.9E{self._printing_information["position"]["E"]}')
         if not self._is_printing:
-            self._sendCommand('G28R0XY')
-        self._sendCommand('M420S1')
-        self._sendCommand(f'G92.9E{self._printing_information["position"]["E"]}')
-        if not self._is_printing:
-            self._sendCommand(f'G92.9Z{self._printing_information["position"]["Z"]}')
+            self.sendCommand(f'G92.9Z{self._printing_information["position"]["Z"]}')
 
+        logging.debug(f"wait temperature")
         if self._printing_information["temperature"]["bed"] > 0:
-            self._sendCommand(f'M190 S{self._printing_information["temperature"]["bed"]}')
+            self.sendCommand(f'M190 S{self._printing_information["temperature"]["bed"]}')
         if self._printing_information["extruder"] == "left" and self._printing_information["temperature"][
             "left"] > 0:
-            self._sendCommand(f'M109 T0 S{self._printing_information["temperature"]["left"]}')
+            self.sendCommand(f'M109 T0 S{self._printing_information["temperature"]["left"]}')
         elif self._printing_information["extruder"] == "right" and self._printing_information["temperature"][
             "right"] > 0:
-            self._sendCommand(f'M109 T1 S{self._printing_information["temperature"]["right"]}')
+            self.sendCommand(f'M109 T1 S{self._printing_information["temperature"]["right"]}')
 
+        logging.debug(f"fan")
         if not self._is_printing:
             if self._printing_information["fan"]["left"] > 0:
                 self.set_fan_speed("left", self._printing_information["fan"]["left"])
@@ -1027,25 +1035,27 @@ class MixwareScreenPrinter(QObject):
                 self.set_fan_speed("exhaust", self._printing_information["fan"]["exhaust"])
             if self._printing_information["feedRate"] != 100:
                 self._sendCommand(f'M220 S{self._printing_information["feedRate"]}\nM220')
-            if self._printing_information["flow"] != 100:
-                self._sendCommand(f'M221 T0 S{self._printing_information["flow"]}\nM221 T0')
-                self._sendCommand(f'M221 T1 S{self._printing_information["flow"]}\nM221 T1')
+            if self._printing_information["flow"]["left"] != 100:
+                self._sendCommand(f'M221 T0 S{self._printing_information["flow"]["left"]}\nM221 T0')
+            if self._printing_information["flow"]["right"] != 100:
+                self._sendCommand(f'M221 T1 S{self._printing_information["flow"]["right"]}\nM221 T1')
 
-        self._sendCommand(
+        logging.debug(f"position")
+        self.sendCommand(
             f'G1 F8400 X{self._printing_information["position"]["X"]} Y{self._printing_information["position"]["Y"]}')
-        self._sendCommand(
+        self.sendCommand(
             f'G1 F800 Z{self._printing_information["position"]["Z"]}')
-        if not self._is_printing:
-            z_print = self._printing_information["position"]["Z"] - self.pause_raise_mm
-            self._sendCommand(f'G1 F800 Z{z_print}')
+        # if not self._is_printing:
+        #    z_print = self._printing_information["position"]["Z"] - self.pause_raise_mm
+        #    self.sendCommand(f'G1 F800 Z{z_print}')
         # Reset run out status
         if self.information['runOut']['enabled']:
-            self._sendCommand('M412R')
+            self.sendCommand('M412R')
         # Start print timer
-        self._sendCommand('M75')
+        self.sendCommand('M75')
         self._is_paused = False
         self._is_printing = True
-        self._sendNextGcodeLine()
+        # self._sendNextGcodeLine()
 
     @pyqtSlot()
     def print_stop(self):
@@ -1055,13 +1065,13 @@ class MixwareScreenPrinter(QObject):
         self._is_printing = False
         self._is_paused = False
 
+        if self.exists_power_loss():
+            os.remove(self.power_loss_file)
+
         # self._sendCommand('M108\nM140 S0\nM141 S0\nM104 T0 S0\nM104 T1 S0\nM107 P0\nM107 P1\nG28XY\nM400\nM77\nM84')
         self._sendCommand('D108\nG28XY\nM400\nM77\nM84')
         self.wait_for_heat_up = False
         self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_CONNECTED)
-
-        if self.exists_power_loss():
-            os.remove(self.power_loss_file)
 
     @pyqtSlot(str)
     def print_start(self, path):
@@ -1093,6 +1103,9 @@ class MixwareScreenPrinter(QObject):
 
             if self.information['runOut']['enabled']:
                 self._sendCommand('M412R')  # Reset run out status
+
+            self._sendCommand(f'M221 T0 S100\nM221 T0')
+            self._sendCommand(f'M221 T1 S100\nM221 T1')
 
             for i in range(0, 4):  # Push first 4 entries before accepting other inputs
                 self._sendNextGcodeLine()

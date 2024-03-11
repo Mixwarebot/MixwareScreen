@@ -396,7 +396,7 @@ class DialIndicatorPage(QWidget):
             "G1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F320\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
+            self._parent.numberPad.start(self.tr("Please enter the absolute value from the dial indicator."),
                                          "dial_indicator_left")
         self._printer.write_gcode_commands(
             "G1 Z150 F800\nM400\nT1\nM400\nG1 X190 Z150 F8400\nM400")
@@ -409,7 +409,7 @@ class DialIndicatorPage(QWidget):
             "G1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F320\nM400")
         if not self._parent.numberPad.isVisible():
             self._parent.showShadowScreen()
-            self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
+            self._parent.numberPad.start(self.tr("Please enter the absolute value from the dial indicator."),
                                          "dial_indicator_right")
         self._printer.write_gcode_commands("G1 Z150 F800\nM400\nG28X")
         self.goto_next_step_stacked_widget()

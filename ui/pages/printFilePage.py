@@ -147,6 +147,7 @@ class PrintFileBar(QFrame):
 
     def mousePressEvent(self, a0: QMouseEvent) -> None:
         self.is_move = False
+        self.setStyleSheet("QFrame#frameBox {background-color: rgba(0, 0, 0, 0.1);}")
 
     def mouseReleaseEvent(self, a0: QMouseEvent) -> None:
         if not self.is_move and 0 < a0.x() < self.width() and 0 < a0.y() < self.height():
@@ -154,6 +155,7 @@ class PrintFileBar(QFrame):
 
     def mouseMoveEvent(self, a0: QMouseEvent) -> None:
         self.is_move = True
+        self.setStyleSheet("QFrame#frameBox {background-color: #FFFFFF;}")
 
 
 class PrintFilePage(QScrollArea):
@@ -211,6 +213,8 @@ class PrintFilePage(QScrollArea):
                         continue
                     if len(QDir(file.absoluteFilePath()).entryInfoList()) <= 2:
                         continue
+                elif file.fileName() == 'print_verify.gcode':
+                    continue
 
                 print_file_bar = PrintFileBar(file)
                 print_file_bar.clicked.connect(self.on_printFileBar_clicked)

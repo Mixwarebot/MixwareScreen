@@ -801,7 +801,7 @@ class UsePreparePage(QWidget):
                 "G1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F480\nM400\nG1 Z135 F840\nM400\nG1 Z120 F320\nM400")
             if not self._parent.numberPad.isVisible():
                 self._parent.showShadowScreen()
-                self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
+                self._parent.numberPad.start(self.tr("Please enter the absolute value from the dial indicator."),
                                              "dial_indicator_left")
             self._printer.write_gcode_commands(
                 "G1 Z150 F800\nM400\nT1\nG1 X190 Z150 F8400")
@@ -820,7 +820,7 @@ class UsePreparePage(QWidget):
                 "G1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F320\nM400")
             if not self._parent.numberPad.isVisible():
                 self._parent.showShadowScreen()
-                self._parent.numberPad.start(self.tr("Please enter the value from the dial indicator."),
+                self._parent.numberPad.start(self.tr("Please enter the absolute value from the dial indicator."),
                                              "dial_indicator_right")
             self._printer.save_dial_indicator_value()
             self._printer.write_gcode_commands("G1 Z150 F800\nM400\nG28X")
@@ -913,12 +913,12 @@ class WelcomeMainPage(BasePrintWidget):
         self.language_frame_layout.setContentsMargins(20, 0, 20, 0)
         self.language_frame_layout.setSpacing(10)
         self.language_frame_layout.setAlignment(Qt.AlignTop)
-        self.language_e = QPushButton(self.tr("English"))
+        self.language_e = QPushButton("English")
         self.language_e.setFixedHeight(64)
         self.language_e.setObjectName("checked")
         self.language_e.clicked.connect(self.on_language_e_clicked)
         self.language_frame_layout.addWidget(self.language_e)
-        self.language_c = QPushButton(self.tr("Chinese"))
+        self.language_c = QPushButton("简体中文")
         self.language_c.setFixedHeight(64)
         self.language_c.setObjectName("unchecked")
         self.language_c.clicked.connect(self.on_language_c_clicked)
