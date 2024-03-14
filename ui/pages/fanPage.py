@@ -16,8 +16,8 @@ class FanProgressBar(QWidget):
         self.layout.addWidget(self.title)
 
         self.frame = QFrame()
-        self.frame.setObjectName("frameBox")
-        self.frame.setStyleSheet("QFrame#frameBox {margin: 0 10px 0 10px}")
+        self.frame.setObjectName("frameOutLine")
+        self.frame.setStyleSheet("QFrame#frameOutLine {margin: 0 10px 0 10px}")
         self.hBoxLayout = QVBoxLayout(self.frame)
         self.hBoxLayout.setContentsMargins(0, 0, 0, 0)
         self.hBoxLayout.setSpacing(0)
@@ -58,7 +58,7 @@ class FanSliderBar(QWidget):
         self.layout.addWidget(self.title, 0, 0)
 
         self.frame = QFrame()
-        self.frame.setObjectName("frameBox")
+        self.frame.setObjectName("frameOutLine")
         self.hBoxLayout = QHBoxLayout(self.frame)
         self.hBoxLayout.setContentsMargins(10, 0, 10, 0)
         self.hBoxLayout.setSpacing(10)

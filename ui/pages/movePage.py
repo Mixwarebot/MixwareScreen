@@ -35,7 +35,7 @@ class MovePage(QWidget):
         self.distance_default = "5"
         self.distance_current_id = 0
         self.distance_frame = QFrame()
-        self.distance_frame.setObjectName("frameBox")
+        self.distance_frame.setObjectName("frameOutLine")
         self.distance_frame.setFixedHeight(88)
 
         distance_frame_layout = QHBoxLayout(self.distance_frame)
@@ -69,7 +69,7 @@ class MovePage(QWidget):
         frame_middle_left_layout.addWidget(self.speed_title)
 
         self.speed_frame = QFrame()
-        self.speed_frame.setObjectName("frameBox")
+        self.speed_frame.setObjectName("frameOutLine")
         speed_frame_layout = QVBoxLayout(self.speed_frame)
         speed_frame_layout.setContentsMargins(0, 10, 0, 20)
         speed_frame_layout.setSpacing(10)
@@ -110,7 +110,7 @@ class MovePage(QWidget):
         self.x_frame_title.setText("X: -")
         x_frame_layout.addWidget(self.x_frame_title)
         self.x_button_frame = QFrame()
-        self.x_button_frame.setObjectName("frameBox")
+        self.x_button_frame.setObjectName("frameOutLine")
         x_button_frame_layout = QVBoxLayout(self.x_button_frame)
         x_button_frame_layout.setContentsMargins(0, 0, 0, 0)
         x_button_frame_layout.setSpacing(0)
@@ -150,7 +150,7 @@ class MovePage(QWidget):
         self.y_frame_title.setText("Y: -")
         y_frame_layout.addWidget(self.y_frame_title)
         self.y_button_frame = QFrame()
-        self.y_button_frame.setObjectName("frameBox")
+        self.y_button_frame.setObjectName("frameOutLine")
         y_button_frame_layout = QVBoxLayout(self.y_button_frame)
         y_button_frame_layout.setContentsMargins(0, 0, 0, 0)
         y_button_frame_layout.setSpacing(0)
@@ -174,7 +174,7 @@ class MovePage(QWidget):
         self.z_frame_title.setText("Z: -")
         z_frame_layout.addWidget(self.z_frame_title)
         self.z_button_frame = QFrame()
-        self.z_button_frame.setObjectName("frameBox")
+        self.z_button_frame.setObjectName("frameOutLine")
         z_button_frame_layout = QVBoxLayout(self.z_button_frame)
         z_button_frame_layout.setContentsMargins(0, 0, 0, 0)
         z_button_frame_layout.setSpacing(0)

@@ -4,7 +4,7 @@ from qtCore import *
 class MessageBar(QFrame):
     def __init__(self, index=0, text="", parent=None):
         super().__init__(parent)
-        self.setObjectName("frameBox")
+        self.setObjectName("frameOutLine")
         self.setFixedHeight(60)
 
         self.serial_number_label = QLabel()

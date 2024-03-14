@@ -1,16 +1,49 @@
 
+#shadowScreen {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+#title {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: #FF5A00;
+  padding-left: 20px;
+  min-height: 40px;
+}
+
 QWidget {
   font-family: "HarmonyOS Sans SC";
   font-size: 18px;
   /*background: transparent;*/
 }
 
-QLabel {
-  color: #181818;
+QFrame#baseLine {
+  background-color: #D4D4D4;
 }
 
-#shadowScreen {
-  background: rgba(0, 0, 0, 0.4);
+QFrame#frameBox, QFrame#extruderFrameBox {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+}
+
+QFrame#frameOutLine {
+  background-color: #FFFFFF;
+  border: 1px solid #D4D4D4;
+  border-radius: 10px;
+}
+
+QFrame#frameBox:disabled, #frameOutLine:disabled {
+  background-color: rgba(40, 40, 40, 0.1);
+}
+
+QFrame#settingsSwitch {
+  background-color: transparent;
+  border-radius: 0;
+  border-bottom: 1px solid #D4D4D4;
+}
+
+QLabel {
+  color: #181818;
 }
 
 QLabel#splashLogo {
@@ -39,18 +72,6 @@ QLabel#switchLabel {
 QLabel#tips {
   font-size: 16px;
   color: #969696;
-}
-
-QFrame#baseLine {
-  background-color: #D4D4D4;
-}
-
-#title {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background: #FF5A00;
-  padding-left: 20px;
-  min-height: 40px;
 }
 
 QLabel#numberPadInputLabel {
@@ -151,6 +172,20 @@ QLabel#flowLogo {
   max-height: 36px;
 }
 
+QLabel#arrowLogo {
+  image: url("resource/icon/right.svg");
+  color: #000000;
+}
+
+QLabel#frame_title {
+  padding-left: 10px;
+}
+
+QLabel#serialNumber {
+  border: 1px solid #D4D4D4;
+  border-radius: 20px;
+}
+
 QPushButton {
   border: none;
   border-radius: 10px;
@@ -229,13 +264,17 @@ QPushButton#eStopButton {
 }
 
 QPushButton#previousButton {
-  qproperty-icon: url("resource/icon/left.svg") center;
+  qproperty-icon: url("resource/icon/footer_left.svg") center;
   qproperty-iconSize: 40px 40px;
 }
 
 QPushButton#mainButton {
   color: #FF5A00;
   font-size: 32px;
+}
+
+QPushButton#mainButton:disabled {
+  color: #AAAAAA;
 }
 
 QPushButton#splashButton {
@@ -291,11 +330,6 @@ QPushButton#settingsButton {
 
 QPushButton#settingsButton:pressed {
   background-color: rgba(0, 0, 0, 0.1);
-}
-
-QLabel#arrowLogo {
-  image: url("resource/icon/right.svg");
-  color: #000000;
 }
 
 QPushButton#fanLeftLogo {
@@ -358,6 +392,32 @@ QPushButton#stopPrintButton {
   qproperty-icon: url("resource/icon/stop.svg") center;
 }
 
+QPushButton#extruderButton {
+  border-radius: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+QPushButton#leftBackButton {
+  border-image: url(resource/icon/BLB.png);
+}
+
+QPushButton#leftFrontButton {
+  border-image: url(resource/icon/BLF.png);
+}
+
+QPushButton#rightBackButton {
+  border-image: url(resource/icon/BRB.png);
+}
+
+QPushButton#rightFrontButton {
+  border-image: url(resource/icon/BRF.png);
+}
+
+QPushButton#centerButton {
+  border-image: url(resource/icon/BCT.png);
+}
+
 QProgressBar {
   text-align: center;
   background-color: #F2F2F2;
@@ -415,55 +475,4 @@ QSlider::add-page:vertical {
 QSlider::handle:vertical {
   margin-left: -9px;
   margin-right: -9px;
-}
-
-QPushButton#extruderButton {
-  border-radius: 0;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-QFrame#frameBox, QFrame#extruderFrameBox {
-  background-color: #FFFFFF;
-  border: 1px solid #D4D4D4;
-  border-radius: 10px;
-}
-
-QPushButton#leftBackButton {
-  border-image: url(resource/icon/BLB.png);
-}
-
-QPushButton#leftFrontButton {
-  border-image: url(resource/icon/BLF.png);
-}
-
-QPushButton#rightBackButton {
-  border-image: url(resource/icon/BRB.png);
-}
-
-QPushButton#rightFrontButton {
-  border-image: url(resource/icon/BRF.png);
-}
-
-QPushButton#centerButton {
-  border-image: url(resource/icon/BCT.png);
-}
-
-QLabel#frame_title {
-  padding-left: 10px;
-}
-
-QLabel#serialNumber {
-  border: 1px solid #D4D4D4;
-  border-radius: 20px;
-}
-
-QFrame#frameBox:disabled {
-  background-color: rgba(40, 40, 40, 0.1);
-}
-
-QFrame#settingsSwitch {
-  background-color: transparent;
-  border-radius: 0;
-  border-bottom: 1px solid #D4D4D4;
 }
