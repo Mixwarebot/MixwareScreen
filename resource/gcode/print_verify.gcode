@@ -1,15 +1,28 @@
 T0
+M105
 M82 ;absolute extrusion mode
 G28 ;Home
 G1 Z15.0 F6000 ;Move the platform down 15mm
 ;Prime the extruder
+T0
 G92 E0
-G1 F200 E6
+G1 X30 Y0 F8400
+G1 Z0.3 F800
+G1 X85 Y0 E13 F800
+G1 E15 F400
+G1 Z5 F400
 G92 E0
-M107 P0
+G0 E-5.00 F400
+T1
 G92 E0
+G1 X210 Y0 F8400
+G1 Z0.3 F800
+G1 X275 Y0 E13 F800
+G1 E15 F800
+G1 Z5 F400
 G92 E0
-G1 F2400 E-4
+G0 E-5.00 F400
+T0
 ;LAYER_COUNT:1
 ;LAYER:0
 M107 P1
@@ -2561,3 +2574,46 @@ M84
 M82 ;absolute extrusion mode
 M104 S0
 ;End of Gcode
+;SETTING_3 {"global_quality": "[general]\\nversion = 4\\nname = kd7-1011 -tpu-\\
+;SETTING_3 ndefinition = custom\\n\\n[metadata]\\ntype = quality_changes\\nquali
+;SETTING_3 ty_type = draft\\nsetting_version = 20\\n\\n[values]\\nacceleration_e
+;SETTING_3 nabled = True\\nadhesion_extruder_nr = 0\\nadhesion_type = skirt\\nje
+;SETTING_3 rk_enabled = True\\nlayer_height_0 = 0.3\\nooze_shield_angle = 0\\noo
+;SETTING_3 ze_shield_dist = 4\\nooze_shield_enabled = False\\nprime_tower_enable
+;SETTING_3  = False\\nprime_tower_position_x = 190\\nprime_tower_position_y = 25
+;SETTING_3 0\\nsupport_enable = True\\nsupport_extruder_nr = 0\\nsupport_type = 
+;SETTING_3 buildplate\\n\\n", "extruder_quality": ["[general]\\nversion = 4\\nna
+;SETTING_3 me = kd7-1011 -tpu-\\ndefinition = custom\\n\\n[metadata]\\ntype = qu
+;SETTING_3 ality_changes\\nquality_type = draft\\nintent_category = default\\npo
+;SETTING_3 sition = 0\\nsetting_version = 20\\n\\n[values]\\nacceleration_print 
+;SETTING_3 = 2000\\nacceleration_travel = 2000\\nbrim_width = 2\\ncool_fan_full_
+;SETTING_3 layer = 4\\ninfill_pattern = lines\\ninfill_sparse_density = 10\\njer
+;SETTING_3 k_print = 10\\njerk_travel = 10\\nmaterial_final_print_temperature = 
+;SETTING_3 220\\nmaterial_initial_print_temperature = 220\\nmaterial_print_tempe
+;SETTING_3 rature = 220\\nmaterial_standby_temperature = 160\\nprime_tower_min_v
+;SETTING_3 olume = 10\\nprime_tower_wipe_enabled = False\\nraft_airgap = 0.2\\nr
+;SETTING_3 aft_margin = 5\\nretraction_amount = 4\\nretraction_hop = 0.2\\nretra
+;SETTING_3 ction_hop_enabled = True\\nretraction_speed = 40\\nspeed_layer_0 = 30
+;SETTING_3 \\nspeed_print = 90\\nspeed_topbottom = 50\\nspeed_z_hop = 5\\nsuppor
+;SETTING_3 t_angle = 60\\nsupport_infill_rate = 10\\nsupport_interface_enable = 
+;SETTING_3 True\\nsupport_interface_pattern = zigzag\\nsupport_pattern = zigzag\
+;SETTING_3 \nsupport_wall_count = 1\\nsupport_z_distance = 0\\nswitch_extruder_r
+;SETTING_3 etraction_amount = 2\\nswitch_extruder_retraction_speeds = 40\\nz_sea
+;SETTING_3 m_corner = z_seam_corner_weighted\\nz_seam_relative = True\\nz_seam_t
+;SETTING_3 ype = back\\nzig_zaggify_infill = True\\n\\n", "[general]\\nversion =
+;SETTING_3  4\\nname = kd7-1011 -tpu-\\ndefinition = custom\\n\\n[metadata]\\nty
+;SETTING_3 pe = quality_changes\\nquality_type = draft\\nintent_category = defau
+;SETTING_3 lt\\nposition = 1\\nsetting_version = 20\\n\\n[values]\\nacceleration
+;SETTING_3 _print = 2000\\nacceleration_travel = 2000\\nbrim_width = 3\\ninfill_
+;SETTING_3 pattern = lines\\ninfill_sparse_density = 10\\njerk_print = 10\\njerk
+;SETTING_3 _travel = 10\\nmaterial_final_print_temperature = 220\\nmaterial_init
+;SETTING_3 ial_print_temperature = 220\\nmaterial_print_temperature = 220\\nmate
+;SETTING_3 rial_standby_temperature = 220\\nprime_tower_wipe_enabled = False\\nr
+;SETTING_3 etraction_amount = 4\\nretraction_hop = 0.2\\nretraction_hop_enabled 
+;SETTING_3 = True\\nretraction_speed = 40\\nspeed_layer_0 = 30\\nspeed_print = 9
+;SETTING_3 0\\nspeed_support = 80\\nspeed_topbottom = 50\\nspeed_z_hop = 5\\nsup
+;SETTING_3 port_angle = 60\\nsupport_interface_enable = True\\nsupport_interface
+;SETTING_3 _pattern = zigzag\\nsupport_wall_count = 1\\nsupport_z_distance = 0\\
+;SETTING_3 nswitch_extruder_retraction_amount = 5\\nswitch_extruder_retraction_s
+;SETTING_3 peeds = 30\\nz_seam_corner = z_seam_corner_weighted\\nz_seam_relative
+;SETTING_3  = True\\nz_seam_type = shortest\\n\\n"]}
