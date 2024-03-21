@@ -140,6 +140,8 @@ class DialIndicatorPage(QWidget):
 
         self.clean_handle = HandleBar()
         self.clean_handle.previous_button.hide()
+        self.clean_timer = QTimer()
+        self.clean_timer.timeout.connect(self.on_clean_timer_timeout)
         self.clean_handle.next_button.clicked.connect(self.on_clean_next_button_clicked)
 
         self.clean_body_layout = QVBoxLayout(self.clean_handle.body)
@@ -374,17 +376,31 @@ class DialIndicatorPage(QWidget):
         update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_next_button_clicked(self):
+        self._printer.write_gcode_command('M400\nM104 S0 T0\nM104 S0 T1\nT0')
+        self._printer.move_to_x(190, True)
+        self.clean_handle.next_button.setEnabled(False)
+        self.clean_timer.start(1900)
         self.goto_next_step_stacked_widget()
         self.clean_logo_movie.start()
 
+    def on_clean_timer_timeout(self):
+        self.clean_timer.stop()
+        self.clean_handle.next_button.setEnabled(True)
+
     def on_clean_next_button_clicked(self):
-        self._printer.write_gcode_commands("M104 S0 T0\nM104 S0 T1")
-        self._printer.auto_home()
-        self._printer.move_to_xy(190, 160, True)
-        self._printer.move_to_z(150, True)
-        self.clean_logo_movie.stop()
-        self.goto_next_step_stacked_widget()
-        self.place_logo_movie.start()
+        if self._printer.get_extruder() == "left":
+            self._printer.write_gcode_command('T1')
+            self._printer.move_to_x(190, True)
+            self.clean_handle.next_button.setEnabled(False)
+            self.clean_timer.start(4000)
+        else:
+            self._printer.write_gcode_command('T0')
+            self._printer.auto_home()
+            self._printer.move_to_xy(190, 160, True)
+            self._printer.move_to_z(150, True)
+            self.clean_logo_movie.stop()
+            self.goto_next_step_stacked_widget()
+            self.place_logo_movie.start()
 
     def on_place_next_button_clicked(self):
         self.goto_next_step_stacked_widget()

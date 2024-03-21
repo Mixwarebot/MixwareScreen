@@ -141,6 +141,8 @@ class LevelWizardPage(QWidget):
 
         self.clean_handle = HandleBar()
         self.clean_handle.previous_button.hide()
+        self.clean_timer = QTimer()
+        self.clean_timer.timeout.connect(self.on_clean_timer_timeout)
         self.clean_handle.next_button.clicked.connect(self.on_clean_next_button_clicked)
         self.clean_body_layout = QVBoxLayout(self.clean_handle.body)
         self.clean_body_layout.setContentsMargins(20, 0, 20, 0)
@@ -507,18 +509,32 @@ class LevelWizardPage(QWidget):
         update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_next_button_clicked(self):
+        self._printer.write_gcode_command('M400\nM104 S0 T0\nM104 S0 T1\nT0')
+        self._printer.move_to_x(190, True)
+        self.clean_handle.next_button.setEnabled(False)
+        self.clean_timer.start(1900)
         self.goto_next_step_stacked_widget()
         self.clean_logo_movie.start()
 
+    def on_clean_timer_timeout(self):
+        self.clean_timer.stop()
+        self.clean_handle.next_button.setEnabled(True)
+
     def on_clean_next_button_clicked(self):
-        self._printer.write_gcode_command('M400\nM104 S0 T0\nM104 S0 T1\nM420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
-        self.level_handle.next_button.setEnabled(False)
-        self._parent.footer.setEnabled(False)
-        self.clean_logo_movie.stop()
-        self.goto_next_step_stacked_widget()
-        self.level_mesh_graph.hide()
-        self.level_load.show()
-        self.level_load_timer.start(250)
+        if self._printer.get_extruder() == "left":
+            self._printer.write_gcode_command('T1')
+            self._printer.move_to_x(190, True)
+            self.clean_handle.next_button.setEnabled(False)
+            self.clean_timer.start(4000)
+        else:
+            self._printer.write_gcode_command('M420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
+            self.level_handle.next_button.setEnabled(False)
+            self._parent.footer.setEnabled(False)
+            self.clean_logo_movie.stop()
+            self.goto_next_step_stacked_widget()
+            self.level_mesh_graph.hide()
+            self.level_load.show()
+            self.level_load_timer.start(250)
 
     def on_level_next_button_clicked(self):
         self.offset_distance_frame.show()

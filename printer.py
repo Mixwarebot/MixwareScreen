@@ -669,7 +669,7 @@ class MixwareScreenPrinter(QObject):
                 logging.info("Start Auto-leveling(G29).")
                 self.set_level_state(new_command.count(b"\n"))
             elif b'M109' in new_command:
-                if b'T1' in new_command:
+                if b'T1' in new_command or self.get_extruder() == "right":
                     self.wait_for_thermal = "right"
                 else:
                     self.wait_for_thermal = "left"

@@ -15,6 +15,7 @@ class PrintVerifyPage(QWidget):
         self.message_text_list = None
         self._printer = printer
         self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
+        self._printer.updatePrinterStatus.connect(self.on_update_printer_status)
         self._parent = parent
 
         self.setObjectName("printVerifyPage")
@@ -136,7 +137,6 @@ class PrintVerifyPage(QWidget):
         self.work_body_layout = QVBoxLayout(self.work_handle.body)
         self.work_body_layout.setContentsMargins(0, 0, 0, 0)
         self.work_body_layout.setSpacing(0)
-        # self.work_body_layout.setAlignment(Qt.AlignCenter)
         self.work_thermal_frame = QFrame()
         self.work_thermal_frame.setFixedSize(360, 210)
         self.work_thermal_frame_layout = QGridLayout(self.work_thermal_frame)
@@ -167,6 +167,7 @@ class PrintVerifyPage(QWidget):
         self.work_thermal_frame_layout.addWidget(self.work_thermal_bed_button, 4, 1, 1, 1)
         self.work_body_layout.addWidget(self.work_thermal_frame)
         self.work_body_layout.addWidget(BaseHLine())
+        self.work_body_layout.addSpacing(20)
         self.verity_model_logo = QLabel()
         self.verity_model_logo.setFixedSize(360, 320)
         self.verity_model_logo.setAlignment(Qt.AlignCenter)
@@ -186,7 +187,7 @@ class PrintVerifyPage(QWidget):
         self.finished_handle.previous_button.hide()
         self.finished_handle.next_button.clicked.connect(self.on_finished_next_button_clicked)
         self.finished_body_layout = QVBoxLayout(self.finished_handle.body)
-        self.finished_body_layout.setContentsMargins(0, 0, 0, 0)
+        self.finished_body_layout.setContentsMargins(0, 20, 0, 0)
         self.finished_body_layout.setSpacing(0)
         self.verity_logo = QLabel()
         self.verity_logo.setFixedSize(320, 320)
@@ -215,7 +216,7 @@ class PrintVerifyPage(QWidget):
         self.finished_distance_title.setFixedHeight(40)
         self.finished_distance_frame_layout.addWidget(self.finished_distance_title)
         self.finished_distance_button_frame = QFrame()
-        self.finished_distance_button_frame.setObjectName("frameBox")
+        self.finished_distance_button_frame.setObjectName("frameOutLine")
         self.finished_distance_button_frame.setFixedHeight(72)
         self.finished_distance_button_frame_layout = QHBoxLayout(self.finished_distance_button_frame)
         self.finished_distance_button_frame_layout.setContentsMargins(5, 1, 5, 1)
@@ -237,7 +238,7 @@ class PrintVerifyPage(QWidget):
         self.finished_distance_frame_layout.addWidget(self.finished_distance_button_frame)
         self.finished_body_layout.addWidget(self.finished_distance_frame)
         self.finished_offset_frame = QFrame()
-        self.finished_offset_frame.setFixedSize(360, 110)
+        self.finished_offset_frame.setFixedSize(360, 120)
         self.finished_offset_frame_layout = QGridLayout(self.finished_offset_frame)
         self.finished_offset_frame_layout.setContentsMargins(10, 0, 10, 0)
         self.finished_offset_frame_layout.setSpacing(0)
@@ -246,12 +247,12 @@ class PrintVerifyPage(QWidget):
         self.finished_offset_frame_layout.addWidget(self.finished_offset_x_label, 0, 0, 1, 2)
         self.finished_offset_x_dec_button = QPushButton()
         self.finished_offset_x_dec_button.setObjectName("leftLogo")
-        self.finished_offset_x_dec_button.setFixedHeight(48)
+        self.finished_offset_x_dec_button.setFixedHeight(56)
         self.finished_offset_x_dec_button.clicked.connect(self.on_finished_offset_x_dec_button_clicked)
         self.finished_offset_frame_layout.addWidget(self.finished_offset_x_dec_button, 0, 2, 1, 1)
         self.finished_offset_x_add_button = QPushButton()
         self.finished_offset_x_add_button.setObjectName("rightLogo")
-        self.finished_offset_x_add_button.setFixedHeight(48)
+        self.finished_offset_x_add_button.setFixedHeight(56)
         self.finished_offset_x_add_button.clicked.connect(self.on_finished_offset_x_add_button_clicked)
         self.finished_offset_frame_layout.addWidget(self.finished_offset_x_add_button, 0, 3, 1, 1)
         self.finished_offset_frame_layout.addWidget(BaseHLine(), 1, 0, 1, 4)
@@ -260,12 +261,12 @@ class PrintVerifyPage(QWidget):
         self.finished_offset_frame_layout.addWidget(self.finished_offset_y_label, 2, 0, 1, 2)
         self.finished_offset_y_dec_button = QPushButton()
         self.finished_offset_y_dec_button.setObjectName("downLogo")
-        self.finished_offset_y_dec_button.setFixedHeight(48)
+        self.finished_offset_y_dec_button.setFixedHeight(56)
         self.finished_offset_y_dec_button.clicked.connect(self.on_finished_offset_y_dec_button_clicked)
         self.finished_offset_frame_layout.addWidget(self.finished_offset_y_dec_button, 2, 2, 1, 1)
         self.finished_offset_y_add_button = QPushButton()
         self.finished_offset_y_add_button.setObjectName("upLogo")
-        self.finished_offset_y_add_button.setFixedHeight(48)
+        self.finished_offset_y_add_button.setFixedHeight(56)
         self.finished_offset_y_add_button.clicked.connect(self.on_finished_offset_y_add_button_clicked)
         self.finished_offset_frame_layout.addWidget(self.finished_offset_y_add_button, 2, 3, 1, 1)
         self.finished_body_layout.addWidget(self.finished_offset_frame)
@@ -336,10 +337,10 @@ class PrintVerifyPage(QWidget):
                     and self._printer.get_temperature('bed') + 3 >= self._printer.get_target('bed'):
                 self.preheat_handle.next_button.setEnabled(True)
                 self.preheat_text.setText(self.tr("Heat completed."))
-        elif self.handle_stacked_widget.currentWidget() == self.work_handle:
-            if not self._printer.is_print_verify():
-                self.goto_next_step_stacked_widget()
-                self.verity_movie.start()
+        # elif self.handle_stacked_widget.currentWidget() == self.work_handle:
+        #     if not self._printer.is_print_verify():
+        #         self.goto_next_step_stacked_widget()
+        #         self.verity_movie.start()
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
@@ -347,9 +348,8 @@ class PrintVerifyPage(QWidget):
             return
         if state == MixwareScreenPrinterStatus.PRINTER_VERITY:
             self.work_thermal_frame.hide()
-            self._parent.footer.setEnabled(True)
-            self.work_text.setText(
-                "Printing is completed.")
+            self.verity_model_logo.hide()
+            self.work_text.setText("Printing is completed.")
             self.work_handle.next_button.setEnabled(True)
 
     def goto_next_step_stacked_widget(self):
@@ -376,8 +376,6 @@ class PrintVerifyPage(QWidget):
         update_style(self.preheat_pa, "unchecked")
         update_style(self.preheat_pet, "unchecked")
         # preheat -> 210, 210, 60
-        # self._printer.write_gcode_command(
-        #     "M155 S1\nM140 S60\nM104 S210 T0\nM104 S210 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
         self._printer.write_gcode_command("T0\nM155 S1\nM140 S60\nM104 S210 T0\nM104 S210 T1")
         self._printer.auto_home()
         self._printer.move_to_xy(0, 20, True)
@@ -441,11 +439,12 @@ class PrintVerifyPage(QWidget):
         self.goto_next_step_stacked_widget()
 
     def on_clean_next_button_clicked(self):
-        # self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y20 Z150 F8400")
         self._printer.auto_home()
         self._printer.move_to_xy(190, 20, True)
         self._printer.move_to_z(150, True)
         self.goto_next_step_stacked_widget()
+        self._parent.footer.setEnabled(True)
+        self.verity_movie.start()
         self.finished_handle.next_button.setText(self.tr("Done."))
 
     def on_finished_offset_x_dec_button_clicked(self):
