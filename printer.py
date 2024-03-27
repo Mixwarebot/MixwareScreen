@@ -659,7 +659,10 @@ class MixwareScreenPrinter(QObject):
     def _sendCommand(self, command: Union[str, bytes]):
         if self.serial is None or not self.connected:
             return
+
         new_command = cast(bytes, command) if type(command) is bytes else cast(str, command).encode()  # type: bytes
+        if b'M1001' in new_command and self._is_printing:  # Ignore M1001 while printing.
+            return
         if not new_command.endswith(b"\n"):
             new_command += b"\n"
         try:
@@ -1079,29 +1082,26 @@ class MixwareScreenPrinter(QObject):
         try:
             with open(path, 'rt') as f:
                 self._gcode.clear()
-                # data = f.read().split("\n")
-                # for dat in reversed(data):
-                #     if dat.startswith(";"):
-                #         data.remove(dat)
                 self._gcode.extend(f.read().split("\n"))
         except OSError as error:
             logging.error(F'Open file error!%s' % str(error))
         else:
             # Reset line number. If this is not done, first line is sometimes ignored
+            if self.get_extruder() == 'right':
+                self._gcode.insert(0, "T0")
+                self._gcode.insert(0, "G28")
+                self._gcode.insert(0, "M84")
+
+            self._gcode.insert(0, "M75")
+            self._gcode.insert(0, "M221 T1")
+            self._gcode.insert(0, "M221 T1 S100")
+            self._gcode.insert(0, "M221 T0")
+            self._gcode.insert(0, "M221 T0 S100")
+            if self.information['runOut']['enabled']:
+                self._gcode.insert(0, "M412R")
+
             self._gcode.insert(0, "M110")
             self._gcode_position = 0
-
-            if self.get_extruder() == 'right':
-                self._sendCommand('M84\nG28\nT0')
-
-            if self.information['runOut']['enabled']:
-                self._sendCommand('M412R')  # Reset run out status
-
-            self._sendCommand(f'M221 T0 S100\nM221 T0')
-            self._sendCommand(f'M221 T1 S100\nM221 T1')
-
-            for i in range(0, 4):  # Push first 4 entries before accepting other inputs
-                self._sendNextGcodeLine()
 
             self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_PRINTING)
             self._is_paused = False
