@@ -59,6 +59,7 @@ class PrintingWidget(BasePrintWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         self._printer.pull_position = True
         self.printingPage.filament_detector_enabled.set_checked(self._printer.get_run_out_enabled())
+        self.update_pause_print_button_style()
 
     def hideEvent(self, a0: QShowEvent) -> None:
         self._printer.pull_position = False
@@ -180,14 +181,21 @@ class PrintingWidget(BasePrintWidget):
                         self._printer.write_gcode_commands("G1 Y20 F8400")
                         self.runOutPad.start()
                         self.closeShadowScreen()
+                        self.update_pause_print_button_style()
+
+    def update_pause_print_button_style(self):
+        if self._printer.is_paused():
+            update_style(self.printingPage.pause_print_button, "resumePrintButton")
+        else:
+            update_style(self.printingPage.pause_print_button, "pausePrintButton")
 
     def print_resume(self):
         self._printer.print_resume()
-        update_style(self.printingPage.pause_print_button, "pausePrintButton")
+        self.update_pause_print_button_style()
 
     def print_pause(self):
         self._printer.print_pause()
-        update_style(self.printingPage.pause_print_button, "resumePrintButton")
+        self.update_pause_print_button_style()
 
     def on_pause_button_clicked(self):
         if self._printer.is_printing():

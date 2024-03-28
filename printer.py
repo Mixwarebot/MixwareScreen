@@ -661,8 +661,6 @@ class MixwareScreenPrinter(QObject):
             return
 
         new_command = cast(bytes, command) if type(command) is bytes else cast(str, command).encode()  # type: bytes
-        if b'M1001' in new_command and self._is_printing:  # Ignore M1001 while printing.
-            return
         if not new_command.endswith(b"\n"):
             new_command += b"\n"
         try:
@@ -738,7 +736,7 @@ class MixwareScreenPrinter(QObject):
 
         # Don't send empty lines. But we do have to send something, so send M105 instead.
         # Don't send the M0 or M1 to the machine, as M0 and M1 are handled as an LCD menu pause.
-        if self._gcode_line == "" or self._gcode_line == "M0" or self._gcode_line == "M1":
+        if self._gcode_line == "" or self._gcode_line == "M0" or self._gcode_line == "M1" or self._gcode_line == "M1001":
             self._gcode_line = "M105"
 
         checksum = functools.reduce(lambda x, y: x ^ y, map(ord, "N%d%s" % (self._gcode_position, self._gcode_line)))
