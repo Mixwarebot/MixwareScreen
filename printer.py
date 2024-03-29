@@ -66,7 +66,7 @@ class MixwareScreenPrinter(QObject):
 
     def __init__(self):
         super(MixwareScreenPrinter, self).__init__()
-        self.power_loss_path = '.power_loss.json'
+        self.power_loss_path = None
         self.pause_raise_mm = 10
         self._wait_for_home = False
         self.wait_for_thermal = ""
@@ -974,6 +974,7 @@ class MixwareScreenPrinter(QObject):
         # Power loss recovery
         if not self._is_printing:
             # read power loss file
+            logging.debug(F"Resume Power loss print.")
             if not self.power_loss_path:
                 self.power_loss_path = self.config.get_power_loss_path()
             if os.path.exists(self.power_loss_path):
@@ -992,6 +993,7 @@ class MixwareScreenPrinter(QObject):
             else:
                 self.print_file = self._printing_information["file"]["path"]
                 self._gcode_position = self._printing_information["file"]["gcode_position"]
+                self._sendCommand(F"M110 N{self._gcode_position}")
                 self.sendCommand('M420S0')
                 self.sendCommand(f'G92.9Z{self._printing_information["position"]["Z"]}')
                 self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_PRINTING)
@@ -1043,9 +1045,6 @@ class MixwareScreenPrinter(QObject):
             f'G1 F8400 X{self._printing_information["position"]["X"]} Y{self._printing_information["position"]["Y"]}')
         self.sendCommand(
             f'G1 F800 Z{self._printing_information["position"]["Z"]}')
-        # if not self._is_printing:
-        #    z_print = self._printing_information["position"]["Z"] - self.pause_raise_mm
-        #    self.sendCommand(f'G1 F800 Z{z_print}')
         # Reset run out status
         if self.information['runOut']['enabled']:
             self.sendCommand('M412R')
@@ -1144,6 +1143,8 @@ class MixwareScreenPrinter(QObject):
 
     @pyqtSlot(result=bool)
     def exists_power_loss(self):
+        if not self.power_loss_path:
+            self.power_loss_path = self.config.get_power_loss_path()
         return os.path.exists(self.power_loss_path)
 
     @pyqtSlot(result=bool)
