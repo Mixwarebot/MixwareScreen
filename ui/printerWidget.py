@@ -56,5 +56,5 @@ class PrinterWidget(BasePrintWidget):
                 if ret == QMessageBox.Yes:
                     self._printer.print_resume()
                 else:
-                    os.remove(self._printer.power_loss_file)
+                    os.remove(self._printer.power_loss_path)
                 self.closeShadowScreen()

@@ -66,7 +66,7 @@ class MixwareScreenPrinter(QObject):
 
     def __init__(self):
         super(MixwareScreenPrinter, self).__init__()
-        self.power_loss_file = '.power_loss.json'
+        self.power_loss_path = '.power_loss.json'
         self.pause_raise_mm = 10
         self._wait_for_home = False
         self.wait_for_thermal = ""
@@ -281,7 +281,8 @@ class MixwareScreenPrinter(QObject):
 
             if "FIRMWARE_NAME:" in self.serial_data:
                 self._setPrinterInformation(self.serial_data)
-                self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_CONNECTED)
+                if not self._is_printing:
+                    self.updatePrinterStatus.emit(MixwareScreenPrinterStatus.PRINTER_CONNECTED)
 
             if "Active Extruder" in self.serial_data:  # Active extruder.
                 self.re_data = re.findall("Active Extruder: (\\d+)", self.serial_data)
@@ -952,8 +953,9 @@ class MixwareScreenPrinter(QObject):
         self._printing_information["feedRate"] = self.information['feedRate']
         self._printing_information["flow"] = self.information['flow']
 
-        with open(self.power_loss_file, 'w') as file:
-            file.write(json.dumps(self._printing_information))
+        if self.config.enable_power_loss_recovery():
+            with open(self.power_loss_path, 'w') as file:
+                file.write(json.dumps(self._printing_information))
 
     @pyqtSlot()
     def print_pause(self):
@@ -972,8 +974,10 @@ class MixwareScreenPrinter(QObject):
         # Power loss recovery
         if not self._is_printing:
             # read power loss file
-            if os.path.exists(self.power_loss_file):
-                with open(self.power_loss_file, 'r') as file:
+            if not self.power_loss_path:
+                self.power_loss_path = self.config.get_power_loss_path()
+            if os.path.exists(self.power_loss_path):
+                with open(self.power_loss_path, 'r') as file:
                     self._printing_information = json.loads(file.read())
 
             # read gcode file
@@ -1060,7 +1064,7 @@ class MixwareScreenPrinter(QObject):
         self._is_paused = False
 
         if self.exists_power_loss():
-            os.remove(self.power_loss_file)
+            os.remove(self.power_loss_path)
 
         # self._sendCommand('M108\nM140 S0\nM141 S0\nM104 T0 S0\nM104 T1 S0\nM107 P0\nM107 P1\nG28XY\nM400\nM77\nM84')
         self._sendCommand('D108\nG28XY\nM400\nM77\nM84')
@@ -1084,6 +1088,17 @@ class MixwareScreenPrinter(QObject):
         except OSError as error:
             logging.error(F'Open file error!%s' % str(error))
         else:
+            if self.config.enable_power_loss_recovery():
+                if platform.system().lower() == 'linux':
+                    path_list = self.print_file.split('/')
+                    for path in path_list:
+                        if path == "gcodes":
+                            usb_path = path_list[path_list.index(path) + 1]
+                            self.power_loss_path = F"{self.config.get_folder_rootPath()}/{usb_path}/.power_loss.json"
+                            self.config.set_power_loss_path(self.power_loss_path)
+                            logging.info(F"Update Power loss path: {self.power_loss_path}.")
+                            break
+
             # Reset line number. If this is not done, first line is sometimes ignored
             if self.get_extruder() == 'right':
                 self._gcode.insert(0, "T0")
@@ -1129,7 +1144,7 @@ class MixwareScreenPrinter(QObject):
 
     @pyqtSlot(result=bool)
     def exists_power_loss(self):
-        return os.path.exists(self.power_loss_file)
+        return os.path.exists(self.power_loss_path)
 
     @pyqtSlot(result=bool)
     def printer_all_homed(self):
