@@ -953,7 +953,7 @@ class MixwareScreenPrinter(QObject):
         self._printing_information["feedRate"] = self.information['feedRate']
         self._printing_information["flow"] = self.information['flow']
 
-        if self.config.enable_power_loss_recovery():
+        if self.config.enable_power_loss_recovery() and self.exists_power_loss():
             with open(self.power_loss_path, 'w') as file:
                 file.write(json.dumps(self._printing_information))
 
