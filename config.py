@@ -51,18 +51,20 @@ class MixwareScreenConfig:
         try:
             self._should_show_welcome = int(self.config.value('window/welcome')) == 1
         except:
+            os.system('sudo clear')
             self.set_value('window/welcome', 1)
             self._should_show_welcome = True
             logging.error("Related configuration not found, restart")
-            os.system("sudo clear && systemctl restart MixwareScreen.service")
+            os.system("sudo systemctl restart MixwareScreen.service")
 
         self._enable_power_loss_recovery = False
         try:
             self._enable_power_loss_recovery = int(self.config.value('window/power_loss_recovery')) == 1
         except:
+            os.system('sudo clear')
             self.set_enable_power_loss_recovery(1)
             logging.error("Related configuration not found, restart")
-            os.system("sudo clear && systemctl restart MixwareScreen.service")
+            os.system("sudo systemctl restart MixwareScreen.service")
 
     def set_value(self, key: str, value):
         self.config.setValue(key, value)

@@ -53,8 +53,9 @@ class ResetPage(QWidget):
                                              "Click <Confirm> to\nreset Mixware Screen settings\nand Mixware Screen will restart."),
                                          buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
+            os.system('sudo clear')
             self._printer.config.reset_local_config()
-            os.system('sudo clear && systemctl restart MixwareScreen')
+            os.system('sudo systemctl restart MixwareScreen')
         self._parent.closeShadowScreen()
 
     @pyqtSlot()
@@ -65,7 +66,8 @@ class ResetPage(QWidget):
                                              "Click <Confirm> to\nreset all settings and\nMixware Screen will restart."),
                                          buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
+            os.system('sudo clear')
             self._printer.write_gcode_command('M502\nM500')
             self._printer.config.reset_local_config()
-            os.system('sudo clear && systemctl restart MixwareScreen')
+            os.system('sudo systemctl restart MixwareScreen')
         self._parent.closeShadowScreen()
