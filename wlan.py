@@ -1,4 +1,5 @@
 import logging
+import os
 import platform
 import re
 
@@ -35,7 +36,8 @@ class WlanConnectQThread(QThread):
 
     def _connect_wifi(self):
         try:
-            device.wifi_connect(self._ssid, self._passwd)
+            # device.wifi_connect(self._ssid, self._passwd)
+            os.system(F"nmcli dev wifi connect '{self._ssid}' password '{self._passwd}'")
         except Exception as e:
             logging.debug("wifi connect failed.", e)
 
@@ -63,15 +65,17 @@ class WlanListQThread(QThread):
                 if lists:
                     self.deviceWifi.clear()
                     for info in lists:
-                        dat = re.findall("in_use=(.*), ssid='(.*)', bssid='(.*)', mode='(.*)', chan=(\\d*), freq=(\\d*), "
-                                         "rate=(\\d*), signal=(\\d*), security='(.*)'", str(info))
+                        dat = re.findall(
+                            "in_use=(.*), ssid='(.*)', bssid='(.*)', mode='(.*)', chan=(\\d*), freq=(\\d*), "
+                            "rate=(\\d*), signal=(\\d*), security='(.*)'", str(info))
                         if dat:
-                            dev = {'in_use': True if "True" in dat[0][0] else False, 'ssid': dat[0][1], 'bssid': dat[0][2], 'mode': dat[0][3],
+                            dev = {'in_use': True if "True" in dat[0][0] else False, 'ssid': dat[0][1],
+                                   'bssid': dat[0][2], 'mode': dat[0][3],
                                    'chan': int(dat[0][4]), 'freq': int(dat[0][5]), 'rate': int(dat[0][6]),
                                    'signal': int(dat[0][7]), 'security': dat[0][8]}
                             self.deviceWifi.append(dev)
                     self.newWlanList.emit(self.deviceWifi)
-            elif platform.system().lower() == 'windows': # windows test
+            elif platform.system().lower() == 'windows':  # windows test
                 self.deviceWifi.clear()
                 for i in range(10):
                     dev = {'in_use': False, 'ssid': '中文@test:' + str(i), 'bssid': '0', 'mode': '1',

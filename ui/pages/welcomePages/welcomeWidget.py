@@ -9,6 +9,7 @@ from ui.components.base.basePushButton import BasePushButton
 from ui.components.handleBar import HandleBar
 from ui.components.messageBar import MessageBar
 from ui.pages.levelPages.bedMeshGraph import BedMeshGraph
+from ui.pages.wlanPage import WlanPage
 
 
 class UsePreparePage(QWidget):
@@ -942,8 +943,9 @@ class WelcomeMainPage(BasePrintWidget):
         self.language_frame_layout.addWidget(self.language_c)
         self.body_frame_layout.addWidget(self.language_frame)
         # wlan connect
-        # self.wlan_frame = QFrame()
-        # self.body_frame_layout.addWidget(self.wlan_frame)
+        self.wlan_frame = WlanPage(self._printer, self)
+        self.wlan_frame.setObjectName('wlanPage')
+        self.body_frame_layout.addWidget(self.wlan_frame)
         # load filament
         self.usePreparePage = UsePreparePage(self._printer, self)
         self.usePreparePage.setObjectName('usePreparePage')
@@ -957,7 +959,7 @@ class WelcomeMainPage(BasePrintWidget):
         self.next_button.setText(self.tr('Next'))
         self._page_list = [
             {"page": self.language_frame, "title": self.tr("Language")},
-            # {"page": self.wlan_frame, "title": self.tr("WLAN")},
+            {"page": self.wlan_frame, "title": self.tr("WLAN")},
             # {"page": self.usePreparePage, "title": self.tr("Use Prepare")},
             {"page": self.usePreparePage, "title": self.tr("Use Prepare")},
             # { "page": self.level_frame, "title": self.tr("Auto Bed Level")},
@@ -978,7 +980,7 @@ class WelcomeMainPage(BasePrintWidget):
         if self._page_list[next_index]['page'] == self.usePreparePage:
             self.next_button.setText(self.tr("Skip"))
         if record:
-            self.current_index = next_index + 1
+            self.current_index = next_index
 
     @pyqtSlot()
     def on_language_e_clicked(self):

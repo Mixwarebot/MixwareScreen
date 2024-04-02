@@ -12,7 +12,7 @@ class ResetPage(QWidget):
 
         self.setObjectName("resetPage")
         self.layout = QVBoxLayout(self)
-        self.layout.setContentsMargins(20, 0, 20, 10)
+        self.layout.setContentsMargins(20, 0, 20, 0)
         self.layout.setSpacing(0)
         self.layout.setAlignment(Qt.AlignTop)
 

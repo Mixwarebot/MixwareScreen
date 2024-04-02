@@ -92,9 +92,9 @@ class WLANConnectBox(BaseRoundDialog):
         self.button_frame_layout.addWidget(self.confirm_button, 1)
 
         self.keyboard_frame = QFrame()
-        self.keyboard_frame.setFixedSize(360, 180)
+        self.keyboard_frame.setFixedSize(360, 221)
         self.keyboard_frame_layout = QVBoxLayout(self.keyboard_frame)
-        self.keyboard_frame_layout.setContentsMargins(10, 10, 10, 50)
+        self.keyboard_frame_layout.setContentsMargins(10, 0, 10, 60)
         self.keyboard_frame_layout.setSpacing(3)
 
         self.keyboard_button_group = QButtonGroup()
@@ -148,27 +148,27 @@ class WLANConnectBox(BaseRoundDialog):
                 if key == 'shift':
                     keyboard_button.setObjectName("keyboard_shift")
                     keyboard_button.setIcon(QIcon("resource/icon/shift.svg"))
-                    keyboard_button.setFixedSize(48, 36)
+                    keyboard_button.setFixedSize(48, 38)
                 elif key == 'delete':
                     keyboard_button.setObjectName("keyboard_delete")
                     keyboard_button.setIcon(QIcon("resource/icon/delete.svg"))
-                    keyboard_button.setFixedSize(48, 36)
+                    keyboard_button.setFixedSize(48, 38)
                 elif key == '?123':
                     keyboard_button.setObjectName("keyboard_?123")
                     keyboard_button.setText('?123')
-                    keyboard_button.setFixedSize(54, 36)
+                    keyboard_button.setFixedSize(54, 38)
                 elif key == 'space':
                     keyboard_button.setObjectName("keyboard_space")
                     keyboard_button.setText(self.tr('Space'))
-                    keyboard_button.setFixedSize(224, 36)
+                    keyboard_button.setFixedSize(224, 38)
                 elif key == 'enter':
                     keyboard_button.setObjectName("keyboard_enter")
                     keyboard_button.setIcon(QIcon("resource/icon/enter.svg"))
-                    keyboard_button.setFixedSize(54, 36)
+                    keyboard_button.setFixedSize(54, 38)
                 else:
                     keyboard_button.setObjectName("keyboard_keys")
                     keyboard_button.setText(key[0])
-                    keyboard_button.setFixedSize(32, 36)
+                    keyboard_button.setFixedSize(32, 38)
                 keyboard_button.setStyleSheet("border: 1px solid #5A5A5A; border-radius: 0;")
                 if key == 'space':
                     self.keyboard_button_group.addButton(keyboard_button, 1)
