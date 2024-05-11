@@ -58,13 +58,12 @@ class UsePreparePage(QWidget):
         self.layout.addWidget(self.start_frame)
 
         self.message_frame = BaseTitleFrame()
-        self._body_layout = QVBoxLayout()
-        self._body_layout.setContentsMargins(20, 0, 20, 0)
-        self._body_layout.setSpacing(10)
+        self.message_frame_layout = QVBoxLayout(self.message_frame.get_sub_frame())
+        self.message_frame_layout.setContentsMargins(20, 0, 20, 0)
+        self.message_frame_layout.setSpacing(10)
         for i in range(len(self._message_title_list)):
             self._message_list.append(MessageBar(i + 1, self._message_title_list[i]))
-            self._body_layout.addWidget(self._message_list[i])
-        self.message_frame.set_layout(self._body_layout)
+            self.message_frame_layout.addWidget(self._message_list[i])
         self.layout.addWidget(self.message_frame)
 
         self.handle_frame = QFrame()
@@ -406,6 +405,11 @@ class UsePreparePage(QWidget):
         self.verity_logo_frame_layout.addWidget(self.verity_logo)
         self.verity_body_layout.addWidget(self.verity_logo_frame)
 
+        self.verity_text = QLabel()
+        self.verity_text.setWordWrap(True)
+        self.verity_text.setAlignment(Qt.AlignCenter)
+        self.verity_body_layout.addWidget(self.verity_text)
+
         self.verity_layout = QHBoxLayout()
         self.verity_layout.setContentsMargins(20, 0, 20, 0)
         self.verity_layout.setSpacing(0)
@@ -425,10 +429,6 @@ class UsePreparePage(QWidget):
         self.verity_layout.addWidget(self.verity_baby_step_frame)
         self.verity_body_layout.addLayout(self.verity_layout)
 
-        self.verity_text = QLabel()
-        self.verity_text.setWordWrap(True)
-        self.verity_text.setAlignment(Qt.AlignCenter)
-        self.verity_body_layout.addWidget(self.verity_text)
         self.verity_distance_frame = QFrame()
         self.verity_distance_frame.setFixedHeight(128)
         self.verity_distance_frame_layout = QVBoxLayout(self.verity_distance_frame)
@@ -545,7 +545,7 @@ class UsePreparePage(QWidget):
         self.offset_distance_title.setText(self.tr("Move Distance (mm)"))
         self.dial_text.setText(self.tr("Place the dial indicator at the specified location."))
         self.dial_button.setText(self.tr("Placed"))
-        self.verity_text.setText(self.tr("Verification model printing, please wait."))
+        self.verity_text.setText(self.tr("Verification model printing,\nplease wait."))
         self.verity_distance_title.setText(self.tr("Move Distance (mm)"))
         self.verity_baby_step_lift_button.setText(self.tr("Lift Bed"))
         self.verity_baby_step_drop_button.setText(self.tr("Drop Bed"))
@@ -757,13 +757,9 @@ class UsePreparePage(QWidget):
         if platform.system().lower() == 'linux':  # test
             self.preheat_handle.next_button.setEnabled(False)
         self.preheat_place_movie.start()
-        update_style(self.preheat_pla, "checked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "unchecked")
         # preheat -> 210, 210, 60
         self._printer.write_gcode_command(
-            "M155 S1\nM140 S60\nM104 S210 T0\nM104 S210 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+            "M140 S60\nM104 S210 T0\nM104 S210 T1")
 
     def on_clean_next_button_clicked(self):
         if platform.system().lower() == 'linux':

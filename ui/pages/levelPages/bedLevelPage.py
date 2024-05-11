@@ -16,11 +16,25 @@ class BedLevelPage(QWidget):
         self.layout.setContentsMargins(20, 0, 20, 0)
         self.layout.setSpacing(10)
 
+        self.diagram_frame = QFrame()
+        self.diagram_frame.setObjectName("frameBox")
+        self.diagram_frame_layout = QHBoxLayout(self.diagram_frame)
+        self.diagram_frame_layout.setContentsMargins(20, 0, 20, 0)
+        self.diagram_frame_layout.setAlignment(Qt.AlignVCenter)
+        self.diagram_logo = QLabel()
+        self.diagram_logo.setFixedSize(320, 320)
+        self.diagram_movie = QMovie("resource/image/bed_level.gif")
+        self.diagram_movie.setScaledSize(self.diagram_logo.size())
+        self.diagram_logo.setMovie(self.diagram_movie)
+        self.diagram_frame_layout.addWidget(self.diagram_logo)
+        self.layout.addWidget(self.diagram_frame)
+
         self.top_layout = QVBoxLayout()
         self.top_layout.setContentsMargins(0, 0, 0, 0)
         self.top_layout.setSpacing(0)
         self.top_frame_title = QLabel()
-        self.top_frame_title.setObjectName("frame_title")
+        self.top_frame_title.setObjectName("title")
+        self.top_frame_title.setProperty("type", "normal")
         self.top_frame_title.setFixedHeight(40)
         self.top_layout.addWidget(self.top_frame_title)
 
@@ -94,6 +108,10 @@ class BedLevelPage(QWidget):
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
+        self.diagram_movie.start()
+
+    def hideEvent(self, a0: QHideEvent) -> None:
+        self.diagram_movie.stop()
 
     def re_translate_ui(self):
         self.top_frame_title.setText(self.tr("Current Extruder"))
