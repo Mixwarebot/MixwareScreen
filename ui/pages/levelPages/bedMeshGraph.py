@@ -39,8 +39,8 @@ class BedMeshGraph(QFrame):
         # return (maximum - model[num]) / (maximum - minimum)
 
         _mean = numpy.mean(model)
-        _min = numpy.min(model) if numpy.min(model) < _mean - 2.5 else _mean - 2.5
-        _max = numpy.max(model) if numpy.min(model) > _mean + 2.5 else _mean + 2.5
+        _min = numpy.min(model) if numpy.min(model) < _mean - 1 else _mean - 1
+        _max = numpy.max(model) if numpy.min(model) > _mean + 1 else _mean + 1
         # _mean = (_max + _min) / 2
         # median = numpy.median(model)
         # mean = numpy.mean(model)

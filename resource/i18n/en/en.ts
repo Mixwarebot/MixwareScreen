@@ -767,12 +767,12 @@ click &lt;Next&gt; to start working.</source>
 <context>
     <name>LanguagePage</name>
     <message>
-        <location filename="../../../ui/pages/languagePage.py" line="43"/>
+        <location filename="../../../ui/pages/languagePage.py" line="29"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/languagePage.py" line="44"/>
+        <location filename="../../../ui/pages/languagePage.py" line="30"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
