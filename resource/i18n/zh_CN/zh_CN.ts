@@ -306,12 +306,12 @@ the printer to factory settings.</source>
 <context>
     <name>BedMeshGraph</name>
     <message>
-        <location filename="../../../ui/pages/levelPages/bedMeshGraph.py" line="68"/>
+        <location filename="../../../ui/pages/levelPages/bedMeshGraph.py" line="69"/>
         <source>No data.</source>
         <translation>无数据.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/levelPages/bedMeshGraph.py" line="33"/>
+        <location filename="../../../ui/pages/levelPages/bedMeshGraph.py" line="34"/>
         <source>Auto-leveling Mesh Graph</source>
         <translation>自动调平数据网格图</translation>
     </message>
@@ -773,12 +773,12 @@ click &lt;Next&gt; to start working.</source>
 <context>
     <name>LanguagePage</name>
     <message>
-        <location filename="../../../ui/pages/languagePage.py" line="29"/>
+        <location filename="../../../ui/pages/languagePage.py" line="43"/>
         <source>English</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/languagePage.py" line="30"/>
+        <location filename="../../../ui/pages/languagePage.py" line="44"/>
         <source>Chinese</source>
         <translation>简体中文</translation>
     </message>

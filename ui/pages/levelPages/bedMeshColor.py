@@ -2,7 +2,7 @@ class BedMeshColor:
     def __init__(self):
         self.__color_map = []
         self.__palette_top = (165, 0, 38)
-        self.__palette_center = (255, 255, 192)
+        self.__palette_center = (255, 255, 240)
         self.__palette_bottom = (49, 54, 149)
 
         self.__color_map.append(self.__palette_bottom)
