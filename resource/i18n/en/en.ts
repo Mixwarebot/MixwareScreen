@@ -278,22 +278,22 @@ the printer to factory settings.</source>
 <context>
     <name>BedLevelPage</name>
     <message>
-        <location filename="../../../ui/pages/levelPages/bedLevelPage.py" line="119"/>
+        <location filename="../../../ui/pages/levelPages/bedLevelPage.py" line="117"/>
         <source>Current Extruder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/levelPages/bedLevelPage.py" line="120"/>
+        <location filename="../../../ui/pages/levelPages/bedLevelPage.py" line="118"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/levelPages/bedLevelPage.py" line="122"/>
+        <location filename="../../../ui/pages/levelPages/bedLevelPage.py" line="120"/>
         <source>Disabled XY</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/levelPages/bedLevelPage.py" line="121"/>
+        <location filename="../../../ui/pages/levelPages/bedLevelPage.py" line="119"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
@@ -301,12 +301,12 @@ the printer to factory settings.</source>
 <context>
     <name>BedMeshGraph</name>
     <message>
-        <location filename="../../../ui/pages/levelPages/bedMeshGraph.py" line="54"/>
+        <location filename="../../../ui/pages/levelPages/bedMeshGraph.py" line="68"/>
         <source>No data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/levelPages/bedMeshGraph.py" line="29"/>
+        <location filename="../../../ui/pages/levelPages/bedMeshGraph.py" line="33"/>
         <source>Auto-leveling Mesh Graph</source>
         <translation type="unfinished"></translation>
     </message>
