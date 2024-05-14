@@ -56,9 +56,8 @@ class MixwareScreen(QWidget):
         self.notify_frame.hide()
         self.notify_timer = QTimer(self)
 
-        # test
-        if platform.system().lower() == 'windows':
-            self.stackedLayout.setCurrentIndex(2)
+        if platform.system().lower() == 'windows':  # test
+            self.stackedLayout.setCurrentIndex(0)  # test
         else:
             if self._printer.config.should_show_welcome:
                 self.stackedLayout.setCurrentIndex(0)

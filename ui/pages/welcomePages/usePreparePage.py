@@ -85,7 +85,10 @@ class UsePreparePage(QWidget):
         self.remind_logo = QLabel()
         self.remind_logo.setFixedSize(320, 320)
         self.remind_logo.setScaledContents(True)
-        self.remind_logo.setPixmap(QPixmap("resource/image/level_clean_bed.png"))
+        # self.remind_logo.setPixmap(QPixmap("resource/image/level_clean_bed.png"))
+        self.remind_logo_movie = QMovie("resource/image/clean_bed.gif")
+        self.remind_logo_movie.setScaledSize(self.remind_logo.size())
+        self.remind_logo.setMovie(self.remind_logo_movie)
         self.remind_body_layout.addWidget(self.remind_logo)
         self.remind_text = QLabel()
         self.remind_text.setFixedHeight(72)
@@ -541,7 +544,8 @@ class UsePreparePage(QWidget):
         self.clean_text.setText(self.tr("Please use a metal brush to clean the nozzle residue."))
         self.level_button.setText(self.tr("Start Auto-leveling"))
         self.level_text.setText(self.tr("Auto-leveling, please wait."))
-        self.offset_text.setText(self.tr("Adjust offset."))
+        self.offset_text.setText(
+            self.tr("Adjust the height between the nozzle and the platform by 'Lift Bed' or 'Drop Bed' the platform."))
         self.offset_distance_title.setText(self.tr("Move Distance (mm)"))
         self.dial_text.setText(self.tr("Place the dial indicator at the specified location."))
         self.dial_button.setText(self.tr("Placed"))
@@ -614,6 +618,7 @@ class UsePreparePage(QWidget):
     def on_start_button_clicked(self):
         self._parent.next_button.setText(self.tr("Next"))
         self._parent.next_button.setEnabled(False)
+        self.remind_logo_movie.start()
         self._printer.set_led_light(1)
         self.start_frame.hide()
         self.message_frame.show()
@@ -643,6 +648,7 @@ class UsePreparePage(QWidget):
         if platform.system().lower() == 'linux':  # test
             self.preheat_handle.next_button.setEnabled(False)
         self.preheat_place_movie.start()
+        self.remind_logo_movie.stop()
         self.goto_next_step_stacked_widget()
         update_style(self.preheat_pla, "checked")
         update_style(self.preheat_abs, "unchecked")
