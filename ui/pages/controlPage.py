@@ -3,7 +3,7 @@ from ui.components.base.basePushButton import BasePushButton
 from ui.pages.fanPage import FanPage
 from ui.pages.filamentPage import FilamentPage
 from ui.pages.homePage import HomePage
-from ui.pages.levelPages.levelPreparePage import LevelPreParePage
+from ui.pages.leveling.levelPreparePage import LevelPreParePage
 from ui.pages.movePage import MovePage
 from ui.pages.temperaturePage import TemperaturePage
 

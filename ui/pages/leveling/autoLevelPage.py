@@ -1,7 +1,7 @@
 from printer import MixwareScreenPrinterStatus
 from qtCore import *
 from ui.components.base.basePushButton import BasePushButton
-from ui.pages.levelPages.bedMeshGraph import BedMeshGraph
+from ui.components.leveling.bedMeshGraph import BedMeshGraph
 
 
 class AutoLevelPage(QWidget):

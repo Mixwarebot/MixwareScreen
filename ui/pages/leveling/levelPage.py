@@ -1,10 +1,10 @@
 from qtCore import *
 from ui.components.base.basePushButton import BasePushButton
-from ui.pages.levelPages.autoLevelPage import AutoLevelPage
-from ui.pages.levelPages.bedLevelPage import BedLevelPage
-from ui.pages.levelPages.dialIndicatorPage import DialIndicatorPage
-from ui.pages.levelPages.offsetPage import OffsetPage
-from ui.pages.levelPages.printVerifyPage import PrintVerifyPage
+from ui.pages.leveling.autoLevelPage import AutoLevelPage
+from ui.pages.leveling.bedLevelPage import BedLevelPage
+from ui.pages.leveling.dialIndicatorPage import DialIndicatorPage
+from ui.pages.leveling.offsetPage import OffsetPage
+from ui.pages.leveling.printVerifyPage import PrintVerifyPage
 
 
 class LevelPage(QWidget):

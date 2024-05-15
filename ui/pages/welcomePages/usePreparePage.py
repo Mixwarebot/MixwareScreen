@@ -8,7 +8,7 @@ from ui.components.base.basePushButton import BasePushButton
 from ui.components.handleBar import HandleBar
 from ui.components.messageBar import MessageBar
 from ui.components.baseTitleFrame import BaseTitleFrame
-from ui.pages.levelPages.bedMeshGraph import BedMeshGraph
+from ui.components.leveling.bedMeshGraph import BedMeshGraph
 
 
 class UsePreparePage(QWidget):
@@ -414,7 +414,7 @@ class UsePreparePage(QWidget):
         self.verity_body_layout.addWidget(self.verity_text)
 
         self.verity_layout = QHBoxLayout()
-        self.verity_layout.setContentsMargins(20, 0, 20, 0)
+        self.verity_layout.setContentsMargins(20, 0, 20, 10)
         self.verity_layout.setSpacing(0)
         self.verity_baby_step_frame = QFrame()
         self.verity_baby_step_frame.setObjectName("frameOutLine")

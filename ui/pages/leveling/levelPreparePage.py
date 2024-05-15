@@ -1,7 +1,7 @@
 from qtCore import *
 from ui.components.base.basePushButton import BasePushButton
-from ui.pages.levelPages.levelPage import LevelPage
-from ui.pages.levelPages.levelWizardPage import LevelWizardPage
+from ui.pages.leveling.levelPage import LevelPage
+from ui.pages.leveling.levelWizardPage import LevelWizardPage
 
 
 class LevelPreParePage(QWidget):

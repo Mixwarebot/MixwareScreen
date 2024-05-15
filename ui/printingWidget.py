@@ -4,7 +4,7 @@ from printer import MixwareScreenPrinterStatus
 from qtCore import *
 from ui.pages.base.basePrintWidget import BasePrintWidget
 from ui.pages.filamentPage import FilamentPage
-from ui.pages.levelPages.babyStepPad import BabyStepPad
+from ui.pages.leveling.babyStepPad import BabyStepPad
 from ui.components.printDoneDialog import PrintDoneDialog
 from ui.pages.printingPage import PrintingPage
 from ui.components.runoutPad import RunOutPad

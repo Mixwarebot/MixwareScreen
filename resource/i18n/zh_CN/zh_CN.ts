@@ -986,22 +986,22 @@ Height Calibration</source>
 <context>
     <name>MixwareScreen</name>
     <message>
-        <location filename="../../../ui/mixwareScreen.py" line="101"/>
+        <location filename="../../../ui/mixwareScreen.py" line="100"/>
         <source>Start</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="../../../ui/mixwareScreen.py" line="95"/>
+        <location filename="../../../ui/mixwareScreen.py" line="94"/>
         <source>Update</source>
         <translation>刷新</translation>
     </message>
     <message>
-        <location filename="../../../ui/mixwareScreen.py" line="96"/>
+        <location filename="../../../ui/mixwareScreen.py" line="95"/>
         <source>No printer detected.</source>
         <translation>未检测到打印机.</translation>
     </message>
     <message>
-        <location filename="../../../ui/mixwareScreen.py" line="102"/>
+        <location filename="../../../ui/mixwareScreen.py" line="101"/>
         <source>Click &lt;Start&gt; to start using the printer.</source>
         <translation>点击 &lt;开始&gt; 开始使用打印机.</translation>
     </message>
@@ -1410,6 +1410,11 @@ Calibration</source>
         <location filename="../../../ui/pages/levelPages/printVerifyPage.py" line="448"/>
         <source>Done.</source>
         <translation>完成.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/pages/levelPages/printVerifyPage.py" line="352"/>
+        <source>Printing is completed.</source>
+        <translation>打印完成.</translation>
     </message>
 </context>
 <context>

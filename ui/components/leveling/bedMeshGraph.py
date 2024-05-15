@@ -1,9 +1,8 @@
-import logging
 import math
 import numpy
 
 from qtCore import *
-from ui.pages.levelPages.bedMeshColor import BedMeshColor
+from ui.components.leveling.bedMeshColor import BedMeshColor
 
 
 class BedMeshGraph(QFrame):
@@ -17,6 +16,7 @@ class BedMeshGraph(QFrame):
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.layout.setSpacing(0)
+        self.layout.setAlignment(Qt.AlignCenter)
         self.title = QLabel()
         self.layout.addWidget(self.title)
         self.title.setObjectName("frame_title")
@@ -44,7 +44,10 @@ class BedMeshGraph(QFrame):
         # _mean = (_max + _min) / 2
         # median = numpy.median(model)
         # mean = numpy.mean(model)
-        return int(50 + (model[num] - _mean) / (_max - _min) * 100)
+        opacity = int(50 + (model[num] - _mean) / (_max - _min) * 100)
+        opacity = 0 if opacity < 0 else opacity
+        opacity = 100 if opacity > 100 else opacity
+        return opacity
 
     def clear_bed_mesh(self):
         for i in range(self.body_frame_layout.count()):

@@ -58,7 +58,10 @@ class PrintVerifyPage(QWidget):
         self.remind_logo = QLabel()
         self.remind_logo.setFixedSize(320, 320)
         self.remind_logo.setScaledContents(True)
-        self.remind_logo.setPixmap(QPixmap("resource/image/level_clean_bed.png"))
+        # self.remind_logo.setPixmap(QPixmap("resource/image/level_clean_bed.png"))
+        self.remind_logo_movie = QMovie("resource/image/clean_bed.gif")
+        self.remind_logo_movie.setScaledSize(self.remind_logo.size())
+        self.remind_logo.setMovie(self.remind_logo_movie)
         self.remind_body_layout.addWidget(self.remind_logo)
         self.remind_text = QLabel()
         self.remind_text.setWordWrap(True)
@@ -279,6 +282,10 @@ class PrintVerifyPage(QWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         self.reset_ui()
         self.re_translate_ui()
+        self.remind_logo_movie.start()
+
+    def hideEvent(self, a0: QShowEvent) -> None:
+        self.remind_logo_movie.stop()
 
     def reset_message_text(self):
         self.message_text_list = [
@@ -349,7 +356,7 @@ class PrintVerifyPage(QWidget):
         if state == MixwareScreenPrinterStatus.PRINTER_VERITY:
             self.work_thermal_frame.hide()
             self.verity_model_logo.hide()
-            self.work_text.setText("Printing is completed.")
+            self.work_text.setText(self.tr("Printing is completed."))
             self.work_handle.next_button.setEnabled(True)
 
     def goto_next_step_stacked_widget(self):
@@ -370,6 +377,7 @@ class PrintVerifyPage(QWidget):
     def on_remind_next_button_clicked(self):
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
+        self.remind_logo_movie.stop()
         self.goto_next_step_stacked_widget()
         update_style(self.preheat_pla, "checked")
         update_style(self.preheat_abs, "unchecked")
