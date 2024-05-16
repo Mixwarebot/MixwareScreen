@@ -275,6 +275,10 @@ class PrintVerifyPage(QWidget):
         self.reset_ui()
         self.re_translate_ui()
 
+    def hideEvent(self, a0):
+        # if self._printer.get_target('right')
+        pass
+
     def reset_message_text(self):
         self.message_text_list = [
             self.tr("Clean platform debris."),

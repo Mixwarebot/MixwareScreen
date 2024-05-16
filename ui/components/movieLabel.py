@@ -38,6 +38,7 @@ class MovieLabel(QLabel):
 
         self._movie = movie
         self._movie.setScaledSize(self.size())
+        self.setMovie(self._movie)
 
         if self.isVisible():
             self._movie.start()

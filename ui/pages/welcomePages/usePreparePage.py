@@ -15,6 +15,9 @@ from ui.components.movieLabel import MovieLabel
 class UsePreparePage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
+        self._filament = 'user'
+        self._filament_target_left = 0
+        self._filament_target_right = 0
         self._message_title_list = None
         self._printer = printer
         self._parent = parent
@@ -319,15 +322,9 @@ class UsePreparePage(QWidget):
         self.dial_body_layout.addWidget(self.dial_placeholder)
         self.dial_logo = MovieLabel("resource/image/level_measure.gif")
         self.dial_logo.setFixedSize(320, 320)
-        self.dial_place_movie = QMovie("resource/image/level_measure.gif")
-        self.dial_place_movie.setScaledSize(self.dial_logo.size())
         self.dial_measure_left_movie = QMovie("resource/image/level_measure_left.gif")
-        self.dial_measure_left_movie.setScaledSize(self.dial_logo.size())
         self.dial_measure_right_movie = QMovie("resource/image/level_measure_right.gif")
-        self.dial_measure_right_movie.setScaledSize(self.dial_logo.size())
         self.remove_dial_movie = QMovie("resource/image/remove_dial.gif")
-        self.remove_dial_movie.setScaledSize(self.dial_logo.size())
-        self.dial_logo.setMovie(self.dial_place_movie)
         self.dial_body_layout.addWidget(self.dial_logo)
         self.dial_text = QLabel()
         self.dial_text.setWordWrap(True)
@@ -554,8 +551,7 @@ class UsePreparePage(QWidget):
                 self.level_text.setText(self.tr("Auto-leveling completed."))
                 self.level_load_timer.stop()
                 self.level_load.hide()
-                self._printer.set_thermal('left', self._printer.get_target('left') + 50)
-                self._printer.set_thermal('right', self._printer.get_target('right') + 50)
+                self.preheat_filament(self._filament)
             elif state == MixwareScreenPrinterStatus.PRINTER_VERITY:
                 self.verity_thermal_frame.hide()
                 self.verity_progress_bar.hide()
@@ -638,50 +634,73 @@ class UsePreparePage(QWidget):
             self.preheat_text.setText(self.tr(
                 "Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete."))
 
-    def preheat_filament(self, temperature):
-        self._printer.set_thermal('left', temperature)
-        self._printer.set_thermal('right', temperature)
-        self.reset_preheat_handle_ui()
+    def reset_preheat_filament_style(self):
+        update_style(self.preheat_pla, "unchecked")
+        update_style(self.preheat_abs, "unchecked")
+        update_style(self.preheat_pet, "unchecked")
+        update_style(self.preheat_pa, "unchecked")
+
+    def preheat_filament(self, filament):
+        if type(filament) == str:
+            if filament == 'pla':
+                self._filament = 'pla'
+                self._filament_target_left = self._filament_target_right = 220
+            elif filament == 'abs':
+                self._filament = 'abs'
+                self._filament_target_left = self._filament_target_right = 250
+            elif filament == 'pet':
+                self._filament = 'pet'
+                self._filament_target_left = self._filament_target_right = 275
+            elif filament == 'pa':
+                self._filament = 'pa'
+                self._filament_target_left = self._filament_target_right = 300
+        elif type(filament) == int:
+            self._filament = 'user'
+            filament = 350 if filament > 350 else filament
+            self._filament_target_left = self._filament_target_right = filament
+
+        self._printer.set_thermal('left', self._filament_target_left)
+        self._printer.set_thermal('right', self._filament_target_right)
 
     def on_preheat_thermal_left_button_clicked(self):
         self._parent.open_thermal_left_numberPad()
         self.reset_preheat_handle_ui()
+        self._filament = 'user'
+        self._filament_target_left = self._printer.get_target('left')
 
     def on_preheat_thermal_right_button_clicked(self):
         self._parent.open_thermal_right_numberPad()
         self.reset_preheat_handle_ui()
+        self._filament = 'user'
+        self._filament_target_right = self._printer.get_target('right')
 
     def on_preheat_thermal_bed_button_clicked(self):
         self._parent.open_thermal_bed_numberPad()
         self.reset_preheat_handle_ui()
 
     def on_preheat_pla_clicked(self):
+        self.preheat_filament('pla')
+        self.reset_preheat_filament_style()
         update_style(self.preheat_pla, "checked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "unchecked")
-        self.preheat_filament(210)
+        self.reset_preheat_handle_ui()
 
     def on_preheat_abs_clicked(self):
-        update_style(self.preheat_pla, "unchecked")
+        self.preheat_filament('abs')
+        self.reset_preheat_filament_style()
         update_style(self.preheat_abs, "checked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "unchecked")
-        self.preheat_filament(240)
+        self.reset_preheat_handle_ui()
 
     def on_preheat_pet_clicked(self):
-        update_style(self.preheat_pla, "unchecked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "unchecked")
+        self.preheat_filament('pet')
+        self.reset_preheat_filament_style()
         update_style(self.preheat_pet, "checked")
-        self.preheat_filament(270)
+        self.reset_preheat_handle_ui()
 
     def on_preheat_pa_clicked(self):
-        update_style(self.preheat_pla, "unchecked")
-        update_style(self.preheat_abs, "unchecked")
+        self.preheat_filament('pa')
+        self.reset_preheat_filament_style()
         update_style(self.preheat_pa, "checked")
-        update_style(self.preheat_pet, "unchecked")
-        self.preheat_filament(300)
+        self.reset_preheat_handle_ui()
 
     def on_preheat_next_button_clicked(self):
         timer_frame = 2
@@ -693,11 +712,8 @@ class UsePreparePage(QWidget):
         self.load_progress = 0
         self.load_progress_bar.setValue(self.load_progress)
         self.load_timer.start(int(1000 / timer_frame))
-        # self.load_handle.previous_button.hide()
         self.load_logo.show()
         self.load_text.setText(self.tr("Loading filament(Left)."))
-        # self.load_progress_bar.show()
-        # self.preheat_logo.hide()
         if platform.system().lower() == 'linux':  # test
             self.load_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
@@ -710,7 +726,6 @@ class UsePreparePage(QWidget):
                 self.load_text.setText(self.tr("Filament loading completed."))
                 self.load_timer.stop()
                 self.load_logo.hide()
-                # self.load_progress_bar.hide()
                 self.load_handle.next_button.setEnabled(True)
                 self._printer.set_thermal('left', 120)
                 self._printer.set_thermal('right', 120)
@@ -815,9 +830,6 @@ class UsePreparePage(QWidget):
 
     def on_place_button_clicked(self):
         if self.dial_button.text() == self.tr("Placed"):
-            # self.dial_place_movie.stop()
-            # self.dial_logo.setMovie(self.dial_measure_left_movie)
-            # self.dial_measure_left_movie.start()
             self.dial_logo.set_movie(self.dial_measure_left_movie)
             self.dial_text.setText(self.tr("Measure compensation value(Left)."))
             self.dial_button.setText(self.tr("Measure Left"))
@@ -830,17 +842,11 @@ class UsePreparePage(QWidget):
                                              "dial_indicator_left")
             self._printer.write_gcode_commands(
                 "G1 Z150 F800\nM400\nT1\nG1 X190 Z150 F8400")
-            # self.dial_measure_left_movie.stop()
-            # self.dial_logo.setMovie(self.dial_measure_right_movie)
-            # self.dial_measure_right_movie.start()
             self.dial_logo.set_movie(self.dial_measure_right_movie)
             self.dial_text.setText(self.tr("Measure compensation value(Right)."))
             self.dial_button.setText(self.tr("Measure Right"))
         elif self.dial_button.text() == self.tr("Measure Right"):
-            # self.dial_measure_right_movie.stop()
             self.dial_text.setText(self.tr("Measurement completed.\nPlease remove the dial indicator on the hot bed."))
-            # self.dial_logo.setMovie(self.remove_dial_movie)
-            # self.remove_dial_movie.start()
             self.dial_logo.set_movie(self.remove_dial_movie)
             self.dial_button.hide()
             self._printer.write_gcode_commands(

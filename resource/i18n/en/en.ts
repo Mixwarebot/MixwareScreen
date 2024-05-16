@@ -1341,68 +1341,68 @@ Calibration</source>
 <context>
     <name>PrintVerifyPage</name>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="280"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="284"/>
         <source>Clean platform debris.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="281"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="285"/>
         <source>Preheat extruder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="282"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="286"/>
         <source>Working.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="283"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="287"/>
         <source>Finish.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="295"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="299"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="299"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="303"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="334"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="338"/>
         <source>Heat completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="378"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="382"/>
         <source>Preheating extruder.
 (Default 210°C)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="298"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="302"/>
         <source>Verification model printing, please wait.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="300"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="304"/>
         <source>Move Distance (mm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="301"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="305"/>
         <source>Observe the XY test model, find aligned lines, with each grid measuring 0.1mm, and adjust the offset values of the left and right nozzles.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="438"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="442"/>
         <source>Done.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="343"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="347"/>
         <source>Printing is completed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1793,47 +1793,47 @@ the printer to factory settings.</source>
 <context>
     <name>UsePreparePage</name>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="490"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="485"/>
         <source>Clean the nozzle.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="515"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="510"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="492"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="487"/>
         <source>Adjust offset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="530"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="525"/>
         <source>Move Distance (mm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="527"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="522"/>
         <source>Place the dial indicator at the specified location.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="587"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="582"/>
         <source>Heat completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="513"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="508"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="595"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="590"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="822"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="825"/>
         <source>Measure compensation value(Left).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1843,7 +1843,7 @@ the printer to factory settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="824"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="827"/>
         <source>Measure Left</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1853,129 +1853,129 @@ the printer to factory settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="521"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="516"/>
         <source>Please use a metal brush to clean the nozzle residue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="638"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="633"/>
         <source>Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="817"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="823"/>
         <source>Placed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="710"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="717"/>
         <source>Filament loading completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="841"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="840"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="489"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="484"/>
         <source>Load filament.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="698"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="707"/>
         <source>Loading filament(Left).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="589"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="584"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="590"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="585"/>
         <source>Loading filament(Right).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="491"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="486"/>
         <source>Auto-leveling.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="522"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="517"/>
         <source>Start Auto-leveling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="523"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="518"/>
         <source>Auto-leveling, please wait.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="554"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="549"/>
         <source>Auto-leveling completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="567"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="562"/>
         <source>Printing is completed, please level the XY offset according to the printing situation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="488"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="483"/>
         <source>Filament preparation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="493"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="488"/>
         <source>Right extruder height calibration.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="494"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="489"/>
         <source>XY offset calibration.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="487"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="482"/>
         <source>Clear debris from the platform.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="533"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="528"/>
         <source>Lift Bed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="534"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="529"/>
         <source>Drop Bed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="850"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="847"/>
         <source>Please enter the absolute value from the dial indicator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="514"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="509"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="520"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="515"/>
         <source>Load again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="529"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="524"/>
         <source>Verification model printing,
 please wait.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="524"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="519"/>
         <source>Adjust the height between the nozzle and the platform by &apos;Lift Bed&apos; or &apos;Drop Bed&apos; the platform.</source>
         <translation type="unfinished"></translation>
     </message>
