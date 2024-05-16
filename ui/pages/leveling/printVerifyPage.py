@@ -7,6 +7,7 @@ from ui.components.base.baseLine import BaseHLine, BaseVLine
 from ui.components.base.basePushButton import BasePushButton
 from ui.components.handleBar import HandleBar
 from ui.components.messageBar import MessageBar
+from ui.components.movieLabel import MovieLabel
 
 
 class PrintVerifyPage(QWidget):
@@ -55,13 +56,8 @@ class PrintVerifyPage(QWidget):
         self.remind_body_layout.setContentsMargins(20, 0, 20, 0)
         self.remind_body_layout.setSpacing(0)
         self.remind_body_layout.setAlignment(Qt.AlignCenter)
-        self.remind_logo = QLabel()
+        self.remind_logo = MovieLabel("resource/image/clean_bed.gif")
         self.remind_logo.setFixedSize(320, 320)
-        self.remind_logo.setScaledContents(True)
-        # self.remind_logo.setPixmap(QPixmap("resource/image/level_clean_bed.png"))
-        self.remind_logo_movie = QMovie("resource/image/clean_bed.gif")
-        self.remind_logo_movie.setScaledSize(self.remind_logo.size())
-        self.remind_logo.setMovie(self.remind_logo_movie)
         self.remind_body_layout.addWidget(self.remind_logo)
         self.remind_text = QLabel()
         self.remind_text.setWordWrap(True)
@@ -192,12 +188,8 @@ class PrintVerifyPage(QWidget):
         self.finished_body_layout = QVBoxLayout(self.finished_handle.body)
         self.finished_body_layout.setContentsMargins(0, 20, 0, 0)
         self.finished_body_layout.setSpacing(0)
-        self.verity_logo = QLabel()
+        self.verity_logo = MovieLabel("resource/image/verity.gif")
         self.verity_logo.setFixedSize(320, 320)
-        self.verity_logo.setStyleSheet("padding-left: 20px;")
-        self.verity_movie = QMovie("resource/image/verity.gif")
-        self.verity_movie.setScaledSize(self.verity_logo.size())
-        self.verity_logo.setMovie(self.verity_movie)
         self.finished_body_layout.addWidget(self.verity_logo)
         self.finished_text = QLabel()
         self.finished_text.setWordWrap(True)
@@ -282,10 +274,6 @@ class PrintVerifyPage(QWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         self.reset_ui()
         self.re_translate_ui()
-        self.remind_logo_movie.start()
-
-    def hideEvent(self, a0: QShowEvent) -> None:
-        self.remind_logo_movie.stop()
 
     def reset_message_text(self):
         self.message_text_list = [
@@ -344,10 +332,6 @@ class PrintVerifyPage(QWidget):
                     and self._printer.get_temperature('bed') + 3 >= self._printer.get_target('bed'):
                 self.preheat_handle.next_button.setEnabled(True)
                 self.preheat_text.setText(self.tr("Heat completed."))
-        # elif self.handle_stacked_widget.currentWidget() == self.work_handle:
-        #     if not self._printer.is_print_verify():
-        #         self.goto_next_step_stacked_widget()
-        #         self.verity_movie.start()
 
     @pyqtSlot(MixwareScreenPrinterStatus)
     def on_update_printer_status(self, state):
@@ -377,7 +361,6 @@ class PrintVerifyPage(QWidget):
     def on_remind_next_button_clicked(self):
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
-        self.remind_logo_movie.stop()
         self.goto_next_step_stacked_widget()
         update_style(self.preheat_pla, "checked")
         update_style(self.preheat_abs, "unchecked")
@@ -452,7 +435,6 @@ class PrintVerifyPage(QWidget):
         self._printer.move_to_z(150, True)
         self.goto_next_step_stacked_widget()
         self._parent.footer.setEnabled(True)
-        self.verity_movie.start()
         self.finished_handle.next_button.setText(self.tr("Done."))
 
     def on_finished_offset_x_dec_button_clicked(self):
@@ -493,5 +475,4 @@ class PrintVerifyPage(QWidget):
         self._printer.set_hotend_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
             hotend_offset_y))
         self.reset_ui()
-        self.verity_movie.stop()
         self._parent.gotoPreviousPage()

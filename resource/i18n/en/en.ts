@@ -767,12 +767,12 @@ click &lt;Next&gt; to start working.</source>
 <context>
     <name>LanguagePage</name>
     <message>
-        <location filename="../../../ui/pages/languagePage.py" line="34"/>
+        <location filename="../../../ui/pages/languagePage.py" line="29"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/languagePage.py" line="35"/>
+        <location filename="../../../ui/pages/languagePage.py" line="30"/>
         <source>Chinese</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1341,68 +1341,68 @@ Calibration</source>
 <context>
     <name>PrintVerifyPage</name>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="292"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="280"/>
         <source>Clean platform debris.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="293"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="281"/>
         <source>Preheat extruder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="294"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="282"/>
         <source>Working.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="295"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="283"/>
         <source>Finish.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="307"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="295"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="311"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="299"/>
         <source>Done</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="346"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="334"/>
         <source>Heat completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="395"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="378"/>
         <source>Preheating extruder.
 (Default 210°C)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="310"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="298"/>
         <source>Verification model printing, please wait.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="312"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="300"/>
         <source>Move Distance (mm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="313"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="301"/>
         <source>Observe the XY test model, find aligned lines, with each grid measuring 0.1mm, and adjust the offset values of the left and right nozzles.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="456"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="438"/>
         <source>Done.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="359"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="343"/>
         <source>Printing is completed.</source>
         <translation type="unfinished"></translation>
     </message>
