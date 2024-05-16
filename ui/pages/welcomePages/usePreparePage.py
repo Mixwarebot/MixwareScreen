@@ -1,3 +1,4 @@
+import logging
 import platform
 import re
 
@@ -626,7 +627,8 @@ class UsePreparePage(QWidget):
 
     def reset_preheat_handle_ui(self):
         if self.preheat_handle.next_button.isEnabled():
-            self.preheat_handle.next_button.setEnabled(False)
+            if platform.system().lower() == 'linux':
+                self.preheat_handle.next_button.setEnabled(False)
             self.preheat_logo.show()
             self.preheat_text.setText(self.tr(
                 "Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete."))
@@ -638,6 +640,7 @@ class UsePreparePage(QWidget):
         update_style(self.preheat_pa, "unchecked")
 
     def preheat_filament(self, filament):
+        logging.debug(F'Preheat filament {filament}')
         if type(filament) == str:
             if filament == 'pla':
                 self._filament = 'pla'
@@ -760,9 +763,7 @@ class UsePreparePage(QWidget):
         self.goto_previous_step_stacked_widget()
         if platform.system().lower() == 'linux':  # test
             self.preheat_handle.next_button.setEnabled(False)
-        # preheat -> 210, 210, 60
-        self._printer.write_gcode_command(
-            "M140 S60\nM104 S210 T0\nM104 S210 T1")
+        self.preheat_filament(self._filament)
 
     def on_clean_next_button_clicked(self):
         if platform.system().lower() == 'linux':

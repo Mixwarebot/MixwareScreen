@@ -9,7 +9,7 @@ class BaseTitleFrame(QFrame):
         self.setObjectName("frameBox")
 
         self._layout = QVBoxLayout(self)
-        self._layout.setContentsMargins(0, 3, 0, 10)
+        self._layout.setContentsMargins(0, 20, 0, 20)
         self._layout.setSpacing(0)
 
         self._title = QLabel("title")
