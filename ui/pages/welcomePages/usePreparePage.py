@@ -9,6 +9,7 @@ from ui.components.handleBar import HandleBar
 from ui.components.messageBar import MessageBar
 from ui.components.baseTitleFrame import BaseTitleFrame
 from ui.components.leveling.bedMeshGraph import BedMeshGraph
+from ui.components.movieLabel import MovieLabel
 
 
 class UsePreparePage(QWidget):
@@ -82,13 +83,8 @@ class UsePreparePage(QWidget):
         self.remind_body_layout.setContentsMargins(20, 0, 20, 0)
         self.remind_body_layout.setSpacing(0)
         self.remind_body_layout.setAlignment(Qt.AlignCenter)
-        self.remind_logo = QLabel()
+        self.remind_logo = MovieLabel("resource/image/clean_bed.gif")
         self.remind_logo.setFixedSize(320, 320)
-        self.remind_logo.setScaledContents(True)
-        # self.remind_logo.setPixmap(QPixmap("resource/image/level_clean_bed.png"))
-        self.remind_logo_movie = QMovie("resource/image/clean_bed.gif")
-        self.remind_logo_movie.setScaledSize(self.remind_logo.size())
-        self.remind_logo.setMovie(self.remind_logo_movie)
         self.remind_body_layout.addWidget(self.remind_logo)
         self.remind_text = QLabel()
         self.remind_text.setFixedHeight(72)
@@ -156,12 +152,8 @@ class UsePreparePage(QWidget):
         self.preheat_filament_layout.addWidget(self.preheat_pa)
         self.preheat_body_layout.addLayout(self.preheat_filament_layout)
         self.preheat_body_layout.addWidget(BaseHLine())
-        self.preheat_logo = QLabel()
+        self.preheat_logo = MovieLabel("resource/image/place_filament.gif")
         self.preheat_logo.setFixedSize(320, 388)
-        # self.preheat_logo.setStyleSheet("border: 1px solid #D4D4D4;") # test
-        self.preheat_place_movie = QMovie("resource/image/place_filament.gif")
-        self.preheat_place_movie.setScaledSize(self.preheat_logo.size())
-        self.preheat_logo.setMovie(self.preheat_place_movie)
         self.preheat_body_layout.addWidget(self.preheat_logo)
         self.preheat_text = QLabel()
         self.preheat_text.setWordWrap(True)
@@ -205,11 +197,8 @@ class UsePreparePage(QWidget):
         self.clean_body_layout.setContentsMargins(20, 0, 20, 0)
         self.clean_body_layout.setSpacing(0)
         self.clean_body_layout.setAlignment(Qt.AlignCenter)
-        self.clean_logo = QLabel()
+        self.clean_logo = MovieLabel("resource/image/clean_nozzle.gif")
         self.clean_logo.setFixedSize(320, 220)
-        self.clean_logo_movie = QMovie("resource/image/clean_nozzle.gif")
-        self.clean_logo_movie.setScaledSize(self.clean_logo.size())
-        self.clean_logo.setMovie(self.clean_logo_movie)
         self.clean_body_layout.addWidget(self.clean_logo)
         self.clean_text = QLabel()
         self.clean_text.setWordWrap(True)
@@ -254,12 +243,8 @@ class UsePreparePage(QWidget):
         self.offset_body_layout.setSpacing(0)
         self.offset_logo_layout = QVBoxLayout()
         self.offset_logo_layout.setAlignment(Qt.AlignCenter)
-        self.offset_logo = QLabel()
+        self.offset_logo = MovieLabel("resource/image/adjust_offset.gif")
         self.offset_logo.setFixedSize(320, 320)
-        self.offset_logo_movie = QMovie("resource/image/adjust_offset.gif")
-        # self.offset_logo.setStyleSheet("border: 1px solid #D4D4D4;")  # test
-        self.offset_logo_movie.setScaledSize(self.offset_logo.size())
-        self.offset_logo.setMovie(self.offset_logo_movie)
         self.offset_logo_layout.addWidget(self.offset_logo)
         self.offset_text = QLabel()
         self.offset_text.setWordWrap(True)
@@ -332,16 +317,16 @@ class UsePreparePage(QWidget):
         self.dial_body_layout.setAlignment(Qt.AlignCenter)
         self.dial_placeholder = QLabel()
         self.dial_body_layout.addWidget(self.dial_placeholder)
-        self.dial_logo = QLabel()
+        self.dial_logo = MovieLabel("resource/image/level_measure.gif")
         self.dial_logo.setFixedSize(320, 320)
         self.dial_place_movie = QMovie("resource/image/level_measure.gif")
-        self.dial_place_movie.setScaledSize(self.remind_logo.size())
+        self.dial_place_movie.setScaledSize(self.dial_logo.size())
         self.dial_measure_left_movie = QMovie("resource/image/level_measure_left.gif")
-        self.dial_measure_left_movie.setScaledSize(self.remind_logo.size())
+        self.dial_measure_left_movie.setScaledSize(self.dial_logo.size())
         self.dial_measure_right_movie = QMovie("resource/image/level_measure_right.gif")
-        self.dial_measure_right_movie.setScaledSize(self.remind_logo.size())
+        self.dial_measure_right_movie.setScaledSize(self.dial_logo.size())
         self.remove_dial_movie = QMovie("resource/image/remove_dial.gif")
-        self.remove_dial_movie.setScaledSize(self.remind_logo.size())
+        self.remove_dial_movie.setScaledSize(self.dial_logo.size())
         self.dial_logo.setMovie(self.dial_place_movie)
         self.dial_body_layout.addWidget(self.dial_logo)
         self.dial_text = QLabel()
@@ -400,11 +385,8 @@ class UsePreparePage(QWidget):
         self.verity_logo_frame.setFixedSize(360, 400)
         self.verity_logo_frame_layout = QVBoxLayout(self.verity_logo_frame)
         self.verity_logo_frame_layout.setContentsMargins(20, 40, 20, 40)
-        self.verity_logo = QLabel()
+        self.verity_logo = MovieLabel("resource/image/verity.gif")
         self.verity_logo.setFixedSize(320, 320)
-        self.verity_movie = QMovie("resource/image/verity.gif")
-        self.verity_movie.setScaledSize(self.verity_logo.size())
-        self.verity_logo.setMovie(self.verity_movie)
         self.verity_logo_frame_layout.addWidget(self.verity_logo)
         self.verity_body_layout.addWidget(self.verity_logo_frame)
 
@@ -500,11 +482,6 @@ class UsePreparePage(QWidget):
         self.reset_ui()
         self.re_translate_ui()
 
-    def hideEvent(self, a0: QHideEvent) -> None:
-        self.dial_place_movie.stop()
-        self.dial_measure_left_movie.stop()
-        self.dial_measure_right_movie.stop()
-
     def reset_message_title(self):
         self._message_title_list = [
             self.tr("Clear debris from the platform."),
@@ -587,7 +564,6 @@ class UsePreparePage(QWidget):
                 self.verity_distance_frame.show()
                 self.verity_offset_frame.show()
                 self.verity_logo_frame.show()
-                self.verity_movie.start()
                 self.verity_text.setText(self.tr(
                     "Printing is completed, please level the XY offset according to the printing situation."))
                 self.verity_handle.next_button.setEnabled(True)
@@ -618,7 +594,6 @@ class UsePreparePage(QWidget):
     def on_start_button_clicked(self):
         self._parent.next_button.setText(self.tr("Next"))
         self._parent.next_button.setEnabled(False)
-        self.remind_logo_movie.start()
         self._printer.set_led_light(1)
         self.start_frame.hide()
         self.message_frame.show()
@@ -647,8 +622,6 @@ class UsePreparePage(QWidget):
     def on_remind_next_button_clicked(self):
         if platform.system().lower() == 'linux':  # test
             self.preheat_handle.next_button.setEnabled(False)
-        self.preheat_place_movie.start()
-        self.remind_logo_movie.stop()
         self.goto_next_step_stacked_widget()
         update_style(self.preheat_pla, "checked")
         update_style(self.preheat_abs, "unchecked")
@@ -661,7 +634,6 @@ class UsePreparePage(QWidget):
     def reset_preheat_handle_ui(self):
         if self.preheat_handle.next_button.isEnabled():
             self.preheat_handle.next_button.setEnabled(False)
-            self.preheat_place_movie.start()
             self.preheat_logo.show()
             self.preheat_text.setText(self.tr(
                 "Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete."))
@@ -722,7 +694,6 @@ class UsePreparePage(QWidget):
         self.load_progress_bar.setValue(self.load_progress)
         self.load_timer.start(int(1000 / timer_frame))
         # self.load_handle.previous_button.hide()
-        self.preheat_place_movie.stop()
         self.load_logo.show()
         self.load_text.setText(self.tr("Loading filament(Left)."))
         # self.load_progress_bar.show()
@@ -750,7 +721,6 @@ class UsePreparePage(QWidget):
         self.clean_handle.next_button.setEnabled(False)
         self.clean_timer.start(1900)
         self.goto_next_step_stacked_widget()
-        self.clean_logo_movie.start()
         self.load_progress_bar.setValue(0)
 
     def on_clean_timer_timeout(self):
@@ -762,7 +732,6 @@ class UsePreparePage(QWidget):
         self.goto_previous_step_stacked_widget()
         if platform.system().lower() == 'linux':  # test
             self.preheat_handle.next_button.setEnabled(False)
-        self.preheat_place_movie.start()
         # preheat -> 210, 210, 60
         self._printer.write_gcode_command(
             "M140 S60\nM104 S210 T0\nM104 S210 T1")
@@ -780,13 +749,11 @@ class UsePreparePage(QWidget):
                 self.level_load.hide()
                 self.level_mesh_graph.hide()
                 self.level_text.hide()
-                self.clean_logo_movie.stop()
                 self.goto_next_step_stacked_widget()
         else:  # test
             self.level_load.hide()
             self.level_mesh_graph.hide()
             self.level_text.hide()
-            self.clean_logo_movie.stop()
             self.goto_next_step_stacked_widget()
 
     def on_level_button_clicked(self):
@@ -804,7 +771,6 @@ class UsePreparePage(QWidget):
         self._printer.write_gcode_commands("G28\nT0\nG1 Y160 F8400\nG1 X190 F8400\nG1 Z0 F800")
         self.on_offset_distance_button_clicked(self._button_group.button(2))
         self.goto_next_step_stacked_widget()
-        self.offset_logo_movie.start()
 
     @pyqtSlot(QAbstractButton)
     def on_offset_distance_button_clicked(self, button):
@@ -835,15 +801,12 @@ class UsePreparePage(QWidget):
         self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']:.2f}\nM500\nM851")
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
-        self.offset_logo_movie.stop()
-        self.dial_place_movie.start()
         self.dial_handle.next_button.setEnabled(False)
 
     def on_place_next_button_clicked(self):
         self.verity_distance_frame.hide()
         self.verity_offset_frame.hide()
         self.verity_logo_frame.hide()
-        self.remove_dial_movie.stop()
         if platform.system().lower() == 'linux':  # test
             self.verity_handle.next_button.setEnabled(False)
         self._printer.print_verify()
@@ -852,9 +815,10 @@ class UsePreparePage(QWidget):
 
     def on_place_button_clicked(self):
         if self.dial_button.text() == self.tr("Placed"):
-            self.dial_place_movie.stop()
-            self.dial_logo.setMovie(self.dial_measure_left_movie)
-            self.dial_measure_left_movie.start()
+            # self.dial_place_movie.stop()
+            # self.dial_logo.setMovie(self.dial_measure_left_movie)
+            # self.dial_measure_left_movie.start()
+            self.dial_logo.set_movie(self.dial_measure_left_movie)
             self.dial_text.setText(self.tr("Measure compensation value(Left)."))
             self.dial_button.setText(self.tr("Measure Left"))
         elif self.dial_button.text() == self.tr("Measure Left"):
@@ -866,16 +830,18 @@ class UsePreparePage(QWidget):
                                              "dial_indicator_left")
             self._printer.write_gcode_commands(
                 "G1 Z150 F800\nM400\nT1\nG1 X190 Z150 F8400")
-            self.dial_measure_left_movie.stop()
-            self.dial_logo.setMovie(self.dial_measure_right_movie)
-            self.dial_measure_right_movie.start()
+            # self.dial_measure_left_movie.stop()
+            # self.dial_logo.setMovie(self.dial_measure_right_movie)
+            # self.dial_measure_right_movie.start()
+            self.dial_logo.set_movie(self.dial_measure_right_movie)
             self.dial_text.setText(self.tr("Measure compensation value(Right)."))
             self.dial_button.setText(self.tr("Measure Right"))
         elif self.dial_button.text() == self.tr("Measure Right"):
-            self.dial_measure_right_movie.stop()
+            # self.dial_measure_right_movie.stop()
             self.dial_text.setText(self.tr("Measurement completed.\nPlease remove the dial indicator on the hot bed."))
-            self.dial_logo.setMovie(self.remove_dial_movie)
-            self.remove_dial_movie.start()
+            # self.dial_logo.setMovie(self.remove_dial_movie)
+            # self.remove_dial_movie.start()
+            self.dial_logo.set_movie(self.remove_dial_movie)
             self.dial_button.hide()
             self._printer.write_gcode_commands(
                 "G1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F480\nM400\nG1 Z135 F800\nM400\nG1 Z120 F320\nM400")
@@ -930,7 +896,6 @@ class UsePreparePage(QWidget):
             hotend_offset_x))
         self._printer.set_hotend_offset('Y', self._printer.information['probe']['offset']['right']['Y'] + float(
             hotend_offset_y))
-        self.verity_movie.stop()
         self._parent.on_next_button_clicked()
 
     def rotate_image(self, label: QLabel, image: str, angle: int):

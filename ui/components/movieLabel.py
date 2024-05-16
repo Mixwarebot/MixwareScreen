@@ -5,7 +5,9 @@ class MovieLabel(QLabel):
 
     def __init__(self, movie: str, text=None, parent=None):
         super().__init__(text, parent)
-        
+
+        self.setScaledContents(True)
+
         self._is_move = None
         self._movie = QMovie(movie)
         self._movie.setScaledSize(self.size())
@@ -29,3 +31,13 @@ class MovieLabel(QLabel):
 
     def mouseMoveEvent(self, a0: QMouseEvent) -> None:
         self._is_move = True
+
+    def set_movie(self, movie: QMovie):
+        if self.isVisible():
+            self._movie.stop()
+
+        self._movie = movie
+        self._movie.setScaledSize(self.size())
+
+        if self.isVisible():
+            self._movie.start()
