@@ -554,7 +554,6 @@ class UsePreparePage(QWidget):
                 self.level_text.setText(self.tr("Auto-leveling completed."))
                 self.level_load_timer.stop()
                 self.level_load.hide()
-                self.preheat_filament(self._filament)
             elif state == MixwareScreenPrinterStatus.PRINTER_VERITY:
                 self.verity_thermal_frame.hide()
                 self.verity_progress_bar.hide()
@@ -676,28 +675,25 @@ class UsePreparePage(QWidget):
         self._printer.set_thermal('bed', self._filament_target_bed)
 
         logging.debug(
-            F'Preheat {filament}:{self._filament_target_left}-{self._filament_target_right}-{self._filament_target_bed}')
+            F'Preheat {self._filament} : {self._filament_target_left} - {self._filament_target_right} - {self._filament_target_bed}')
 
     def on_preheat_thermal_left_button_clicked(self):
         self._parent.open_thermal_left_numberPad()
         self.reset_preheat_handle_ui()
         self._filament = 'user'
         self.reset_preheat_filament_style()
-        self._filament_target_left = self._printer.get_target('left')
 
     def on_preheat_thermal_right_button_clicked(self):
         self._parent.open_thermal_right_numberPad()
         self.reset_preheat_handle_ui()
         self._filament = 'user'
         self.reset_preheat_filament_style()
-        self._filament_target_right = self._printer.get_target('right')
 
     def on_preheat_thermal_bed_button_clicked(self):
         self._parent.open_thermal_bed_numberPad()
         self.reset_preheat_handle_ui()
         self._filament = 'user'
         self.reset_preheat_filament_style()
-        self._filament_target_bed = self._printer.get_target('bed')
 
     def on_preheat_pla_clicked(self):
         self.preheat_filament('pla')
@@ -740,6 +736,10 @@ class UsePreparePage(QWidget):
             self.load_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
 
+        self._filament_target_left = self._printer.get_target('left')
+        self._filament_target_right = self._printer.get_target('right')
+        self._filament_target_bed = self._printer.get_target('bed')
+
     def on_load_timer_timeout(self):
         self.load_progress += 1
         self.load_progress_bar.setValue(self.load_progress)
@@ -767,6 +767,7 @@ class UsePreparePage(QWidget):
 
     def on_clean_previous_button_clicked(self):
         self.goto_previous_step_stacked_widget()
+        self.reset_preheat_handle_ui()
         # self.goto_previous_step_stacked_widget()
         if platform.system().lower() == 'linux':  # test
             self.preheat_handle.next_button.setEnabled(False)
@@ -845,6 +846,9 @@ class UsePreparePage(QWidget):
         self.verity_logo_frame.hide()
         if platform.system().lower() == 'linux':  # test
             self.verity_handle.next_button.setEnabled(False)
+        self.preheat_filament(self._filament)
+        self._printer.write_gcode_commands(
+            f"M109 T0 S{self._filament_target_left}\nM109 T1 S{self._filament_target_right}")
         self._printer.print_verify()
         self.on_offset_distance_button_clicked(self._button_group.button(len(self._distance_list) + 2))
         self.goto_next_step_stacked_widget()

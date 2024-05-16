@@ -1833,22 +1833,22 @@ the printer to factory settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="851"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="860"/>
         <source>Measure compensation value(Left).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="863"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="872"/>
         <source>Measure compensation value(Right).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="853"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="862"/>
         <source>Measure Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="865"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="874"/>
         <source>Measure Right</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1863,17 +1863,17 @@ the printer to factory settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="849"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="858"/>
         <source>Placed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="745"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="753"/>
         <source>Filament loading completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="866"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="875"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation type="unfinished"></translation>
@@ -1884,7 +1884,7 @@ Please remove the dial indicator on the hot bed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="735"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="742"/>
         <source>Loading filament(Left).</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1954,7 +1954,7 @@ Please remove the dial indicator on the hot bed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="873"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="882"/>
         <source>Please enter the absolute value from the dial indicator.</source>
         <translation type="unfinished"></translation>
     </message>
