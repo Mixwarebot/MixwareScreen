@@ -167,7 +167,8 @@ class UsePreparePage(QWidget):
         self.handle_stacked_widget.addWidget(self.preheat_handle)
 
         self.load_handle = HandleBar()
-        self.load_handle.previous_button.hide()
+        # self.load_handle.previous_button.hide()
+        self.load_handle.previous_button.clicked.connect(self.on_clean_previous_button_clicked)
         self.load_handle.next_button.clicked.connect(self.on_load_next_button_clicked)
         self.load_handle_body_layout = QVBoxLayout(self.load_handle.body)
         self.load_handle_body_layout.setContentsMargins(0, 0, 0, 0)
@@ -193,7 +194,7 @@ class UsePreparePage(QWidget):
         self.handle_stacked_widget.addWidget(self.load_handle)
 
         self.clean_handle = HandleBar()
-        # self.clean_handle.previous_button.hide()
+        self.clean_handle.previous_button.hide()
         self.clean_handle.previous_button.clicked.connect(self.on_clean_previous_button_clicked)
         self.clean_timer = QTimer()
         self.clean_timer.timeout.connect(self.on_clean_timer_timeout)
@@ -640,7 +641,6 @@ class UsePreparePage(QWidget):
         update_style(self.preheat_pa, "unchecked")
 
     def preheat_filament(self, filament):
-        logging.debug(F'Preheat filament {filament}')
         if type(filament) == str:
             if filament == 'pla':
                 self._filament = 'pla'
@@ -660,9 +660,11 @@ class UsePreparePage(QWidget):
                 self._filament_target_bed = 75
         elif type(filament) == tuple:
             if len(filament) == 2:
+                self._filament = 'user'
                 self._filament_target_left = filament[0]
                 self._filament_target_right = filament[1]
             elif len(filament) == 3:
+                self._filament = 'user'
                 self._filament_target_left = filament[0]
                 self._filament_target_right = filament[1]
                 self._filament_target_bed = filament[2]
@@ -672,6 +674,9 @@ class UsePreparePage(QWidget):
         self._printer.set_thermal('left', self._filament_target_left)
         self._printer.set_thermal('right', self._filament_target_right)
         self._printer.set_thermal('bed', self._filament_target_bed)
+
+        logging.debug(
+            F'Preheat {filament}:{self._filament_target_left}-{self._filament_target_right}-{self._filament_target_bed}')
 
     def on_preheat_thermal_left_button_clicked(self):
         self._parent.open_thermal_left_numberPad()
@@ -730,6 +735,7 @@ class UsePreparePage(QWidget):
         self.load_timer.start(int(1000 / timer_frame))
         self.load_logo.show()
         self.load_text.setText(self.tr("Loading filament(Left)."))
+        self.load_handle.previous_button.setEnabled(False)
         if platform.system().lower() == 'linux':  # test
             self.load_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
@@ -742,6 +748,7 @@ class UsePreparePage(QWidget):
                 self.load_text.setText(self.tr("Filament loading completed."))
                 self.load_timer.stop()
                 self.load_logo.hide()
+                self.load_handle.previous_button.setEnabled(True)
                 self.load_handle.next_button.setEnabled(True)
                 self._printer.set_thermal('left', 120)
                 self._printer.set_thermal('right', 120)
@@ -760,7 +767,7 @@ class UsePreparePage(QWidget):
 
     def on_clean_previous_button_clicked(self):
         self.goto_previous_step_stacked_widget()
-        self.goto_previous_step_stacked_widget()
+        # self.goto_previous_step_stacked_widget()
         if platform.system().lower() == 'linux':  # test
             self.preheat_handle.next_button.setEnabled(False)
         self.preheat_filament(self._filament)
