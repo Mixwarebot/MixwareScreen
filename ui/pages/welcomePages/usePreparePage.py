@@ -18,6 +18,7 @@ class UsePreparePage(QWidget):
         self._filament = 'user'
         self._filament_target_left = 0
         self._filament_target_right = 0
+        self._filament_target_bed = 0
         self._message_title_list = None
         self._printer = printer
         self._parent = parent
@@ -619,13 +620,9 @@ class UsePreparePage(QWidget):
         if platform.system().lower() == 'linux':  # test
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
-        update_style(self.preheat_pla, "checked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "unchecked")
+        self.on_preheat_pla_clicked()
         # preheat -> 210, 210, 60
-        self._printer.write_gcode_command(
-            "M155 S1\nM140 S60\nM104 S210 T0\nM104 S210 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
+        self._printer.write_gcode_command("M155 S1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
 
     def reset_preheat_handle_ui(self):
         if self.preheat_handle.next_button.isEnabled():
@@ -645,38 +642,54 @@ class UsePreparePage(QWidget):
             if filament == 'pla':
                 self._filament = 'pla'
                 self._filament_target_left = self._filament_target_right = 220
+                self._filament_target_bed = 60
             elif filament == 'abs':
                 self._filament = 'abs'
                 self._filament_target_left = self._filament_target_right = 250
+                self._filament_target_bed = 60
             elif filament == 'pet':
                 self._filament = 'pet'
-                self._filament_target_left = self._filament_target_right = 275
+                self._filament_target_left = self._filament_target_right = 290
+                self._filament_target_bed = 75
             elif filament == 'pa':
                 self._filament = 'pa'
                 self._filament_target_left = self._filament_target_right = 300
-        elif type(filament) == int:
-            self._filament = 'user'
-            filament = 350 if filament > 350 else filament
-            self._filament_target_left = self._filament_target_right = filament
+                self._filament_target_bed = 75
+        elif type(filament) == tuple:
+            if len(filament) == 2:
+                self._filament_target_left = filament[0]
+                self._filament_target_right = filament[1]
+            elif len(filament) == 3:
+                self._filament_target_left = filament[0]
+                self._filament_target_right = filament[1]
+                self._filament_target_bed = filament[2]
+        else:
+            return
 
         self._printer.set_thermal('left', self._filament_target_left)
         self._printer.set_thermal('right', self._filament_target_right)
+        self._printer.set_thermal('bed', self._filament_target_bed)
 
     def on_preheat_thermal_left_button_clicked(self):
         self._parent.open_thermal_left_numberPad()
         self.reset_preheat_handle_ui()
         self._filament = 'user'
+        self.reset_preheat_filament_style()
         self._filament_target_left = self._printer.get_target('left')
 
     def on_preheat_thermal_right_button_clicked(self):
         self._parent.open_thermal_right_numberPad()
         self.reset_preheat_handle_ui()
         self._filament = 'user'
+        self.reset_preheat_filament_style()
         self._filament_target_right = self._printer.get_target('right')
 
     def on_preheat_thermal_bed_button_clicked(self):
         self._parent.open_thermal_bed_numberPad()
         self.reset_preheat_handle_ui()
+        self._filament = 'user'
+        self.reset_preheat_filament_style()
+        self._filament_target_bed = self._printer.get_target('bed')
 
     def on_preheat_pla_clicked(self):
         self.preheat_filament('pla')

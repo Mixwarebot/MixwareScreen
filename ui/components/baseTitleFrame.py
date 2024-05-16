@@ -15,7 +15,7 @@ class BaseTitleFrame(QFrame):
         self._title = QLabel("title")
         self._title.setObjectName("title")
         self._title.setProperty("type", "normal")
-        self._layout.addWidget(self._title)
+        # self._layout.addWidget(self._title)
 
         self._body_frame = QFrame()
         self._body_frame.setObjectName("frameBox")
