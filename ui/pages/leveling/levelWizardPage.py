@@ -162,13 +162,14 @@ class LevelWizardPage(QWidget):
         self.level_load.setFixedSize(320, 120)
         self.level_load.setAlignment(Qt.AlignCenter)
         self.level_body_layout.addWidget(self.level_load)
-        self.level_mesh_graph = BedMeshGraph()
-        self.level_mesh_graph.body_frame.setFixedSize(320, 320)
-        self.level_body_layout.addWidget(self.level_mesh_graph)
         self.level_text = QLabel()
         self.level_text.setWordWrap(True)
         self.level_text.setAlignment(Qt.AlignCenter)
         self.level_body_layout.addWidget(self.level_text)
+        self.level_mesh_graph = BedMeshGraph()
+        self.level_mesh_graph.setObjectName("frameOutLine")
+        self.level_mesh_graph.body_frame.setFixedHeight(320)
+        self.level_body_layout.addWidget(self.level_mesh_graph)
         self.handle_stacked_widget.addWidget(self.level_handle)
 
         self.level_load_rotate = 0

@@ -967,7 +967,7 @@ Height Calibration</source>
     <message>
         <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="363"/>
         <source>Adjust the height between the nozzle and the platform by &apos;Lift Bed&apos; or &apos;Drop Bed&apos; the platform.</source>
-        <translation type="unfinished">通过‘抬升平台’或‘下降平台’来调整喷嘴和平台之间的高度.</translation>
+        <translation>通过‘抬升平台’或‘下降平台’来调整喷嘴和平台之间的高度.</translation>
     </message>
 </context>
 <context>
