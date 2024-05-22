@@ -1,5 +1,6 @@
 from qtCore import *
 from ui.components.base.basePushButton import BasePushButton
+from ui.components.baseTitleFrame import BaseTitleFrame
 from ui.components.handleBar import HandleBar
 from ui.components.messageBar import MessageBar
 
@@ -18,17 +19,9 @@ class NozzlePage(QWidget):
         self.layout.setContentsMargins(20, 0, 20, 0)
         self.layout.setSpacing(10)
 
-        self.message_frame = QFrame()
-        self.message_frame.setObjectName("frameBox")
-        self.message_frame.setFixedHeight(240)
-        self.message_layout = QVBoxLayout(self.message_frame)
-        self.message_layout.setContentsMargins(20, 20, 20, 20)
-        self.message_layout.setSpacing(10)
-        self.message_list = []
         self.reset_message_text()
-        for i in range(len(self.message_text_list)):
-            self.message_list.append(MessageBar(i + 1, self.message_text_list[i]))
-            self.message_layout.addWidget(self.message_list[i])
+        self.message_frame = BaseTitleFrame()
+        self.message_list = self.message_frame.set_message(self.message_text_list)
         self.layout.addWidget(self.message_frame)
 
         self.handle_frame = QFrame()

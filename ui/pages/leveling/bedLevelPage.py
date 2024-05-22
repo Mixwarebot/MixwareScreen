@@ -1,5 +1,6 @@
 from qtCore import *
 from ui.components.base.basePushButton import BasePushButton
+from ui.components.movieLabel import MovieLabel
 
 
 class BedLevelPage(QWidget):
@@ -21,11 +22,8 @@ class BedLevelPage(QWidget):
         self.diagram_frame_layout = QHBoxLayout(self.diagram_frame)
         self.diagram_frame_layout.setContentsMargins(20, 0, 20, 0)
         self.diagram_frame_layout.setAlignment(Qt.AlignCenter)
-        self.diagram_logo = QLabel()
+        self.diagram_logo = MovieLabel("resource/image/bed_level.gif")
         self.diagram_logo.setFixedSize(320, 320)
-        self.diagram_movie = QMovie("resource/image/bed_level.gif")
-        self.diagram_movie.setScaledSize(self.diagram_logo.size())
-        self.diagram_logo.setMovie(self.diagram_movie)
         self.diagram_frame_layout.addWidget(self.diagram_logo)
         self.layout.addWidget(self.diagram_frame)
 
@@ -108,10 +106,6 @@ class BedLevelPage(QWidget):
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
-        self.diagram_movie.start()
-
-    def hideEvent(self, a0: QHideEvent) -> None:
-        self.diagram_movie.stop()
 
     def re_translate_ui(self):
         self.top_frame_title.setText(self.tr("Current Extruder"))

@@ -1,5 +1,6 @@
 from qtCore import *
 from ui.components.base.basePushButton import BasePushButton
+from ui.components.baseTitleFrame import BaseTitleFrame
 from ui.components.handleBar import HandleBar
 from ui.components.messageBar import MessageBar
 
@@ -50,18 +51,9 @@ class FilamentPage(QWidget):
         thermal_frame_layout.addWidget(self.thermal_right_button, 3)
         self.layout.addWidget(self.thermal_frame)
 
-        self.message_frame = QFrame()
-        self.message_frame.setObjectName("frameBox")
-        message_layout = QVBoxLayout(self.message_frame)
-        message_layout.setContentsMargins(20, 20, 20, 20)
-        message_layout.setSpacing(10)
-
         self.reset_message_text()
-        self.message_list = []
-        for count in range(len(self.message_text_list)):
-            self.message_list.append(MessageBar(count + 1, self.message_text_list[count]))
-        for i in range(len(self.message_list)):
-            message_layout.addWidget(self.message_list[i])
+        self.message_frame = BaseTitleFrame()
+        self.message_list = self.message_frame.set_message(self.message_text_list)
         self.layout.addWidget(self.message_frame)
 
         self.handle_frame = QFrame()

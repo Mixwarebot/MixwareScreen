@@ -249,8 +249,8 @@ class MovePage(QWidget):
             pos += self._printer.get_position('Z')
             if pos < 0:
                 pos = 0
-            elif pos > 400:
-                pos = 400
+            elif pos > 385:
+                pos = 385
             speed *= self.speed_slider.value() / 100
             if speed > 1000: speed = 1000
 

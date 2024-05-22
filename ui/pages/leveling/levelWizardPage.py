@@ -1,10 +1,14 @@
+import platform
+
 from printer import MixwareScreenPrinterStatus
 from qtCore import *
 from ui.components.base.baseLine import BaseHLine, BaseVLine
 from ui.components.base.basePushButton import BasePushButton
+from ui.components.baseTitleFrame import BaseTitleFrame
 from ui.components.handleBar import HandleBar
 from ui.components.messageBar import MessageBar
 from ui.components.leveling.bedMeshGraph import BedMeshGraph
+from ui.components.movieLabel import MovieLabel
 
 
 class LevelWizardPage(QWidget):
@@ -29,17 +33,9 @@ class LevelWizardPage(QWidget):
         self.layout.setContentsMargins(20, 0, 20, 0)
         self.layout.setSpacing(10)
 
-        self.message_frame = QFrame()
-        self.message_frame.setObjectName("frameBox")
-        self.message_frame.setFixedSize(360, 240)
-        self.message_layout = QVBoxLayout(self.message_frame)
-        self.message_layout.setContentsMargins(20, 20, 20, 20)
-        self.message_layout.setSpacing(10)
-        self.message_list = []
         self.reset_message_title()
-        for i in range(len(self.message_text_list)):
-            self.message_list.append(MessageBar(i + 1, self.message_text_list[i]))
-            self.message_layout.addWidget(self.message_list[i])
+        self.message_frame = BaseTitleFrame()
+        self.message_list = self.message_frame.set_message(self.message_text_list)
         self.layout.addWidget(self.message_frame)
 
         self.start_frame = QFrame()
@@ -71,13 +67,8 @@ class LevelWizardPage(QWidget):
         self.remind_body_layout.setContentsMargins(20, 0, 20, 0)
         self.remind_body_layout.setSpacing(0)
         self.remind_body_layout.setAlignment(Qt.AlignCenter)
-        self.remind_logo = QLabel()
+        self.remind_logo = MovieLabel("resource/image/clean_bed.gif")
         self.remind_logo.setFixedSize(320, 320)
-        self.remind_logo.setScaledContents(True)
-        # self.remind_logo.setPixmap(QPixmap("resource/image/level_clean_bed.png"))
-        self.remind_logo_movie = QMovie("resource/image/clean_bed.gif")
-        self.remind_logo_movie.setScaledSize(self.remind_logo.size())
-        self.remind_logo.setMovie(self.remind_logo_movie)
         self.remind_body_layout.addWidget(self.remind_logo)
         self.remind_text = QLabel()
         self.remind_text.setWordWrap(True)
@@ -89,13 +80,13 @@ class LevelWizardPage(QWidget):
         self.preheat_handle.previous_button.hide()
         self.preheat_handle.next_button.clicked.connect(self.on_preheat_next_button_clicked)
         self.preheat_body_layout = QVBoxLayout(self.preheat_handle.body)
-        self.preheat_body_layout.setContentsMargins(0, 0, 0, 0)
+        self.preheat_body_layout.setContentsMargins(20, 0, 20, 0)
         self.preheat_body_layout.setSpacing(0)
 
         self.preheat_thermal_frame = QFrame()
-        self.preheat_thermal_frame.setFixedSize(360, 140)
+        self.preheat_thermal_frame.setFixedHeight(140)
         self.preheat_thermal_frame_layout = QGridLayout(self.preheat_thermal_frame)
-        self.preheat_thermal_frame_layout.setContentsMargins(10, 10, 10, 0)
+        self.preheat_thermal_frame_layout.setContentsMargins(0, 0, 0, 0)
         self.preheat_thermal_frame_layout.setSpacing(0)
         self.preheat_thermal_left = QLabel()
         self.preheat_thermal_left.setObjectName("leftLogo")
@@ -151,11 +142,8 @@ class LevelWizardPage(QWidget):
         self.clean_body_layout.setContentsMargins(20, 0, 20, 0)
         self.clean_body_layout.setSpacing(0)
         self.clean_body_layout.setAlignment(Qt.AlignCenter)
-        self.clean_logo = QLabel()
-        self.clean_logo.setFixedSize(320, 220)
-        self.clean_logo_movie = QMovie("resource/image/clean_nozzle.gif")
-        self.clean_logo_movie.setScaledSize(self.clean_logo.size())
-        self.clean_logo.setMovie(self.clean_logo_movie)
+        self.clean_logo = MovieLabel("resource/image/clean_nozzle.gif")
+        self.clean_logo.setFixedHeight(220)
         self.clean_body_layout.addWidget(self.clean_logo)
         self.clean_text = QLabel()
         self.clean_text.setWordWrap(True)
@@ -193,11 +181,8 @@ class LevelWizardPage(QWidget):
         self.offset_body_layout = QVBoxLayout(self.offset_handle.body)
         self.offset_body_layout.setContentsMargins(20, 0, 20, 0)
         self.offset_body_layout.setSpacing(0)
-        self.offset_logo = QLabel()
+        self.offset_logo = MovieLabel("resource/image/adjust_offset.gif")
         self.offset_logo.setFixedSize(320, 320)
-        self.offset_logo_movie = QMovie("resource/image/adjust_offset.gif")
-        self.offset_logo_movie.setScaledSize(self.offset_logo.size())
-        self.offset_logo.setMovie(self.offset_logo_movie)
         self.offset_body_layout.addWidget(self.offset_logo)
         self.offset_text = QLabel()
         self.offset_text.setWordWrap(True)
@@ -213,7 +198,7 @@ class LevelWizardPage(QWidget):
         self.offset_distance_title.setFixedHeight(40)
         self.distance_layout.addWidget(self.offset_distance_title)
         self.offset_distance_button_frame = QFrame()
-        self.offset_distance_button_frame.setObjectName("frameBox")
+        self.offset_distance_button_frame.setObjectName("frameOutLine")
         self.offset_distance_button_frame.setFixedHeight(88)
         self.distance_frame_layout = QHBoxLayout(self.offset_distance_button_frame)
         self.distance_frame_layout.setContentsMargins(5, 1, 5, 1)
@@ -242,7 +227,7 @@ class LevelWizardPage(QWidget):
         self.offset_frame_layout.addWidget(self.offset_button_title)
         self.offset_button_frame = QFrame()
         self.offset_button_frame.setFixedHeight(216)
-        self.offset_button_frame.setObjectName("frameBox")
+        self.offset_button_frame.setObjectName("frameOutLine")
         self.offset_button_frame_layout = QVBoxLayout(self.offset_button_frame)
         self.offset_button_frame_layout.setContentsMargins(0, 0, 0, 0)
         self.offset_button_frame_layout.setSpacing(0)
@@ -274,11 +259,8 @@ class LevelWizardPage(QWidget):
         self.place_body_layout.setContentsMargins(20, 0, 20, 0)
         self.place_body_layout.setSpacing(0)
         self.place_body_layout.setAlignment(Qt.AlignCenter)
-        self.place_logo = QLabel()
+        self.place_logo = MovieLabel("resource/image/level_measure.gif")
         self.place_logo.setFixedSize(320, 320)
-        self.place_logo_movie = QMovie("resource/image/level_measure.gif")
-        self.place_logo_movie.setScaledSize(self.remind_logo.size())
-        self.place_logo.setMovie(self.place_logo_movie)
         self.place_body_layout.addWidget(self.place_logo)
         self.place_text = QLabel()
         self.place_text.setWordWrap(True)
@@ -293,11 +275,8 @@ class LevelWizardPage(QWidget):
         self.measure_left_body_layout.setContentsMargins(20, 0, 20, 0)
         self.measure_left_body_layout.setSpacing(0)
         self.measure_left_body_layout.setAlignment(Qt.AlignCenter)
-        self.measure_left_logo = QLabel()
+        self.measure_left_logo = MovieLabel("resource/image/level_measure_left.gif")
         self.measure_left_logo.setFixedSize(320, 320)
-        self.measure_left_logo_movie = QMovie("resource/image/level_measure_left.gif")
-        self.measure_left_logo_movie.setScaledSize(self.remind_logo.size())
-        self.measure_left_logo.setMovie(self.measure_left_logo_movie)
         self.measure_left_body_layout.addWidget(self.measure_left_logo)
         self.measure_left_text = QLabel()
         self.measure_left_text.setWordWrap(True)
@@ -312,11 +291,8 @@ class LevelWizardPage(QWidget):
         self.measure_right_body_layout.setContentsMargins(20, 0, 20, 0)
         self.measure_right_body_layout.setSpacing(0)
         self.measure_right_body_layout.setAlignment(Qt.AlignCenter)
-        self.measure_right_logo = QLabel()
+        self.measure_right_logo = MovieLabel("resource/image/level_measure_right.gif")
         self.measure_right_logo.setFixedSize(320, 320)
-        self.measure_right_logo_movie = QMovie("resource/image/level_measure_right.gif")
-        self.measure_right_logo_movie.setScaledSize(self.remind_logo.size())
-        self.measure_right_logo.setMovie(self.measure_right_logo_movie)
         self.measure_right_body_layout.addWidget(self.measure_right_logo)
         self.measure_right_text = QLabel()
         self.measure_right_text.setWordWrap(True)
@@ -341,11 +317,6 @@ class LevelWizardPage(QWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         self.reset_ui()
         self.re_translate_ui()
-
-    def hideEvent(self, a0: QHideEvent) -> None:
-        self.place_logo_movie.stop()
-        self.measure_left_logo_movie.stop()
-        self.measure_right_logo_movie.stop()
 
     def reset_message_title(self):
         self.message_text_list = [
@@ -389,7 +360,8 @@ class LevelWizardPage(QWidget):
         self.preheat_pa.setText("PA")
         self.clean_text.setText(self.tr("Please use a metal brush to clean the nozzle residue."))
         self.level_text.setText(self.tr("Auto-leveling, please wait."))
-        self.offset_text.setText(self.tr("Adjust offset."))
+        self.offset_text.setText(
+            self.tr("Adjust the height between the nozzle and the platform by 'Lift Bed' or 'Drop Bed' the platform."))
         self.offset_distance_title.setText(self.tr("Move Distance (mm)"))
         self.offset_button_title.setText("Z: -")
         self.place_text.setText(self.tr("Place the dial indicator at the specified location."))
@@ -429,7 +401,6 @@ class LevelWizardPage(QWidget):
         self.start_frame.hide()
         self.message_frame.show()
         self.handle_frame.show()
-        self.remind_logo_movie.start()
 
     def goto_previous_step_stacked_widget(self):
         index = self.handle_stacked_widget.currentIndex()
@@ -452,9 +423,9 @@ class LevelWizardPage(QWidget):
                 self.message_list[index + 2].show()
 
     def on_remind_next_button_clicked(self):
-        self.preheat_handle.next_button.setEnabled(False)
+        if platform.system().lower() == 'linux':  # test
+            self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
-        self.remind_logo_movie.stop()
         update_style(self.preheat_pla, "unchecked")
         update_style(self.preheat_abs, "unchecked")
         update_style(self.preheat_pa, "unchecked")
@@ -470,7 +441,8 @@ class LevelWizardPage(QWidget):
     def reset_preheat_handle_ui(self):
         if self.preheat_handle.next_button.isEnabled():
             self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 170°C)"))
-            self.preheat_handle.next_button.setEnabled(False)
+            if platform.system().lower() == 'linux':  # test
+                self.preheat_handle.next_button.setEnabled(False)
 
     def preheat_filament(self, temperature):
         self._printer.set_thermal('left', temperature)
@@ -516,26 +488,31 @@ class LevelWizardPage(QWidget):
     def on_preheat_next_button_clicked(self):
         self._printer.write_gcode_command('M400\nM104 S0 T0\nM104 S0 T1\nT0')
         self._printer.move_to_x(190, True)
-        self.clean_handle.next_button.setEnabled(False)
+        if platform.system().lower() == 'linux':  # test
+            self.clean_handle.next_button.setEnabled(False)
         self.clean_timer.start(1900)
         self.goto_next_step_stacked_widget()
-        self.clean_logo_movie.start()
 
     def on_clean_timer_timeout(self):
         self.clean_timer.stop()
         self.clean_handle.next_button.setEnabled(True)
 
     def on_clean_next_button_clicked(self):
-        if self._printer.get_extruder() == "left":
-            self._printer.write_gcode_command('T1')
-            self._printer.move_to_x(190, True)
-            self.clean_handle.next_button.setEnabled(False)
-            self.clean_timer.start(4000)
-        else:
-            self._printer.write_gcode_command('M420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
-            self.level_handle.next_button.setEnabled(False)
-            self._parent.footer.setEnabled(False)
-            self.clean_logo_movie.stop()
+        if platform.system().lower() == 'linux':
+            if self._printer.get_extruder() == "left":
+                self._printer.write_gcode_command('T1')
+                self._printer.move_to_x(190, True)
+                self.clean_handle.next_button.setEnabled(False)
+                self.clean_timer.start(4000)
+            else:
+                self._printer.write_gcode_command('M420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
+                self.level_handle.next_button.setEnabled(False)
+                self._parent.footer.setEnabled(False)
+                self.goto_next_step_stacked_widget()
+                self.level_mesh_graph.hide()
+                self.level_load.show()
+                self.level_load_timer.start(250)
+        else:  # test
             self.goto_next_step_stacked_widget()
             self.level_mesh_graph.hide()
             self.level_load.show()
@@ -548,7 +525,6 @@ class LevelWizardPage(QWidget):
             f"Z: {self.offset['left']['Z']}({self._printer.information['probe']['offset']['left']['Z']})")
         self._printer.write_gcode_commands("G28\nT0\nG1 Y160 F8400\nG1 X190 F8400\nG1 Z0 F800")
         self.goto_next_step_stacked_widget()
-        self.offset_logo_movie.start()
 
     @pyqtSlot(QAbstractButton)
     def on_offset_distance_button_clicked(self, button):
@@ -579,13 +555,9 @@ class LevelWizardPage(QWidget):
         self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']:.2f}\nM500\nM851")
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
-        self.offset_logo_movie.stop()
-        self.place_logo_movie.start()
 
     def on_place_next_button_clicked(self):
         self.goto_next_step_stacked_widget()
-        self.place_logo_movie.stop()
-        self.measure_left_logo_movie.start()
 
     def on_measure_left_next_button_clicked(self):
         self._printer.write_gcode_commands(
@@ -596,8 +568,6 @@ class LevelWizardPage(QWidget):
                                          "dial_indicator_left")
         self._printer.write_gcode_commands("G1 Z150 F800\nM400\nT1\nG1 X190 Z150 F8400")
         self.goto_next_step_stacked_widget()
-        self.measure_left_logo_movie.stop()
-        self.measure_right_logo_movie.start()
 
     def on_measure_right_next_button_clicked(self):
         self._printer.write_gcode_commands(
@@ -608,7 +578,6 @@ class LevelWizardPage(QWidget):
                                          "dial_indicator_right")
         self._printer.write_gcode_commands("G1 Z150 F800\nM400\nG28X")
         self.goto_next_step_stacked_widget()
-        self.measure_right_logo_movie.stop()
         self.finished_handle.next_button.setText(self.tr("Done."))
 
     def on_finished_next_button_clicked(self):

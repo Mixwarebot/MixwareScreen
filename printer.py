@@ -838,8 +838,6 @@ class MixwareScreenPrinter(QObject):
         if command:
             command += " S" + str(target)
             self._sendCommand(command)
-            if platform.system().lower() == 'windows':
-                print(command)
             if not self.wait_for_heat_up:
                 self._sendCommand("M105")
             else:

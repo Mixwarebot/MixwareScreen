@@ -1,3 +1,5 @@
+import platform
+
 from printer import MixwareScreenPrinterStatus
 from qtCore import *
 from ui.components.base.basePushButton import BasePushButton
@@ -71,7 +73,8 @@ class AutoLevelPage(QWidget):
                                          buttons=QMessageBox.Yes | QMessageBox.Cancel)
         if ret == QMessageBox.Yes:
             self._printer.write_gcode_command('M420 S0\nG29N\nG28\nM500\nM503\nT0\nM84')
-            self._parent.footer.setEnabled(False)
+            if platform.system().lower() == 'linux':  # test
+                self._parent.footer.setEnabled(False)
             self.tips.setText(self.tr("Auto-leveling, please wait."))
             self.tips.show()
             self.bed_mesh_graph.hide()

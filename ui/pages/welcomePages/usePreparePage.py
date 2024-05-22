@@ -64,12 +64,7 @@ class UsePreparePage(QWidget):
         self.layout.addWidget(self.start_frame)
 
         self.message_frame = BaseTitleFrame()
-        self.message_frame_layout = QVBoxLayout(self.message_frame.get_sub_frame())
-        self.message_frame_layout.setContentsMargins(20, 0, 20, 0)
-        self.message_frame_layout.setSpacing(10)
-        for i in range(len(self._message_title_list)):
-            self._message_list.append(MessageBar(i + 1, self._message_title_list[i]))
-            self.message_frame_layout.addWidget(self._message_list[i])
+        self._message_list = self.message_frame.set_message(self._message_title_list)
         self.layout.addWidget(self.message_frame)
 
         self.handle_frame = QFrame()
@@ -106,7 +101,7 @@ class UsePreparePage(QWidget):
         self.preheat_body_layout.setSpacing(0)
 
         self.preheat_thermal_frame = QFrame()
-        self.preheat_thermal_frame.setFixedSize(320, 210)
+        self.preheat_thermal_frame.setFixedHeight(210)
         self.preheat_thermal_frame_layout = QGridLayout(self.preheat_thermal_frame)
         self.preheat_thermal_frame_layout.setContentsMargins(0, 0, 0, 0)
         self.preheat_thermal_frame_layout.setSpacing(0)
@@ -346,10 +341,11 @@ class UsePreparePage(QWidget):
         self.verity_body_layout = QVBoxLayout(self.verity_handle.body)
         self.verity_body_layout.setContentsMargins(0, 0, 0, 0)
         self.verity_body_layout.setSpacing(0)
+
         self.verity_thermal_frame = QFrame()
-        self.verity_thermal_frame.setFixedSize(360, 210)
+        self.verity_thermal_frame.setFixedHeight(210)
         self.verity_thermal_frame_layout = QGridLayout(self.verity_thermal_frame)
-        self.verity_thermal_frame_layout.setContentsMargins(10, 10, 10, 0)
+        self.verity_thermal_frame_layout.setContentsMargins(20, 0, 20, 0)
         self.verity_thermal_frame_layout.setSpacing(0)
         self.verity_thermal_left = QLabel()
         self.verity_thermal_left.setObjectName("leftLogo")
@@ -374,19 +370,20 @@ class UsePreparePage(QWidget):
         self.verity_thermal_bed_button.setFixedHeight(64)
         self.verity_thermal_bed_button.clicked.connect(self.on_preheat_thermal_bed_button_clicked)
         self.verity_thermal_frame_layout.addWidget(self.verity_thermal_bed_button, 4, 1, 1, 1)
+        self.verity_thermal_frame_layout.addWidget(BaseHLine(), 5, 0, 1, 2)
         self.verity_body_layout.addWidget(self.verity_thermal_frame)
-        self.verity_body_layout.addWidget(BaseHLine())
+        # self.verity_body_layout.addWidget(BaseHLine())
         self.verity_model_logo = QLabel()
-        self.verity_model_logo.setFixedSize(360, 400)
+        self.verity_model_logo.setFixedHeight(320)
         self.verity_model_logo.setAlignment(Qt.AlignCenter)
         self.verity_model_logo.setPixmap(QPixmap("resource/image/xy_verity").scaledToWidth(320))
         self.verity_body_layout.addWidget(self.verity_model_logo)
         self.verity_logo_frame = QFrame()
-        self.verity_logo_frame.setFixedSize(360, 400)
+        self.verity_logo_frame.setFixedHeight(400)
         self.verity_logo_frame_layout = QVBoxLayout(self.verity_logo_frame)
         self.verity_logo_frame_layout.setContentsMargins(20, 40, 20, 40)
         self.verity_logo = MovieLabel("resource/image/verity.gif")
-        self.verity_logo.setFixedSize(320, 320)
+        self.verity_logo.setFixedHeight(320)
         self.verity_logo_frame_layout.addWidget(self.verity_logo)
         self.verity_body_layout.addWidget(self.verity_logo_frame)
 
@@ -438,9 +435,9 @@ class UsePreparePage(QWidget):
         self.verity_distance_frame_layout.addWidget(self.verity_distance_button_frame)
         self.verity_body_layout.addWidget(self.verity_distance_frame)
         self.verity_offset_frame = QFrame()
-        self.verity_offset_frame.setFixedSize(360, 210)
+        self.verity_offset_frame.setFixedHeight(210)
         self.verity_offset_frame_layout = QGridLayout(self.verity_offset_frame)
-        self.verity_offset_frame_layout.setContentsMargins(10, 0, 10, 0)
+        self.verity_offset_frame_layout.setContentsMargins(0, 0, 0, 0)
         self.verity_offset_frame_layout.setSpacing(0)
         self.verity_offset_x_label = QLabel()
         self.verity_offset_x_label.setAlignment(Qt.AlignCenter)
@@ -511,7 +508,6 @@ class UsePreparePage(QWidget):
 
     def re_translate_ui(self):
         self.start_button.setText(self.tr("Start"))
-        self.message_frame.set_title(self.tr("Status"))
         self.remind_text.setText(
             self.tr("Please place the PEI platform in a standardized manner, with no debris on the platform."))
         self.preheat_text.setText(self.tr(
@@ -838,7 +834,8 @@ class UsePreparePage(QWidget):
         self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']:.2f}\nM500\nM851")
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
-        self.dial_handle.next_button.setEnabled(False)
+        if platform.system().lower() == 'linux':  # test
+            self.dial_handle.next_button.setEnabled(False)
 
     def on_place_next_button_clicked(self):
         self.verity_distance_frame.hide()

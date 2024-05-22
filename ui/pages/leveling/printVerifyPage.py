@@ -5,6 +5,7 @@ from printer import MixwareScreenPrinterStatus
 from qtCore import *
 from ui.components.base.baseLine import BaseHLine, BaseVLine
 from ui.components.base.basePushButton import BasePushButton
+from ui.components.baseTitleFrame import BaseTitleFrame
 from ui.components.handleBar import HandleBar
 from ui.components.messageBar import MessageBar
 from ui.components.movieLabel import MovieLabel
@@ -27,17 +28,9 @@ class PrintVerifyPage(QWidget):
         self.layout.setContentsMargins(20, 0, 20, 0)
         self.layout.setSpacing(10)
 
-        self.message_frame = QFrame()
-        self.message_frame.setObjectName("frameBox")
-        self.message_frame.setFixedSize(360, 310)
-        self.message_layout = QVBoxLayout(self.message_frame)
-        self.message_layout.setContentsMargins(20, 20, 20, 20)
-        self.message_layout.setSpacing(10)
-        self.message_list = []
         self.reset_message_text()
-        for i in range(len(self.message_text_list)):
-            self.message_list.append(MessageBar(i + 1, self.message_text_list[i]))
-            self.message_layout.addWidget(self.message_list[i])
+        self.message_frame = BaseTitleFrame()
+        self.message_list = self.message_frame.set_message(self.message_text_list)
         self.layout.addWidget(self.message_frame)
 
         self.handle_frame = QFrame()
@@ -73,9 +66,9 @@ class PrintVerifyPage(QWidget):
         self.preheat_body_layout.setSpacing(0)
 
         self.preheat_thermal_frame = QFrame()
-        self.preheat_thermal_frame.setFixedSize(360, 210)
+        self.preheat_thermal_frame.setFixedHeight(210)
         self.preheat_thermal_frame_layout = QGridLayout(self.preheat_thermal_frame)
-        self.preheat_thermal_frame_layout.setContentsMargins(10, 10, 10, 0)
+        self.preheat_thermal_frame_layout.setContentsMargins(20, 0, 20, 0)
         self.preheat_thermal_frame_layout.setSpacing(0)
         self.preheat_thermal_left = QLabel()
         self.preheat_thermal_left.setObjectName("leftLogo")
@@ -100,8 +93,8 @@ class PrintVerifyPage(QWidget):
         self.preheat_thermal_bed_button.setFixedHeight(64)
         self.preheat_thermal_bed_button.clicked.connect(self.on_preheat_thermal_bed_button_clicked)
         self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_bed_button, 4, 1, 1, 1)
+        self.preheat_thermal_frame_layout.addWidget(BaseHLine(), 5, 0, 1, 2)
         self.preheat_body_layout.addWidget(self.preheat_thermal_frame)
-        self.preheat_body_layout.addWidget(BaseHLine())
         self.preheat_filament_layout = QHBoxLayout()
         self.preheat_pla = BasePushButton()
         self.preheat_pla.setFixedHeight(64)
@@ -137,9 +130,9 @@ class PrintVerifyPage(QWidget):
         self.work_body_layout.setContentsMargins(0, 0, 0, 0)
         self.work_body_layout.setSpacing(0)
         self.work_thermal_frame = QFrame()
-        self.work_thermal_frame.setFixedSize(360, 210)
+        self.work_thermal_frame.setFixedHeight(210)
         self.work_thermal_frame_layout = QGridLayout(self.work_thermal_frame)
-        self.work_thermal_frame_layout.setContentsMargins(10, 10, 10, 0)
+        self.work_thermal_frame_layout.setContentsMargins(20, 0, 20, 0)
         self.work_thermal_frame_layout.setSpacing(0)
         self.work_thermal_left = QLabel()
         self.work_thermal_left.setObjectName("leftLogo")
@@ -164,11 +157,11 @@ class PrintVerifyPage(QWidget):
         self.work_thermal_bed_button.setFixedHeight(64)
         self.work_thermal_bed_button.clicked.connect(self.on_preheat_thermal_bed_button_clicked)
         self.work_thermal_frame_layout.addWidget(self.work_thermal_bed_button, 4, 1, 1, 1)
+        self.work_thermal_frame_layout.addWidget(BaseHLine(), 5, 0, 1, 2)
         self.work_body_layout.addWidget(self.work_thermal_frame)
-        self.work_body_layout.addWidget(BaseHLine())
         self.work_body_layout.addSpacing(20)
         self.verity_model_logo = QLabel()
-        self.verity_model_logo.setFixedSize(360, 320)
+        self.verity_model_logo.setFixedHeight(320)
         self.verity_model_logo.setAlignment(Qt.AlignCenter)
         self.verity_model_logo.setPixmap(QPixmap("resource/image/xy_verity").scaledToWidth(320))
         self.work_body_layout.addWidget(self.verity_model_logo)

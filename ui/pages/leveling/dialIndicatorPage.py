@@ -3,8 +3,10 @@ import platform
 from qtCore import *
 from ui.components.base.baseLine import BaseHLine, BaseVLine
 from ui.components.base.basePushButton import BasePushButton
+from ui.components.baseTitleFrame import BaseTitleFrame
 from ui.components.handleBar import HandleBar
 from ui.components.messageBar import MessageBar
+from ui.components.movieLabel import MovieLabel
 
 
 class DialIndicatorPage(QWidget):
@@ -23,19 +25,9 @@ class DialIndicatorPage(QWidget):
         self.layout.setContentsMargins(20, 0, 20, 0)
         self.layout.setSpacing(10)
 
-        self.message_frame = QFrame()
-        self.message_frame.setObjectName("frameBox")
-        self.message_frame.setFixedSize(360, 240)
-
-        self.message_layout = QVBoxLayout(self.message_frame)
-        self.message_layout.setContentsMargins(20, 20, 20, 20)
-        self.message_layout.setSpacing(10)
-
-        self.message_list = []
         self.reset_message_title()
-        for i in range(len(self.message_text_list)):
-            self.message_list.append(MessageBar(i + 1, self.message_text_list[i]))
-            self.message_layout.addWidget(self.message_list[i])
+        self.message_frame = BaseTitleFrame()
+        self.message_list = self.message_frame.set_message(self.message_text_list)
         self.layout.addWidget(self.message_frame)
 
         self.handle_frame = QFrame()
@@ -58,13 +50,8 @@ class DialIndicatorPage(QWidget):
         self.remind_body_layout.setSpacing(0)
         self.remind_body_layout.setAlignment(Qt.AlignCenter)
 
-        self.remind_logo = QLabel()
+        self.remind_logo = MovieLabel("resource/image/clean_bed.gif")
         self.remind_logo.setFixedSize(320, 320)
-        self.remind_logo.setScaledContents(True)
-        # self.remind_logo.setPixmap(QPixmap("resource/image/level_clean_bed.png"))
-        self.remind_logo_movie = QMovie("resource/image/clean_bed.gif")
-        self.remind_logo_movie.setScaledSize(self.remind_logo.size())
-        self.remind_logo.setMovie(self.remind_logo_movie)
         self.remind_body_layout.addWidget(self.remind_logo)
 
         self.remind_text = QLabel()
@@ -152,11 +139,8 @@ class DialIndicatorPage(QWidget):
         self.clean_body_layout.setSpacing(0)
         self.clean_body_layout.setAlignment(Qt.AlignCenter)
 
-        self.clean_logo = QLabel()
+        self.clean_logo = MovieLabel("resource/image/clean_nozzle.gif")
         self.clean_logo.setFixedSize(320, 220)
-        self.clean_logo_movie = QMovie("resource/image/clean_nozzle.gif")
-        self.clean_logo_movie.setScaledSize(self.clean_logo.size())
-        self.clean_logo.setMovie(self.clean_logo_movie)
         self.clean_body_layout.addWidget(self.clean_logo)
 
         self.clean_text = QLabel()
@@ -174,11 +158,8 @@ class DialIndicatorPage(QWidget):
         self.place_body_layout.setSpacing(0)
         self.place_body_layout.setAlignment(Qt.AlignCenter)
 
-        self.place_logo = QLabel()
+        self.place_logo = MovieLabel("resource/image/level_measure.gif")
         self.place_logo.setFixedSize(320, 320)
-        self.place_logo_movie = QMovie("resource/image/level_measure.gif")
-        self.place_logo_movie.setScaledSize(self.place_logo.size())
-        self.place_logo.setMovie(self.place_logo_movie)
         self.place_body_layout.addWidget(self.place_logo)
 
         self.place_text = QLabel()
@@ -196,11 +177,8 @@ class DialIndicatorPage(QWidget):
         self.measure_left_body_layout.setSpacing(0)
         self.measure_left_body_layout.setAlignment(Qt.AlignCenter)
 
-        self.measure_left_logo = QLabel()
+        self.measure_left_logo = MovieLabel("resource/image/level_measure_left.gif")
         self.measure_left_logo.setFixedSize(320, 320)
-        self.measure_left_logo_movie = QMovie("resource/image/level_measure_left.gif")
-        self.measure_left_logo_movie.setScaledSize(self.measure_left_logo.size())
-        self.measure_left_logo.setMovie(self.measure_left_logo_movie)
         self.measure_left_body_layout.addWidget(self.measure_left_logo)
 
         self.measure_left_text = QLabel()
@@ -218,11 +196,8 @@ class DialIndicatorPage(QWidget):
         self.measure_right_body_layout.setSpacing(0)
         self.measure_right_body_layout.setAlignment(Qt.AlignCenter)
 
-        self.measure_right_logo = QLabel()
+        self.measure_right_logo = MovieLabel("resource/image/level_measure_right.gif")
         self.measure_right_logo.setFixedSize(320, 320)
-        self.measure_right_logo_movie = QMovie("resource/image/level_measure_right.gif")
-        self.measure_right_logo_movie.setScaledSize(self.measure_right_logo.size())
-        self.measure_right_logo.setMovie(self.measure_right_logo_movie)
         self.measure_right_body_layout.addWidget(self.measure_right_logo)
 
         self.measure_right_text = QLabel()
@@ -250,13 +225,6 @@ class DialIndicatorPage(QWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         self.reset_ui()
         self.re_translate_ui()
-        self.remind_logo_movie.start()
-
-    def hideEvent(self, a0: QHideEvent) -> None:
-        self.place_logo_movie.stop()
-        self.remind_logo_movie.stop()
-        self.measure_left_logo_movie.stop()
-        self.measure_right_logo_movie.stop()
 
     def reset_ui(self):
         self.reset_message_title()
@@ -322,7 +290,6 @@ class DialIndicatorPage(QWidget):
     def on_remind_next_button_clicked(self):
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
-        self.remind_logo_movie.stop()
         self.goto_next_step_stacked_widget()
         update_style(self.preheat_pla, "unchecked")
         update_style(self.preheat_abs, "unchecked")
@@ -387,7 +354,6 @@ class DialIndicatorPage(QWidget):
         self.clean_handle.next_button.setEnabled(False)
         self.clean_timer.start(1900)
         self.goto_next_step_stacked_widget()
-        self.clean_logo_movie.start()
 
     def on_clean_timer_timeout(self):
         self.clean_timer.stop()
@@ -404,14 +370,10 @@ class DialIndicatorPage(QWidget):
             self._printer.auto_home()
             self._printer.move_to_xy(190, 160, True)
             self._printer.move_to_z(150, True)
-            self.clean_logo_movie.stop()
             self.goto_next_step_stacked_widget()
-            self.place_logo_movie.start()
 
     def on_place_next_button_clicked(self):
         self.goto_next_step_stacked_widget()
-        self.place_logo_movie.stop()
-        self.measure_left_logo_movie.start()
 
     def on_measure_left_next_button_clicked(self):
         self._printer.write_gcode_commands(
@@ -423,8 +385,6 @@ class DialIndicatorPage(QWidget):
         self._printer.write_gcode_commands(
             "G1 Z150 F800\nM400\nT1\nM400\nG1 X190 Z150 F8400\nM400")
         self.goto_next_step_stacked_widget()
-        self.measure_left_logo_movie.stop()
-        self.measure_right_logo_movie.start()
 
     def on_measure_right_next_button_clicked(self):
         self._printer.write_gcode_commands(
@@ -435,7 +395,6 @@ class DialIndicatorPage(QWidget):
                                          "dial_indicator_right")
         self._printer.write_gcode_commands("G1 Z150 F800\nM400\nG28X")
         self.goto_next_step_stacked_widget()
-        self.measure_right_logo_movie.stop()
         self.finished_handle.next_button.setText(self.tr("Done."))
 
     def on_finished_next_button_clicked(self):

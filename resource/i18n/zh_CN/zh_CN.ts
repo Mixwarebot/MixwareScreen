@@ -209,22 +209,22 @@ the printer to factory settings.</source>
 <context>
     <name>AutoLevelPage</name>
     <message>
-        <location filename="../../../ui/pages/leveling/autoLevelPage.py" line="75"/>
+        <location filename="../../../ui/pages/leveling/autoLevelPage.py" line="78"/>
         <source>Auto-leveling, please wait.</source>
         <translation>自动调平中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/autoLevelPage.py" line="43"/>
+        <location filename="../../../ui/pages/leveling/autoLevelPage.py" line="45"/>
         <source>Start Auto-leveling</source>
         <translation>启动自动调平</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/autoLevelPage.py" line="55"/>
+        <location filename="../../../ui/pages/leveling/autoLevelPage.py" line="57"/>
         <source>Auto-leveling completed.</source>
         <translation>自动调平完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/autoLevelPage.py" line="70"/>
+        <location filename="../../../ui/pages/leveling/autoLevelPage.py" line="72"/>
         <source>Start Auto-leveling?</source>
         <translation>启动自动调平？</translation>
     </message>
@@ -283,22 +283,22 @@ the printer to factory settings.</source>
 <context>
     <name>BedLevelPage</name>
     <message>
-        <location filename="../../../ui/pages/leveling/bedLevelPage.py" line="117"/>
+        <location filename="../../../ui/pages/leveling/bedLevelPage.py" line="111"/>
         <source>Current Extruder</source>
         <translation>当前挤出机</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/bedLevelPage.py" line="118"/>
+        <location filename="../../../ui/pages/leveling/bedLevelPage.py" line="112"/>
         <source>Left</source>
         <translation>左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/bedLevelPage.py" line="120"/>
+        <location filename="../../../ui/pages/leveling/bedLevelPage.py" line="114"/>
         <source>Disabled XY</source>
         <translation>解锁XY轴</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/bedLevelPage.py" line="119"/>
+        <location filename="../../../ui/pages/leveling/bedLevelPage.py" line="113"/>
         <source>Right</source>
         <translation>右侧</translation>
     </message>
@@ -364,88 +364,88 @@ Preheating temperature 170°C</source>
 <context>
     <name>DialIndicatorPage</name>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="448"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="407"/>
         <source>Clean platform debris.</source>
         <translation>清理平台杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="449"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="408"/>
         <source>Preheat extruder.</source>
         <translation>预热挤出机.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="450"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="409"/>
         <source>Clean the nozzle.</source>
         <translation>清理喷嘴.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="451"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="410"/>
         <source>Place dial indicator.</source>
         <translation>放置百分表.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="452"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="411"/>
         <source>Measure compensation value(Left).</source>
         <translation>测量补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="453"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="412"/>
         <source>Measure compensation value(Right).</source>
         <translation>测量补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="454"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="413"/>
         <source>Finish.</source>
         <translation>完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="274"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="242"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation>请规范放置PEI平台, 并且平台无杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="340"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="307"/>
         <source>Preheating extruder.
 (Default 170°C)</source>
         <translation>挤出机预热中. (默认 170°C)</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="284"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="252"/>
         <source>Place the dial indicator at the specified location.</source>
         <translation>请放置百分表到指定位置.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="285"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="253"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Left).</source>
         <translation>点击 &lt;下一步&gt; 开始检测补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="286"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="254"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Right).</source>
         <translation>点击 &lt;下一步&gt; 开始检测补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="300"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="268"/>
         <source>Heat completed.</source>
         <translation>加热完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="287"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="255"/>
         <source>Measure completed.</source>
         <translation>测量完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="283"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="251"/>
         <source>Please use a metal brush to clean the nozzle residue.</source>
         <translation>请用金属毛刷清洁喷嘴残留物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="439"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="398"/>
         <source>Done.</source>
         <translation>完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="434"/>
+        <location filename="../../../ui/pages/leveling/dialIndicatorPage.py" line="394"/>
         <source>Please enter the absolute value from the dial indicator.</source>
         <translation>请输入百分表的绝对值.</translation>
     </message>
@@ -516,93 +516,93 @@ Preheating temperature 170°C</source>
 <context>
     <name>FilamentPage</name>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="207"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="199"/>
         <source>Left</source>
         <translation>左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="208"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="200"/>
         <source>Right</source>
         <translation>右侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="363"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="355"/>
         <source>Load</source>
         <translation>装载</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="360"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="352"/>
         <source>Unload</source>
         <translation>卸载</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="216"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="208"/>
         <source>Working</source>
         <translation>工作中</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="217"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="209"/>
         <source>Finished</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="327"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="319"/>
         <source>Current filament: {}</source>
         <translation>当前耗材: {}</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="344"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="336"/>
         <source>Current work mode: {}</source>
         <translation>当前工作模式: {}</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="252"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="244"/>
         <source>Confirm</source>
         <translation>确认</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="410"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="402"/>
         <source>Heat completed,
 click &lt;Next&gt; to start working.</source>
         <translation>加热完成, 点击 &lt;下一步&gt; 开始工作.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="378"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="370"/>
         <source>Current extruder: Left.</source>
         <translation>当前挤出机: 左侧.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="380"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="372"/>
         <source>Current extruder: Right.</source>
         <translation>当前挤出机: 右侧.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="190"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="182"/>
         <source>Select Extruder</source>
         <translation>选择挤出机</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="191"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="183"/>
         <source>Select Working Mode</source>
         <translation>选择工作模式</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="192"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="184"/>
         <source>Select Filament</source>
         <translation>选择耗材</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="193"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="185"/>
         <source>Heated Extruder</source>
         <translation>加热挤出机</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="195"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="187"/>
         <source>Done</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/filamentPage.py" line="328"/>
+        <location filename="../../../ui/pages/filamentPage.py" line="320"/>
         <source>The extruder is heating, please wait.</source>
         <translation>挤出机正在加热, 请稍等.</translation>
     </message>
@@ -839,130 +839,135 @@ Height Calibration</source>
 <context>
     <name>LevelWizardPage</name>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="353"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="324"/>
         <source>Preheat extruder.</source>
         <translation>预热挤出机.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="354"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="325"/>
         <source>Clean the nozzle.</source>
         <translation>清理喷嘴.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="355"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="326"/>
         <source>Auto bed leveling.</source>
         <translation>自动调平中.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="392"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="327"/>
         <source>Adjust offset.</source>
         <translation>调整偏移量.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="357"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="328"/>
         <source>Place dial indicator.</source>
         <translation>放置百分表.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="381"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="352"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation>请规范放置PEI平台, 并且平台无杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="472"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="443"/>
         <source>Preheating extruder.
 (Default 170°C)</source>
         <translation>挤出机预热中. (默认 170°C)</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="425"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="397"/>
         <source>Heat completed.</source>
         <translation>加热完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="393"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="365"/>
         <source>Move Distance (mm)</source>
         <translation>移动距离 (毫米)</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="352"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="323"/>
         <source>Clean platform debris.</source>
         <translation>清理平台杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="358"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="329"/>
         <source>Measure compensation value(Left).</source>
         <translation>测量补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="359"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="330"/>
         <source>Measure compensation value(Right).</source>
         <translation>测量补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="395"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="367"/>
         <source>Place the dial indicator at the specified location.</source>
         <translation>请放置百分表到指定位置.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="396"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="368"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Left).</source>
         <translation>点击 &lt;下一步&gt; 开始检测补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="397"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="369"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Right).</source>
         <translation>点击 &lt;下一步&gt; 开始检测补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="360"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="331"/>
         <source>Finish.</source>
         <translation>完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="398"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="370"/>
         <source>Leveling wizard completed.</source>
         <translation>调平向导完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="390"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="361"/>
         <source>Please use a metal brush to clean the nozzle residue.</source>
         <translation>请用金属毛刷清洁喷嘴残留物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="612"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="581"/>
         <source>Done.</source>
         <translation>完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="380"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="351"/>
         <source>Start Auto-leveling</source>
         <translation>启动自动调平</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="391"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="362"/>
         <source>Auto-leveling, please wait.</source>
         <translation>自动调平中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="408"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="380"/>
         <source>Auto-leveling completed.</source>
         <translation>自动调平完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="399"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="371"/>
         <source>Lift Bed</source>
         <translation>抬升平台</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="400"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="372"/>
         <source>Drop Bed</source>
         <translation>下降平台</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="607"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="577"/>
         <source>Please enter the absolute value from the dial indicator.</source>
         <translation>请输入百分表的绝对值.</translation>
+    </message>
+    <message>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="363"/>
+        <source>Adjust the height between the nozzle and the platform by &apos;Lift Bed&apos; or &apos;Drop Bed&apos; the platform.</source>
+        <translation type="unfinished">通过‘抬升平台’或‘下降平台’来调整喷嘴和平台之间的高度.</translation>
     </message>
 </context>
 <context>
@@ -1082,62 +1087,62 @@ Bed</source>
 <context>
     <name>NozzlePage</name>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="334"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="327"/>
         <source>Done.</source>
         <translation>完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="184"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="177"/>
         <source>I&apos;m ready.</source>
         <translation>我准备好了.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="191"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="184"/>
         <source>Use a hex wrench to loosen the two jack screws on the radiator without removing them.</source>
         <translation>使用六角扳手将散热器上的两颗顶丝拧松, 可不取下.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="199"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="192"/>
         <source>Use a hex wrench to tighten the two jack screws on the radiator.</source>
         <translation>使用六角扳手将散热器上的两颗顶丝拧紧.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="221"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="214"/>
         <source>Replacement preparation..</source>
         <translation>准备更换.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="223"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="216"/>
         <source>Loosen the screw.</source>
         <translation>拧松螺丝.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="224"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="217"/>
         <source>Pull the plug out of the socket.</source>
         <translation>将插头拔出插座.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="225"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="218"/>
         <source>Remove the nozzle assembly.</source>
         <translation>卸载喷嘴组件.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="226"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="219"/>
         <source>Load the nozzle assembly.</source>
         <translation>装载喷嘴组件.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="227"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="220"/>
         <source>Insert the plug into the socket.</source>
         <translation>将插头插入插座.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="228"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="221"/>
         <source>Tighten the screws.</source>
         <translation>拧紧螺丝.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="187"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="180"/>
         <source>- If the nozzle assembly does not work properly, please cut the printing wire above the extruder to facilitate the removal of the nozzle assembly.
 
 - If the nozzle assembly is working properly, please unload the printing filament through the return process first.
@@ -1150,57 +1155,57 @@ Note: Please ensure that the nozzle temperature is ≤50°C before operation to 
 注意: 请确保喷嘴温度≤50°C时进行操作, 避免发生烫伤.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="193"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="186"/>
         <source>Unplug the &lt;Heating Tube&gt; and &lt;Thermometer&gt; on the extruder.</source>
         <translation>拔掉挤出机上 &lt;加热管&gt; 和 &lt;测温器&gt; 的插头.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="194"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="187"/>
         <source>Move the &lt;Pressure Lever&gt; to one side and remove the &lt;Nozzle Assembly&gt; downwards from the radiator.</source>
         <translation>将 &lt;压杆&gt; 拨向一侧, 将 &lt;喷嘴组件&gt; 从散热器向下取出.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="196"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="189"/>
         <source>Push the new &lt;Nozzle Assembly&gt; into the radiator from below until it stops.</source>
         <translation>将新的 &lt;喷嘴组件&gt; 从下方推入散热器, 直至不能推入.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="197"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="190"/>
         <source>Insert the plugs of the &lt;Heating Tube&gt; and &lt;Thermometer&gt; into the corresponding sockets.</source>
         <translation>将 &lt;加热管&gt; 和 &lt;测温器&gt; 的插头, 插入对应插座.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="331"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="324"/>
         <source>Change Right.</source>
         <translation>更换右侧.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="333"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="326"/>
         <source>Change Left.</source>
         <translation>更换左侧.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="222"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="215"/>
         <source>Select Extruder.</source>
         <translation>选择挤出机.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="185"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="178"/>
         <source>Left</source>
         <translation>左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="186"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="179"/>
         <source>Right</source>
         <translation>右侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="267"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="260"/>
         <source>Current extruder: Right.</source>
         <translation>当前挤出机: 右侧.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/nozzlePage.py" line="271"/>
+        <location filename="../../../ui/pages/nozzlePage.py" line="264"/>
         <source>Current extruder: Left.</source>
         <translation>当前挤出机: 左侧.</translation>
     </message>
@@ -1350,69 +1355,69 @@ Calibration</source>
 <context>
     <name>PrintVerifyPage</name>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="284"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="277"/>
         <source>Clean platform debris.</source>
         <translation>清理平台杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="285"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="278"/>
         <source>Preheat extruder.</source>
         <translation>预热挤出机.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="286"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="279"/>
         <source>Working.</source>
         <translation>工作中.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="287"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="280"/>
         <source>Finish.</source>
         <translation>完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="299"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="292"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation>请规范放置PEI平台, 并且平台无杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="303"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="296"/>
         <source>Done</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="338"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="331"/>
         <source>Heat completed.</source>
         <translation>加热完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="382"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="375"/>
         <source>Preheating extruder.
 (Default 210°C)</source>
         <translation>挤出机预热中.
 (默认 210°C)</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="302"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="295"/>
         <source>Verification model printing, please wait.</source>
         <translation>XY校验模型打印中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="304"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="297"/>
         <source>Move Distance (mm)</source>
         <translation>移动距离 (毫米)</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="305"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="298"/>
         <source>Observe the XY test model, find aligned lines, with each grid measuring 0.1mm, and adjust the offset values of the left and right nozzles.</source>
         <translation>观察XY测试模型, 找对齐的线条, 每一格为0.1mm, 调节左右喷头的偏移值.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="442"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="435"/>
         <source>Done.</source>
         <translation>完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="347"/>
+        <location filename="../../../ui/pages/leveling/printVerifyPage.py" line="340"/>
         <source>Printing is completed.</source>
         <translation>打印完成.</translation>
     </message>
@@ -1806,191 +1811,186 @@ the printer to factory settings.</source>
 <context>
     <name>UsePreparePage</name>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="490"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="487"/>
         <source>Clean the nozzle.</source>
         <translation>清理喷嘴.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="515"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="511"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation>请规范放置PEI平台, 并且平台无杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="492"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="489"/>
         <source>Adjust offset.</source>
         <translation>调整偏移量.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="530"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="526"/>
         <source>Move Distance (mm)</source>
         <translation>移动距离 (毫米)</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="527"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="523"/>
         <source>Place the dial indicator at the specified location.</source>
         <translation>请放置百分表到指定位置.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="586"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="581"/>
         <source>Heat completed.</source>
         <translation>加热完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="513"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="510"/>
         <source>Start</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="594"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="589"/>
         <source>Next</source>
         <translation>下一步</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="860"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="856"/>
         <source>Measure compensation value(Left).</source>
         <translation>测量补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="872"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="868"/>
         <source>Measure compensation value(Right).</source>
         <translation>测量补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="862"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="858"/>
         <source>Measure Left</source>
         <translation>测量左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="874"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="870"/>
         <source>Measure Right</source>
         <translation>测量右侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="521"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="517"/>
         <source>Please use a metal brush to clean the nozzle residue.</source>
         <translation>请用金属毛刷清洁喷嘴残留物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="634"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="629"/>
         <source>Place consumables into the storage bin, select the corresponding temperature, and wait for heating to complete.</source>
         <translation>请将耗材放入储物箱内,
 选择相应的温度,
 等待加热完成。</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="858"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="854"/>
         <source>Placed</source>
         <translation>已放置</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="753"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="744"/>
         <source>Filament loading completed.</source>
         <translation>耗材装载完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="875"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="871"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation>测量完成. 请移除热床上的百分表.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="489"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="486"/>
         <source>Load filament.</source>
         <translation>装载耗材.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="742"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="729"/>
         <source>Loading filament(Left).</source>
         <translation>正在装载耗材 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="588"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="583"/>
         <source>Left</source>
         <translation>左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="589"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="584"/>
         <source>Loading filament(Right).</source>
         <translation>正在装载耗材 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="491"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="488"/>
         <source>Auto-leveling.</source>
         <translation>自动调平中.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="522"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="518"/>
         <source>Start Auto-leveling</source>
         <translation>启动自动调平</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="523"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="519"/>
         <source>Auto-leveling, please wait.</source>
         <translation>自动调平中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="554"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="550"/>
         <source>Auto-leveling completed.</source>
         <translation>自动调平完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="566"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="561"/>
         <source>Printing is completed, please level the XY offset according to the printing situation.</source>
         <translation>打印完成, 请根据打印情况调平XY偏移.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="488"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="485"/>
         <source>Filament preparation.</source>
         <translation>耗材准备.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="493"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="490"/>
         <source>Right extruder height calibration.</source>
         <translation>右侧挤出机高度校准.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="494"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="491"/>
         <source>XY offset calibration.</source>
         <translation>XY偏移量校准.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="487"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="484"/>
         <source>Clear debris from the platform.</source>
         <translation>清理平台上的杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="533"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="529"/>
         <source>Lift Bed</source>
         <translation>抬升平台</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="534"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="530"/>
         <source>Drop Bed</source>
         <translation>下降平台</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="882"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="878"/>
         <source>Please enter the absolute value from the dial indicator.</source>
         <translation>请输入百分表的绝对值.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="514"/>
-        <source>Status</source>
-        <translation>状态</translation>
-    </message>
-    <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="520"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="516"/>
         <source>Load again</source>
         <translation>再次装载</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="529"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="525"/>
         <source>Verification model printing,
 please wait.</source>
         <translation>XY校验模型打印中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="524"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="520"/>
         <source>Adjust the height between the nozzle and the platform by &apos;Lift Bed&apos; or &apos;Drop Bed&apos; the platform.</source>
         <translation>通过‘抬升平台’或‘下降平台’来调整喷嘴和平台之间的高度.</translation>
     </message>
