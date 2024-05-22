@@ -14,7 +14,7 @@ class BedMeshGraph(QFrame):
         self.setFixedHeight(400)
 
         self.layout = QVBoxLayout(self)
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setContentsMargins(0, 0, 1, 1)
         self.layout.setSpacing(0)
         self.layout.setAlignment(Qt.AlignCenter)
         self.title = QLabel()
