@@ -14,7 +14,7 @@ class BedMeshGraph(QFrame):
         self.setFixedHeight(400)
 
         self.layout = QVBoxLayout(self)
-        self.layout.setContentsMargins(0, 0, 1, 1)
+        self.layout.setContentsMargins(0, 0, 0, 0)
         self.layout.setSpacing(0)
         self.layout.setAlignment(Qt.AlignCenter)
         self.title = QLabel()
@@ -25,7 +25,6 @@ class BedMeshGraph(QFrame):
         self.body_frame.setObjectName("frameBox")
         self.body_frame.setFixedSize(360, 360)
         self.body_frame_layout = QGridLayout(self.body_frame)
-        self.body_frame_layout.setContentsMargins(7, 7, 6, 6)
         self.layout.addWidget(self.body_frame)
 
     def showEvent(self, a0: QShowEvent) -> None:

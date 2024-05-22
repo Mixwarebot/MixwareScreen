@@ -833,133 +833,133 @@ Height Calibration</source>
 <context>
     <name>LevelWizardPage</name>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="324"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="325"/>
         <source>Preheat extruder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="325"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="326"/>
         <source>Clean the nozzle.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="326"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="327"/>
         <source>Auto bed leveling.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="327"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="328"/>
         <source>Adjust offset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="328"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="329"/>
         <source>Place dial indicator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="352"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="353"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="443"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="444"/>
         <source>Preheating extruder.
 (Default 170°C)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="397"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="398"/>
         <source>Heat completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="365"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="366"/>
         <source>Move Distance (mm)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="323"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="324"/>
         <source>Clean platform debris.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="329"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="330"/>
         <source>Measure compensation value(Left).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="330"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="331"/>
         <source>Measure compensation value(Right).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="367"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="368"/>
         <source>Place the dial indicator at the specified location.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="368"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="369"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Left).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="369"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="370"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Right).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="331"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="332"/>
         <source>Finish.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="370"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="371"/>
         <source>Leveling wizard completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="361"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="362"/>
         <source>Please use a metal brush to clean the nozzle residue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="581"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="582"/>
         <source>Done.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="351"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="352"/>
         <source>Start Auto-leveling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="362"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="363"/>
         <source>Auto-leveling, please wait.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="380"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="381"/>
         <source>Auto-leveling completed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="371"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="372"/>
         <source>Lift Bed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="372"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="373"/>
         <source>Drop Bed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="577"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="578"/>
         <source>Please enter the absolute value from the dial indicator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="363"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="364"/>
         <source>Adjust the height between the nozzle and the platform by &apos;Lift Bed&apos; or &apos;Drop Bed&apos; the platform.</source>
         <translation type="unfinished"></translation>
     </message>

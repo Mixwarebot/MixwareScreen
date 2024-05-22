@@ -839,133 +839,133 @@ Height Calibration</source>
 <context>
     <name>LevelWizardPage</name>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="324"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="325"/>
         <source>Preheat extruder.</source>
         <translation>预热挤出机.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="325"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="326"/>
         <source>Clean the nozzle.</source>
         <translation>清理喷嘴.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="326"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="327"/>
         <source>Auto bed leveling.</source>
         <translation>自动调平中.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="327"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="328"/>
         <source>Adjust offset.</source>
         <translation>调整偏移量.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="328"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="329"/>
         <source>Place dial indicator.</source>
         <translation>放置百分表.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="352"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="353"/>
         <source>Please place the PEI platform in a standardized manner, with no debris on the platform.</source>
         <translation>请规范放置PEI平台, 并且平台无杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="443"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="444"/>
         <source>Preheating extruder.
 (Default 170°C)</source>
         <translation>挤出机预热中. (默认 170°C)</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="397"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="398"/>
         <source>Heat completed.</source>
         <translation>加热完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="365"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="366"/>
         <source>Move Distance (mm)</source>
         <translation>移动距离 (毫米)</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="323"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="324"/>
         <source>Clean platform debris.</source>
         <translation>清理平台杂物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="329"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="330"/>
         <source>Measure compensation value(Left).</source>
         <translation>测量补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="330"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="331"/>
         <source>Measure compensation value(Right).</source>
         <translation>测量补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="367"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="368"/>
         <source>Place the dial indicator at the specified location.</source>
         <translation>请放置百分表到指定位置.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="368"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="369"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Left).</source>
         <translation>点击 &lt;下一步&gt; 开始检测补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="369"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="370"/>
         <source>Click &lt;Next&gt; to start measure compensation value(Right).</source>
         <translation>点击 &lt;下一步&gt; 开始检测补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="331"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="332"/>
         <source>Finish.</source>
         <translation>完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="370"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="371"/>
         <source>Leveling wizard completed.</source>
         <translation>调平向导完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="361"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="362"/>
         <source>Please use a metal brush to clean the nozzle residue.</source>
         <translation>请用金属毛刷清洁喷嘴残留物.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="581"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="582"/>
         <source>Done.</source>
         <translation>完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="351"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="352"/>
         <source>Start Auto-leveling</source>
         <translation>启动自动调平</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="362"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="363"/>
         <source>Auto-leveling, please wait.</source>
         <translation>自动调平中, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="380"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="381"/>
         <source>Auto-leveling completed.</source>
         <translation>自动调平完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="371"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="372"/>
         <source>Lift Bed</source>
         <translation>抬升平台</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="372"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="373"/>
         <source>Drop Bed</source>
         <translation>下降平台</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="577"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="578"/>
         <source>Please enter the absolute value from the dial indicator.</source>
         <translation>请输入百分表的绝对值.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="363"/>
+        <location filename="../../../ui/pages/leveling/levelWizardPage.py" line="364"/>
         <source>Adjust the height between the nozzle and the platform by &apos;Lift Bed&apos; or &apos;Drop Bed&apos; the platform.</source>
         <translation>通过‘抬升平台’或‘下降平台’来调整喷嘴和平台之间的高度.</translation>
     </message>
