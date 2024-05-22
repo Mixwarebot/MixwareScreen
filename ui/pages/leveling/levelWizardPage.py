@@ -168,7 +168,7 @@ class LevelWizardPage(QWidget):
         self.level_body_layout.addWidget(self.level_text)
         self.level_mesh_graph = BedMeshGraph()
         self.level_mesh_graph.setObjectName("frameOutLine")
-        self.level_mesh_graph.body_frame.setFixedHeight(320)
+        self.level_mesh_graph.body_frame.setFixedWidth(320)
         self.level_body_layout.addWidget(self.level_mesh_graph)
         self.handle_stacked_widget.addWidget(self.level_handle)
 
