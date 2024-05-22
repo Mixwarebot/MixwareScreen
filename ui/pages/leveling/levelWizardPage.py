@@ -163,6 +163,7 @@ class LevelWizardPage(QWidget):
         self.level_load.setAlignment(Qt.AlignCenter)
         self.level_body_layout.addWidget(self.level_load)
         self.level_text = QLabel()
+        self.level_text.setFixedHeight(120)
         self.level_text.setWordWrap(True)
         self.level_text.setAlignment(Qt.AlignCenter)
         self.level_body_layout.addWidget(self.level_text)
