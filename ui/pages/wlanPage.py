@@ -101,41 +101,41 @@ class WLANConnectBox(BaseRoundDialog):
         self.keyboard_button_group.buttonClicked.connect(self.on_keyboard_button_clicked)
         self.keyboard_map = 0
         self.keys_list = \
-            [
-                ['q', 'Q', '0', '0'],
-                ['w', 'W', '1', '1'],
-                ['e', 'E', '2', '2'],
-                ['r', 'R', '3', '3'],
-                ['t', 'T', '4', '4'],
-                ['y', 'Y', '5', '5'],
-                ['u', 'U', '6', '6'],
-                ['i', 'I', '7', '7'],
-                ['o', 'O', '8', '8'],
-                ['p', 'P', '9', '9']
-            ], \
-                [
-                    ['a', 'A', '\\', '<'],
-                    ['s', 'S', '/', '>'],
-                    ['d', 'D', ':', '['],
-                    ['f', 'F', ';', ']'],
-                    ['g', 'G', '(', '{'],
-                    ['h', 'H', ')', '}'],
-                    ['j', 'J', '#', '#'],
-                    ['k', 'K', '\&', '%'],
-                    ['l', 'L', '@', '^']
-                ], \
-                [
+            (
+                ('q', 'Q', '0', '0'),
+                ('w', 'W', '1', '1'),
+                ('e', 'E', '2', '2'),
+                ('r', 'R', '3', '3'),
+                ('t', 'T', '4', '4'),
+                ('y', 'Y', '5', '5'),
+                ('u', 'U', '6', '6'),
+                ('i', 'I', '7', '7'),
+                ('o', 'O', '8', '8'),
+                ('p', 'P', '9', '9')
+            ), \
+                (
+                    ('a', 'A', '\\', '<'),
+                    ('s', 'S', '/', '>'),
+                    ('d', 'D', ':', '['),
+                    ('f', 'F', ';', ']'),
+                    ('g', 'G', '(', '{'),
+                    ('h', 'H', ')', '}'),
+                    ('j', 'J', '#', '#'),
+                    ('k', 'K', '&&', '%'),
+                    ('l', 'L', '@', '^')
+                ), \
+                (
                     'shift',
-                    ['z', 'Z', '_', '*'],
-                    ['x', 'X', '-', '+'],
-                    ['c', 'C', '`', '='],
-                    ['v', 'V', '?', '|'],
-                    ['b', 'B', '!', '~'],
-                    ['n', 'N', ',', '"'],
-                    ['m', 'M', '.', '\''],
+                    ('z', 'Z', '_', '*'),
+                    ('x', 'X', '-', '+'),
+                    ('c', 'C', '`', '='),
+                    ('v', 'V', '?', '|'),
+                    ('b', 'B', '!', '~'),
+                    ('n', 'N', ',', '"'),
+                    ('m', 'M', '.', '\''),
                     'delete',
-                ], \
-                ['?123', 'space', 'enter']
+                ), \
+                ('?123', 'space', 'enter')
 
         for row_keys in self.keys_list:
             keyboard_layout = QHBoxLayout()
@@ -252,10 +252,11 @@ class WLANConnectBox(BaseRoundDialog):
             elif self.passwd_line_edit.hasFocus():
                 self.on_confirm()
         else:
+            _text = '&' if button.text() == '&&' else button.text()
             if self.ssid_line_edit.hasFocus():
-                self.ssid_line_edit.setText(self.ssid_line_edit.text() + button.text())
+                self.ssid_line_edit.setText(self.ssid_line_edit.text() + _text)
             elif self.passwd_line_edit.hasFocus():
-                self.passwd_line_edit.setText(self.passwd_line_edit.text() + button.text())
+                self.passwd_line_edit.setText(self.passwd_line_edit.text() + _text)
 
     def on_passwd_line_edit_button_clicked(self):
         if self.passwd_line_edit.echoMode() == QLineEdit.Password:
