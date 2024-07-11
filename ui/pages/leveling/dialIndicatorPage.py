@@ -7,6 +7,7 @@ from ui.components.baseTitleFrame import BaseTitleFrame
 from ui.components.handleBar import HandleBar
 from ui.components.messageBar import MessageBar
 from ui.components.movieLabel import MovieLabel
+from ui.components.preHeatWidget import PreHeatWidget
 
 
 class DialIndicatorPage(QWidget):
@@ -65,63 +66,12 @@ class DialIndicatorPage(QWidget):
         self.preheat_handle.next_button.clicked.connect(self.on_preheat_next_button_clicked)
 
         self.preheat_body_layout = QVBoxLayout(self.preheat_handle.body)
-        self.preheat_body_layout.setContentsMargins(0, 0, 0, 0)
+        self.preheat_body_layout.setContentsMargins(20, 0, 20, 0)
         self.preheat_body_layout.setSpacing(0)
 
-        self.preheat_thermal_frame = QFrame()
-        self.preheat_thermal_frame.setFixedSize(360, 140)
-
-        self.preheat_thermal_frame_layout = QGridLayout(self.preheat_thermal_frame)
-        self.preheat_thermal_frame_layout.setContentsMargins(10, 10, 10, 0)
-        self.preheat_thermal_frame_layout.setSpacing(0)
-
-        self.preheat_thermal_left = QLabel()
-        self.preheat_thermal_left.setObjectName("leftLogo")
-        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_left, 0, 0, 1, 1)
-
-        self.preheat_thermal_left_button = QPushButton()
-        self.preheat_thermal_left_button.setFixedHeight(64)
-        self.preheat_thermal_left_button.clicked.connect(self.on_preheat_thermal_left_button_clicked)
-        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_left_button, 0, 1, 1, 1)
-        self.preheat_thermal_frame_layout.addWidget(BaseHLine(), 1, 0, 1, 2)
-
-        self.preheat_thermal_right = QLabel()
-        self.preheat_thermal_right.setObjectName("rightLogo")
-        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_right, 2, 0, 1, 1)
-
-        self.preheat_thermal_right_button = QPushButton()
-        self.preheat_thermal_right_button.setFixedHeight(64)
-        self.preheat_thermal_right_button.clicked.connect(self.on_preheat_thermal_right_button_clicked)
-        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_right_button, 2, 1, 1, 1)
-        self.preheat_body_layout.addWidget(self.preheat_thermal_frame)
-        self.preheat_body_layout.addWidget(BaseHLine())
-
-        self.preheat_filament_layout = QHBoxLayout()
-        self.preheat_pla = BasePushButton()
-        self.preheat_pla.setFixedHeight(64)
-        self.preheat_pla.clicked.connect(self.on_preheat_pla_clicked)
-        self.preheat_filament_layout.addWidget(self.preheat_pla)
-        self.preheat_filament_layout.addWidget(BaseVLine())
-
-        self.preheat_abs = BasePushButton()
-        self.preheat_abs.setFixedHeight(64)
-        self.preheat_abs.clicked.connect(self.on_preheat_abs_clicked)
-        self.preheat_filament_layout.addWidget(self.preheat_abs)
-        self.preheat_filament_layout.addWidget(BaseVLine())
-
-        self.preheat_pet = BasePushButton()
-        self.preheat_pet.setFixedHeight(64)
-        self.preheat_pet.clicked.connect(self.on_preheat_pet_clicked)
-        self.preheat_filament_layout.addWidget(self.preheat_pet)
-        self.preheat_filament_layout.addWidget(BaseVLine())
-
-        self.preheat_pa = BasePushButton()
-        self.preheat_pa.setFixedHeight(64)
-        self.preheat_pa.clicked.connect(self.on_preheat_pa_clicked)
-        self.preheat_filament_layout.addWidget(self.preheat_pa)
-        self.preheat_body_layout.addLayout(self.preheat_filament_layout)
-        self.preheat_body_layout.addWidget(BaseHLine())
-
+        self.preheat_filament = PreHeatWidget(self._printer, self._parent, False)
+        self.preheat_filament.preheat_changed.connect(self.reset_preheat_handle_ui)
+        self.preheat_body_layout.addWidget(self.preheat_filament)
         self.preheat_text = QLabel()
         self.preheat_text.setWordWrap(True)
         self.preheat_text.setAlignment(Qt.AlignCenter)
@@ -241,13 +191,7 @@ class DialIndicatorPage(QWidget):
     def re_translate_ui(self):
         self.remind_text.setText(
             self.tr("Please place the PEI platform in a standardized manner, with no debris on the platform."))
-        self.preheat_thermal_left_button.setText("-")
-        self.preheat_thermal_right_button.setText("-")
         self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 170°C)"))
-        self.preheat_pla.setText("PLA")
-        self.preheat_abs.setText("ABS")
-        self.preheat_pet.setText("PET")
-        self.preheat_pa.setText("PA")
         self.clean_text.setText(self.tr("Please use a metal brush to clean the nozzle residue."))
         self.place_text.setText(self.tr("Place the dial indicator at the specified location."))
         self.measure_left_text.setText(self.tr("Click <Next> to start measure compensation value(Left)."))
@@ -258,12 +202,10 @@ class DialIndicatorPage(QWidget):
     def on_update_printer_information(self):
         if not self.isVisible():
             return
-        self.preheat_thermal_left_button.setText(self._printer.get_thermal('left'))
-        self.preheat_thermal_right_button.setText(self._printer.get_thermal('right'))
 
         if self.handle_stacked_widget.currentWidget() == self.preheat_handle and not self.preheat_handle.next_button.isEnabled():
-            if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 170 \
-                    and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 170:
+            if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 0 \
+                    and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 0:
                 self.preheat_handle.next_button.setEnabled(True)
                 self.preheat_text.setText(self.tr("Heat completed."))
 
@@ -291,10 +233,6 @@ class DialIndicatorPage(QWidget):
         if platform.system().lower() == 'linux':
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
-        update_style(self.preheat_pla, "unchecked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "unchecked")
         # preheat -> 170, 170
         self._printer.write_gcode_command("T0\nM155 S1\nM104 S170 T0\nM104 S170 T1")
         self._printer.auto_home()
@@ -319,34 +257,6 @@ class DialIndicatorPage(QWidget):
     def on_preheat_thermal_right_button_clicked(self):
         self._parent.open_thermal_right_numberPad()
         self.reset_preheat_handle_ui()
-
-    def on_preheat_pla_clicked(self):
-        self.preheat_filament(210)
-        update_style(self.preheat_pla, "checked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "unchecked")
-
-    def on_preheat_abs_clicked(self):
-        self.preheat_filament(240)
-        update_style(self.preheat_pla, "unchecked")
-        update_style(self.preheat_abs, "checked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "unchecked")
-
-    def on_preheat_pet_clicked(self):
-        self.preheat_filament(270)
-        update_style(self.preheat_pla, "unchecked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "checked")
-
-    def on_preheat_pa_clicked(self):
-        self.preheat_filament(300)
-        update_style(self.preheat_pla, "unchecked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "checked")
-        update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_next_button_clicked(self):
         self._printer.write_gcode_command('M400\nM104 S0 T0\nM104 S0 T1\nT0')

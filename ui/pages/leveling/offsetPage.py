@@ -47,7 +47,6 @@ class OffsetPage(QWidget):
         for d in range(len(self.offset_distance_list)):
             button = BasePushButton()
             button.setText(self.offset_distance_list[d])
-            button.setObjectName("dataButton")
             self.button_group.addButton(button, d)
             if self.offset_distance_list[d] == self.offset_distance_default:
                 self.on_button_clicked(self.button_group.button(d))

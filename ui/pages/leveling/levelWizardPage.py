@@ -2,13 +2,13 @@ import platform
 
 from printer import MixwareScreenPrinterStatus
 from qtCore import *
-from ui.components.base.baseLine import BaseHLine, BaseVLine
+from ui.components.base.baseLine import BaseHLine
 from ui.components.base.basePushButton import BasePushButton
 from ui.components.baseTitleFrame import BaseTitleFrame
 from ui.components.handleBar import HandleBar
-from ui.components.messageBar import MessageBar
 from ui.components.leveling.bedMeshGraph import BedMeshGraph
 from ui.components.movieLabel import MovieLabel
+from ui.components.preHeatWidget import PreHeatWidget
 
 
 class LevelWizardPage(QWidget):
@@ -83,50 +83,9 @@ class LevelWizardPage(QWidget):
         self.preheat_body_layout.setContentsMargins(20, 0, 20, 0)
         self.preheat_body_layout.setSpacing(0)
 
-        self.preheat_thermal_frame = QFrame()
-        self.preheat_thermal_frame.setFixedHeight(140)
-        self.preheat_thermal_frame_layout = QGridLayout(self.preheat_thermal_frame)
-        self.preheat_thermal_frame_layout.setContentsMargins(0, 0, 0, 0)
-        self.preheat_thermal_frame_layout.setSpacing(0)
-        self.preheat_thermal_left = QLabel()
-        self.preheat_thermal_left.setObjectName("leftLogo")
-        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_left, 0, 0, 1, 1)
-        self.preheat_thermal_left_button = QPushButton()
-        self.preheat_thermal_left_button.setFixedHeight(64)
-        self.preheat_thermal_left_button.clicked.connect(self.on_preheat_thermal_left_button_clicked)
-        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_left_button, 0, 1, 1, 1)
-        self.preheat_thermal_frame_layout.addWidget(BaseHLine(), 1, 0, 1, 2)
-        self.preheat_thermal_right = QLabel()
-        self.preheat_thermal_right.setObjectName("rightLogo")
-        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_right, 2, 0, 1, 1)
-        self.preheat_thermal_right_button = QPushButton()
-        self.preheat_thermal_right_button.setFixedHeight(64)
-        self.preheat_thermal_right_button.clicked.connect(self.on_preheat_thermal_right_button_clicked)
-        self.preheat_thermal_frame_layout.addWidget(self.preheat_thermal_right_button, 2, 1, 1, 1)
-        self.preheat_body_layout.addWidget(self.preheat_thermal_frame)
-        self.preheat_body_layout.addWidget(BaseHLine())
-        self.preheat_filament_layout = QHBoxLayout()
-        self.preheat_pla = BasePushButton()
-        self.preheat_pla.setFixedHeight(64)
-        self.preheat_pla.clicked.connect(self.on_preheat_pla_clicked)
-        self.preheat_filament_layout.addWidget(self.preheat_pla)
-        self.preheat_filament_layout.addWidget(BaseVLine())
-        self.preheat_abs = BasePushButton()
-        self.preheat_abs.setFixedHeight(64)
-        self.preheat_abs.clicked.connect(self.on_preheat_abs_clicked)
-        self.preheat_filament_layout.addWidget(self.preheat_abs)
-        self.preheat_filament_layout.addWidget(BaseVLine())
-        self.preheat_pet = BasePushButton()
-        self.preheat_pet.setFixedHeight(64)
-        self.preheat_pet.clicked.connect(self.on_preheat_pet_clicked)
-        self.preheat_filament_layout.addWidget(self.preheat_pet)
-        self.preheat_filament_layout.addWidget(BaseVLine())
-        self.preheat_pa = BasePushButton()
-        self.preheat_pa.setFixedHeight(64)
-        self.preheat_pa.clicked.connect(self.on_preheat_pa_clicked)
-        self.preheat_filament_layout.addWidget(self.preheat_pa)
-        self.preheat_body_layout.addLayout(self.preheat_filament_layout)
-        self.preheat_body_layout.addWidget(BaseHLine())
+        self.preheat_filament = PreHeatWidget(self._printer, self._parent, False)
+        self.preheat_filament.preheat_changed.connect(self.reset_preheat_handle_ui)
+        self.preheat_body_layout.addWidget(self.preheat_filament)
         self.preheat_text = QLabel()
         self.preheat_text.setWordWrap(True)
         self.preheat_text.setAlignment(Qt.AlignCenter)
@@ -212,7 +171,6 @@ class LevelWizardPage(QWidget):
         for d in range(len(self.offset_distance_list)):
             button = BasePushButton()
             button.setText(self.offset_distance_list[d])
-            button.setObjectName("dataButton")
             self.offset_button_group.addButton(button, d)
             if self.offset_distance_list[d] == self.offset_distance_default:
                 self.on_offset_distance_button_clicked(self.offset_button_group.button(d))
@@ -352,13 +310,7 @@ class LevelWizardPage(QWidget):
         self.start_button.setText(self.tr("Start Auto-leveling"))
         self.remind_text.setText(
             self.tr("Please place the PEI platform in a standardized manner, with no debris on the platform."))
-        self.preheat_thermal_left_button.setText("-")
-        self.preheat_thermal_right_button.setText("-")
         self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 170°C)"))
-        self.preheat_pla.setText("PLA")
-        self.preheat_abs.setText("ABS")
-        self.preheat_pet.setText("PET")
-        self.preheat_pa.setText("PA")
         self.clean_text.setText(self.tr("Please use a metal brush to clean the nozzle residue."))
         self.level_text.setText(self.tr("Auto-leveling, please wait."))
         self.offset_text.setText(
@@ -388,12 +340,10 @@ class LevelWizardPage(QWidget):
     def on_update_printer_information(self):
         if not self.isVisible():
             return
-        self.preheat_thermal_left_button.setText(self._printer.get_thermal('left'))
-        self.preheat_thermal_right_button.setText(self._printer.get_thermal('right'))
 
         if self.handle_stacked_widget.currentWidget() == self.preheat_handle and not self.preheat_handle.next_button.isEnabled():
-            if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 170 \
-                    and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 170:
+            if self._printer.get_temperature('left') + 3 >= self._printer.get_target('left') >= 0 \
+                    and self._printer.get_temperature('right') + 3 >= self._printer.get_target('right') >= 0:
                 self.preheat_handle.next_button.setEnabled(True)
                 self.preheat_text.setText(self.tr("Heat completed."))
 
@@ -427,10 +377,6 @@ class LevelWizardPage(QWidget):
         if platform.system().lower() == 'linux':  # test
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
-        update_style(self.preheat_pla, "unchecked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "unchecked")
         # preheat -> 170, 170
         # self._printer.write_gcode_commands("M155 S1\nM104 S170 T0\nM104 S170 T1\nG28\nT0\nG1 X0 Y20 Z50 F8400\nM155 S0")
         self._printer.write_gcode_command("T0\nM155 S1\nM104 S170 T0\nM104 S170 T1")
@@ -449,42 +395,6 @@ class LevelWizardPage(QWidget):
         self._printer.set_thermal('left', temperature)
         self._printer.set_thermal('right', temperature)
         self.reset_preheat_handle_ui()
-
-    def on_preheat_thermal_left_button_clicked(self):
-        self._parent.open_thermal_left_numberPad()
-        self.reset_preheat_handle_ui()
-
-    def on_preheat_thermal_right_button_clicked(self):
-        self._parent.open_thermal_right_numberPad()
-        self.reset_preheat_handle_ui()
-
-    def on_preheat_pla_clicked(self):
-        update_style(self.preheat_pla, "checked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "unchecked")
-        self.preheat_filament(210)
-
-    def on_preheat_abs_clicked(self):
-        self.preheat_filament(240)
-        update_style(self.preheat_pla, "unchecked")
-        update_style(self.preheat_abs, "checked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "unchecked")
-
-    def on_preheat_pet_clicked(self):
-        self.preheat_filament(270)
-        update_style(self.preheat_pla, "unchecked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "unchecked")
-        update_style(self.preheat_pet, "checked")
-
-    def on_preheat_pa_clicked(self):
-        self.preheat_filament(300)
-        update_style(self.preheat_pla, "unchecked")
-        update_style(self.preheat_abs, "unchecked")
-        update_style(self.preheat_pa, "checked")
-        update_style(self.preheat_pet, "unchecked")
 
     def on_preheat_next_button_clicked(self):
         self._printer.write_gcode_command('M400\nM104 S0 T0\nM104 S0 T1\nT0')

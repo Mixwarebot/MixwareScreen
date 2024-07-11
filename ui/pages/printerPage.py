@@ -1,7 +1,7 @@
 from qtCore import *
 from ui.components.base.basePushButton import BasePushButton
 from ui.pages.printPreparePage import PrintPreparePage
-from ui.components.temperatureBox import TemperatureBox
+from ui.components.temperatureWidget import TemperatureWidget
 from ui.pages.controlPage import ControlPage
 from ui.pages.printFilePage import PrintFilePage
 from ui.pages.settingsPage import SettingsPage
@@ -18,7 +18,7 @@ class PrinterPage(QWidget):
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(20, 0, 20, 20)
         self.layout.setSpacing(0)
-        self.temperatureWidget = TemperatureBox(self._printer)
+        self.temperatureWidget = TemperatureWidget(self._printer)
         self.temperatureWidget.left.clicked.connect(self._parent.open_thermal_left_numberPad)
         self.temperatureWidget.right.clicked.connect(self._parent.open_thermal_right_numberPad)
         self.temperatureWidget.bed.clicked.connect(self._parent.open_thermal_bed_numberPad)

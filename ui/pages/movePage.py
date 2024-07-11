@@ -1,15 +1,15 @@
 from qtCore import *
 from ui.components.base.baseLine import BaseVLine, BaseHLine
 from ui.components.base.basePushButton import BasePushButton
+from ui.components.segmented import Segmented
 
 
 class MovePage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
         self._printer = printer
-        self._parent = parent
-
         self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
+        self._parent = parent
 
         self.setObjectName("movePage")
         self.layout = QVBoxLayout(self)
@@ -20,7 +20,7 @@ class MovePage(QWidget):
         self.frame.setObjectName("frameBox")
         frame_layout = QVBoxLayout(self.frame)
         frame_layout.setContentsMargins(20, 20, 20, 20)
-        frame_layout.setSpacing(20)
+        frame_layout.setSpacing(10)
 
         distance_layout = QVBoxLayout()
         distance_layout.setContentsMargins(0, 0, 0, 0)
@@ -31,28 +31,12 @@ class MovePage(QWidget):
         self.distance_title.setFixedHeight(40)
         distance_layout.addWidget(self.distance_title)
 
-        self.distance_list = ["0.1", "0.5", "1", "5", "10", "50", "100"]
-        self.distance_default = "5"
-        self.distance_current_id = 0
-        self.distance_frame = QFrame()
-        self.distance_frame.setObjectName("frameOutLine")
-        self.distance_frame.setFixedHeight(88)
-
-        distance_frame_layout = QHBoxLayout(self.distance_frame)
-        distance_frame_layout.setContentsMargins(5, 1, 5, 1)
-        distance_frame_layout.setSpacing(0)
-
         self.button_group = QButtonGroup()
         self.button_group.buttonClicked.connect(self.on_button_group_clicked)
-        for d in range(len(self.distance_list)):
-            button = BasePushButton()
-            button.setText(self.distance_list[d])
-            button.setObjectName("dataButton")
-            self.button_group.addButton(button, d)
-            if self.distance_list[d] == self.distance_default:
-                self.on_button_group_clicked(self.button_group.button(d))
-            distance_frame_layout.addWidget(button)
-        distance_layout.addWidget(self.distance_frame)
+
+        self.distance = Segmented(options=[0.1, 0.5, 1, 5, 10, 50, 100], default_value=10)
+        self.distance.setObjectName("frameOutLine")
+        distance_layout.addWidget(self.distance)
         frame_layout.addLayout(distance_layout, 1)
 
         frame_midle_layout = QHBoxLayout()
@@ -260,27 +244,27 @@ class MovePage(QWidget):
 
     @pyqtSlot()
     def on_x_dec_button_clicked(self):
-        self.move_axis('X', -float(self.distance_list[self.distance_current_id]))
+        self.move_axis('X', -float(self.distance.value))
 
     @pyqtSlot()
     def on_x_add_button_clicked(self):
-        self.move_axis('X', float(self.distance_list[self.distance_current_id]))
+        self.move_axis('X', float(self.distance.value))
 
     @pyqtSlot()
     def on_y_dec_button_clicked(self):
-        self.move_axis('Y', -float(self.distance_list[self.distance_current_id]))
+        self.move_axis('Y', -float(self.distance.value))
 
     @pyqtSlot()
     def on_y_add_button_clicked(self):
-        self.move_axis('Y', float(self.distance_list[self.distance_current_id]))
+        self.move_axis('Y', float(self.distance.value))
 
     @pyqtSlot()
     def on_z_dec_button_clicked(self):
-        self.move_axis('Z', -float(self.distance_list[self.distance_current_id]))
+        self.move_axis('Z', -float(self.distance.value))
 
     @pyqtSlot()
     def on_z_add_button_clicked(self):
-        self.move_axis('Z', float(self.distance_list[self.distance_current_id]))
+        self.move_axis('Z', float(self.distance.value))
 
     @pyqtSlot(QAbstractButton)
     def on_button_group_clicked(self, button):
@@ -288,11 +272,11 @@ class MovePage(QWidget):
             self._printer.write_gcode_command('T0')
         elif button.text() == self.tr("Right"):
             self._printer.write_gcode_command('T1')
-        elif button.text() in self.distance_list:
-            if self.button_group.id(button) != self.distance_current_id:
-                update_style(self.button_group.button(self.distance_current_id), "unchecked")
-                update_style(self.button_group.button(self.button_group.id(button)), "checked")
-                self.distance_current_id = self.button_group.id(button)
+        # elif button.text() in self.distance_list:
+        #     if self.button_group.id(button) != self.distance_current_id:
+        #         update_style(self.button_group.button(self.distance_current_id), "unchecked")
+        #         update_style(self.button_group.button(self.button_group.id(button)), "checked")
+        #         self.distance_current_id = self.button_group.id(button)
 
     def on_disabled_button_clicked(self):
         self._printer.write_gcode_command('M84')

@@ -188,7 +188,7 @@ class PrintFilePage(QScrollArea):
         self.update_file(self.root_path)
 
     def set_local_path(self):
-        self.root_path = QDir('resource/gcode').absolutePath()
+        self.root_path = QDir('resource/gcodes').absolutePath()
 
     def set_usb_path(self):
         self.root_path = QDir('./').absolutePath()

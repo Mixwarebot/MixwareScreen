@@ -1,6 +1,7 @@
 from qtCore import *
 from ui.components.base.basePushButton import BasePushButton
-from ui.components.temperatureBox import TemperatureBox
+from ui.components.segmented import Segmented
+from ui.components.temperatureWidget import TemperatureWidget
 
 
 class TemperaturePage(QWidget):
@@ -22,14 +23,14 @@ class TemperaturePage(QWidget):
         self.layout.setContentsMargins(20, 0, 20, 0)
         self.layout.setSpacing(10)
 
-        self.temperature_box = TemperatureBox(self._printer)
+        self.temperature_box = TemperatureWidget(self._printer)
         self.temperature_group = QButtonGroup()
         self.temperature_group.idClicked.connect(self.on_temperature_button_group_clicked)
         self.temperature_group.addButton(self.temperature_box.left, 0)
         self.temperature_group.addButton(self.temperature_box.right, 1)
         self.temperature_group.addButton(self.temperature_box.bed, 2)
         self.temperature_group.addButton(self.temperature_box.chamber, 3)
-        self.layout.addWidget(self.temperature_box, 5)
+        self.layout.addWidget(self.temperature_box)
 
         self.degree_layout = QVBoxLayout()
         self.degree_layout.setContentsMargins(0, 0, 0, 0)
@@ -40,28 +41,8 @@ class TemperaturePage(QWidget):
         self.degree_title.setStyleSheet("padding-left: 10px;")
         self.degree_layout.addWidget(self.degree_title)
 
-        self.degree_frame = QFrame()
-        self.degree_frame.setObjectName("frameBox")
-        self.degree_frame.setFixedHeight(88)
-        self.degree_list = ["1", "5", "10", "20"]
-        self.degree_default = "10"
-        self.degree_current_id = 0
-
-        self.degree_frame_layout = QHBoxLayout(self.degree_frame)
-        self.degree_frame_layout.setContentsMargins(5, 1, 5, 1)
-        self.degree_frame_layout.setSpacing(0)
-
-        self.degree_group = QButtonGroup()
-        self.degree_group.buttonClicked.connect(self.on_degree_button_group_clicked)
-        for d in range(len(self.degree_list)):
-            button = BasePushButton()
-            button.setText(self.degree_list[d])
-            button.setObjectName("dataButton")
-            self.degree_group.addButton(button, d)
-            if self.degree_list[d] == self.degree_default:
-                self.on_degree_button_group_clicked(self.degree_group.button(d))
-            self.degree_frame_layout.addWidget(button)
-        self.degree_layout.addWidget(self.degree_frame)
+        self.degree = Segmented(options=[1, 5, 10, 20], default_value=10)
+        self.degree_layout.addWidget(self.degree)
         self.layout.addLayout(self.degree_layout)
 
         self.frame = QFrame()
@@ -118,14 +99,6 @@ class TemperaturePage(QWidget):
             if heater == 'chamber' and degree > 60: degree = 60
             self._printer.set_thermal(heater, degree)
 
-    @pyqtSlot(QAbstractButton)
-    def on_degree_button_group_clicked(self, button):
-        if button.text() in self.degree_list:
-            if self.degree_group.id(button) != self.degree_current_id:
-                update_style(self.degree_group.button(self.degree_current_id), "unchecked")
-                update_style(self.degree_group.button(self.degree_group.id(button)), "checked")
-                self.degree_current_id = self.degree_group.id(button)
-
     @pyqtSlot(int)
     def on_temperature_button_group_clicked(self, _id):
         self.heater[self.thermal[_id]] = not self.heater[self.thermal[_id]]
@@ -142,14 +115,14 @@ class TemperaturePage(QWidget):
     def on_add_button_clicked(self):
         for thermal in self.thermal:
             if self.heater[thermal]:
-                self.change_target_temperature(thermal, int(self.degree_list[self.degree_current_id]))
+                self.change_target_temperature(thermal, self.degree.value)
         self.show_tips()
 
     @pyqtSlot()
     def on_dec_button_clicked(self):
         for thermal in self.thermal:
             if self.heater[thermal]:
-                self.change_target_temperature(thermal, -int(self.degree_list[self.degree_current_id]))
+                self.change_target_temperature(thermal, -self.degree.value)
         self.show_tips()
 
     @pyqtSlot()

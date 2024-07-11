@@ -80,7 +80,6 @@ class BabyStepPad(BaseRoundDialog):
         for d in range(len(self.baby_step_distance_list)):
             button = BasePushButton()
             button.setText(self.baby_step_distance_list[d])
-            button.setObjectName("dataButton")
             self.baby_step_button_group.addButton(button, d)
             if self.baby_step_distance_list[d] == self.baby_step_distance_default:
                 self.on_button_clicked(self.baby_step_button_group.button(d))

@@ -298,17 +298,8 @@ QPushButton#deleteButton {
   border-left: 1px solid #181818;
 }
 
-QPushButton:pressed {
+QPushButton:pressed, QPushButton#unchecked:pressed {
   background-color: rgba(0, 0, 0, 0.1);
-}
-
-QPushButton#dataButton {
-  margin-right: 5px;
-  border-radius: 0;
-}
-
-QPushButton#dataButton:pressed {
-  background-color: transparent;
 }
 
 QPushButton#closeButton {

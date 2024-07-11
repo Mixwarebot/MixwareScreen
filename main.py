@@ -10,6 +10,7 @@ from gitRepository import GitRepository
 from logger import MixLogger
 from printer import MixwareScreenPrinter
 from qtCore import *
+from server import Server
 from ui.mixwareScreen import MixwareScreen
 
 
@@ -45,7 +46,7 @@ if __name__ == "__main__":
     config = MixwareScreenConfig(str(root_path))
 
     # Only used during development phase
-    if platform.system().lower() == 'windows':
+    if not is_release:
         # Output translation file
         trans()
 
@@ -64,15 +65,21 @@ if __name__ == "__main__":
     translator = QTranslator()
     reInstallTranslator(config.get_language())
 
-    if platform.system().lower() == 'linux':
+    if is_release:
         app.setOverrideCursor(QCursor(QtCore.Qt.BlankCursor))
 
     mixwareScreen = MixwareScreen(printer)
-    if platform.system().lower() == 'windows':
-        mixwareScreen.show()
-    elif platform.system().lower() == 'linux':
+    if is_release:
         mixwareScreen.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint | Qt.Tool)
         mixwareScreen.showFullScreen()
+    else:
+        mixwareScreen.show()
     mixwareScreen.updateTranslator.connect(reInstallTranslator)
+
+    httpServer = Server(printer)
+    thread = QThread()
+    httpServer.moveToThread(thread)
+    thread.started.connect(httpServer.start_server)
+    thread.start()
 
     sys.exit(app.exec())

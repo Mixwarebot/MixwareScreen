@@ -900,7 +900,7 @@ class MixwareScreenPrinter(QObject):
             self._sendCommand(command)
 
     @pyqtSlot(result=float)
-    def set_led_light(self):
+    def get_led_light(self):
         return self.information['led']['light']
 
     @pyqtSlot(float)
@@ -981,14 +981,14 @@ class MixwareScreenPrinter(QObject):
                 with open(self.power_loss_path, 'r') as file:
                     self._printing_information = json.loads(file.read())
 
-            # read gcode file
+            # read gcodes file
             try:
                 with open(self._printing_information["file"]["path"], 'rt') as f:
                     self._gcode.clear()
                     self._gcode.extend(f.read().split("\n"))
             except Exception as e:
-                logging.debug(F"Error while reading gcode file: {e}")
-                return F"Error while reading gcode file: {e}"
+                logging.debug(F"Error while reading gcodes file: {e}")
+                return F"Error while reading gcodes file: {e}"
             # start printing
             else:
                 self.print_file = self._printing_information["file"]["path"]
@@ -1148,6 +1148,10 @@ class MixwareScreenPrinter(QObject):
         return os.path.exists(self.power_loss_path)
 
     @pyqtSlot(result=bool)
+    def get_homed_axes(self, axis: str):
+        return self.information['home'][axis]
+
+    @pyqtSlot(result=bool)
     def printer_all_homed(self):
         return self.information['home']['X'] and self.information['home']['Y'] and self.information['home']['Z']
 
@@ -1157,7 +1161,7 @@ class MixwareScreenPrinter(QObject):
             progress = self._gcode_position / len(self._gcode)
             return round(progress, 2)
         except ZeroDivisionError:
-            logging.error("Error: no gcode data !")
+            logging.error("Error: no gcodes data !")
             return 0
 
     @pyqtSlot(result=bool)
@@ -1206,7 +1210,7 @@ class MixwareScreenPrinter(QObject):
     @pyqtSlot()
     def print_verify(self):
         logging.debug(F"Start print verify.")
-        path = "resource/gcode/print_verify.gcode"
+        path = "resource/gcodes/print_verify.gcode"
         with open(path, 'rt') as f:
             self._gcode.clear()
             self._gcode.extend(f.read().split("\n"))
