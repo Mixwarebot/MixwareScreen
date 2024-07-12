@@ -102,7 +102,7 @@ install_nginx()
     fi
 
     if [ -f /etc/nginx/sites-enabled/default ]; then
-      rm /etc/nginx/sites-enabled/default;
+      sudo rm /etc/nginx/sites-enabled/default;
     fi
 
     sudo cp -f ${MSPATH}/resource/webClient/mixware /etc/nginx/sites-available/mixware
