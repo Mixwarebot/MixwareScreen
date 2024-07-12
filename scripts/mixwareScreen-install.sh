@@ -91,6 +91,10 @@ install_packages()
 #     on buster it's installed as a dependency of mpv
 #     it doesn't happen on bullseye
     sudo systemctl mask ModemManager.service
+
+    sudo mv ${MSPATH}/resource/webClient/mixware /etc/nginx/sites-available/mixware
+    sudo ln -s /etc/nginx/sites-available/mixware /etc/nginx/sites-enabled/
+    sudo systemctl enable nginx
 }
 
 pip_requirements()
