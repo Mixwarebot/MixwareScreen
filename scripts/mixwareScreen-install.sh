@@ -4,7 +4,7 @@ SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 MSPATH=$(sed 's/\/scripts//g' <<< $SCRIPTPATH)
 MSENV="${MIXWARESCREEN_VENV:-${HOME}/.MixwareScreen-env}"
 
-XSERVER="xinit xinput x11-xserver-utils xserver-xorg-input-evdev xserver-xorg-input-libinput nginx"
+XSERVER="xinit xinput x11-xserver-utils xserver-xorg-input-evdev xserver-xorg-input-libinput"
 FBDEV="xserver-xorg-video-fbdev"
 MISC="librsvg2-common libopenjp2-7 libatlas-base-dev wireless-tools libdbus-glib-1-dev autoconf python3-pip"
 OPTIONAL="xserver-xorg-legacy fonts-nanum fonts-ipafont libmpv-dev"
@@ -91,10 +91,23 @@ install_packages()
 #     on buster it's installed as a dependency of mpv
 #     it doesn't happen on bullseye
     sudo systemctl mask ModemManager.service
+}
 
-    sudo rm /etc/nginx/sites-enabled/default
+install_nginx()
+{
+    if dpkg-query -s nginx &> /dev/null; then
+      echo_ok "Nginx exits"
+    else
+      sudo apt-get install -y nginx
+    fi
+
+    if [ -f /etc/nginx/sites-enabled/default ]; then
+      rm /etc/nginx/sites-enabled/default;
+    fi
+
     sudo cp -f ${MSPATH}/resource/webClient/mixware /etc/nginx/sites-available/mixware
     sudo ln -s /etc/nginx/sites-available/mixware /etc/nginx/sites-enabled/
+
     sudo systemctl enable nginx
     sudo systemctl start nginx
 }
@@ -169,6 +182,7 @@ fi
 install_packages
 pip_requirements
 modify_user
+install_nginx
 install_systemd_service
 update_x11
 echo_ok "MixwareScreen was installed"
