@@ -92,9 +92,11 @@ install_packages()
 #     it doesn't happen on bullseye
     sudo systemctl mask ModemManager.service
 
+    sudo rm /etc/nginx/sites-enabled/default
     sudo cp ${MSPATH}/resource/webClient/mixware /etc/nginx/sites-available/mixware
     sudo ln -s /etc/nginx/sites-available/mixware /etc/nginx/sites-enabled/
     sudo systemctl enable nginx
+    sudo systemctl start nginx
 }
 
 pip_requirements()
