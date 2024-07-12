@@ -4,7 +4,7 @@ SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 MSPATH=$(sed 's/\/scripts//g' <<< $SCRIPTPATH)
 MSENV="${MIXWARESCREEN_VENV:-${HOME}/.MixwareScreen-env}"
 
-XSERVER="xinit xinput x11-xserver-utils xserver-xorg-input-evdev xserver-xorg-input-libinput"
+XSERVER="xinit xinput x11-xserver-utils xserver-xorg-input-evdev xserver-xorg-input-libinput nginx"
 FBDEV="xserver-xorg-video-fbdev"
 MISC="librsvg2-common libopenjp2-7 libatlas-base-dev wireless-tools libdbus-glib-1-dev autoconf python3-pip"
 OPTIONAL="xserver-xorg-legacy fonts-nanum fonts-ipafont libmpv-dev"
