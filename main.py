@@ -38,48 +38,52 @@ def reInstallTranslator(language="English"):
 
 
 if __name__ == "__main__":
-    QCoreApplication.setOrganizationName('rootFolder')
-    app = QApplication([])
+    try:
+        QCoreApplication.setOrganizationName('rootFolder')
+        app = QApplication([])
 
-    root_path = Path(__file__).resolve().parent
+        root_path = Path(__file__).resolve().parent
 
-    config = MixwareScreenConfig(str(root_path))
+        config = MixwareScreenConfig(str(root_path))
 
-    # Only used during development phase
-    if not is_release:
-        # Output translation file
-        trans()
+        # Only used during development phase
+        if not is_release:
+            # Output translation file
+            trans()
 
-    ms_logger = MixLogger()
-    ms_logger.log_file = root_path / "MixwareScreen.log"
-    ms_logger.software_version = config.get_version() + ".alpha"
-    ms_logger.setup_logging()
+        ms_logger = MixLogger()
+        ms_logger.log_file = root_path / "MixwareScreen.log"
+        ms_logger.software_version = config.get_version() + ".alpha"
+        ms_logger.setup_logging()
 
-    logging.info("Initializing Mixware Screen")
-    printer = MixwareScreenPrinter()
-    printer.config = config
-    printer.repository = GitRepository(str(root_path))
-    printer._version = ms_logger.software_version
+        logging.info("Initializing Mixware Screen")
+        printer = MixwareScreenPrinter()
+        printer.config = config
+        printer.repository = GitRepository(str(root_path))
+        printer._version = ms_logger.software_version
 
-    # init translator
-    translator = QTranslator()
-    reInstallTranslator(config.get_language())
+        # init translator
+        translator = QTranslator()
+        reInstallTranslator(config.get_language())
 
-    if is_release:
-        app.setOverrideCursor(QCursor(QtCore.Qt.BlankCursor))
+        if is_release:
+            app.setOverrideCursor(QCursor(QtCore.Qt.BlankCursor))
 
-    mixwareScreen = MixwareScreen(printer)
-    if is_release:
-        mixwareScreen.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint | Qt.Tool)
-        mixwareScreen.showFullScreen()
-    else:
-        mixwareScreen.show()
-    mixwareScreen.updateTranslator.connect(reInstallTranslator)
+        mixwareScreen = MixwareScreen(printer)
+        if is_release:
+            mixwareScreen.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint | Qt.Tool)
+            mixwareScreen.showFullScreen()
+        else:
+            mixwareScreen.show()
+        mixwareScreen.updateTranslator.connect(reInstallTranslator)
 
-    httpServer = Server(printer)
-    thread = QThread()
-    httpServer.moveToThread(thread)
-    thread.started.connect(httpServer.start_server)
-    thread.start()
+        httpServer = Server(printer)
+        thread = QThread()
+        httpServer.moveToThread(thread)
+        thread.started.connect(httpServer.start_server)
+        thread.start()
 
-    sys.exit(app.exec())
+        sys.exit(app.exec())
+    except:
+        os.system('sudo clear')
+        os.system("./scripts/mixwareScreen-install.sh")
