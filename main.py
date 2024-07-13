@@ -38,9 +38,9 @@ def reInstallTranslator(language="English"):
 
 
 if __name__ == "__main__":
+    app = QApplication([])
     try:
         QCoreApplication.setOrganizationName('rootFolder')
-        app = QApplication([])
 
         root_path = Path(__file__).resolve().parent
 
@@ -82,8 +82,8 @@ if __name__ == "__main__":
         httpServer.moveToThread(thread)
         thread.started.connect(httpServer.start_server)
         thread.start()
-
-        sys.exit(app.exec())
     except:
         os.system('sudo clear')
         os.system("./scripts/mixwareScreen-install.sh")
+
+    sys.exit(app.exec())
