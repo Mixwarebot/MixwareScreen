@@ -105,7 +105,9 @@ install_nginx()
       sudo rm /etc/nginx/sites-enabled/default;
     fi
 
-    sudo cp -f ${MSPATH}/resource/webClient/mixware /etc/nginx/sites-available/mixware
+    sudo cp -f ${MSPATH}/resource/webClient/common_vars.conf /etc/nginx/conf.d/
+    sudo cp -f ${MSPATH}/resource/webClient/upstreams.conf /etc/nginx/conf.d/
+    sudo cp -f ${MSPATH}/resource/webClient/mixware /etc/nginx/sites-available/
     sudo ln -s /etc/nginx/sites-available/mixware /etc/nginx/sites-enabled/
 
     sudo systemctl enable nginx
