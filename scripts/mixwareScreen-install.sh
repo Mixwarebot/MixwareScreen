@@ -175,6 +175,8 @@ start_MixwareScreen()
     echo_text "Starting service..."
     sudo systemctl stop MixwareScreen
     sudo systemctl start MixwareScreen
+    sudo systemctl stop nginx
+    sudo systemctl start nginx
 }
 
 if [ "$EUID" == 0 ]
