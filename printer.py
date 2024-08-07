@@ -1104,7 +1104,7 @@ class MixwareScreenPrinter(QObject):
                     for path in path_list:
                         if path == "gcodes":
                             usb_path = path_list[path_list.index(path) + 1]
-                            self.power_loss_path = F"{self.config.get_folder_rootPath()}/{usb_path}/.power_loss.json"
+                            self.power_loss_path = F"{self.config.get_folder_rootPath()}/gcodes/{usb_path}/.power_loss.json"
                             self.config.set_power_loss_path(self.power_loss_path)
                             logging.info(F"Update Power loss path: {self.power_loss_path}.")
                             break

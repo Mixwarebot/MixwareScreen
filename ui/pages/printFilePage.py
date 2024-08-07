@@ -193,7 +193,7 @@ class PrintFilePage(QScrollArea):
     def set_usb_path(self):
         self.root_path = QDir('./').absolutePath()
         if is_release:
-            self.root_path = QDir(self._printer.config.get_folder_rootPath()).absolutePath()
+            self.root_path = QDir(self._printer.config.get_folder_rootPath()).absolutePath() + '/gcodes'
 
     def update_file(self, path: str):
         dir = QDir(path)
