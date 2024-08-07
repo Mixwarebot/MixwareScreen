@@ -51,7 +51,7 @@ class DialIndicatorPage(QWidget):
         self.remind_body_layout.setSpacing(0)
         self.remind_body_layout.setAlignment(Qt.AlignCenter)
 
-        self.remind_logo = MovieLabel("resource/image/clean_bed.gif")
+        self.remind_logo = MovieLabel("resource/image/clean_bed.gif", 320, 320)
         self.remind_logo.setFixedSize(320, 320)
         self.remind_body_layout.addWidget(self.remind_logo)
 
@@ -89,7 +89,7 @@ class DialIndicatorPage(QWidget):
         self.clean_body_layout.setSpacing(0)
         self.clean_body_layout.setAlignment(Qt.AlignCenter)
 
-        self.clean_logo = MovieLabel("resource/image/clean_nozzle.gif")
+        self.clean_logo = MovieLabel("resource/image/clean_nozzle.gif", 320, 220)
         self.clean_logo.setFixedSize(320, 220)
         self.clean_body_layout.addWidget(self.clean_logo)
 
@@ -108,7 +108,7 @@ class DialIndicatorPage(QWidget):
         self.place_body_layout.setSpacing(0)
         self.place_body_layout.setAlignment(Qt.AlignCenter)
 
-        self.place_logo = MovieLabel("resource/image/level_measure.gif")
+        self.place_logo = MovieLabel("resource/image/level_measure.gif", 320, 320)
         self.place_logo.setFixedSize(320, 320)
         self.place_body_layout.addWidget(self.place_logo)
 
@@ -127,7 +127,7 @@ class DialIndicatorPage(QWidget):
         self.measure_left_body_layout.setSpacing(0)
         self.measure_left_body_layout.setAlignment(Qt.AlignCenter)
 
-        self.measure_left_logo = MovieLabel("resource/image/level_measure_left.gif")
+        self.measure_left_logo = MovieLabel("resource/image/level_measure_left.gif", 320, 320)
         self.measure_left_logo.setFixedSize(320, 320)
         self.measure_left_body_layout.addWidget(self.measure_left_logo)
 
@@ -146,7 +146,7 @@ class DialIndicatorPage(QWidget):
         self.measure_right_body_layout.setSpacing(0)
         self.measure_right_body_layout.setAlignment(Qt.AlignCenter)
 
-        self.measure_right_logo = MovieLabel("resource/image/level_measure_right.gif")
+        self.measure_right_logo = MovieLabel("resource/image/level_measure_right.gif", 320, 320)
         self.measure_right_logo.setFixedSize(320, 320)
         self.measure_right_body_layout.addWidget(self.measure_right_logo)
 
@@ -230,14 +230,14 @@ class DialIndicatorPage(QWidget):
                 self.message_list[index + 2].show()
 
     def on_remind_next_button_clicked(self):
-        if platform.system().lower() == 'linux':
+        if is_release:
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
         # preheat -> 170, 170
         self._printer.write_gcode_command("T0\nM155 S1\nM104 S170 T0\nM104 S170 T1")
         self._printer.auto_home()
-        self._printer.move_to_xy(0, 20, True)
-        self._printer.move_to_z(150, True)
+        self._printer.move_to_xy(0, 20, wait=True)
+        self._printer.move_to_z(150, wait=True)
         self._printer.write_gcode_command("M155 S0")
 
     def reset_preheat_handle_ui(self):
@@ -260,7 +260,7 @@ class DialIndicatorPage(QWidget):
 
     def on_preheat_next_button_clicked(self):
         self._printer.write_gcode_command('M400\nM104 S0 T0\nM104 S0 T1\nT0')
-        self._printer.move_to_x(190, True)
+        self._printer.move_to_x(190, wait=True)
         self.clean_handle.next_button.setEnabled(False)
         self.clean_timer.start(1900)
         self.goto_next_step_stacked_widget()
@@ -272,14 +272,14 @@ class DialIndicatorPage(QWidget):
     def on_clean_next_button_clicked(self):
         if self._printer.get_extruder() == "left":
             self._printer.write_gcode_command('T1')
-            self._printer.move_to_x(190, True)
+            self._printer.move_to_x(190, wait=True)
             self.clean_handle.next_button.setEnabled(False)
             self.clean_timer.start(4000)
         else:
             self._printer.write_gcode_command('T0')
             self._printer.auto_home()
-            self._printer.move_to_xy(190, 160, True)
-            self._printer.move_to_z(150, True)
+            self._printer.move_to_xy(190, 160, wait=True)
+            self._printer.move_to_z(150, wait=True)
             self.goto_next_step_stacked_widget()
 
     def on_place_next_button_clicked(self):

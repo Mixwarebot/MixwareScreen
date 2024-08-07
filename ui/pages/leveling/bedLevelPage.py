@@ -22,7 +22,7 @@ class BedLevelPage(QWidget):
         self.diagram_frame_layout = QHBoxLayout(self.diagram_frame)
         self.diagram_frame_layout.setContentsMargins(20, 0, 20, 0)
         self.diagram_frame_layout.setAlignment(Qt.AlignCenter)
-        self.diagram_logo = MovieLabel("resource/image/bed_level.gif")
+        self.diagram_logo = MovieLabel("resource/image/bed_level.gif", 320, 320)
         self.diagram_logo.setFixedSize(320, 320)
         self.diagram_frame_layout.addWidget(self.diagram_logo)
         self.layout.addWidget(self.diagram_frame)

@@ -51,7 +51,7 @@ class PrintVerifyPage(QWidget):
         self.remind_body_layout.setContentsMargins(20, 0, 20, 0)
         self.remind_body_layout.setSpacing(0)
         self.remind_body_layout.setAlignment(Qt.AlignCenter)
-        self.remind_logo = MovieLabel("resource/image/clean_bed.gif")
+        self.remind_logo = MovieLabel("resource/image/clean_bed.gif", 320, 320)
         self.remind_logo.setFixedSize(320, 320)
         self.remind_body_layout.addWidget(self.remind_logo)
         self.remind_text = QLabel()
@@ -127,7 +127,7 @@ class PrintVerifyPage(QWidget):
         self.finished_body_layout = QVBoxLayout(self.finished_handle.body)
         self.finished_body_layout.setContentsMargins(0, 20, 0, 0)
         self.finished_body_layout.setSpacing(0)
-        self.verity_logo = MovieLabel("resource/image/verity.gif")
+        self.verity_logo = MovieLabel("resource/image/verity.gif", 320, 320)
         self.verity_logo.setFixedHeight(320)
         self.finished_body_layout.addWidget(self.verity_logo)
         self.finished_text = QLabel()
@@ -283,7 +283,7 @@ class PrintVerifyPage(QWidget):
                 self._distance_current_id = self._button_group.id(button)
 
     def on_remind_next_button_clicked(self):
-        if platform.system().lower() == 'linux':
+        if is_release:
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
         self.preheat_filament.init_filaments()
@@ -307,8 +307,8 @@ class PrintVerifyPage(QWidget):
 
     def on_clean_next_button_clicked(self):
         self._printer.auto_home()
-        self._printer.move_to_xy(190, 20, True)
-        self._printer.move_to_z(150, True)
+        self._printer.move_to_xy(190, 20, wait=True)
+        self._printer.move_to_z(150, wait=True)
         self.goto_next_step_stacked_widget()
         self._parent.footer.setEnabled(True)
         self.finished_handle.next_button.setText(self.tr("Done."))

@@ -1,29 +1,31 @@
-import platform
 import re
 
 from printer import MixwareScreenPrinterStatus
-from qtCore import *
 from ui.components.base.baseLine import BaseHLine, BaseVLine
 from ui.components.base.basePushButton import BasePushButton
 from ui.components.imageItem import ImageItem
-from ui.components.preHeatWidget import PreHeatWidget
-from ui.components.handleBar import HandleBar
-from ui.components.baseTitleFrame import BaseTitleFrame
 from ui.components.leveling.bedMeshGraph import BedMeshGraph
-from ui.components.movieLabel import MovieLabel
+from ui.components.preHeatWidget import PreHeatWidget
 from ui.components.segmented import Segmented
 from ui.components.thermalWidget import ThermalWidget
+from ui.pages.leveling.xYProbeTargetPage import *
+
+enabled_verity = False
 
 
 class UsePreparePage(QWidget):
     def __init__(self, printer, parent):
         super().__init__()
+        self.xyoc_state = None
+        self.xyoc_offsets_x = None
+        self.xyoc_offsets_y = None
         self._message_title_list = None
         self._printer = printer
         self._parent = parent
 
         self._printer.updatePrinterStatus.connect(self.on_update_printer_status)
         self._printer.updatePrinterInformation.connect(self.on_update_printer_information)
+        self._printer.endstops_hit.connect(self.on_endstops_hit)
 
         self.offset = {
             'left': {'X': 0.0, 'Y': 0.0, 'Z': 0.0},
@@ -75,23 +77,26 @@ class UsePreparePage(QWidget):
         self.start_tips_body_layout = QVBoxLayout(self.start_tips_handle.body)
         self.start_tips_body_layout.setContentsMargins(20, 10, 20, 10)
         self.start_tips_text = QLabel()
-        self.start_tips_text.setFixedHeight(48)
+        self.start_tips_text.setFixedHeight(36)
         self.start_tips_text.setWordWrap(True)
         self.start_tips_text.setAlignment(Qt.AlignCenter)
         self.start_tips_body_layout.addWidget(self.start_tips_text)
         self.start_tips_frame = QFrame()
-        # self.start_tips_frame.setObjectName("frameOutLine")
-        # self.start_tips_frame.setFixedHeight(318)
         self.start_tips_frame_layout = QVBoxLayout(self.start_tips_frame)
         self.start_tips_frame_layout.setContentsMargins(0, 0, 0, 0)
-        self.start_tips_filament = ImageItem("resource/image/start_filaments")
-        self.start_tips_frame_layout.addWidget(self.start_tips_filament)
-        self.start_tips_dial = ImageItem("resource/image/start_dial")
-        self.start_tips_frame_layout.addWidget(self.start_tips_dial)
-        self.start_tips_brush = ImageItem("resource/image/start_brush")
-        self.start_tips_frame_layout.addWidget(self.start_tips_brush)
         self.start_tips_pei = ImageItem("resource/image/start_pei")
         self.start_tips_frame_layout.addWidget(self.start_tips_pei)
+        self.start_tips_filament = ImageItem("resource/image/start_filaments")
+        self.start_tips_frame_layout.addWidget(self.start_tips_filament)
+        self.start_tips_brush = ImageItem("resource/image/start_brush")
+        self.start_tips_frame_layout.addWidget(self.start_tips_brush)
+        self.start_tips_tool_layout = QHBoxLayout()
+        self.start_tips_tool_layout.setContentsMargins(0, 0, 0, 0)
+        self.start_tips_dial = ImageItem("resource/image/start_dial")
+        self.start_tips_tool_layout.addWidget(self.start_tips_dial)
+        self.start_tips_xypoc = ImageItem("resource/image/start_xyoc")
+        self.start_tips_tool_layout.addWidget(self.start_tips_xypoc)
+        self.start_tips_frame_layout.addLayout(self.start_tips_tool_layout)
         self.start_tips_body_layout.addWidget(self.start_tips_frame)
         self.handle_stacked_widget.addWidget(self.start_tips_handle)
 
@@ -102,7 +107,7 @@ class UsePreparePage(QWidget):
         self.remind_body_layout.setContentsMargins(20, 0, 20, 0)
         self.remind_body_layout.setSpacing(0)
         self.remind_body_layout.setAlignment(Qt.AlignCenter)
-        self.remind_logo = MovieLabel("resource/image/clean_bed.gif")
+        self.remind_logo = MovieLabel("resource/image/clean_bed.gif", 320, 320)
         self.remind_logo.setFixedSize(320, 320)
         self.remind_body_layout.addWidget(self.remind_logo)
         self.remind_text = QLabel()
@@ -118,10 +123,10 @@ class UsePreparePage(QWidget):
         self.preheat_body_layout = QVBoxLayout(self.preheat_handle.body)
         self.preheat_body_layout.setContentsMargins(20, 0, 20, 0)
         self.preheat_body_layout.setSpacing(0)
-        self.preheat_filament = PreHeatWidget(self._printer, self._parent)
+        self.preheat_filament = PreHeatWidget(self._printer, self._parent, show_bed=enabled_verity)
         self.preheat_filament.preheat_changed.connect(self.reset_preheat_handle_ui)
         self.preheat_body_layout.addWidget(self.preheat_filament)
-        self.preheat_logo = MovieLabel("resource/image/place_filament.gif")
+        self.preheat_logo = MovieLabel("resource/image/place_filament.gif", 320, 388)
         self.preheat_logo.setFixedSize(320, 388)
         self.preheat_body_layout.addWidget(self.preheat_logo)
         self.preheat_text = QLabel()
@@ -168,7 +173,7 @@ class UsePreparePage(QWidget):
         self.clean_body_layout.setContentsMargins(20, 0, 20, 0)
         self.clean_body_layout.setSpacing(0)
         self.clean_body_layout.setAlignment(Qt.AlignCenter)
-        self.clean_logo = MovieLabel("resource/image/clean_nozzle.gif")
+        self.clean_logo = MovieLabel("resource/image/clean_nozzle.gif", 320, 220)
         self.clean_logo.setFixedSize(320, 220)
         self.clean_body_layout.addWidget(self.clean_logo)
         self.clean_text = QLabel()
@@ -189,22 +194,17 @@ class UsePreparePage(QWidget):
         self.level_button.setStyleSheet("border-radius: 120px; border: 3px solid #ff5a00")
         self.level_button.clicked.connect(self.on_level_button_clicked)
         self.level_body_layout.addWidget(self.level_button)
+        self.level_load = MovieLabel("resource/image/loading.gif")
+        self.level_load.setFixedHeight(64)
+        self.level_body_layout.addWidget(self.level_load)
         self.level_text = QLabel()
         self.level_text.setWordWrap(True)
         self.level_text.setAlignment(Qt.AlignCenter)
         self.level_body_layout.addWidget(self.level_text)
-        self.level_load = QLabel()
-        self.level_load.setFixedSize(320, 120)
-        self.level_load.setAlignment(Qt.AlignCenter)
-        self.level_body_layout.addWidget(self.level_load)
         self.level_mesh_graph = BedMeshGraph()
         self.level_mesh_graph.body_frame.setFixedSize(320, 320)
         self.level_body_layout.addWidget(self.level_mesh_graph)
         self.handle_stacked_widget.addWidget(self.level_handle)
-
-        self.level_load_rotate = 0
-        self.level_load_timer = QTimer()
-        self.level_load_timer.timeout.connect(self.on_level_load_timer_timeout)
 
         self.offset_handle = HandleBar()
         self.offset_handle.previous_button.hide()
@@ -214,7 +214,7 @@ class UsePreparePage(QWidget):
         self.offset_body_layout.setSpacing(0)
         self.offset_logo_layout = QVBoxLayout()
         self.offset_logo_layout.setAlignment(Qt.AlignCenter)
-        self.offset_logo = MovieLabel("resource/image/adjust_offset.gif")
+        self.offset_logo = MovieLabel("resource/image/adjust_offset.gif", 320, 320)
         self.offset_logo.setFixedSize(320, 320)
         self.offset_logo_layout.addWidget(self.offset_logo)
         self.offset_text = QLabel()
@@ -268,7 +268,7 @@ class UsePreparePage(QWidget):
         self.dial_body_layout.setAlignment(Qt.AlignCenter)
         self.dial_placeholder = QLabel()
         self.dial_body_layout.addWidget(self.dial_placeholder)
-        self.dial_logo = MovieLabel("resource/image/level_measure.gif")
+        self.dial_logo = MovieLabel("resource/image/level_measure.gif", 320, 320)
         self.dial_logo.setFixedSize(320, 320)
         self.dial_measure_left_movie = QMovie("resource/image/level_measure_left.gif")
         self.dial_measure_right_movie = QMovie("resource/image/level_measure_right.gif")
@@ -284,6 +284,64 @@ class UsePreparePage(QWidget):
         self.dial_button.clicked.connect(self.on_place_button_clicked)
         self.dial_body_layout.addWidget(self.dial_button)
         self.handle_stacked_widget.addWidget(self.dial_handle)
+
+        self.xyoc_handle = HandleBar()
+        self.xyoc_handle.previous_button.hide()
+        self.xyoc_handle.next_button.clicked.connect(self.on_xyoc_next_button_clicked)
+        self.xyoc_body_layout = QVBoxLayout(self.xyoc_handle.body)
+        self.xyoc_body_layout.setContentsMargins(0, 0, 0, 0)
+        self.xyoc_place_frame = QFrame()
+        self.xyoc_place_frame_layout = QVBoxLayout(self.xyoc_place_frame)
+        self.xyoc_place_frame_layout.setContentsMargins(20, 0, 20, 20)
+        self.xyoc_place_frame_layout.setSpacing(0)
+        self.xyoc_place_frame_layout.setAlignment(Qt.AlignCenter)
+        self.xyoc_placeholder = QLabel()
+        self.xyoc_place_frame_layout.addWidget(self.xyoc_placeholder)
+        self.xyoc_x_logo = QLabel()
+        self.xyoc_x_logo.setFixedHeight(320)
+        self.xyoc_x_logo.setAlignment(Qt.AlignCenter)
+        self.xyoc_x_logo.setPixmap(QPixmap("resource/image/xyoc_x").scaledToWidth(320))
+        self.xyoc_place_frame_layout.addWidget(self.xyoc_x_logo)
+        self.xyoc_y_logo = QLabel()
+        self.xyoc_y_logo.setFixedHeight(320)
+        self.xyoc_y_logo.setAlignment(Qt.AlignCenter)
+        self.xyoc_y_logo.setPixmap(QPixmap("resource/image/xyoc_y").scaledToWidth(320))
+        self.xyoc_place_frame_layout.addWidget(self.xyoc_y_logo)
+        self.xyoc_place_text = QLabel()
+        self.xyoc_place_text.setWordWrap(True)
+        self.xyoc_place_text.setAlignment(Qt.AlignCenter)
+        self.xyoc_place_frame_layout.addWidget(self.xyoc_place_text)
+        self.xyoc_place_button = BasePushButton()
+        self.xyoc_place_button.setFixedSize(320, 48)
+        self.xyoc_place_button.setStyleSheet("border: 1px solid #D4D4D4")
+        self.xyoc_place_button.clicked.connect(self.on_xyoc_place_button_clicked)
+        self.xyoc_place_frame_layout.addWidget(self.xyoc_place_button)
+        self.xyoc_body_layout.addWidget(self.xyoc_place_frame)
+
+        self.xyoc_work_frame = QFrame()
+        self.xyoc_work_frame_layout = QVBoxLayout(self.xyoc_work_frame)
+        self.xyoc_work_frame_layout.setContentsMargins(20, 0, 20, 20)
+        self.xyoc_work_frame_layout.setSpacing(0)
+        self.xyoc_work_frame_layout.setAlignment(Qt.AlignCenter)
+        self.xyoc_start_button = BasePushButton()
+        self.xyoc_start_button.setFixedSize(240, 240)
+        self.xyoc_start_button.setStyleSheet("border-radius: 120px; border: 3px solid #ff5a00")
+        self.xyoc_start_button.clicked.connect(self.on_xyoc_start_button_clicked)
+        self.xyoc_work_frame_layout.addWidget(self.xyoc_start_button)
+        self.xyoc_load_gif = MovieLabel("resource/image/loading.gif")
+        self.xyoc_load_gif.setFixedHeight(64)
+        self.xyoc_work_frame_layout.addWidget(self.xyoc_load_gif)
+        self.xyoc_work_text = QLabel()
+        self.xyoc_work_text.setWordWrap(True)
+        self.xyoc_work_text.setAlignment(Qt.AlignCenter)
+        self.xyoc_work_frame_layout.addWidget(self.xyoc_work_text)
+        self.xyoc_end_button = BasePushButton()
+        self.xyoc_end_button.setFixedSize(320, 48)
+        self.xyoc_end_button.setStyleSheet("border: 1px solid #D4D4D4")
+        self.xyoc_end_button.clicked.connect(self.on_xyoc_end_button_clicked)
+        self.xyoc_work_frame_layout.addWidget(self.xyoc_end_button)
+        self.xyoc_body_layout.addWidget(self.xyoc_work_frame)
+        self.handle_stacked_widget.addWidget(self.xyoc_handle)
 
         self.verity_handle = HandleBar()
         self.verity_handle.previous_button.hide()
@@ -301,7 +359,7 @@ class UsePreparePage(QWidget):
         self.verity_model_logo.setAlignment(Qt.AlignCenter)
         self.verity_model_logo.setPixmap(QPixmap("resource/image/xy_verity").scaledToWidth(320))
         self.verity_work_frame_layout.addWidget(self.verity_model_logo)
-        self.verity_logo = MovieLabel("resource/image/verity.gif")
+        self.verity_logo = MovieLabel("resource/image/verity.gif", 320, 320)
         self.verity_logo.setFixedHeight(320)
         self.verity_work_frame_layout.addWidget(self.verity_logo)
         self.verity_text = QLabel()
@@ -369,7 +427,8 @@ class UsePreparePage(QWidget):
         self.verity_progress_bar.setTextVisible(False)
         self.verity_progress_bar.setFixedHeight(18)
         self.verity_body_layout.addWidget(self.verity_progress_bar)
-        self.handle_stacked_widget.addWidget(self.verity_handle)
+        # self.handle_stacked_widget.addWidget(self.verity_handle)
+
         self.handle_frame_layout.addWidget(self.handle_stacked_widget)
         self.layout.addWidget(self.handle_frame)
 
@@ -404,6 +463,7 @@ class UsePreparePage(QWidget):
         self.start_frame.show()
         self.handle_frame.hide()
         self.handle_stacked_widget.setCurrentIndex(0)
+        self.xyoc_state = ProbeTargetStatus.XYOC_STATE_CLEAN
 
     def re_translate_ui(self):
         self.start_button.setText(self.tr("Start"))
@@ -412,6 +472,7 @@ class UsePreparePage(QWidget):
         self.start_tips_dial.set_title(self.tr("Dial Indicator"))
         self.start_tips_brush.set_title(self.tr("Metal Brush"))
         self.start_tips_pei.set_title(self.tr("PEI Platform"))
+        self.start_tips_xypoc.set_title(self.tr("XY Offsets Calibrator"))
         self.remind_text.setText(
             self.tr("Please place the PEI platform in a standardized manner, with no debris on the platform."))
         self.preheat_text.setText(self.tr(
@@ -432,6 +493,12 @@ class UsePreparePage(QWidget):
         self.verity_baby_step_drop_button.setText(self.tr("Drop Bed"))
         self.offset_lift_button.setText(self.tr("Lift Bed"))
         self.offset_drop_button.setText(self.tr("Drop Bed"))
+        self.xyoc_place_text.setText(
+            self.tr("Please place the xy offsets calibrator at the designated location and connect the cable."))
+        self.xyoc_place_button.setText(self.tr("Placed"))
+        self.xyoc_start_button.setText(self.tr("Start"))
+        self.xyoc_work_text.setText(self.tr("Measuring, please wait."))
+        self.xyoc_end_button.setText(self.tr("Save"))
 
         self.offset_button_title.setText("Z: -")
         self.verity_offset_x_label.setText("X: 0.0")
@@ -445,7 +512,6 @@ class UsePreparePage(QWidget):
                 self.level_mesh_graph.show_bed_mesh(self._printer.information['bedMesh'])
                 self.level_mesh_graph.show()
                 self.level_text.setText(self.tr("Auto-leveling completed."))
-                self.level_load_timer.stop()
                 self.level_load.hide()
             elif state == MixwareScreenPrinterStatus.PRINTER_VERITY:
                 self.verity_thermal.hide()
@@ -506,7 +572,7 @@ class UsePreparePage(QWidget):
                 self._message_list[index + 2].show()
 
     def on_remind_next_button_clicked(self):
-        if platform.system().lower() == 'linux':
+        if is_release:
             self.preheat_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
         self.preheat_filament.init_filaments()
@@ -514,7 +580,7 @@ class UsePreparePage(QWidget):
 
     def reset_preheat_handle_ui(self):
         if self.preheat_handle.next_button.isEnabled():
-            if platform.system().lower() == 'linux':
+            if is_release:
                 self.preheat_handle.next_button.setEnabled(False)
             self.preheat_logo.show()
             self.preheat_text.setText(self.tr(
@@ -533,7 +599,7 @@ class UsePreparePage(QWidget):
         self.load_logo.show()
         self.load_text.setText(self.tr("Loading filament(Left)."))
         self.load_handle.previous_button.setEnabled(False)
-        if platform.system().lower() == 'linux':  # test
+        if is_release:  # test
             self.load_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
         self.preheat_filament.sync_thermal()
@@ -543,18 +609,23 @@ class UsePreparePage(QWidget):
         self.load_progress_bar.setValue(self.load_progress)
         if self.handle_stacked_widget.currentWidget() == self.load_handle:
             if self.load_progress_bar.value() >= self.load_progress_bar.maximum():
-                self.load_text.setText(self.tr("Filament loading completed.\n"
-                                               "There will be a direct printing step in the whole process. Please make sure that the filaments have been loaded into the extruder."))
+                load_comple_text = self.tr("Filament loading completed.")
+                if enabled_verity:
+                    load_comple_text += self.tr(
+                        "\n\nThere will be a direct printing step during the preset process, please ensure that the filament has been loaded into the extruder."
+                        # "在预设过程中会有直接打印步骤, 请确保耗材已装入挤出机."
+                        )
+                self.load_text.setText(load_comple_text)
                 self.load_timer.stop()
                 self.load_logo.hide()
                 self.load_handle.previous_button.setEnabled(True)
                 self.load_handle.next_button.setEnabled(True)
-                self._printer.set_thermal('left', 120)
-                self._printer.set_thermal('right', 120)
+                self._printer.set_thermal('left', 120 if enabled_verity else 0)
+                self._printer.set_thermal('right', 120 if enabled_verity else 0)
 
     def on_load_next_button_clicked(self):
         self._printer.write_gcode_command('T0')
-        self._printer.move_to_x(190, True)
+        self._printer.move_to_x(190, wait=True)
         self.clean_handle.next_button.setEnabled(False)
         self.clean_timer.start(1900)
         self.goto_next_step_stacked_widget()
@@ -567,15 +638,15 @@ class UsePreparePage(QWidget):
     def on_load_previous_button_clicked(self):
         self.goto_previous_step_stacked_widget()
         self.reset_preheat_handle_ui()
-        if platform.system().lower() == 'linux':  # test
+        if is_release:  # test
             self.preheat_handle.next_button.setEnabled(False)
         self.preheat_filament.heat_again()
 
     def on_clean_next_button_clicked(self):
-        if platform.system().lower() == 'linux':
+        if is_release:
             if self._printer.get_extruder() == "left":
                 self._printer.write_gcode_command('T1')
-                self._printer.move_to_x(190, True)
+                self._printer.move_to_x(190, wait=True)
                 self.clean_handle.next_button.setEnabled(False)
                 self.clean_timer.start(4000)
             else:
@@ -596,7 +667,6 @@ class UsePreparePage(QWidget):
         self.level_button.hide()
         self.level_load.show()
         self.level_text.show()
-        self.level_load_timer.start(250)
 
     def on_level_next_button_clicked(self):
         self.offset_distance_frame.show()
@@ -627,17 +697,19 @@ class UsePreparePage(QWidget):
         self._printer.write_gcode_commands(f"M851 Z{self.offset['left']['Z']:.2f}\nM500\nM851")
         self._printer.write_gcode_commands("G28\nT0\nG1 X190 Y160 Z150 F8400")
         self.goto_next_step_stacked_widget()
-        if platform.system().lower() == 'linux':
+        if is_release:
             self.dial_handle.next_button.setEnabled(False)
 
     def on_place_next_button_clicked(self):
-        self.verity_distance_frame.hide()
-        self.verity_offset_frame.hide()
-        self.verity_logo.hide()
-        if platform.system().lower() == 'linux':  # test
-            self.verity_handle.next_button.setEnabled(False)
-        self.preheat_filament.heat_again(True)
-        self._printer.print_verify()
+        # self.verity_distance_frame.hide()
+        # self.verity_offset_frame.hide()
+        # self.verity_logo.hide()
+        # if is_release:  # test
+        #     self.verity_handle.next_button.setEnabled(False)
+        # self.preheat_filament.heat_again(True)
+        # self._printer.print_verify()
+
+        self.xyoc_handle_set(axis='X', event='place')
         self.goto_next_step_stacked_widget()
 
     def on_place_button_clicked(self):
@@ -706,7 +778,7 @@ class UsePreparePage(QWidget):
         self.verity_offset_y_label.setText(f"Y: {offset:.2f}")
 
     def on_verity_next_button_clicked(self):
-        if platform.system().lower() == 'windows' and not self.verity_offset_frame.isVisible():
+        if not is_release and not self.verity_offset_frame.isVisible():
             self.verity_thermal.hide()
             self.verity_progress_bar.hide()
             self.verity_model_logo.hide()
@@ -729,13 +801,117 @@ class UsePreparePage(QWidget):
             hotend_offset_y))
         self._parent.on_next_button_clicked()
 
-    def rotate_image(self, label: QLabel, image: str, angle: int):
-        transform = QTransform().rotate(angle)
-        rotated_image = QPixmap(image).transformed(transform, Qt.SmoothTransformation)
-        label.setPixmap(rotated_image)
+    def on_xyoc_next_button_clicked(self):
+        self._parent.on_next_button_clicked()
 
-    def on_level_load_timer_timeout(self):
-        self.level_load_rotate += 45
-        if self.level_load_rotate == 360:
-            self.level_load_rotate = 0
-        self.rotate_image(self.level_load, "resource/icon/load.svg", self.level_load_rotate)
+    def on_xyoc_place_button_clicked(self):
+        self.xyoc_handle_set(event='start')
+
+    def on_xyoc_start_button_clicked(self):
+        if self.xyoc_state == ProbeTargetStatus.XYOC_STATE_PLACE_X:
+            self.xyoc_handle_set(axis='X', event='work')
+        elif self.xyoc_state == ProbeTargetStatus.XYOC_STATE_PLACE_Y:
+            self.xyoc_handle_set(axis='Y', event='work')
+
+    def on_xyoc_end_button_clicked(self):
+        if self.xyoc_state == ProbeTargetStatus.XYOC_STATE_CALCULATE:
+            self.probe_target_state = ProbeTargetStatus.XYOC_STATE_SAVE
+            ox = float('%.2f' % (self._printer.information['probe']['offset']['right']['X'] + self.xyoc_offsets_x))
+            oy = float('%.2f' % (self._printer.information['probe']['offset']['right']['Y'] + self.xyoc_offsets_y))
+            self._printer.set_hotend_offset('X', ox)
+            self._printer.set_hotend_offset('Y', oy)
+
+            a0 = self.tr("Measure completed.") + f"\n\nX: {ox}\nY: {oy}"
+            self.xyoc_work_text.setText(a0)
+            if is_release:  # test
+                self.xyoc_handle.next_button.setEnabled(True)
+        elif self.xyoc_state == ProbeTargetStatus.XYOC_STATE_ERROR:
+            self._printer.set_hotend_offset('X', 385, False)
+            self._printer.set_hotend_offset('Y', 0, False)
+            self.xyoc_handle_set(axis='X', event='place')
+
+    @pyqtSlot(str, float)
+    def on_endstops_hit(self, axis, position):
+        if axis in ['X', 'Y']:
+            if self.xyoc_state == ProbeTargetStatus.XYOC_STATE_MEASURING_X:
+                self.xyoc_offsets_x = float('%.2f' % position)
+                self.xyoc_handle_set(axis='Y', event='place')
+
+            elif self.xyoc_state == ProbeTargetStatus.XYOC_STATE_MEASURING_Y:
+                self.xyoc_offsets_y = float('%.2f' % position)
+                self.xyoc_state = ProbeTargetStatus.XYOC_STATE_CALCULATE
+                self.xyoc_handle_set(event='finished')
+
+                if abs(self.xyoc_offsets_x) > 3 or abs(self.xyoc_offsets_y) > 2:
+                    self.xyoc_state = ProbeTargetStatus.XYOC_STATE_ERROR
+                    self._parent.showShadowScreen()
+                    ret = self._parent.message.start("Mixware Screen",
+                                                     self.tr("Unusual measurement data!"),
+                                                     buttons=QMessageBox.Yes | QMessageBox.Cancel)
+                    if ret == QMessageBox.Yes:
+                        self._printer.set_hotend_offset('X', 385, False)
+                        self._printer.set_hotend_offset('Y', 0, False)
+                        self.xyoc_handle_set(axis='X', event='place')
+                    else:
+                        self.xyoc_work_text.setText(self.tr("Unusual measurement data!"))
+                        self.xyoc_end_button.setText(self.tr("Reset offsets and Remeasure"))
+                    self._parent.closeShadowScreen()
+                else:
+                    ox = float('%.2f' %
+                               (self._printer.information['probe']['offset']['right']['X'] + self.xyoc_offsets_x))
+                    oy = float('%.2f' %
+                               (self._printer.information['probe']['offset']['right']['Y'] + self.xyoc_offsets_y))
+                    a0 = self.tr(
+                        "Measure completed.\n\n") + f"X: {ox}({self.xyoc_offsets_x})\nY: {oy}({self.xyoc_offsets_y})"
+                    self.xyoc_work_text.setText(a0)
+                    self.xyoc_end_button.setText(self.tr("Save"))
+
+    def xyoc_handle_set(self, axis='X', event='place'):
+        if is_release:  # test
+            self.xyoc_handle.next_button.setEnabled(False)
+
+        if event == 'place':
+            self._printer.write_gcode_commands(
+                F"G28\n"
+                F"T0\n"
+                F"G1 Z{xyoc_start_pos_z} F{xyoc_feedrate_travel_z}\n"
+            )
+            if axis == 'X':
+                self.xyoc_y_logo.hide()
+                self.xyoc_x_logo.show()
+                self.xyoc_state = ProbeTargetStatus.XYOC_STATE_PLACE_X
+                self._printer.write_gcode_commands(
+                    F"G1 X{xyoc_start_pos_x['X']} Y{xyoc_start_pos_x['Y']} F{xyoc_feedrate_travel}\n"
+                )
+            elif axis == 'Y':
+                self.xyoc_x_logo.hide()
+                self.xyoc_y_logo.show()
+                self.xyoc_state = ProbeTargetStatus.XYOC_STATE_PLACE_Y
+                self._printer.write_gcode_commands(
+                    F"G1 X{xyoc_start_pos_y['X']} Y{xyoc_start_pos_y['Y']} F{xyoc_feedrate_travel}\n"
+                )
+            self.xyoc_work_frame.hide()
+            self.xyoc_place_frame.show()
+        else:
+            self.xyoc_start_button.hide()
+            self.xyoc_load_gif.hide()
+            self.xyoc_work_text.hide()
+            self.xyoc_end_button.hide()
+            if event == 'start':
+                self.xyoc_start_button.show()
+            elif event == 'work':
+                self._printer.xy_probe_target()
+                if self.xyoc_state == ProbeTargetStatus.XYOC_STATE_PLACE_X:
+                    self.xyoc_state = ProbeTargetStatus.XYOC_STATE_MEASURING_X
+                    self._printer.write_gcode_commands(F"G429XC{xyoc_measure_count}")
+                elif self.xyoc_state == ProbeTargetStatus.XYOC_STATE_PLACE_Y:
+                    self.xyoc_state = ProbeTargetStatus.XYOC_STATE_MEASURING_Y
+                    self._printer.write_gcode_commands(F"G429YC{xyoc_measure_count}")
+                self.xyoc_load_gif.show()
+                self.xyoc_work_text.show()
+                self.xyoc_work_text.setText(self.tr("Measuring, please wait."))
+            elif event == 'finished':
+                self.xyoc_work_text.show()
+                self.xyoc_end_button.show()
+            self.xyoc_place_frame.hide()
+            self.xyoc_work_frame.show()

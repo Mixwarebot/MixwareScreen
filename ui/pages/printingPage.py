@@ -27,7 +27,7 @@ class PrintingPage(QWidget):
         self.file_image = QLabel(self.file_frame)
         self.file_image.setAlignment(Qt.AlignCenter)
         self.file_image.setPixmap(QPixmap("resource/image/hyper-x").scaledToWidth(360))
-        if platform.system().lower() == 'linux':
+        if is_release:
             self.file_image.setFixedSize(360, 360)
         self.file_image.setAlignment(Qt.AlignCenter)
         self.file_frame_layout.addWidget(self.file_image)

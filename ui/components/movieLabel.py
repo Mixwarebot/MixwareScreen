@@ -1,17 +1,26 @@
 from qtCore import *
 
 
-class MovieLabel(QLabel):
+class MovieLabel(QFrame):
 
-    def __init__(self, movie: str, text=None, parent=None):
-        super().__init__(text, parent)
-
-        self.setScaledContents(True)
+    def __init__(self, movie: str, w=48, h=48, parent=None):
+        super().__init__(parent)
+        self.layout = QVBoxLayout(self)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setSpacing(0)
+        self.layout.setAlignment(Qt.AlignCenter)
 
         self._is_move = None
+
+        self.logo = QLabel()
+        self.logo.setFixedSize(QSize(w, h))
+        self.logo.setScaledContents(True)
+
         self._movie = QMovie(movie)
-        self._movie.setScaledSize(self.size())
-        self.setMovie(self._movie)
+        self._movie.setScaledSize(self.logo.size())
+        self.logo.setMovie(self._movie)
+
+        self.layout.addWidget(self.logo)
 
     def showEvent(self, *args, **kwargs):
         self._movie.start()
@@ -38,7 +47,7 @@ class MovieLabel(QLabel):
 
         self._movie = movie
         self._movie.setScaledSize(self.size())
-        self.setMovie(self._movie)
+        self.logo.setMovie(self._movie)
 
         if self.isVisible():
             self._movie.start()

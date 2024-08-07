@@ -1,5 +1,4 @@
 import logging
-import platform
 
 from printer import MixwareScreenPrinterStatus
 from qtCore import *
@@ -19,8 +18,8 @@ class MixwareScreen(QWidget):
         self._printer.updatePrinterStatus.connect(self.on_update_printer_status)
         self._printer.updatePrinterMessage.connect(self.on_update_printer_message)
 
-        theme = self._printer.config.get_theme()
-        # with open(root_path / "resource" / str(theme) / "style.qss", 'r', encoding='utf-8') as file:
+        # theme = self._printer.config.get_theme()
+        # with open(F"resource/{theme}/style.qss", 'r', encoding='utf-8') as file:
         with open("resource/style.qss", 'r', encoding='utf-8') as file:
             logging.info("Initialize style")
             style = file.read()
@@ -56,13 +55,13 @@ class MixwareScreen(QWidget):
         self.notify_frame.hide()
         self.notify_timer = QTimer(self)
 
-        if platform.system().lower() == 'windows':  # test
-            self.stackedLayout.setCurrentIndex(2)  # test
-        else:
+        if is_release:
             if self._printer.config.should_show_welcome:
                 self.stackedLayout.setCurrentIndex(0)
             else:
                 self.stackedLayout.setCurrentIndex(1)
+        else:  # test
+            self.stackedLayout.setCurrentIndex(0)  # test
 
     def on_print_done(self):
         self.on_update_printer_status(MixwareScreenPrinterStatus.PRINTER_CONNECTED)

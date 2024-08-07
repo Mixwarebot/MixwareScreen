@@ -24,7 +24,7 @@ class PreHeatWidget(QFrame):
         self._thermal.thermalChanged.connect(self.on_thermal_user_changed)
         self._layout.addWidget(self._thermal)
 
-        self._filament = FilamentsWidget(self._printer)
+        self._filament = FilamentsWidget(self._printer, have_bed=show_bed)
         self._filament.filamentChanged.connect(self.on_filaments_changed)
         self._layout.addWidget(self._filament)
 

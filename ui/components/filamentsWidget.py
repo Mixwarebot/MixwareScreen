@@ -8,13 +8,14 @@ from ui.components.base.basePushButton import BasePushButton
 class FilamentsWidget(QFrame):
     filamentChanged = pyqtSignal()
 
-    def __init__(self, printer, show_line=True):
+    def __init__(self, printer, have_bed=True, show_line=True):
         super().__init__()
         self._filament = 'user'
         self._target_left = 0
         self._target_right = 0
         self._target_bed = 0
         self._printer = printer
+        self._have_bed = have_bed
         self._show_line = show_line
 
         self.setObjectName("FilamentsWidget")
@@ -103,7 +104,7 @@ class FilamentsWidget(QFrame):
 
         self._printer.set_thermal('left', self._target_left)
         self._printer.set_thermal('right', self._target_right)
-        self._printer.set_thermal('bed', self._target_bed)
+        if self._have_bed: self._printer.set_thermal('bed', self._target_bed)
 
         if wait:
             self._printer.write_gcode_commands(f"M109 T0 S{self._target_left}\nM109 T1 S{self._target_right}")

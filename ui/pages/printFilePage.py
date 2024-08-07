@@ -192,7 +192,7 @@ class PrintFilePage(QScrollArea):
 
     def set_usb_path(self):
         self.root_path = QDir('./').absolutePath()
-        if platform.system().lower() == 'linux':
+        if is_release:
             self.root_path = QDir(self._printer.config.get_folder_rootPath()).absolutePath()
 
     def update_file(self, path: str):

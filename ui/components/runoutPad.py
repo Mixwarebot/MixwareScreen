@@ -160,7 +160,7 @@ class RunOutPad(BaseRoundDialog):
             self.status = RunOutStatus.RUNOUT_HEAT
             self.message_load = self.tr("- Heating...")
             self.update_message()
-            if platform.system().lower() == 'linux':
+            if is_release:
                 self.next_button.setEnabled(False)
             target = self._printer.printing_information["temperature"][self._printer.get_extruder()]
             self._printer.set_thermal(self._printer.get_extruder(), target if target >= 170 else 170)

@@ -360,7 +360,7 @@ class FilamentPage(QWidget):
             self._printer.auto_home()
             if not self._printer.is_printing():
                 self._printer.move_to_z(filament_position['Z'])
-            self._printer.move_to_y(filament_position['Y'], True)
+            self._printer.move_to_y(filament_position['Y'], wait=True)
             self._printer.write_gcode_command("M155 S0")
             self.need_move_to_start = False
 
@@ -371,7 +371,7 @@ class FilamentPage(QWidget):
         elif self._printer.get_extruder() == "right":
             self.message_list[0].setText(self.tr("Current extruder: Right."))
         self.goto_next_step_stacked_widget()
-        self._printer.move_to_x(filament_position['X'], True)
+        self._printer.move_to_x(filament_position['X'], wait=True)
 
     def on_extruder_right_button_clicked(self):
         self._printer.write_gcode_command('T1')

@@ -5,6 +5,7 @@ from ui.pages.leveling.bedLevelPage import BedLevelPage
 from ui.pages.leveling.dialIndicatorPage import DialIndicatorPage
 from ui.pages.leveling.offsetPage import OffsetPage
 from ui.pages.leveling.printVerifyPage import PrintVerifyPage
+from ui.pages.leveling.xYProbeTargetPage import XYOffsetsCalibratorPage
 
 
 class LevelPage(QWidget):
@@ -25,21 +26,22 @@ class LevelPage(QWidget):
         self.bed_mesh = BasePushButton()
         self.bed_mesh.clicked.connect(self.goto_auto_level_page)
         self.layout.addWidget(self.bed_mesh, 0, 1)
-        self.offset_z = BasePushButton()
-        self.offset_z.clicked.connect(self.goto_offset_z_page)
-        self.layout.addWidget(self.offset_z, 2, 0, 1, 2)
-        self.offset_xy = BasePushButton()
-        self.offset_xy.clicked.connect(self.goto_offset_xy_page)
-        self.layout.addWidget(self.offset_xy, 1, 1)
         self.offset = BasePushButton()
         self.offset.clicked.connect(self.goto_offset_page)
         self.layout.addWidget(self.offset, 1, 0)
+        self.offset_xy = BasePushButton()
+        self.offset_xy.clicked.connect(self.goto_offset_xy_page)
+        self.layout.addWidget(self.offset_xy, 1, 1)
+        self.offset_z = BasePushButton()
+        self.offset_z.clicked.connect(self.goto_offset_z_page)
+        self.layout.addWidget(self.offset_z, 2, 0, 1, 2)
 
         self.bedLevelPage = BedLevelPage(self._printer, self._parent)
         self.autoLevelPage = AutoLevelPage(self._printer, self._parent)
         self.offsetPage = OffsetPage(self._printer, self._parent)
         self.dialIndicatorPage = DialIndicatorPage(self._printer, self._parent)
         self.printVerifyPage = PrintVerifyPage(self._printer, self._parent)
+        self.XYOffsetsCalibratorPage = XYOffsetsCalibratorPage(self._printer, self._parent)
 
     def showEvent(self, a0: QShowEvent) -> None:
         self.re_translate_ui()
@@ -69,4 +71,6 @@ class LevelPage(QWidget):
 
     @pyqtSlot()
     def goto_offset_xy_page(self):
-        self._parent.gotoPage(self.printVerifyPage, self.tr("XY Offset Calibration"))
+        # self._parent.gotoPage(self.printVerifyPage, self.tr("XY Offset Calibration"))
+        self._parent.gotoPage(self.XYOffsetsCalibratorPage, self.tr("XY Offset Calibration"))
+        # self._parent.gotoPage(self.XYOffsetsCalibratorPage, self.tr("XY Probe Target"))

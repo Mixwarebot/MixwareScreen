@@ -21,6 +21,17 @@ filament_position = {'X': 190, 'Y': 20, 'Z': 120}
 is_release = platform.system().lower() == 'linux'
 
 
-def update_style(w: QWidget, o: str):
-    w.setObjectName(o)
-    w.setStyle(w.style())
+def update_style(widget: QWidget, name: str):
+    widget.setObjectName(name)
+    widget.setStyle(widget.style())
+
+
+def rotate_image(label: QLabel, image: str, angle: int):
+    angle += 45
+    if angle >= 360:
+        angle -= 360
+    transform = QTransform().rotate(angle)
+    rotated_image = QPixmap(image).transformed(transform, Qt.SmoothTransformation)
+    label.setPixmap(rotated_image)
+
+    return angle

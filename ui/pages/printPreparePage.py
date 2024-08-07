@@ -197,5 +197,5 @@ class PrintPreparePage(QWidget):
         self._parent.showShadowScreen()
         ret = self.verityMessageBox.start()
         if ret == QMessageBox.Yes:
-            self._printer.print_start('resource/gcode/print_verify.gcode')
+            self._printer.print_start('resource/gcodes/print_verify.gcode')
         self._parent.closeShadowScreen()

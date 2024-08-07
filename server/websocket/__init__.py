@@ -43,7 +43,6 @@ class WebSocket(WebSocketHandler):
     def _process_message(self, message):
         data: Union[Dict[str, Any], List[dict]] = json.loads(message)
         if 'method' in data:
-            print(data['method'])
             if data['method'] == 'printer.gcode.script':
                 try:
                     self.printer.write_gcode_command(data['params']['script'])
@@ -65,6 +64,17 @@ class WebSocket(WebSocketHandler):
                     self.notify_status_update()
                 except:
                     print('objects null')
+            elif data['method'] == 'printer.print.start':
+                try:
+                    self.printer.print_start(data['params']['filename'])
+                except:
+                    print('Failed to start printing, file does not exist.')
+            elif data['method'] == 'printer.print.pause':
+                self.printer.print_pause()
+            elif data['method'] == 'printer.print.resume':
+                self.printer.print_resume()
+            elif data['method'] == 'printer.print.cancel':
+                self.printer.print_stop()
         else:
             print('No method')
 
@@ -119,6 +129,22 @@ class WebSocket(WebSocketHandler):
         if 'led' in self.subscribe:
             if 'light' in self.subscribe['led']:
                 self.subscribe['led']['light'] = self.printer.get_led_light()
+
+        if 'print_stats' in self.subscribe:
+            if 'state' in self.subscribe['print_stats']:
+                self.subscribe['print_stats']['state'] = self.printer.get_print_state()
+            if 'filename' in self.subscribe['print_stats']:
+                self.subscribe['print_stats']['filename'] = ""
+            if 'total_duration' in self.subscribe['print_stats']:
+                self.subscribe['print_stats']['total_duration'] = ""
+
+        if 'virtual_sdcard' in self.subscribe:
+            if 'progress' in self.subscribe['virtual_sdcard']:
+                self.subscribe['virtual_sdcard']['progress'] = ""
+            if 'file_position' in self.subscribe['virtual_sdcard']:
+                self.subscribe['virtual_sdcard']['file_position'] = ""
+            if 'is_active' in self.subscribe['virtual_sdcard']:
+                self.subscribe['virtual_sdcard']['is_active'] = ""
 
         for extruder in ['left', 'right', 'bed', 'chamber']:
             if 'extruder_' + extruder in self.subscribe:

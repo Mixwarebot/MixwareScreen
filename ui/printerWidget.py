@@ -26,6 +26,7 @@ class PrinterWidget(BasePrintWidget):
     def showEvent(self, a0: QShowEvent) -> None:
         if self._printer.is_connected():
             self._printer.write_gcode_command("D105\nD106")
+            self._printer.set_print_state('standby')
             self.power_loss_detect_timer.start(1000)
 
     @pyqtSlot()

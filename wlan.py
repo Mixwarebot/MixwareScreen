@@ -59,7 +59,7 @@ class WlanListQThread(QThread):
 
     def _get_wifi_list(self):
         try:
-            if platform.system().lower() == 'linux':
+            if is_release:
                 device.wifi_rescan()
                 lists = device.wifi()
                 if lists:
@@ -75,7 +75,7 @@ class WlanListQThread(QThread):
                                    'signal': int(dat[0][7]), 'security': dat[0][8]}
                             self.deviceWifi.append(dev)
                     self.newWlanList.emit(self.deviceWifi)
-            elif platform.system().lower() == 'windows':  # windows test
+            else:  # windows test
                 self.deviceWifi.clear()
                 for i in range(10):
                     dev = {'in_use': False, 'ssid': '中文@test:' + str(i), 'bssid': '0', 'mode': '1',
