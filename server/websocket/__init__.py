@@ -3,7 +3,7 @@ import logging
 from typing import Any, Dict, List, Union
 
 import tornado
-from PyQt5.QtCore import QObject, pyqtSlot
+from PyQt5.QtCore import QDir, QObject, pyqtSlot
 from tornado.ioloop import IOLoop
 from tornado.websocket import WebSocketHandler
 
@@ -11,11 +11,11 @@ websocket_clients = set()
 
 
 class WebSocket(WebSocketHandler):
-    printer = None
+    _printer = None
     subscribe = {}
 
     def initialize(self, printer):
-        self.printer = printer
+        self._printer = printer
 
     def open(self):
         self.set_nodelay(True)
@@ -45,7 +45,7 @@ class WebSocket(WebSocketHandler):
         if 'method' in data:
             if data['method'] == 'printer.gcode.script':
                 try:
-                    self.printer.write_gcode_command(data['params']['script'])
+                    self._printer.write_gcode_command(data['params']['script'])
                     self.notify_gcode_response(data['id'] if 'id' in data else -1)
                 except:
                     print('No params')
@@ -66,15 +66,16 @@ class WebSocket(WebSocketHandler):
                     print('objects null')
             elif data['method'] == 'printer.print.start':
                 try:
-                    self.printer.print_start(data['params']['filename'])
+                    self._printer.print_start(
+                        f"{QDir(self._printer.config.get_folder_rootPath()).absolutePath()}/{data['params']['filename']}")
                 except:
                     print('Failed to start printing, file does not exist.')
             elif data['method'] == 'printer.print.pause':
-                self.printer.print_pause()
+                self._printer.print_pause()
             elif data['method'] == 'printer.print.resume':
-                self.printer.print_resume()
+                self._printer.print_resume()
             elif data['method'] == 'printer.print.cancel':
-                self.printer.print_stop()
+                self._printer.print_stop()
         else:
             print('No method')
 
@@ -113,26 +114,26 @@ class WebSocket(WebSocketHandler):
             if 'homed_axes' in self.subscribe['toolhead']:
                 self.subscribe['toolhead']['homed_axes'] = ""
                 for axis in ['X', 'Y', 'Z']:
-                    if self.printer.get_homed_axes(axis):
+                    if self._printer.get_homed_axes(axis):
                         self.subscribe['toolhead']['homed_axes'] += axis
             if 'extruder' in self.subscribe['toolhead']:
                 self.subscribe['toolhead'][
-                    'extruder'] = self.printer.get_extruder()
+                    'extruder'] = self._printer.get_extruder()
             if 'position' in self.subscribe['toolhead']:
                 self.subscribe['toolhead']['position'] = [
-                    self.printer.get_position('X'),
-                    self.printer.get_position('Y'),
-                    self.printer.get_position('Z'),
-                    self.printer.get_position('E'),
+                    self._printer.get_position('X'),
+                    self._printer.get_position('Y'),
+                    self._printer.get_position('Z'),
+                    self._printer.get_position('E'),
                 ]
 
         if 'led' in self.subscribe:
             if 'light' in self.subscribe['led']:
-                self.subscribe['led']['light'] = self.printer.get_led_light()
+                self.subscribe['led']['light'] = self._printer.get_led_light()
 
         if 'print_stats' in self.subscribe:
             if 'state' in self.subscribe['print_stats']:
-                self.subscribe['print_stats']['state'] = self.printer.get_print_state()
+                self.subscribe['print_stats']['state'] = self._printer.get_print_state()
             if 'filename' in self.subscribe['print_stats']:
                 self.subscribe['print_stats']['filename'] = ""
             if 'total_duration' in self.subscribe['print_stats']:
@@ -149,11 +150,11 @@ class WebSocket(WebSocketHandler):
         for extruder in ['left', 'right', 'bed', 'chamber']:
             if 'extruder_' + extruder in self.subscribe:
                 if 'target' in self.subscribe['extruder_' + extruder]:
-                    self.subscribe['extruder_' + extruder]['target'] = self.printer.get_target(extruder)
+                    self.subscribe['extruder_' + extruder]['target'] = self._printer.get_target(extruder)
                 if 'temperature' in self.subscribe['extruder_' + extruder]:
-                    self.subscribe['extruder_' + extruder]['temperature'] = self.printer.get_temperature(extruder)
+                    self.subscribe['extruder_' + extruder]['temperature'] = self._printer.get_temperature(extruder)
 
         for fan in ['left', 'right', 'chamber', 'leftCool', 'rightCool', 'exhaust']:
             if 'fan_' + fan in self.subscribe:
                 if 'speed' in self.subscribe['fan_' + fan]:
-                    self.subscribe['fan_' + fan]['speed'] = self.printer.get_fan_speed(fan)
+                    self.subscribe['fan_' + fan]['speed'] = self._printer.get_fan_speed(fan)
