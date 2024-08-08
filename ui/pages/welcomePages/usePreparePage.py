@@ -612,9 +612,13 @@ class UsePreparePage(QWidget):
                 load_comple_text = self.tr("Filament loading completed.")
                 if enabled_verity:
                     load_comple_text += self.tr(
-                        "\n\nThere will be a direct printing step during the preset process, please ensure that the filament has been loaded into the extruder."
-                        # "在预设过程中会有直接打印步骤, 请确保耗材已装入挤出机."
-                        )
+                        "\nThere will be a direct printing step during the preset process, "
+                        # "在预设过程中会有直接打印步骤, ."
+                    )
+                load_comple_text += self.tr(
+                    "\nplease ensure that the filament has been loaded into the extruder."
+                    # "请确保耗材已装入挤出机."
+                )
                 self.load_text.setText(load_comple_text)
                 self.load_timer.stop()
                 self.load_logo.hide()

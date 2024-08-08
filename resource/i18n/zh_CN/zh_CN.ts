@@ -1861,22 +1861,22 @@ the printer to factory settings.</source>
         <translation>下一步</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="718"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="722"/>
         <source>Measure compensation value(Left).</source>
         <translation>测量补偿值 (左侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="730"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="734"/>
         <source>Measure compensation value(Right).</source>
         <translation>测量补偿值 (右侧).</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="720"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="724"/>
         <source>Measure Left</source>
         <translation>测量左侧</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="732"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="736"/>
         <source>Measure Right</source>
         <translation>测量右侧</translation>
     </message>
@@ -1893,12 +1893,12 @@ the printer to factory settings.</source>
 等待加热完成。</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="716"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="720"/>
         <source>Placed</source>
         <translation>已放置</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="733"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="737"/>
         <source>Measurement completed.
 Please remove the dial indicator on the hot bed.</source>
         <translation>测量完成. 请移除热床上的百分表.</translation>
@@ -1944,7 +1944,7 @@ Please remove the dial indicator on the hot bed.</source>
         <translation>自动调平完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="789"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="793"/>
         <source>Printing is completed, please level the XY offset according to the printing situation.</source>
         <translation>打印完成, 请根据打印情况调平XY偏移.</translation>
     </message>
@@ -1979,7 +1979,7 @@ Please remove the dial indicator on the hot bed.</source>
         <translation>下降平台</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="740"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="744"/>
         <source>Please enter the absolute value from the dial indicator.</source>
         <translation>请输入百分表的绝对值.</translation>
     </message>
@@ -2030,22 +2030,22 @@ please wait.</source>
         <translation>请准备好下列工具.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="867"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="871"/>
         <source>Save</source>
         <translation>保存</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="912"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="916"/>
         <source>Measuring, please wait.</source>
         <translation>正在测量, 请稍等.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="856"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="860"/>
         <source>Unusual measurement data!</source>
         <translation>非正常测量数据!</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="864"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="868"/>
         <source>Measure completed.
 
 </source>
@@ -2064,12 +2064,12 @@ please wait.</source>
         <translation>请将XY偏移校准器放置在指定位置并连接好连接线.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="824"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="828"/>
         <source>Measure completed.</source>
         <translation>测量完成.</translation>
     </message>
     <message>
-        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="857"/>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="861"/>
         <source>Reset offsets and Remeasure</source>
         <translation>重置偏移量并重新测量</translation>
     </message>
@@ -2081,11 +2081,16 @@ please wait.</source>
     <message>
         <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="614"/>
         <source>
-
-There will be a direct printing step during the preset process, please ensure that the filament has been loaded into the extruder.</source>
+There will be a direct printing step during the preset process, </source>
         <translation>
-
-在预设过程中会有直接打印步骤, 请确保耗材已装入挤出机.</translation>
+在预设过程中会有直接打印步骤, </translation>
+    </message>
+    <message>
+        <location filename="../../../ui/pages/welcomePages/usePreparePage.py" line="618"/>
+        <source>
+please ensure that the filament has been loaded into the extruder.</source>
+        <translation>
+请确保耗材已装入挤出机.</translation>
     </message>
 </context>
 <context>
