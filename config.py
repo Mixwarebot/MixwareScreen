@@ -22,8 +22,8 @@ class MixwareScreenConfig:
         # Automatically increment the version number during testing
         self.default_config = QSettings(str(self.path + self.default_file), self.format)
         self.latest_version = self.default_config.value('app/version')
+        self.latest_version_array = str(self.latest_version).split('.')
         if not is_release:
-            self.latest_version_array = str(self.latest_version).split('.')
             self.default_config.setValue('app/version',
                                          f"{self.latest_version_array[0]}."
                                          f"{self.latest_version_array[1]}."
