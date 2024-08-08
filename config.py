@@ -47,6 +47,11 @@ class MixwareScreenConfig:
         self.language = self.config.value('window/language')
         self.folder_rootPath = self.config.value('folder/root')
 
+        if int(self.latest_version_array[1]) == 1 and int(self.latest_version_array[3]) > 106:
+            if self.folder_rootPath == '/home/hyper-x/printer_data/gcodes':
+                self.folder_rootPath = '/home/hyper-x/printer_data'
+                self.config.setValue('folder/root', self.folder_rootPath)
+
         self._should_show_welcome = False
         try:
             self._should_show_welcome = int(self.config.value('window/welcome')) == 1
