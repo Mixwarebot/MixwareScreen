@@ -10,7 +10,7 @@ import tornado
 from qtCore import is_release
 
 StrOrPath = Union[str, Path]
-VALID_GCODE_EXTS = ['.gcodes', '.g', '.gco', '.ufp', '.nc']
+VALID_GCODE_EXTS = ['.gcode', '.g', '.gco', '.ufp', '.nc']
 
 
 class PageNotFoundHandler(tornado.web.RequestHandler):
