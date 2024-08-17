@@ -17,16 +17,16 @@ class ProbeTargetStatus(Enum):
     XYOC_STATE_ERROR = auto()
 
 
-xyoc_measure_count = 2
+xyoc_measure_count = 3
 xyoc_feedrate_travel = 6000
 xyoc_feedrate_travel_z = 1200
 xyoc_start_pos_x = {
-    'X': 210,  # Measure the starting point.(x)
+    'X': 208,  # Measure the starting point.(x)
     'Y': 0,  # Measure the starting point.(y)
 }
 xyoc_start_pos_y = {
     'X': 190,  # Measure the starting point.(x)
-    'Y': 85,  # Measure the starting point.(y)
+    'Y': 88,  # Measure the starting point.(y)
 }
 xyoc_start_pos_z = 45  # Measure the placement height of the tool.(z)
 
@@ -147,7 +147,7 @@ class XYOffsetsCalibratorPage(QWidget):
     def reset_message_text(self):
         self.message_text_list = [
             self.tr("Clean platform debris."),
-            self.tr("Place xy offsets calibrator."),
+            self.tr("Place xy calibrator."),
             self.tr("Measuring."),
             self.tr("Finish."),
         ]
@@ -171,7 +171,7 @@ class XYOffsetsCalibratorPage(QWidget):
         self.tips_text.setText(
             self.tr("Please place the PEI platform in a standardized manner, with no debris on the platform."))
         self.place_text.setText(
-            self.tr("Please place the xy offsets calibrator at the designated location and connect the cable."))
+            self.tr("Please place the xy calibrator at the designated location and connect the cable."))
         self.work_text.setText(self.tr("Measuring, please wait."))
         self.finish_text.setText(self.tr("Measure completed."))
         self.finish_reset_button.setText(self.tr("Reset offsets and Remeasure"))
@@ -196,12 +196,12 @@ class XYOffsetsCalibratorPage(QWidget):
 
                 if abs(self._offsets_x) > 3 or abs(self._offsets_y) > 2:
                     self._state = ProbeTargetStatus.XYOC_STATE_ERROR
-                    self.finish_text.setText(self.tr("Unusual measurement data!"))
+                    self.finish_text.setText(self.tr("Unusual measurement data!\nPlease recalibrate."))
                     self.finish_handle.footer.setEnabled(False)
                     self.finish_reset_button.show()
                     self._parent.showShadowScreen()
                     self._parent.message.start("Mixware Screen",
-                                               self.tr("Unusual measurement data!"),
+                                               self.tr("Unusual measurement data!\nPlease recalibrate."),
                                                buttons=QMessageBox.Yes)
                     self._parent.closeShadowScreen()
                 else:

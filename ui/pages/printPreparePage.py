@@ -165,19 +165,19 @@ class PrintPreparePage(QWidget):
 
         self.setObjectName("printPreParePage")
 
-        self.layout = QGridLayout(self)
+        self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(20, 0, 20, 0)
         self.layout.setSpacing(10)
 
         self.usb_button = BasePushButton()
-        self.layout.addWidget(self.usb_button, 0, 0, 1, 2)
+        self.layout.addWidget(self.usb_button, 2)
+        
+        self.local_button = BasePushButton()
+        self.layout.addWidget(self.local_button, 1)
 
         self.xy_button = BasePushButton()
         self.xy_button.clicked.connect(self.print_xy_verity)
-        self.layout.addWidget(self.xy_button, 1, 0)
-
-        self.local_button = BasePushButton()
-        self.layout.addWidget(self.local_button, 1, 1)
+        self.layout.addWidget(self.xy_button, 1)
 
         self.printFilePage = PrintFilePage(self._printer, self._parent)
         QScroller.grabGesture(self.printFilePage, QScroller.TouchGesture)
@@ -190,7 +190,7 @@ class PrintPreparePage(QWidget):
     def re_translate_ui(self):
         self.local_button.setText(self.tr("Local Print"))
         self.usb_button.setText(self.tr("USB Print"))
-        self.xy_button.setText(self.tr("XY Offset\nCalibration"))
+        self.xy_button.setText(self.tr("XY Calibration"))
 
     @pyqtSlot()
     def print_xy_verity(self):

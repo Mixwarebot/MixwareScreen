@@ -51,7 +51,7 @@ class LevelPage(QWidget):
         self.bed_mesh.setText(self.tr("Auto-leveling"))
         self.offset.setText(self.tr("Adjust Offset"))
         self.offset_z.setText(self.tr("Right Extruder\nHeight Calibration"))
-        self.offset_xy.setText(self.tr("XY Offset\nCalibration"))
+        self.offset_xy.setText(self.tr("XY Calibration"))
 
     @pyqtSlot()
     def goto_auto_level_page(self):
@@ -72,5 +72,5 @@ class LevelPage(QWidget):
     @pyqtSlot()
     def goto_offset_xy_page(self):
         # self._parent.gotoPage(self.printVerifyPage, self.tr("XY Offset Calibration"))
-        self._parent.gotoPage(self.XYOffsetsCalibratorPage, self.tr("XY Offset Calibration"))
+        self._parent.gotoPage(self.XYOffsetsCalibratorPage, self.tr("XY Calibration"))
         # self._parent.gotoPage(self.XYOffsetsCalibratorPage, self.tr("XY Probe Target"))

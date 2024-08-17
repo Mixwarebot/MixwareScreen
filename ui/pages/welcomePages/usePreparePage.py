@@ -427,7 +427,8 @@ class UsePreparePage(QWidget):
         self.verity_progress_bar.setTextVisible(False)
         self.verity_progress_bar.setFixedHeight(18)
         self.verity_body_layout.addWidget(self.verity_progress_bar)
-        # self.handle_stacked_widget.addWidget(self.verity_handle)
+        if enabled_verity:
+            self.handle_stacked_widget.addWidget(self.verity_handle)
 
         self.handle_frame_layout.addWidget(self.handle_stacked_widget)
         self.layout.addWidget(self.handle_frame)
@@ -446,7 +447,7 @@ class UsePreparePage(QWidget):
             self.tr("Auto-leveling."),
             self.tr("Adjust offset."),
             self.tr("Right extruder height calibration."),
-            self.tr("XY offset calibration."),
+            self.tr("XY calibration."),
         ]
 
     def reset_ui(self):
@@ -472,7 +473,7 @@ class UsePreparePage(QWidget):
         self.start_tips_dial.set_title(self.tr("Dial Indicator"))
         self.start_tips_brush.set_title(self.tr("Metal Brush"))
         self.start_tips_pei.set_title(self.tr("PEI Platform"))
-        self.start_tips_xypoc.set_title(self.tr("XY Offsets Calibrator"))
+        self.start_tips_xypoc.set_title(self.tr("XY Calibrator"))
         self.remind_text.setText(
             self.tr("Please place the PEI platform in a standardized manner, with no debris on the platform."))
         self.preheat_text.setText(self.tr(
@@ -494,9 +495,9 @@ class UsePreparePage(QWidget):
         self.offset_lift_button.setText(self.tr("Lift Bed"))
         self.offset_drop_button.setText(self.tr("Drop Bed"))
         self.xyoc_place_text.setText(
-            self.tr("Please place the xy offsets calibrator at the designated location and connect the cable."))
+            self.tr("Please place the xy calibrator at the designated location and connect the cable."))
         self.xyoc_place_button.setText(self.tr("Placed"))
-        self.xyoc_start_button.setText(self.tr("Start"))
+        self.xyoc_start_button.setText(self.tr("Start calibration"))
         self.xyoc_work_text.setText(self.tr("Measuring, please wait."))
         self.xyoc_end_button.setText(self.tr("Save"))
 
@@ -599,7 +600,7 @@ class UsePreparePage(QWidget):
         self.load_logo.show()
         self.load_text.setText(self.tr("Loading filament(Left)."))
         self.load_handle.previous_button.setEnabled(False)
-        if is_release:  # test
+        if is_release:
             self.load_handle.next_button.setEnabled(False)
         self.goto_next_step_stacked_widget()
         self.preheat_filament.sync_thermal()
@@ -612,11 +613,11 @@ class UsePreparePage(QWidget):
                 load_comple_text = self.tr("Filament loading completed.")
                 if enabled_verity:
                     load_comple_text += self.tr(
-                        "\nThere will be a direct printing step during the preset process, "
-                        # "在预设过程中会有直接打印步骤, ."
+                        "\nThere will be a direct printing step during the preset process."
+                        # "在预设过程中会有直接打印步骤."
                     )
                 load_comple_text += self.tr(
-                    "\nplease ensure that the filament has been loaded into the extruder."
+                    "\nPlease ensure that the filament has been loaded into the extruder."
                     # "请确保耗材已装入挤出机."
                 )
                 self.load_text.setText(load_comple_text)
@@ -809,13 +810,13 @@ class UsePreparePage(QWidget):
         self._parent.on_next_button_clicked()
 
     def on_xyoc_place_button_clicked(self):
-        self.xyoc_handle_set(event='start')
+        self.xyoc_handle_set(event='ready')
 
     def on_xyoc_start_button_clicked(self):
         if self.xyoc_state == ProbeTargetStatus.XYOC_STATE_PLACE_X:
-            self.xyoc_handle_set(axis='X', event='work')
+            self.xyoc_handle_set(axis='X', event='run')
         elif self.xyoc_state == ProbeTargetStatus.XYOC_STATE_PLACE_Y:
-            self.xyoc_handle_set(axis='Y', event='work')
+            self.xyoc_handle_set(axis='Y', event='run')
 
     def on_xyoc_end_button_clicked(self):
         if self.xyoc_state == ProbeTargetStatus.XYOC_STATE_CALCULATE:
@@ -828,6 +829,7 @@ class UsePreparePage(QWidget):
             a0 = self.tr("Measure completed.") + f"\n\nX: {ox}\nY: {oy}"
             self.xyoc_work_text.setText(a0)
             if is_release:  # test
+                self.xyoc_end_button.hide()
                 self.xyoc_handle.next_button.setEnabled(True)
         elif self.xyoc_state == ProbeTargetStatus.XYOC_STATE_ERROR:
             self._printer.set_hotend_offset('X', 385, False)
@@ -844,21 +846,21 @@ class UsePreparePage(QWidget):
             elif self.xyoc_state == ProbeTargetStatus.XYOC_STATE_MEASURING_Y:
                 self.xyoc_offsets_y = float('%.2f' % position)
                 self.xyoc_state = ProbeTargetStatus.XYOC_STATE_CALCULATE
-                self.xyoc_handle_set(event='finished')
+                self.xyoc_handle_set(event='finish')
 
                 if abs(self.xyoc_offsets_x) > 3 or abs(self.xyoc_offsets_y) > 2:
                     self.xyoc_state = ProbeTargetStatus.XYOC_STATE_ERROR
                     self._parent.showShadowScreen()
                     ret = self._parent.message.start("Mixware Screen",
-                                                     self.tr("Unusual measurement data!"),
+                                                     self.tr("Unusual measurement data!\nPlease recalibrate."),
                                                      buttons=QMessageBox.Yes | QMessageBox.Cancel)
                     if ret == QMessageBox.Yes:
                         self._printer.set_hotend_offset('X', 385, False)
                         self._printer.set_hotend_offset('Y', 0, False)
                         self.xyoc_handle_set(axis='X', event='place')
                     else:
-                        self.xyoc_work_text.setText(self.tr("Unusual measurement data!"))
-                        self.xyoc_end_button.setText(self.tr("Reset offsets and Remeasure"))
+                        self.xyoc_work_text.setText(self.tr("Unusual measurement data!\nPlease recalibrate."))
+                        self.xyoc_end_button.setText(self.tr("Recalibrate"))
                     self._parent.closeShadowScreen()
                 else:
                     ox = float('%.2f' %
@@ -866,7 +868,7 @@ class UsePreparePage(QWidget):
                     oy = float('%.2f' %
                                (self._printer.information['probe']['offset']['right']['Y'] + self.xyoc_offsets_y))
                     a0 = self.tr(
-                        "Measure completed.\n\n") + f"X: {ox}({self.xyoc_offsets_x})\nY: {oy}({self.xyoc_offsets_y})"
+                        "Measure completed.") + f"\n\nX: {ox}({self.xyoc_offsets_x})\nY: {oy}({self.xyoc_offsets_y})"
                     self.xyoc_work_text.setText(a0)
                     self.xyoc_end_button.setText(self.tr("Save"))
 
@@ -901,9 +903,9 @@ class UsePreparePage(QWidget):
             self.xyoc_load_gif.hide()
             self.xyoc_work_text.hide()
             self.xyoc_end_button.hide()
-            if event == 'start':
+            if event == 'ready':
                 self.xyoc_start_button.show()
-            elif event == 'work':
+            elif event == 'run':
                 self._printer.xy_probe_target()
                 if self.xyoc_state == ProbeTargetStatus.XYOC_STATE_PLACE_X:
                     self.xyoc_state = ProbeTargetStatus.XYOC_STATE_MEASURING_X
@@ -914,7 +916,7 @@ class UsePreparePage(QWidget):
                 self.xyoc_load_gif.show()
                 self.xyoc_work_text.show()
                 self.xyoc_work_text.setText(self.tr("Measuring, please wait."))
-            elif event == 'finished':
+            elif event == 'finish':
                 self.xyoc_work_text.show()
                 self.xyoc_end_button.show()
             self.xyoc_place_frame.hide()
