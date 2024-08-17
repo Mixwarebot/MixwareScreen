@@ -113,7 +113,7 @@ class AboutPage(QWidget):
                 if self._printer.repository.get_firmware_latest_version() in self._printer.deviceVersion():
                     self._printer.repository.start_screen_check()
                 else:
-                    _dir = QDir(self._printer.config.get_folder_rootPath() + '/gcodes')
+                    _dir = QDir(str(self._printer.config.get_folder_rootPath() + '/gcodes'))
                     _files = _dir.entryInfoList()
                     for file in _files:
                         if file.isDir() and file.exists(f'{file.absoluteFilePath()}/firmware.cur'):
