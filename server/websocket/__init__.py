@@ -135,9 +135,9 @@ class WebSocket(WebSocketHandler):
             if 'state' in self.subscribe['print_stats']:
                 self.subscribe['print_stats']['state'] = self._printer.get_print_state()
             if 'filename' in self.subscribe['print_stats']:
-                self.subscribe['print_stats']['filename'] = ""
+                self.subscribe['print_stats']['filename'] = self._printer.print_file
             if 'total_duration' in self.subscribe['print_stats']:
-                self.subscribe['print_stats']['total_duration'] = ""
+                self.subscribe['print_stats']['total_duration'] = self._printer.get_total_duration()
 
         if 'virtual_sdcard' in self.subscribe:
             if 'progress' in self.subscribe['virtual_sdcard']:

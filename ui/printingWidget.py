@@ -141,6 +141,7 @@ class PrintingWidget(BasePrintWidget):
             if not self._printer.is_paused():
                 self.update_time()
                 self.printingPage.print_time.setText(f"{self.timerHours}:{self.timerMinutes:02}:{self.timerSeconds:02}")
+                self._printer.set_total_duration(self.timerHours * 3600 + self.timerMinutes * 60 + self.timerSeconds)
                 self.printingPage.print_progress_bar.setValue(int(self._printer.print_progress() * 100))
                 if self._printer.config.enable_power_loss_recovery():
                     self._printer.print_backup()

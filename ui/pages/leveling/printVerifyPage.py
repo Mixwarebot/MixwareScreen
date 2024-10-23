@@ -297,11 +297,13 @@ class PrintVerifyPage(QWidget):
     def reset_preheat_handle_ui(self):
         if self.preheat_handle.next_button.isEnabled():
             self.preheat_text.setText(self.tr("Preheating extruder.\n(Default 220°C)"))
-            self.preheat_handle.next_button.setEnabled(False)
+            if is_release:
+                self.preheat_handle.next_button.setEnabled(False)
 
     def on_preheat_next_button_clicked(self):
-        self.work_handle.next_button.setEnabled(False)
-        self._parent.footer.setEnabled(False)
+        if is_release:
+            self.work_handle.next_button.setEnabled(False)
+            self._parent.footer.setEnabled(False)
         self._printer.print_verify()
         self.goto_next_step_stacked_widget()
 

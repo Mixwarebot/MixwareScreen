@@ -71,6 +71,7 @@ class LevelPage(QWidget):
 
     @pyqtSlot()
     def goto_offset_xy_page(self):
-        # self._parent.gotoPage(self.printVerifyPage, self.tr("XY Offset Calibration"))
-        self._parent.gotoPage(self.XYOffsetsCalibratorPage, self.tr("XY Calibration"))
-        # self._parent.gotoPage(self.XYOffsetsCalibratorPage, self.tr("XY Probe Target"))
+        if enabled_verity:
+            self._parent.gotoPage(self.printVerifyPage, self.tr("XY Calibration"))
+        else:
+            self._parent.gotoPage(self.XYOffsetsCalibratorPage, self.tr("XY Calibration"))

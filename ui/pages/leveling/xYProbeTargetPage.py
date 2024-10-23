@@ -1,6 +1,7 @@
 from enum import Enum, auto
 
 from qtCore import *
+from ui.components.base.basePushButton import BasePushButton
 from ui.components.baseTitleFrame import BaseTitleFrame
 from ui.components.handleBar import HandleBar
 from ui.components.movieLabel import MovieLabel
@@ -17,7 +18,7 @@ class ProbeTargetStatus(Enum):
     XYOC_STATE_ERROR = auto()
 
 
-xyoc_measure_count = 3
+xyoc_measure_count = 1
 xyoc_feedrate_travel = 6000
 xyoc_feedrate_travel_z = 1200
 xyoc_start_pos_x = {
@@ -131,7 +132,7 @@ class XYOffsetsCalibratorPage(QWidget):
         self.finish_text.setWordWrap(True)
         self.finish_text.setAlignment(Qt.AlignCenter)
         self.finish_layout.addWidget(self.finish_text)
-        self.finish_reset_button = QPushButton()
+        self.finish_reset_button = BasePushButton()
         self.finish_reset_button.setFixedHeight(64)
         self.finish_reset_button.clicked.connect(self.on_reset_button_clicked)
         self.finish_layout.addWidget(self.finish_reset_button)

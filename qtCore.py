@@ -20,6 +20,8 @@ filament_position = {'X': 190, 'Y': 20, 'Z': 120}
 
 is_release = platform.system().lower() == 'linux'
 
+enabled_verity = True
+
 
 def update_style(widget: QWidget, name: str):
     widget.setObjectName(name)

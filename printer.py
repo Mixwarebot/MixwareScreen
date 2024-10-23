@@ -1072,6 +1072,7 @@ class MixwareScreenPrinter(QObject):
     @pyqtSlot()
     def print_stop(self):
         logging.debug(F"Stop printing.")
+        self.print_file = ""
         self._gcode_position = 0
         self._gcode.clear()
         self.set_print_state('cancelled')
@@ -1316,3 +1317,9 @@ class MixwareScreenPrinter(QObject):
 
     def xy_probe_target(self, onoff=True):
         self.enabled_xy_probe_target = onoff
+
+    def set_total_duration(self, duration: int):
+        self.information['print_stats']['total_duration'] = duration
+
+    def get_total_duration(self):
+        return self.information['print_stats']['total_duration']

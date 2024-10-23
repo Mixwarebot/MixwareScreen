@@ -10,8 +10,6 @@ from ui.components.segmented import Segmented
 from ui.components.thermalWidget import ThermalWidget
 from ui.pages.leveling.xYProbeTargetPage import *
 
-enabled_verity = False
-
 
 class UsePreparePage(QWidget):
     def __init__(self, printer, parent):
@@ -341,7 +339,8 @@ class UsePreparePage(QWidget):
         self.xyoc_end_button.clicked.connect(self.on_xyoc_end_button_clicked)
         self.xyoc_work_frame_layout.addWidget(self.xyoc_end_button)
         self.xyoc_body_layout.addWidget(self.xyoc_work_frame)
-        self.handle_stacked_widget.addWidget(self.xyoc_handle)
+        if not enabled_verity:
+            self.handle_stacked_widget.addWidget(self.xyoc_handle)
 
         self.verity_handle = HandleBar()
         self.verity_handle.previous_button.hide()
@@ -364,6 +363,7 @@ class UsePreparePage(QWidget):
         self.verity_work_frame_layout.addWidget(self.verity_logo)
         self.verity_text = QLabel()
         self.verity_text.setWordWrap(True)
+        self.verity_text.setFixedHeight(112)
         self.verity_text.setAlignment(Qt.AlignCenter)
         self.verity_work_frame_layout.addWidget(self.verity_text)
         self.verity_baby_step_frame = QFrame()
@@ -706,15 +706,17 @@ class UsePreparePage(QWidget):
             self.dial_handle.next_button.setEnabled(False)
 
     def on_place_next_button_clicked(self):
-        # self.verity_distance_frame.hide()
-        # self.verity_offset_frame.hide()
-        # self.verity_logo.hide()
-        # if is_release:  # test
-        #     self.verity_handle.next_button.setEnabled(False)
-        # self.preheat_filament.heat_again(True)
-        # self._printer.print_verify()
+        if enabled_verity:
+            self.verity_distance_frame.hide()
+            self.verity_offset_frame.hide()
+            self.verity_logo.hide()
+            if is_release:  # test
+                self.verity_handle.next_button.setEnabled(False)
+            self.preheat_filament.heat_again(True)
+            self._printer.print_verify()
+        else:
+            self.xyoc_handle_set(axis='X', event='place')
 
-        self.xyoc_handle_set(axis='X', event='place')
         self.goto_next_step_stacked_widget()
 
     def on_place_button_clicked(self):
